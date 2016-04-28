@@ -43,6 +43,28 @@ alter table coding drop column typeno;
 alter table subnote modify originalfilename null--20160421�߰�
 alter table subnote modify uploadedfilename null--20160421�߰�
 
+CREATE TABLE notification
+(
+   senderid varchar2(20) NOT NULL,
+   receiverid varchar2(20) NOT NULL,
+   message varchar2(30) NOT NULL,
+   regdate date DEFAULT sysdate NOT NULL
+);
+
+alter table notification add (questionno number(6,0));
+
+alter table notification add (replyno number(6,0));
+
+ALTER TABLE notification
+   ADD FOREIGN KEY (senderid)
+   REFERENCES member_jt (id)
+;
+
+
+ALTER TABLE notification
+   ADD FOREIGN KEY (receiverid)
+   REFERENCES member_jt (id)
+;
 --notnull����
 --ALTER TABLE ���̺�� MODIFY �÷��� NULL;
 --ALTER TABLE ���̺�� DROP CONSTRAINT �������Ǹ�

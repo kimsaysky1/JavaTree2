@@ -1025,7 +1025,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 * **/
 		public String selectAllCourseListForTeach(){
 			id=(String) session.get("loginId");
-			
+			System.out.println(id);
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			courseList= dao.selectAllCourseListForTeach(id);
 			
@@ -1043,23 +1043,21 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			id = (String) session.get("loginId");
 			course.setId(id);
 			course.setUsername(id);
-			
 			dao.insertCourse(course);
 			
 			/*insert CourseType*/
 			Map<String, Object> map = new HashMap<>();
 			for(int i = 0; i < courseTypeList.size(); i++){
-				
+				//map.put("courseno", course.getCoureseno());
 				map.put("typeno", courseTypeList.get(i));
-				System.out.println("map: "+map);
 				
 				map.put("id", course.getId());
 				map.put("coursename", course.getCoursename());
-				System.out.println("map: "+map);
 				dao.insertCourseType(map);
 				/*insert TeachCourse*/
 				dao.insertTeachCourse(map);
 			}
+	
 	
 			return SUCCESS;
 		}
@@ -1098,8 +1096,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			lecture.setLecturename(lecture.getLecturename());
 			lecture.setRegdate(lecture.getRegdate());
 			
-			System.out.println(uploadContentType+"컨텐트타입");
-			System.out.println(uploadFileName+"파일네임");
+			//System.out.println(uploadContentType+"컨텐트타입");
+			//System.out.println(uploadFileName+"파일네임");
 			//System.out.println(getUpload()+"실제파일");
 			
 			String a= uploadFileName.get(0);
@@ -1111,29 +1109,29 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			String check_point1= video_chk[1];
 			String check_point2= note_chk[1];
 			
-			System.out.println("check_point1 : "+check_point1);
-			System.out.println("check_point2 : "+check_point2);	   
+			//System.out.println("check_point1 : "+check_point1);
+			//System.out.println("check_point2 : "+check_point2);	   
 			
 			//여기서부터 내꺼
             
     		/*insert Lecture*/
-    		System.out.println(uploadContentType+"컨텐트타입");
-    		System.out.println(uploadFileName+"파일네임");
+    		//System.out.println(uploadContentType+"컨텐트타입");
+    		//System.out.println(uploadFileName+"파일네임");
     		//System.out.println(getUpload()+"실제파일");
     		//System.out.println(ServletActionContext.getRequest().getRequestURL());
     		
     		/*강의video*/
-    		System.out.println(UploadPath+uploadFileName.get(0));
+    		//System.out.println(UploadPath+uploadFileName.get(0));
     		File video=new File(UploadPath+uploadFileName.get(0)); /*파일네임*/
     		FileUtils.copyFile(upload.get(0), video); /*실제파일저장*/
-    		System.out.println(video+"video");
+    		//System.out.println(video+"video");
     		
     		/*originalfilename="lecture,"+UploadPath+video+","+System.currentTimeMillis();실제파일이름
     		uploadedfilename=uploadFileName.get(0); 실제파일경로*/
     		originalfilename=video+","+System.currentTimeMillis(); //실제파일이름
     		uploadedfilename=uploadFileName.get(0); //실제파일경로*/
     		
-    		System.out.println("경로1: "+uploadedfilename);
+    		//System.out.println("경로1: "+uploadedfilename);
     		 //입력받은 파일 이름을 가지고 File 객체를 생성
     		
 			lecture.setUploadedfilename(uploadedfilename);
@@ -1142,7 +1140,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
     		
     		 try {
     			   Class.forName("oracle.jdbc.driver.OracleDriver");
-    			   System.out.println("드라이버 검색 성공");
+    			  // System.out.println("드라이버 검색 성공");
     			  }catch(ClassNotFoundException e) {
     			   System.err.println("error = " + e);
     			   System.exit(1);
@@ -1221,14 +1219,24 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				/*insert Teachlecture*/
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("id", id);
-				System.out.println(courseno+"티치렉쳐");
+				//System.out.println(courseno+"티치렉쳐");
 				map.put("courseno", courseno);
 				map.put("point", 0);
 				map.put("studentcount", 0);
-				System.out.println(map+"티치렉쳐맵");
+				//System.out.println(map+"티치렉쳐맵");
 				dao.insertTeachLecture(map);
 			
 			
+				/*insert Coding-coding 갔다가 옴..*/
+				codingList = dao.selectForCodingTemp(id); //id와 코딩넘버알기위해서 문제등록되었는지잠깐등록
+				//System.out.println("codingtemp codingno: " +codingList);
+				
+				for(int i=0; i<codingList.size();i++){
+					coding= codingList.get(i);
+					map.put("codingno", coding.getCodingno());
+				}			
+				dao.insertlecturecodingInInsertLecture(map);
+				dao.deleteCodingTemp(id);
 			return SUCCESS;
 		}
 		
@@ -1474,9 +1482,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		/*insertSelectedCodingfromMain- 인서트렉쳐 할때의 메인화면에서 등록 */
 		public String insertSelectedCodingfromInsertLecture(){
 			
-			//System.out.println("codingListForInsert: "+codingListForInsert);// codingListForInsert: [1,3]
-		//	System.out.println("size: "+codingListForInsert.size());
-			//System.out.println("codingListForInsert.get(0): "+codingListForInsert.get(0));
+			System.out.println("codingListForInsert: "+codingListForInsert);// codingListForInsert: [1,3]
+			System.out.println("size: "+codingListForInsert.size());
+			System.out.println("codingListForInsert.get(0): "+codingListForInsert.get(0));
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			
 			ArrayList<String> tempList = new ArrayList<>();
@@ -1486,8 +1494,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				tempList.add(st.nextToken());
 			}
 				
-			//System.out.println("tempList.size(): "+tempList.size());
-			//System.out.println("tempList: "+tempList);
+			System.out.println("tempList.size(): "+tempList.size());
+			System.out.println("tempList: "+tempList);
 			id=(String) session.get("loginId");
 			Map<String, Object> map = new HashMap<>();
 			
@@ -1495,11 +1503,11 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				
 				map.put("codingno", tempList.get(i));
 				map.put("id", id);
-				//System.out.println("map: "+map);
+				System.out.println("map: "+map);
 				dao.insertCodingTemp(map);
 				
 				//dao.insertLectureCoding(map);
-				//System.out.println(i+"번 완료");
+				System.out.println(i+"번 완료");
 			}
 			
 			codingFormlecturelist();

@@ -626,7 +626,7 @@ function stgoback(){
 		var lectureno=document.getElementById("lectureno");
 		/* "/javatree/course/codingMain.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/> */
 		/*  window.open('codingMain.action?courseno'+courseno.value,'pop','resizable=no scrollbars=yes top=50 left=200 width=1200 height=870');   */
-		 window.open('codingMain.action','pop','resizable=no scrollbars=yes top=50 left=200 width=1200 height=870');  
+		 window.open('codingMainInsertLectureView.action','pop','resizable=no scrollbars=yes top=50 left=200 width=1200 height=870');  
 	});
 	</script>
 
