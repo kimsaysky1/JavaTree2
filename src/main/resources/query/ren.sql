@@ -7,6 +7,29 @@ alter table subnote modify(uploadedfilename varchar2(1000))
 alter table lecture modify(originalfilename varchar2(1000))
 alter table lecture modify(uploadedfilename varchar2(1000))
 
+CREATE TABLE notification
+(
+   senderid varchar2(20) NOT NULL,
+   receiverid varchar2(20) NOT NULL,
+   message varchar2(30) NOT NULL,
+   regdate date DEFAULT sysdate NOT NULL
+);
+
+alter table notification add (questionno number(6,0));
+
+alter table notification add (replyno number(6,0));
+
+ALTER TABLE notification
+   ADD FOREIGN KEY (senderid)
+   REFERENCES member_jt (id)
+;
+
+
+ALTER TABLE notification
+   ADD FOREIGN KEY (receiverid)
+   REFERENCES member_jt (id)
+;
+
 SELECT s.lectureno as studying, l.lectureno as lectureno, c.courseno as courseno,
 		l.lecturename, to_char(l.regdate, 'yyyy/mm/dd') as regdate, l.uploadedfilename,
 		c.coursename as coursename, c.introdution as introdution, c.courseno as courseno, c.id as teacherid

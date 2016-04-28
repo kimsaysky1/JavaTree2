@@ -24,6 +24,10 @@
 	<bean id="Subnote" class="org.javatree.www.VO.Subnote"></bean>
 	<bean id="Notification" class="org.javatree.www.VO.Notification"></bean>
 	
+	<!--  Interceptors --> 
+  <bean name="logger"    
+    class="org.javatree.www.interceptor.LoggingInterceptor"/> 
+
 	<!-- db.properties 읽어오기 -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">

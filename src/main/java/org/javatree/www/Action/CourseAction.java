@@ -123,8 +123,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	
 
 	@Override
-	public void setSession(Map<String, Object> args0) {
-		session = args0;
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
 	}
 	
 	private String searchText;
@@ -602,10 +602,15 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		start = 1;
 		end = 7;
 		currentPage = 1;
-			
+		
+		System.out.println();
+		
 		Map<String, Object> kong = new HashMap<>();
-		if(session.get("loginId") != null){
-			kong.put("id", session.get("loginId").toString());
+		for(String s : session.keySet()){
+			System.out.println(s);
+		}
+		if(((String) session.get("loginId")) != null){
+			kong.put("id", (String)session.get("loginId"));
 		}
 		
 		kong.put("start", start);
@@ -727,7 +732,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		
 		Map <String,Object> gong = new HashMap();
 		if(session.get("loginId") != null){
-			gong.put("id", session.get("loginId").toString());
+			gong.put("id", (String)session.get("loginId"));
 		}
 		
 		if(session.get("searchText") == null) searchText = null;
@@ -826,7 +831,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		start = 1;
 		end = 10;
 		currentPage = 1;
-		
+		int countPerPage = 10;
 		courseDAO dao = sqlSession.getMapper(courseDAO.class);
 		Map<String, Object> kong = new HashMap<>();
 		kong.put("courseno", courseno);
@@ -835,37 +840,52 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}
 		
 		int totalRecordsCount = dao.selectCourseDefaultDetailTotal(kong);
-		
-		int countPerPage = 10;		//페이지당 글목록 수
-		endPageGroup = 1;
-		if(totalRecordsCount % countPerPage == 0 ){
-			endPageGroup = (int)(totalRecordsCount/countPerPage);		//총 (페이지)그룹 수
+		System.out.println("total>> " + totalRecordsCount);
+		if(totalRecordsCount != 0){
+					//페이지당 글목록 수
+			
+			if(totalRecordsCount % countPerPage == 0 ){
+				endPageGroup = (int)(totalRecordsCount/countPerPage);		//총 (페이지)그룹 수
+			}else{
+				endPageGroup = (int)(totalRecordsCount/countPerPage)+1;		//총 (페이지)그룹 수
+			}
+			
+			if(endPageGroup == 0) endPageGroup = 1;
+			
+			if(currentPage == 0){
+				currentPage = 1;
+			}
+					
+			
+			
+			ArrayList<Lecture> tempList = new ArrayList<>();
+			tempList = dao.selectCourseDefaultDetail(kong);
+			lectureList = new ArrayList<>();
+			
+			if(end > tempList.size()){
+				end = tempList.size();			
+			}
+			
+			for (int i = start; i < end+1; i++) {
+				lectureList.add(tempList.get(i-1));
+			}
+			
+			coursename = lectureList.get(0).getCoursename();
+			introdution = lectureList.get(0).getIntrodution();
 		}else{
-			endPageGroup = (int)(totalRecordsCount/countPerPage)+1;		//총 (페이지)그룹 수
+			if(endPageGroup == 0) endPageGroup = 1;
+			lecture = dao.selectCourseForDetail(courseno);
+			coursename = lecture.getCoursename();
+			introdution = lecture.getIntrodution();
 		}
 		
-		if(currentPage == 0){
-			currentPage = 1;
-		}
-				
 		session.put("currentPage", currentPage);
 		session.put("CountPerPage", countPerPage);
 		session.put("endPageGroup", endPageGroup);
+		System.out.println("endpage>> " + endPageGroup);
+		System.out.println("curpage>> " + currentPage);
 		
-		ArrayList<Lecture> tempList = new ArrayList<>();
-		tempList = dao.selectCourseDefaultDetail(kong);
-		lectureList = new ArrayList<>();
 		
-		if(end > tempList.size()){
-			end = tempList.size();			
-		}
-		
-		for (int i = start; i < end+1; i++) {
-			lectureList.add(tempList.get(i-1));
-		}
-		
-		coursename = lectureList.get(0).getCoursename();
-		introdution = lectureList.get(0).getIntrodution();
 		
 		return SUCCESS;
 	}
@@ -1825,9 +1845,22 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			this.check = check;
 		}
 	
-		public Map<String, Object> getSession() {
-			return session;
+		public ArrayList<Course> getRecourseList() {
+			return recourseList;
 		}
+
+		public void setRecourseList(ArrayList<Course> recourseList) {
+			this.recourseList = recourseList;
+		}
+
+		public ArrayList<String> getInterestList() {
+			return interestList;
+		}
+
+		public void setInterestList(ArrayList<String> interestList) {
+			this.interestList = interestList;
+		}
+
 		public ArrayList<Course> getRecentRank() {
 			return recentRank;
 		}

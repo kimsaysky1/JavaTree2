@@ -30,6 +30,7 @@
         </action>
        
         <action name="studyMainView" class="org.javatree.www.Action.CourseAction" method="studyMainView">
+        	<interceptor-ref name="LoginCheckForMember" />
         	<result>/WEB-INF/views/course/studyMain.jsp</result>
         </action>
         
