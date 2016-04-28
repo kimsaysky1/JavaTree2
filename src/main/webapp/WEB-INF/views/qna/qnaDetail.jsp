@@ -114,7 +114,7 @@
 						<hr class="hr2">
 						<section class="profil2">
 							<ul class="list-discussion">
-							
+								<!-- 답변 영역 -->
 								<s:iterator value="replyList">
 									<!-- LIST ITEM -->
 									<li>
@@ -130,6 +130,7 @@
 													</div>
 												</div>
 											</div>
+											<!-- 대댓글 영역 -->
 											<div class ="rereplyArea">
 												<div id="<s:property value="replyno"/>" style="display:none; background-color: lightblue;">
 													<s:iterator value="rereplyList">
@@ -140,10 +141,12 @@
 													<input type = "button" value="덧글작성" class="insertRereplyButton"/>
 												</div>
 											</div>
+											<!-- 대댓글 영역 끝 -->
 										</div>
 									</li>
 									<!-- END / LIST ITEM -->
 								</s:iterator>
+								<!-- 답변 영역 끝 -->
 							</ul>
 					</div>
 	</section>
@@ -217,7 +220,7 @@
 	</form>
 	<!-- insertReply 모달 끝-->
 
-<%@include file="/resources/footer.jsp" %>
+	<%@include file="/resources/footer.jsp" %>
 	
 	<script type="text/javascript">
 	

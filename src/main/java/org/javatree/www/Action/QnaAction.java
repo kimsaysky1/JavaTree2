@@ -232,7 +232,6 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		System.out.println("rereply: " + rereply);
 		dao.insertRereply(rereply);
 		rereplyList = dao.selectAllRereply(replyno);
-		System.out.println("rereplyList: " + rereplyList);
 		return SUCCESS;
 	}
 
