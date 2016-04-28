@@ -142,7 +142,6 @@ function idCheck() {
 }
 
 </script>
->>>>>>> aa748f1e11e133ac6f1761f2f270fc7fa73e4270
 </head>
 <body>
 	<%@include file="/resources/header.jsp" %>
