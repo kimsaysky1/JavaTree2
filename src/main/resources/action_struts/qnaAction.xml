@@ -48,6 +48,10 @@
      	<action name="searchListByInterest" class="org.javatree.www.Action.QnaAction" method="searchListByInterest">
      		<result type="json"></result>
      	</action>
+     	
+     	<action name="addCurious" class="org.javatree.www.Action.QnaAction" method="addCurious">
+     		<result type="json"></result>
+     	</action>
     </package>
 
 </struts>

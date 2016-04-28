@@ -507,7 +507,7 @@ $(function(){
 			$.ajax({
 				type: 'POST'
 				, url: '/javatree/qna/insertQuestionByModal.action'
-				, data: 'question.content='+content+'&question.title='+title+'&question.typeno='+typeno
+				, data: 'question.content=<pre>'+content+'</pre>&question.title='+title+'&question.typeno='+typeno
 				, success : function(response){
 					$('#writeQuestionModal').modal('hide');
 				}

@@ -117,10 +117,6 @@ $(function(){
 		} 
 		 
 		 document.getElementById('joinForm').submit();
-<<<<<<< HEAD
-=======
-		
->>>>>>> aa748f1e11e133ac6f1761f2f270fc7fa73e4270
 		
 	});
 		
@@ -128,9 +124,6 @@ $(function(){
 
 </script>
 
-<<<<<<< HEAD
-
-=======
 <script type="text/javascript">
 function idCheck() { 
 	
@@ -149,7 +142,6 @@ function idCheck() {
 }
 
 </script>
->>>>>>> aa748f1e11e133ac6f1761f2f270fc7fa73e4270
 </head>
 <body>
 	<%@include file="/resources/header.jsp" %>
@@ -527,26 +519,7 @@ function idCheck() {
 
 	</section>
 
-	<!-- FOOTER -->
-	<footer id="footer" class="footer">
-	<div class="second-footer">
-		<div class="container">
-			<div class="contact">
-				<div class="email">
-					<i class="icon md-email"></i> <a href="#">course@megadrupal.com</a>
-				</div>
-				<div class="phone">
-					<i class="fa fa-mobile"></i> <span>+84 989 999 888</span>
-				</div>
-				<div class="address">
-					<i class="fa fa-map-marker"></i> <span>Maecenas sodales, nisl eget</span>
-				</div>
-			</div>
-			<p class="copyright">Copyright © 2014 Megadrupal. All rights reserved.</p>
-		</div>
-	</div>
-	</footer>
-	<!-- END / FOOTER -->
+<%@include file="/resources/footer.jsp" %>
 	
 	<!-- Load jQuery -->
 		<script type="text/javascript"
