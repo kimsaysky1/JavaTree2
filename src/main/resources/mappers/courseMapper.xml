@@ -136,6 +136,11 @@
 		where courseno = #{courseno} 
 	</select>
 	
+	<select id="selectCourseForDetail" parameterType="int" resultType="Lecture">
+		select coursename, introdution from course where courseno = #{courseno}
+	</select>
+	
+	
 	<!-- checkStudyCourse 강좌 수강 신청 여부 판별 -->
 	<select id="checkStudyCourse" parameterType="map" resultType="int">
 		select count(*) from studycourse where courseno = #{courseno} and id = #{id}

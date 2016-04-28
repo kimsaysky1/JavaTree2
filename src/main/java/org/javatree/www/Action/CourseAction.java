@@ -123,8 +123,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	
 
 	@Override
-	public void setSession(Map<String, Object> args0) {
-		session = args0;
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
 	}
 	
 	private String searchText;
@@ -602,10 +602,15 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		start = 1;
 		end = 7;
 		currentPage = 1;
-			
+		
+		System.out.println();
+		
 		Map<String, Object> kong = new HashMap<>();
-		if(session.get("loginId") != null){
-			kong.put("id", session.get("loginId").toString());
+		for(String s : session.keySet()){
+			System.out.println(s);
+		}
+		if(((String) session.get("loginId")) != null){
+			kong.put("id", (String)session.get("loginId"));
 		}
 		
 		kong.put("start", start);
@@ -727,7 +732,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		
 		Map <String,Object> gong = new HashMap();
 		if(session.get("loginId") != null){
-			gong.put("id", session.get("loginId").toString());
+			gong.put("id", (String)session.get("loginId"));
 		}
 		
 		if(session.get("searchText") == null) searchText = null;
@@ -826,7 +831,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		start = 1;
 		end = 10;
 		currentPage = 1;
-		
+		int countPerPage = 10;
 		courseDAO dao = sqlSession.getMapper(courseDAO.class);
 		Map<String, Object> kong = new HashMap<>();
 		kong.put("courseno", courseno);
@@ -835,37 +840,52 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}
 		
 		int totalRecordsCount = dao.selectCourseDefaultDetailTotal(kong);
-		
-		int countPerPage = 10;		//페이지당 글목록 수
-		endPageGroup = 1;
-		if(totalRecordsCount % countPerPage == 0 ){
-			endPageGroup = (int)(totalRecordsCount/countPerPage);		//총 (페이지)그룹 수
+		System.out.println("total>> " + totalRecordsCount);
+		if(totalRecordsCount != 0){
+					//페이지당 글목록 수
+			
+			if(totalRecordsCount % countPerPage == 0 ){
+				endPageGroup = (int)(totalRecordsCount/countPerPage);		//총 (페이지)그룹 수
+			}else{
+				endPageGroup = (int)(totalRecordsCount/countPerPage)+1;		//총 (페이지)그룹 수
+			}
+			
+			if(endPageGroup == 0) endPageGroup = 1;
+			
+			if(currentPage == 0){
+				currentPage = 1;
+			}
+					
+			
+			
+			ArrayList<Lecture> tempList = new ArrayList<>();
+			tempList = dao.selectCourseDefaultDetail(kong);
+			lectureList = new ArrayList<>();
+			
+			if(end > tempList.size()){
+				end = tempList.size();			
+			}
+			
+			for (int i = start; i < end+1; i++) {
+				lectureList.add(tempList.get(i-1));
+			}
+			
+			coursename = lectureList.get(0).getCoursename();
+			introdution = lectureList.get(0).getIntrodution();
 		}else{
-			endPageGroup = (int)(totalRecordsCount/countPerPage)+1;		//총 (페이지)그룹 수
+			if(endPageGroup == 0) endPageGroup = 1;
+			lecture = dao.selectCourseForDetail(courseno);
+			coursename = lecture.getCoursename();
+			introdution = lecture.getIntrodution();
 		}
 		
-		if(currentPage == 0){
-			currentPage = 1;
-		}
-				
 		session.put("currentPage", currentPage);
 		session.put("CountPerPage", countPerPage);
 		session.put("endPageGroup", endPageGroup);
+		System.out.println("endpage>> " + endPageGroup);
+		System.out.println("curpage>> " + currentPage);
 		
-		ArrayList<Lecture> tempList = new ArrayList<>();
-		tempList = dao.selectCourseDefaultDetail(kong);
-		lectureList = new ArrayList<>();
 		
-		if(end > tempList.size()){
-			end = tempList.size();			
-		}
-		
-		for (int i = start; i < end+1; i++) {
-			lectureList.add(tempList.get(i-1));
-		}
-		
-		coursename = lectureList.get(0).getCoursename();
-		introdution = lectureList.get(0).getIntrodution();
 		
 		return SUCCESS;
 	}
@@ -1025,7 +1045,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 * **/
 		public String selectAllCourseListForTeach(){
 			id=(String) session.get("loginId");
-			
+			System.out.println(id);
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			courseList= dao.selectAllCourseListForTeach(id);
 			
@@ -1043,23 +1063,21 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			id = (String) session.get("loginId");
 			course.setId(id);
 			course.setUsername(id);
-			
 			dao.insertCourse(course);
 			
 			/*insert CourseType*/
 			Map<String, Object> map = new HashMap<>();
 			for(int i = 0; i < courseTypeList.size(); i++){
-				
+				//map.put("courseno", course.getCoureseno());
 				map.put("typeno", courseTypeList.get(i));
-				System.out.println("map: "+map);
 				
 				map.put("id", course.getId());
 				map.put("coursename", course.getCoursename());
-				System.out.println("map: "+map);
 				dao.insertCourseType(map);
 				/*insert TeachCourse*/
 				dao.insertTeachCourse(map);
 			}
+	
 	
 			return SUCCESS;
 		}
@@ -1098,8 +1116,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			lecture.setLecturename(lecture.getLecturename());
 			lecture.setRegdate(lecture.getRegdate());
 			
-			System.out.println(uploadContentType+"컨텐트타입");
-			System.out.println(uploadFileName+"파일네임");
+			//System.out.println(uploadContentType+"컨텐트타입");
+			//System.out.println(uploadFileName+"파일네임");
 			//System.out.println(getUpload()+"실제파일");
 			
 			String a= uploadFileName.get(0);
@@ -1111,29 +1129,29 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			String check_point1= video_chk[1];
 			String check_point2= note_chk[1];
 			
-			System.out.println("check_point1 : "+check_point1);
-			System.out.println("check_point2 : "+check_point2);	   
+			//System.out.println("check_point1 : "+check_point1);
+			//System.out.println("check_point2 : "+check_point2);	   
 			
 			//여기서부터 내꺼
             
     		/*insert Lecture*/
-    		System.out.println(uploadContentType+"컨텐트타입");
-    		System.out.println(uploadFileName+"파일네임");
+    		//System.out.println(uploadContentType+"컨텐트타입");
+    		//System.out.println(uploadFileName+"파일네임");
     		//System.out.println(getUpload()+"실제파일");
     		//System.out.println(ServletActionContext.getRequest().getRequestURL());
     		
     		/*강의video*/
-    		System.out.println(UploadPath+uploadFileName.get(0));
+    		//System.out.println(UploadPath+uploadFileName.get(0));
     		File video=new File(UploadPath+uploadFileName.get(0)); /*파일네임*/
     		FileUtils.copyFile(upload.get(0), video); /*실제파일저장*/
-    		System.out.println(video+"video");
+    		//System.out.println(video+"video");
     		
     		/*originalfilename="lecture,"+UploadPath+video+","+System.currentTimeMillis();실제파일이름
     		uploadedfilename=uploadFileName.get(0); 실제파일경로*/
     		originalfilename=video+","+System.currentTimeMillis(); //실제파일이름
     		uploadedfilename=uploadFileName.get(0); //실제파일경로*/
     		
-    		System.out.println("경로1: "+uploadedfilename);
+    		//System.out.println("경로1: "+uploadedfilename);
     		 //입력받은 파일 이름을 가지고 File 객체를 생성
     		
 			lecture.setUploadedfilename(uploadedfilename);
@@ -1142,7 +1160,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
     		
     		 try {
     			   Class.forName("oracle.jdbc.driver.OracleDriver");
-    			   System.out.println("드라이버 검색 성공");
+    			  // System.out.println("드라이버 검색 성공");
     			  }catch(ClassNotFoundException e) {
     			   System.err.println("error = " + e);
     			   System.exit(1);
@@ -1221,14 +1239,24 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				/*insert Teachlecture*/
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("id", id);
-				System.out.println(courseno+"티치렉쳐");
+				//System.out.println(courseno+"티치렉쳐");
 				map.put("courseno", courseno);
 				map.put("point", 0);
 				map.put("studentcount", 0);
-				System.out.println(map+"티치렉쳐맵");
+				//System.out.println(map+"티치렉쳐맵");
 				dao.insertTeachLecture(map);
 			
 			
+				/*insert Coding-coding 갔다가 옴..*/
+				codingList = dao.selectForCodingTemp(id); //id와 코딩넘버알기위해서 문제등록되었는지잠깐등록
+				//System.out.println("codingtemp codingno: " +codingList);
+				
+				for(int i=0; i<codingList.size();i++){
+					coding= codingList.get(i);
+					map.put("codingno", coding.getCodingno());
+				}			
+				dao.insertlecturecodingInInsertLecture(map);
+				dao.deleteCodingTemp(id);
 			return SUCCESS;
 		}
 		
@@ -1474,9 +1502,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		/*insertSelectedCodingfromMain- 인서트렉쳐 할때의 메인화면에서 등록 */
 		public String insertSelectedCodingfromInsertLecture(){
 			
-			//System.out.println("codingListForInsert: "+codingListForInsert);// codingListForInsert: [1,3]
-		//	System.out.println("size: "+codingListForInsert.size());
-			//System.out.println("codingListForInsert.get(0): "+codingListForInsert.get(0));
+			System.out.println("codingListForInsert: "+codingListForInsert);// codingListForInsert: [1,3]
+			System.out.println("size: "+codingListForInsert.size());
+			System.out.println("codingListForInsert.get(0): "+codingListForInsert.get(0));
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			
 			ArrayList<String> tempList = new ArrayList<>();
@@ -1486,8 +1514,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				tempList.add(st.nextToken());
 			}
 				
-			//System.out.println("tempList.size(): "+tempList.size());
-			//System.out.println("tempList: "+tempList);
+			System.out.println("tempList.size(): "+tempList.size());
+			System.out.println("tempList: "+tempList);
 			id=(String) session.get("loginId");
 			Map<String, Object> map = new HashMap<>();
 			
@@ -1495,11 +1523,11 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				
 				map.put("codingno", tempList.get(i));
 				map.put("id", id);
-				//System.out.println("map: "+map);
+				System.out.println("map: "+map);
 				dao.insertCodingTemp(map);
 				
 				//dao.insertLectureCoding(map);
-				//System.out.println(i+"번 완료");
+				System.out.println(i+"번 완료");
 			}
 			
 			codingFormlecturelist();
@@ -1825,9 +1853,22 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			this.check = check;
 		}
 	
-		public Map<String, Object> getSession() {
-			return session;
+		public ArrayList<Course> getRecourseList() {
+			return recourseList;
 		}
+
+		public void setRecourseList(ArrayList<Course> recourseList) {
+			this.recourseList = recourseList;
+		}
+
+		public ArrayList<String> getInterestList() {
+			return interestList;
+		}
+
+		public void setInterestList(ArrayList<String> interestList) {
+			this.interestList = interestList;
+		}
+
 		public ArrayList<Course> getRecentRank() {
 			return recentRank;
 		}
