@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.javatree.www.DAO.memberDAO">
+
+	<select resultType="Member_jt" parameterType="string" id="selectMember"> 
+		select * from member_jt where id = #{id}
+	</select>
+	
+	<insert parameterType="Member_jt" id="insertMember">
+      insert into member_jt ( id , password , username , email)
+      values (#{id} , #{password} , #{username} , #{email})
+   </insert>
+   
+   <insert id="insertInterest" parameterType="list">
+    <foreach collection="list" item="vo" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+       INTO interest (id , typeno , value)
+       VALUES (#{vo.id} , #{vo.typeno} , #{vo.value})
+     </foreach>
+   </insert>   
+   
+   <insert id="insertAbility" parameterType="list">
+      <foreach collection="list" item="vo" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+       INTO ability (id , typeno , value)
+       VALUES (#{vo.id} , #{vo.typeno} , #{vo.value})
+     </foreach>
+   </insert>   
+   
+   <select id="checkNotification" parameterType="String" resultType="Notification">
+   		select senderid, receiverid, message, to_char(regdate, 'yyyy/mm/dd') as regdate,
+   		replyno, questionno from notification where receiverid = #{id}
+   </select>
+   
+  
+	
+	
+	<!-- <insert id="insert" parametertype="Member_jt">
+        insert into member_jt(id, password, username, email)
+        values
+        (#{id} , #{password} , #{username} , #{email})
+        <foreach collection="list" item="item" separator=" , ">
+            (#{item.username}, #{item.age})
+        </foreach>
+ 	</insert>
+ -->	
+	<!-- <association>
+		<property></property>
+		
+	</association> -->
+	
+	<!-- <update parameterType="Customer" id="updateCustomer">
+		update customer set name = #{name} , email = #{email} 
+<if test="address != null"> , address = #{address} </if>
+
+<if test="password != null"> ,password = #{password} </if>
+		where custid = #{custid} 
+	</update>
+
+	<select resultType="Customer" parameterType="Customer" id="searchCustomer">
+	select 
+<if test="custid != null">password</if>
+
+<if test="custid == null">custid</if>
+	from customer where 
+<if test="custid != null"> custid = #{custid} and name = #{name} and email = #{email} </if>
+
+<if test="custid == null"> name = #{name} and email = #{email} </if>
+
+	</select> -->
+
+</mapper>
+
+

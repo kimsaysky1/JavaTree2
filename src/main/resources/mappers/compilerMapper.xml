@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.javatree.www.DAO.CompilerDAO">
+
+	<resultMap type="Coding" id="MapForCoding">
+		<result property="codingno" column="codingno"/>
+		<result property="codingquestion" column="codingquestion"/>
+		<result property="codingtemplet"  column="codingtemplet"  jdbcType="CLOB" javaType="java.lang.String" typeHandler="org.apache.ibatis.type.ClobTypeHandler"/>
+		<result property="codinganswer" column="codinganswer"/>	
+		<result property="regdate" column="regdate"/>
+	</resultMap>
+	
+	<select id="callSpecificCoding" parameterType="int" resultMap="MapForCoding">
+		select * from coding where codingno = #{codingno}
+	</select>
+	
+	<select id="selectCodingList" parameterType="int" resultMap="MapForCoding">
+		select * from coding where codingno in (select codingno from lecturecoding where lectureno = #{lectureno})
+	</select>
+	
+	<select id="selectAllLectureList" parameterType="int" resultType="Lecture">
+		select lectureno, lecturename from coding where courseno = #{courseno} group by lectureno
+	</select>
+	
+	<select id="selectPath" parameterType="int" resultType="String">
+      select uploadedfilename from lecture where lectureno = #{lectureno}
+   </select>
+</mapper>

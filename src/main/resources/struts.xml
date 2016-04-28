@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.multipart.maxSize" value="104857600" />
+    <constant name="struts.devMode" value="true" />
+   <!--  <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>  -->
+   
+    <package name="default" namespace="/" extends="struts-default">
+		
+        <default-action-ref name="index" />
+       
+        <action name="index">
+           <result>/WEB-INF/views/index.jsp</result>
+        </action>
+     	
+     	  
+
+<!-- 비밀번호, 아이디 찾는 폼 -->
+
+
+
+<!-- <action name="find_idpwForm">
+
+<result>/sub/find_idpw.jsp</result>
+
+</action> -->
+
+<!-- 비밀번호, 아이디 찾기 -->
+
+<!-- <action name="searchCustomer" method="searchCustomer" class="seschool.bank.action.CustomerAction">
+
+<result>/sub/find_idpw.jsp</result>
+
+</action> -->
+        
+    </package>
+
+    <include file="action_struts/memberAction.xml"/>
+    <include file="action_struts/courseAction.xml"/>
+    <include file="action_struts/qnaAction.xml"/>
+    <include file="action_struts/compilerAction.xml"/>
+</struts>

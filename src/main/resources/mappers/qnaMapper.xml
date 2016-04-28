@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.javatree.www.DAO.QnaDAO">
+	
+	<resultMap type="Question" id="QuestionMap">
+		<result property="questionno" column="questionno"/>
+		<result property="typeno" column="typeno"/>
+		<result property="codingno" column="codingno"/>
+		<result property="id" column="id"/>
+		<result property="username" column="username"/>
+		<result property="title" column="title"/>
+		<result property="content"  column="content"  jdbcType="CLOB" javaType="java.lang.String" typeHandler="org.apache.ibatis.type.ClobTypeHandler"/>
+		<result property="regdate" column="regdate"/>
+		<result property="hitcount" column="hitcount"/>
+		<result property="curious" column="curious"/>
+		<collection property="replyList" javaType="java.util.ArrayList" column="questionno" ofType="Reply" select="selectAllReply"/>
+	</resultMap>
+	
+	<resultMap type="Reply" id="ReplyMap">
+		<result property="questionno" column="questionno"/>
+		<result property="replyno" column="replyno"/>
+		<result property="id" column="id"/>
+		<result property="username" column="username"/>
+		<result property="content"  column="content"  jdbcType="CLOB" javaType="java.lang.String" typeHandler="org.apache.ibatis.type.ClobTypeHandler"/>
+		<result property="regdate" column="regdate"/>
+		<result property="recommend" column="recommend"/>
+		<association property="title" javaType="String" column="questionno" select="selectTitle" />
+		<collection property="rereplyList" javaType="java.util.ArrayList" column="replyno" ofType="Rereply" select="selectAllRereply"/>
+	</resultMap>
+	
+	<resultMap type="Member_jt" id="MemberMap">
+		<result property="id" column="id"/>
+		<result property="password" column="password"/>
+		<result property="username" column="username"/>
+		<result property="email" column="email"/>
+		<result property="point" column="point"/>
+		<result property="countquestion" column="countquestion" />
+		<result property="countresponse" column="countresponse" />
+		<result property="countrecommend" column="countrecommend" />
+		<collection property="abilityList" javaType="java.util.ArrayList" column="id" ofType="Ability" select="selectAllAbility"/>
+		<collection property="interestList" javaType="java.util.ArrayList" column="id" ofType="Interest" select="selectAllInterest"/>
+	</resultMap>
+	
+	<select id="selectOneMember" parameterType="String" resultMap="MemberMap">
+		select * from member_jt where id = #{id}
+	</select>
+	
+	<select id="selectAllAbility" parameterType="String" resultType="Ability">
+		select * from ability where id = #{id}
+	</select>
+	
+	<select id="selectAllInterest" parameterType="String" resultType="Interest">
+		select * from interest where id = #{id}
+	</select>
+	
+	<insert id="insertQuestion" parameterType="Question">
+		insert into question
+		(questionno, typeno
+		<if test="codingno != null">
+		, codingno
+		</if>
+		, id, username, title, content
+		) 
+		values
+		(
+		question_seq.nextVal
+		, #{typeno}
+		<if test="codingno != null">
+		, #{codingno}
+		</if>
+		, #{id}
+		, #{username}
+		, #{title}
+		, #{content:VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insertReply" parameterType="Reply">
+		insert into reply
+		(questionno, replyno, id, username, content
+		) 
+		values
+		(
+		#{questionno}
+		, reply_seq.nextVal
+		, #{id}
+		, #{username}
+		, #{content:VARCHAR}
+		)
+	</insert>
+	
+	<insert id = "insertRereply" parameterType="Rereply">
+		insert into rereply
+		(replyno, id, content, regdate, username
+		) 
+		values
+		(
+		#{replyno}
+		, #{id}
+		, #{content}
+		, sysdate
+		, #{username}
+		)
+	</insert>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from question
+	</select>
+	
+	<select id="selectAllQuestionRelatedInCoding" parameterType="map" resultMap="QuestionMap">
+		SELECT questionno, typeno, codingno, id, username, title,
+		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
+		 (select rownum as rnum, T1.* from (select * from question where codingno = #{codingno}
+		  order by questionno desc) T1)
+ 		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end} 
+	</select>
+	
+	
+	<select id="selectAllQuestion" parameterType="map" resultMap="QuestionMap">
+		SELECT questionno, typeno, codingno, id, username, title,
+		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
+		 (select rownum as rnum, T1.* from (select * from question
+		 <where>
+		 	<if test="typenoList != null">
+			 	typeno in
+			 	<foreach collection="typenoList" item="type" index="index" separator="," open="(" close=")">
+	            #{type}
+	        	</foreach>
+		 	</if>
+		 </where>
+		  order by questionno desc) T1)
+ 		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end} 
+	</select>
+
+	<select id="gunggumAllQuestionList" resultMap="QuestionMap">
+		SELECT questionno, typeno, codingno, id, username, title,
+		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
+		 (select rownum as rnum, T1.* from (select * from question order by curious desc) T1)
+ 		where rnum <![CDATA[>]]>= 1 and rnum <![CDATA[<]]>= 3
+	</select>
+	
+	<select id="gunggumRecentQuestionList" resultMap="QuestionMap">
+		SELECT questionno, typeno, codingno, id, username, title,
+		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
+		 (select rownum as rnum, T1.* from (select * from question where add_months(sysdate, -3) 
+		 <![CDATA[<]]>= regdate order by curious desc) T1)
+ 		where rnum <![CDATA[>]]>= 1 and rnum <![CDATA[<]]>= 3
+	</select>
+	
+	<select id="bestAllQuestionList" resultMap="ReplyMap">
+		select * from reply where questionno in (SELECT questionno from
+		 (select rownum as rnum, T1.* from (select * from reply order by recommend desc) T1)
+ 		where rnum <![CDATA[>]]>= 1 and rnum <![CDATA[<]]>= 3)
+	</select>
+	
+	<select id="bestRecentQuestionList" resultMap="ReplyMap">
+		select * from reply where questionno in (SELECT questionno from
+		 (select rownum as rnum, T1.* from (select * from reply where add_months(sysdate, -3) 
+		 <![CDATA[<]]>= regdate order by recommend desc) T1)
+ 		where rnum <![CDATA[>]]>= 1 and rnum <![CDATA[<]]>= 3)
+	</select>
+	
+	<select id="selectOneQuestion" parameterType="int" resultMap="QuestionMap">
+		select questionno, typeno, codingno, id, username, title,
+		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from question where questionno = #{questionno}
+	</select>
+	
+	<select id="selectAllReply" parameterType="int" resultMap="ReplyMap">
+		select * from reply where questionno = #{questionno} order by recommend desc
+	</select>
+	
+	<select id="selectAllRereply" parameterType="int" resultType="Rereply">
+		select * from rereply where replyno = #{replyno} order by regdate desc
+	</select>
+	
+	<select id="selectTitle" parameterType="int" resultType="String">
+		select title from question where questionno = #{questionno}
+	</select>
+	
+	<delete id="clickNotification" parameterType="map">
+   		delete from notification where receiverid = #{id} and questionno = #{questionno}
+    </delete>
+	
+	<!-- <insert id="insert"> 
+	
+	</insert> -->
+	
+</mapper>

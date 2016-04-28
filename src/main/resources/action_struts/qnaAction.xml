@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+	
+	<package name="qna" namespace="/qna" extends="default, json-default">
+	
+     	<action name="insertQuestionByModal" class="org.javatree.www.Action.QnaAction" method="insertQuestionByModal">
+     		<result type="json"></result>
+     	</action>
+     	
+     	<action name="insertQuestion" class="org.javatree.www.Action.QnaAction" method="insertQuestion">
+     		<result>/WEB-INF/views/qna/qnaDefaultMain.jsp</result>
+     	</action>
+     	
+     	<action name="insertReplyReady" class="org.javatree.www.Action.QnaAction" method="insertReplyReady">
+     		<result>/WEB-INF/views/qna/qnaReply.jsp</result>
+     	</action>
+     	
+     	<action name="insertReply" class="org.javatree.www.Action.QnaAction" method="insertReply">
+     		<result>/WEB-INF/views/qna/qnaDetail.jsp</result>
+     	</action>
+     	
+     	<action name="insertRereply" class="org.javatree.www.Action.QnaAction" method="insertRereply">
+     		<result type="json"></result>
+     	</action>
+     	
+     	<action name="qnaDefaultMain" class="org.javatree.www.Action.QnaAction" method="qnaDefaultMain">
+     		<result name="success">/WEB-INF/views/qna/qnaDefaultMain.jsp</result>
+     		<result name="error" type="redirect">/member/loginFrom.action</result>
+     	</action>
+     	
+     	<action name="watchRelatedQuestion" class="org.javatree.www.Action.QnaAction" method="watchRelatedQuestion">
+     		<result name="success">/WEB-INF/views/qna/qnaDefaultMain.jsp</result>
+     	</action>
+     	
+     	<action name="qnaDetail" class="org.javatree.www.Action.QnaAction" method="qnaDetail">
+     		<result>/WEB-INF/views/qna/qnaDetail.jsp</result>
+     	</action>
+     	
+     	<action name="plusQnaDefaultMain" class="org.javatree.www.Action.QnaAction" method="plusQnaDefaultMain">
+     		<result type="json"></result>
+     	</action> 
+     	
+     	<action name="searchListByInterest" class="org.javatree.www.Action.QnaAction" method="searchListByInterest">
+     		<result type="json"></result>
+     	</action>
+    </package>
+
+</struts>

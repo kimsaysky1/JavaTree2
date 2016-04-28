@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.devMode" value="true" />
+
+    <package name="course" namespace="/course" extends="default, json-default">
+    
+        <action name="selectAllCourseList" class="org.javatree.www.Action.CourseAction" method="selectAllCourseList">
+        	<result>/WEB-INF/views/course/courseDefaultMain.jsp</result>
+        </action>
+       
+       	<action name="selectListbyField" class="org.javatree.www.Action.CourseAction" method="selectListbyField">
+        	<result type="json"></result>
+        </action>
+        
+        <action name="plusSelectListbyField" class="org.javatree.www.Action.CourseAction" method="plusSelectListbyField">
+        	<result type="json"></result>
+        </action>
+        
+        <action name="plusCourseDefaultMain" class="org.javatree.www.Action.CourseAction" method="plusCourseDefaultMain">
+        	<result>/WEB-INF/views/course/courseDefaultMain.jsp</result>
+        </action>
+        
+     	<action name="plusStudyMain" class="org.javatree.www.Action.CourseAction" method="plusStudyMain">
+        	<result>/WEB-INF/views/course/studyMain.jsp</result>
+        </action>
+       
+        <action name="studyMainView" class="org.javatree.www.Action.CourseAction" method="studyMainView">
+        	<result>/WEB-INF/views/course/studyMain.jsp</result>
+        </action>
+        
+        <action name="searchCourse" class="org.javatree.www.Action.CourseAction" method="searchCourse">
+        	<result type="json"></result>
+        </action>
+        
+        <action name="plusSearchCourse" class="org.javatree.www.Action.CourseAction" method="plusSearchCourse">
+        	<result type="json"></result>
+        </action>
+        
+        <action name="selectCourseDefaultDetail" class="org.javatree.www.Action.CourseAction" method="selectCourseDefaultDetail">
+        	<result>/WEB-INF/views/course/CourseDefaultDetail.jsp</result>
+        </action>
+        
+        <action name="plusCourseDefaultDetail" class="org.javatree.www.Action.CourseAction" method="plusCourseDefaultDetail">
+        	<result>/WEB-INF/views/course/CourseDefaultDetail.jsp</result>
+        </action>
+       
+        <action name="backAction" class="org.javatree.www.Action.CourseAction" method="backAction">
+        	<result>/WEB-INF/views/course/courseDefaultMain.jsp</result>
+        </action>
+        
+        <action name="insertLectureForStudy" class="org.javatree.www.Action.CourseAction" method="insertLectureForStudy">
+        	<result>/WEB-INF/views/course/CourseDefaultDetail.jsp</result>
+        	<result name="error" type="redirect">backAction.action</result>
+        </action>
+        
+        <action name="teachMainView">
+        	<result>/WEB-INF/views/course/teachMain.jsp</result>
+        </action>
+               
+        <action name="insertCourseView">
+        	<result>/WEB-INF/views/course/insertCourse.jsp</result>
+        </action>
+        
+        <action name="insertLectureView">
+        	<result>/WEB-INF/views/course/insertLecture.jsp</result>
+        </action>
+        
+         <action name="selectAllCourseListForTeach" class="org.javatree.www.Action.CourseAction" method="selectAllCourseListForTeach">
+        	<result>/WEB-INF/views/course/teachMain.jsp</result>
+        </action>
+        
+        <!-- 강좌등록 -->
+        <action name="insertCourse" class="org.javatree.www.Action.CourseAction" method="insertCourse">
+        	<result type="redirect">selectAllCourseListForTeach</result>
+        </action>
+        
+        <!-- 강의등록 폼 -->
+        <action name="insertLectureForm" class="org.javatree.www.Action.CourseAction" method="insertLectureForm">
+        	<result>/WEB-INF/views/course/insertLecture.jsp</result>
+        </action>
+        
+         <!-- 강의등록 처리 -->
+        <action name="insertLecture" class="org.javatree.www.Action.CourseAction" method="insertLecture">
+        	<!--<result>/WEB-INF/views/course/insertLecture.jsp</result>-->
+        	<result type="redirect">selectAllCourseListForTeach.action</result>
+        </action>
+     
+<!--문제보관함-->        
+        
+        <!-- 문제보관함 폼(codingMain) 강의 등록 시 -->
+         <action name="codingForm" >
+        	<result>/WEB-INF/views/course/codingMain.jsp</result>     	
+        </action>
+        
+        <!-- 문제보관함 폼(codingMain) teach메인페이지에서 클릭 시 -->
+         <action name="codingFormfromMain" class="org.javatree.www.Action.CourseAction" method="codingFormfromMain">
+        	<result>/WEB-INF/views/course/codingMain_fromMain.jsp</result>     	
+        </action>
+        
+        <!-- 뷰 (인서트렉쳐안의 코딩박스 클릭시 메인뷰) -->
+        <action name="codingMainInsertLectureView" class="org.javatree.www.Action.CourseAction" method="codingMainInsertLectureView">
+        	<result>/WEB-INF/views/course/codingMain2.jsp</result>
+        </action>
+        
+        <!-- teachMian 에서 누른 문제보관함 폼(codingMain) 코스리스트 중 하나 선택 후 강의 리스트 뽑기  -->
+         <action name="golecturelist" class="org.javatree.www.Action.CourseAction" method="codingFormlecturelist">
+        	<result type="json"></result>	
+        </action>
+        
+        <!-- 해당 강의에 있는 문제 리스트 뿌리기  -->
+        <action name="gocodinglist" class="org.javatree.www.Action.CourseAction" method="showCodinglist">
+        	<result type="json"></result>	
+        </action>
+        
+        <!-- 뷰 (코딩박스 안의 인서트 뷰, 코딩다케) -->
+        <action name="insertCodingfromMainView" class="org.javatree.www.Action.CourseAction" method="insertCodingfromMainView">
+        	<result>/WEB-INF/views/course/insertCoding.jsp</result>	
+        </action>
+        
+       	 <!--액션 teachMian 에서 누른 문제보관함 폼(codingMain)에 코딩 insert하기     -->
+        <action name="insertSelectedCodingfromMain" class="org.javatree.www.Action.CourseAction" method="insertSelectedCodingfromMain">
+        	<result type="redirect">insertCodingfromMainView.action</result>	
+        </action>
+        
+        <!-- 뷰 (인서트렉쳐안의 코딩박스 클릭시 인서트뷰, 코딩다케) -->
+        <action name="insertSelectedCodingfromInsertLectureView" class="org.javatree.www.Action.CourseAction" method="insertSelectedCodingfromInsertLectureView">
+        	<result>/WEB-INF/views/course/insertCoding2.jsp</result>
+        </action>
+        
+         <!--액션 인서트렉쳐 에서 누른 문제보관함 폼(codingMain)의 첫 화면에서 코딩 insert하기   -->
+        <action name="insertSelectedCodingfromInsertLecture" class="org.javatree.www.Action.CourseAction" method="insertSelectedCodingfromInsertLecture">
+        	<result type="redirect">insertSelectedCodingfromInsertLectureView.action</result>	
+        </action>
+        
+        <action name="showcodingcontent" class="org.javatree.www.Action.CourseAction" method="showcodingcontent">
+        	<result type="json"></result>
+        </action>
+        
+         <!--뷰 teachMain- questionBox 내 update -->
+        <action name="updateCodingfromMainView" class="org.javatree.www.Action.CourseAction" method="updateCodingfromMainView">
+        	<result>/WEB-INF/views/course/updateCoding.jsp</result>	
+        </action>
+        <!--액션 teachMian 에서 누른 문제보관함 폼(codingMain)에 코딩 UPDATE하기   -->
+        <action name="updateCodingfromMain" class="org.javatree.www.Action.CourseAction" method="updateCodingfromMain">
+        	<result type="redirect">updateCodingfromMainView.action</result>	
+        </action>
+         <!--뷰 insertLecture- questionBox 내 update -->
+        <action name="updateCodingfromMainViewfromInsertLectureView" class="org.javatree.www.Action.CourseAction" method="updateCodingfromMainViewfromInsertLectureView">
+        	<result>/WEB-INF/views/course/updateCoding2.jsp</result>	
+        </action>
+        <!--액션 insertLecture 에서 누른 문제보관함 폼(codingMain)에 코딩 UPDATE하기   -->
+        <action name="updateCodingfromInsertLecture" class="org.javatree.www.Action.CourseAction" method="updateCodingfromInsertLecture">
+        	<result type="redirect">updateCodingfromMainViewfromInsertLectureView.action</result>	
+        </action>
+        
+        <!--삭제하기-->
+        <action name="deleteCodingfromMain" class="org.javatree.www.Action.CourseAction" method="deleteCodingfromMain">
+        	<result type="json"></result>
+		</action>
+		
+        <!-- 문제보관함 폼(codingMain) -->
+        <action name="codingForm" class="org.javatree.www.Action.CourseAction" method="codingForm">
+        	<result>/WEB-INF/views/course/codingMain.jsp</result>
+        </action>
+        
+        <action name="mediaPlayerForm" class="org.javatree.www.Action.CourseAction" method="mediaPlayerForm">
+        	<result>/WEB-INF/views/course/mediaPlayerForCheck.jsp</result>
+        </action>
+        
+        <!-- 강의삭제 - courseDetailForteach -->
+        <action name="deleteLecture" class="org.javatree.www.Action.CourseAction" method="deleteLecture" >
+        	<!-- <result type="redirect">CourseDetailForTeachForm</result> -->
+        	<result>/WEB-INF/views/course/CourseDetailForTeach.jsp</result>
+        </action>
+        
+        <!-- 강의 비디오 수정 폼-->
+         <action name="updateLectureForm" class="org.javatree.www.Action.CourseAction" method="updateLectureForm">
+        	<result>/WEB-INF/views/course/updateLecture.jsp</result>
+        </action>	
+        
+      	<!-- 강의 비디오 수정 -->
+        <action name="updateLecture" class="org.javatree.www.Action.CourseAction" method="updateLecture" >
+        	<result type="redirect">CourseDetailForTeachForm</result>
+        </action>
+        
+        <!-- 강의 서브노트 수정 폼-->
+         <action name="updateSubnoteForm" class="org.javatree.www.Action.CourseAction" method="updateSubnoteForm">
+        	<result>/WEB-INF/views/course/updateSubnote.jsp</result>
+        </action>	
+        
+        <!-- 강의 서브노트 수정 -->
+        <action name="updateSubnote" class="org.javatree.www.Action.CourseAction" method="updateSubnote" >
+        	<result type="redirect">CourseDetailForTeachForm</result>
+        </action>
+        
+       <!--  강좌 이름, Description 수정 - courseDetailForTeach --> <!-- 강좌수정은 나중에 디버깅시 ㄱㄱ --> 
+       <action name="updateCourseName" class="org.javatree.www.Action.CourseAction" method="updateCourseName" >
+      		<result>/WEB-INF/views/course/CourseDetailForTeach.jsp</result>
+       </action>
+        
+       <action name="updateCourseIntrodution" class="org.javatree.www.Action.CourseAction" method="updateCourseIntrodution" >
+      		<result>/WEB-INF/views/course/CourseDetailForTeach.jsp</result>
+       </action>
+        
+        <!-- 강사용 강의리스트 페이지 폼 courseDetailForTeach -->
+        <action name="CourseDetailForTeachForm" class="org.javatree.www.Action.CourseAction" method="CourseDetailForTeachForm">
+        	<result>/WEB-INF/views/course/CourseDetailForTeach.jsp</result>
+        </action>
+        
+    </package>
+
+    <!-- Add packages here -->
+
+</struts>

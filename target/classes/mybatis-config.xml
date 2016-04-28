@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+  	<typeAlias type="org.javatree.www.VO.Member_jt" alias="Member_jt"/>
+  	<typeAlias type="org.javatree.www.VO.Interest" alias="Interest"/>
+  	<typeAlias type="org.javatree.www.VO.Ability" alias="Ability"/>
+  	<typeAlias type="org.javatree.www.VO.Coding" alias="Coding" />
+  	<typeAlias type="org.javatree.www.VO.Course" alias="Course"/>
+  	<typeAlias type="org.javatree.www.VO.Error" alias="Error"/>
+  	<typeAlias type="org.javatree.www.VO.Lecture" alias="Lecture"/>
+  	<typeAlias type="org.javatree.www.VO.Question" alias="Question"/>
+  	<typeAlias type="org.javatree.www.VO.Reply" alias="Reply"/>
+  	<typeAlias type="org.javatree.www.VO.Rereply" alias="Rereply"/>
+  	<typeAlias type="org.javatree.www.VO.Subnote" alias="Subnote"/>
+  	<typeAlias type="org.javatree.www.VO.Notification" alias="Notification"/>
+  	
+  </typeAliases>
+  
+  <typeHandlers>
+   		<typeHandler handler="org.apache.ibatis.type.ClobTypeHandler" jdbcType="CLOB" javaType="java.lang.String"/>
+  </typeHandlers>
+    
+  <mappers>
+    <mapper resource="mappers/memberMapper.xml"/>
+    <mapper resource="mappers/courseMapper.xml"/>
+    <mapper resource="mappers/qnaMapper.xml"/>
+    <mapper resource="mappers/compilerMapper.xml"/>
+  </mappers>
+</configuration>

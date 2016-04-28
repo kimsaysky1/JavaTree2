@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.javatree.www.DAO.courseDAO">
+	
+<!-- 	<resultMap type="lecture" id="LectureMap">
+		<result property="courseno" column="courseno"/>
+		<result property="lectureno" column="lectureno"/>
+		<result property="lecturename" column="lecturename"/>
+		<result property="regdate" column="regdate"/>
+		<result property="originalfilename" column="originalfilename"/>
+		<result property="uploadedfilename" column="uploadedfilename"/>
+	</resultMap> -->
+	
+	<!-- <resultMap type="Coding" id="CodingMap">
+		<result property="codingno" column="codingno"/>
+		<result property="codingquestion" column="codingquestion"/>
+		<result property="codingtemplet"  column="codingtemplet"  jdbcType="CLOB" javaType="java.lang.String" typeHandler="org.apache.ibatis.type.ClobTypeHandler"/>
+		<result property="codinganswer"  column="codinganswer"  jdbcType="CLOB" javaType="java.lang.String" typeHandler="org.apache.ibatis.type.ClobTypeHandler"/>
+		<result property="regdate"  column="regdate"/>
+	</resultMap> -->
+	
+	
+	 <resultMap type="Course" id="sCourseMap">
+       <result property="id" column="id"/>
+      <result property="courseno" column="courseno"/>
+      <result property="coursename" column="coursename"/>
+      <result property="teacherid" column="teacherid"/>
+      <collection property="courseTypeList" javaType="java.util.ArrayList" column="courseno" ofType="int" select="selectTypeno"/>
+   </resultMap>
+	
+	<resultMap type="Lecture" id="sLectureMap">
+       	<result property="coursename" column="coursename"/>
+      	<result property="lecturename" column="lecturename"/>
+		<!-- <association property="coursename" column="courseno" javaType="int" select="selectCoursename"/> -->
+   	</resultMap>
+   	
+   	<resultMap type="Coding" id="CodingMap">
+      <result property="codingno" column="codingno"/>
+      <result property="codingquestion" column="codingquestion"/>
+      <result property="codingtemplet"  column="codingtemplet"  jdbcType="CLOB" javaType="java.lang.String" typeHandler="org.apache.ibatis.type.ClobTypeHandler"/>
+      <result property="codinganswer"  column="codinganswer"  jdbcType="CLOB" javaType="java.lang.String" typeHandler="org.apache.ibatis.type.ClobTypeHandler"/>
+      <result property="id" column="id"/>
+   </resultMap>
+	
+	<select id="selectCoursename" resultType="String">
+		select coursename from course where courseno = #{courseno}
+	</select> 
+	
+	<!-- <select parameterType="String" resultType="Course" id="getAllCourseListForStudy">
+		select * from course where courseno = ((select courseno from studycourse where id = #{id}) courseno)
+	</select> -->
+	
+
+	<!-- 전체 강좌 리스트 - CourseDefualtMain (로그인 X,O 분기처리) INTRODUCTION 스펠링 틀림!!! INTRODUTION -->
+     <select resultType="Course" id="selectAllCourseList" parameterType="map">
+     select courseno, coursename, id, username, INTRODUTION, to_char(regdate, 'yyyy/mm/dd') as regdate from course
+   <if test="id != null">
+     where courseno in (select courseno from coursetype where typeno IN (select typeno from interest where id = #{id} and value = 3))
+   </if>
+    order by regdate desc
+   </select>
+	
+	<!-- courseDefaultMain 초기(전체) 페이징  -->
+	<select id="pagingCourse" resultType="Course" parameterType="map">
+		SELECT coursename, courseno, username, to_char(regdate, 'YYYY-MM-DD') as regdate, id as teacherid 
+		from (select rownum as rnum, T1.* from (
+		select * from course 
+   		<if test="id != null">
+     	where courseno in (select courseno from coursetype where typeno IN (select typeno from interest where id = #{id} and value = 3)) order by courseno desc
+   		</if>
+   		<if test="id == null">
+   		order by courseno desc
+   		</if>
+		) T1)
+		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end}
+		<if test="searchText != null">
+		and coursename like #{searchText}
+		</if>
+	</select>
+	
+	<select id="selectDefaultTotal" resultType="int" parameterType="map">
+		SELECT count(*)
+		from (select rownum, T1.* from (select * from course
+		<if test="id != null">
+     	where courseno in (select courseno from coursetype where typeno IN (select typeno from interest where id = #{id} and value = 3))
+   		</if>
+   		<if test="id == null">
+   		order by courseno desc
+   		</if>
+		) T1)
+		<if test="searchText != null">
+		where coursename like #{searchText}
+		</if>
+		
+	</select>
+	
+	<!-- searchCourse 페이징  -->
+	<select id="searchCourse" resultType="Course" parameterType="map">
+		
+		SELECT coursename, courseno, username, to_char(regdate, 'YYYY-MM-DD') as regdate, id as teacherid 
+		from (select rownum as rnum, T1.* from (select * from course where 
+		<if test="searchText != null">
+		coursename like #{searchText} 
+		</if> 
+		order by courseno desc) T1)
+		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end} 
+	</select>
+	
+	<!-- CourseDefaultDetail 강좌상세보기 -->
+	<select id="selectCourseDefaultDetail" parameterType="map" resultType="Lecture">
+		<if test="id != null">
+		SELECT s.lectureno as studying, l.lectureno as lectureno, c.courseno as courseno,
+		l.lecturename, to_char(l.regdate, 'yyyy/mm/dd') as regdate, l.uploadedfilename,
+		c.coursename as coursename, c.introdution as introdution, c.courseno as courseno, c.id as teacherid
+		FROM lecture l 
+		JOIN course c ON ( l.courseno = c.courseno and c.courseno = #{courseno} )
+		LEFT OUTER JOIN studylecture s ON (  s.lectureno = l.lectureno and s.courseno = #{courseno} and s.id = #{id}
+		)
+		order by lectureno asc
+		</if>
+		<if test="id == null">
+		SELECT l.lectureno as lectureno, c.courseno as courseno,
+		l.lecturename, to_char(l.regdate, 'yyyy/mm/dd') as regdate, l.uploadedfilename,
+		c.coursename as coursename, c.introdution as introdution, c.courseno as courseno, c.id as teacherid
+		FROM lecture l 
+		JOIN course c ON ( l.courseno = c.courseno and c.courseno = #{courseno} )
+		order by lectureno asc
+		</if>
+	</select>
+	
+	<select id="selectCourseDefaultDetailTotal" resultType="int" parameterType="map">
+		SELECT count(*)
+		FROM lecture  
+		where courseno = #{courseno} 
+	</select>
+	
+	<!-- checkStudyCourse 강좌 수강 신청 여부 판별 -->
+	<select id="checkStudyCourse" parameterType="map" resultType="int">
+		select count(*) from studycourse where courseno = #{courseno} and id = #{id}
+	</select>
+	
+	<!-- CourseDefaultDetail 강의 신청하기 - studycourse -->
+	<insert id="insertLectureForStudy" parameterType="map">
+		insert into studycourse (id, courseno, coursename, teacherid) values (#{id}, #{courseno}, #{coursename}, #{teacherid})
+	</insert>
+	
+	<!-- CourseDefaultDetail 강의 신청하기 - studylecture -->
+	<insert id="insertLectureForStudy1" parameterType="map">
+		insert into studylecture (id, lectureno, startdate, enddate, courseno) values (#{id}, #{lectureno}, sysdate, sysdate+30, #{courseno})
+	</insert>
+	
+	<!-- 수강 신청 시, point 정보 update -->
+	<update id="updateMemberPoint" parameterType="map">
+		update member_jt set point = point - (select point from teachlecture where lectureno = #{lectureno}) where id = #{id}
+	</update>
+	
+	<!-- 수강 신청 시, lecture - studentcount 정보 update -->
+	<update id="updateStudentCount" parameterType="int">
+		update teachlecture set studentcount = studentcount + 1 where lectureno = #{lectureno}
+	</update>
+	
+	
+	<!-- 전체 강좌 중 베스트 (사이드 바) <전체기간>- CourseDefualtMain -->
+	<select id="selectAllRank" resultType="Course">
+		select * from
+		(
+		select sum(lec.studentcount), lec.courseno, cou.coursename, cou.id, cou.startdate 
+		from teachlecture lec, teachcourse cou 
+		where lec.courseno = cou.courseno
+		group by lec.courseno, cou.coursename, cou.id, cou.startdate 
+		order by sum(lec.studentcount) desc
+		)
+		where rownum &lt; 4 
+	</select>
+	
+	<!-- 전체 강좌 중 베스트 (사이드 바) <최근>- CourseDefualtMain -->
+	<select id="selectRecentRank" resultType="Course">
+		select * from
+		(
+		select sum(lec.studentcount), lec.courseno, cou.coursename, cou.id, cou.startdate 
+		from teachlecture lec, teachcourse cou 
+		where lec.courseno = cou.courseno and rownum &lt; 4 
+		group by lec.courseno, cou.coursename, cou.id, cou.startdate 
+		having cou.startdate > sysdate - 90
+		order by sum(lec.studentcount) desc
+		)
+		where rownum &lt; 4
+	</select>
+	<!-- 전체 강좌 중 강좌 검색 (사이드 바)  - CourseDefualtMain -->
+	
+	
+	<!-- 분야별 검색   -->	
+		<select resultType="Course" id="selectListbyField" parameterType="map">
+	
+	select * from	
+	(select rownum as rnum, courseno, coursename, id, username, INTRODUTION, to_char(regdate, 'yyyy/mm/dd') as regdate
+	from (select * from course where courseno in (select courseno from coursetype where typeno IN 
+		(
+		<if test="interest0 != null">
+			#{interest0}
+		</if>
+		<if test="interest1 != null">
+			, #{interest1}
+		</if>
+		<if test="interest2 != null">
+			, #{interest2}
+		</if>
+		<if test="interest3 != null">
+			, #{interest3}
+		</if>
+		<if test="interest4 != null">
+			, #{interest4}
+		</if>
+		))
+		order by courseno 
+		<if test="order == 'desc'">
+		desc
+		</if>
+		<if test="order == 'asc'">
+		asc
+		</if>	
+		))where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end}
+	
+	</select>	
+	
+		<!-- 분야별 검색 total 가져오기  -->	
+		<select resultType="int" id="selectFieldTotal" parameterType="map">
+		select count(*) from course
+	 	where courseno in (select courseno from coursetype where typeno IN 
+		(
+		<if test="interest0 != null">
+			#{interest0}
+		</if>
+		<if test="interest1 != null">
+			, #{interest1}
+		</if>
+		<if test="interest2 != null">
+			, #{interest2}
+		</if>
+		<if test="interest3 != null">
+			, #{interest3}
+		</if>
+		<if test="interest4 != null">
+			, #{interest4}
+		</if>
+		))
+		order by regdate desc
+	</select>		
+		
+	<!-- 강좌타입검색 -->
+	<select id="selectTypeno" parameterType="String" resultType="String">
+		select typeno, courseno from coursetype where courseno = #{courseno}
+	</select>
+	
+	
+	<!-- 내가 배우는 강좌 리스트 - studyMain -->
+    <select resultMap="sCourseMap" id="studyMainView" parameterType="map">
+     	select id, courseno, coursename, teacherid
+     	from studycourse
+     	where id = #{id}
+     	group by courseno, id, coursename, teacherid
+     	order by courseno desc
+     </select> 
+     
+    <!-- studyMain 초기(전체) 페이징  -->
+	<select id="pagingStudyCourse" resultMap="sCourseMap" parameterType="map">
+		SELECT id, courseno, coursename, teacherid 
+		from (select rownum as rnum, T1.* from (select * from studycourse where id = #{id} 
+		group by courseno, id, coursename, teacherid order by courseno desc) T1)
+		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end}
+	</select>
+     
+     <!-- 전체 갯수 -->
+    <select id="selectTotal" resultType="int" parameterType="map">
+		SELECT count(*) 
+		from (select rownum as rnum, T1.* from (select * from studycourse where id = #{id} group by courseno, id, coursename, teacherid order by courseno desc) T1)
+		
+	</select> 
+     <!-- 완료된 강의 lecturename -->
+     <select resultType="String" id="recentlyCompletedLectureList1" parameterType="map">
+     	select l.lecturename
+     	from lecture l, studylecture sl
+     	where l.lectureno = sl.lectureno and sl.id = #{id} and sl.enddate &lt; sysdate and rownum &lt; 4
+     	order by sl.enddate desc
+     </select> 
+     
+     <!-- 완료된 강의 coursename -->
+     <select resultType="String" id="recentlyCompletedLectureList2" parameterType="map">
+     	select c.coursename
+     	from course c, studylecture sl
+     	where c.courseno = sl.courseno and sl.id = #{id} and sl.enddate &lt; sysdate and rownum &lt; 4
+     	order by sl.enddate desc
+     </select> 
+     
+     <!-- 최근 구입한 강의(lecturename) -->
+	<select resultType="String" id="selectLatelyPurchasedLectureList1" parameterType="map">
+     	select l.lecturename
+     	from lecture l, studylecture sl
+     	where l.lectureno = sl.lectureno and sl.id = #{id} and sl.startdate &lt; sysdate and rownum &lt; 4 
+     	order by sl.startdate desc
+     </select> 
+     
+      <!-- 최근 구입한 강의(coursename) -->
+	<select resultType="String" id="selectLatelyPurchasedLectureList2" parameterType="map">
+     	select c.coursename
+     	from course c, studylecture sl
+     	where c.courseno = sl.courseno and sl.id = #{id} and sl.startdate &lt; sysdate and rownum &lt; 4 
+     	order by sl.startdate desc
+     </select> 
+     
+	<!-- 내가 가르치는 강좌 리스트 - teachMain -->
+	  <select id="selectAllCourseListForTeach" parameterType="String" resultType="Course">
+   	<!--    select * from teachcourse where id=#{id}  -->
+      select * from course where courseno in 
+      (select courseno from teachcourse where id = #{id})
+      order by regdate desc
+   </select>
+	
+	<!-- 해당 강좌 안에 있는 강의 리스트 - CourseDetailForTeach -->
+	
+	<select id="selectMaxLectureno" resultType="int">
+		select max(lectureno) from lecture
+	</select>  
+	
+	<!-- 강좌 등록 (사이드 바)  - insertCousre -->
+	<!-- Course -->
+	<insert id="insertCourse" parameterType="Course">
+       	insert into course(courseno, coursename, id, username, introdution, regdate) values (course_seq.nextVal ,#{coursename}, #{id}, #{username}, #{introdution}, sysdate)
+  	</insert>   
+  	
+ 	<!-- CourseType -->
+ 	<insert id="insertCourseType" parameterType="map">
+      <!-- <foreach collection="list" item="vo" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+       --> 
+       <selectKey keyProperty="courseno" resultType="int" order="BEFORE">
+    		select max(courseno) from course 
+  		</selectKey>
+      	insert into coursetype (courseno , typeno)
+     <!--   VALUES (#{vo.courseno} , #{vo.typeno}) -->
+     	values (#{courseno}, #{typeno})
+  	</insert>
+  	<!-- TeachCourse -->
+  	<insert id="insertTeachCourse" parameterType="map">
+         <selectKey keyProperty="courseno" resultType="int" order="BEFORE">
+          select max(courseno) from course 
+        </selectKey>
+            insert into teachcourse (id, courseno, coursename, startdate)
+           values (#{id}, #{courseno}, #{coursename},sysdate)
+     </insert>
+
+	<!-- 강의 등록 - insertLecture -->
+	
+	<!--insertLecture-->
+ 	<insert id="insertLecture" parameterType="Lecture">
+      		insert into lecture (courseno, lectureno, lecturename, regdate , originalfilename, uploadedfilename)
+      		values (#{courseno}, lecture_seq.nextVal, #{lecturename}, sysdate, #{originalfilename} , #{uploadedfilename}) 
+   	</insert>
+   
+   	<!-- teachLecture -->
+   	<insert id="insertTeachLecture" parameterType="map">
+      		<selectKey keyProperty="lectureno" resultType="int" order="BEFORE">
+        		 select max(lectureno) from lecture 
+        	</selectKey>
+        	insert into teachlecture (id, courseno, lectureno, point, studentcount)
+		values (#{id}, #{courseno} ,#{lectureno}, #{point}, (select count(*) from studylecture where lectureno=#{lectureno}))
+   	</insert>
+     	
+   
+   	<!-- insert subnote -->
+	<insert id="insertSubnote" parameterType="Subnote">
+      		<selectKey keyProperty="lectureno" resultType="int" order="BEFORE">
+          		select max(lectureno) from lecture 
+        	</selectKey>
+   
+		 insert into subnote (id, subnoteno
+      	<if test="originalfilename != null"> , originalfilename, uploadedfilename </if>
+      	, lectureno) values (#{id}, subnote_seq.nextVal  
+      	<if test="originalfilename != null"> , #{originalfilename} , #{uploadedfilename} </if>
+      	,#{lectureno}) 
+   	</insert>
+   
+	 <!--insert lecturecoding -->
+     	<insert id="insertlecturecodingInInsertLecture" parameterType="map">
+        	<selectKey keyProperty="lectureno" resultType="int" order="BEFORE">
+          	select max(lectureno) from lecture 
+        	</selectKey>
+         	insert into lecturecoding (lectureno , codingno)
+        	values (#{lectureno}, #{codingno})
+     	</insert> 
+   
+	 <!-- coding -->
+         <insert id="insertCoding" parameterType="map">
+         	<selectKey keyProperty="courseno" resultType="int" order="BEFORE">
+          		select max(courseno) from course 
+        	</selectKey>
+            	insert into coding (codingno, courseno, coursename, startdate)
+           	values (#{id}, #{courseno}, #{coursename},sysdate )
+     	</insert> 
+	
+	
+	
+	<!--티치메인페이지-->
+	<select id="selectAllLectureListForTeach" resultType="Lecture" parameterType="int">
+		select * from lecture where courseno =#{courseno}
+	</select>
+	
+	<!--강좌하나선택-->
+	<select id="selectCourse" resultType="Course" parameterType="int">
+		select * from Course where courseno = #{courseno}
+	</select>
+	
+	
+	<!-- 강의삭제 -->
+	<!-- 	<select id="selectdelete" resultType="String">
+		select CONSTRAINT_NAME, TABLE_NAME, R_CONSTRAINT_NAME
+		from user_constraints
+		where CONSTRAINT_NAME = 'SYS_C0036932' 
+	</select> -->
+	<delete id="deleteCheckLecture" parameterType="int">
+		delete from checklecture where lectureno =#{lectureno}
+	</delete>
+	<delete id="deleteStudyLecture" parameterType="int">
+		delete from studylecture where lectureno =#{lectureno}
+	</delete>
+    	<delete id="deleteSubnote" parameterType="int">
+		delete from subnote where lectureno =#{lectureno}
+	</delete>
+	<delete id="deleteTeachLecture" parameterType="int">
+		delete from teachlecture where lectureno =#{lectureno}
+	</delete>                                                     
+	<!-- deleteLectureCoding -->
+	<delete id="deleteLectureCoding" parameterType="int">
+		delete from lecturecoding where lectureno =#{lectureno}
+	</delete>
+	<!-- deleteLecture -->
+	<delete id="deleteLecture" parameterType="int">
+		delete from lecture where lectureno =#{lectureno}
+	</delete>
+	
+	
+	
+	<!-- 강의 비디오수정 -->
+	<update id="updateLecture" parameterType="map">
+		update lecture 
+		set originalfilename= #{originalfilename} ,
+			uploadedfilename= #{uploadedfilename}
+		where lectureno=#{lectureno}
+	</update>
+	
+	<!-- 강의 서브노트수정 -->
+	<update id="updateSubnote" parameterType="Subnote">
+		update subnote 
+		set originalfilename= #{originalfilename} ,
+			uploadedfilename= #{uploadedfilename}
+		where lectureno=#{lectureno}
+	</update>
+	
+	<!-- 강의 수정 -->
+	<update id="updateCourseName" parameterType="map">
+		update course
+		set coursename=#{coursename}
+		where courseno=#{courseno}
+	</update>
+	<update id="updateCourseIntrodution" parameterType="map">
+		update course
+		set introdution=#{introdution}
+		where courseno=#{courseno}
+	</update>
+	
+	
+	
+	<!-- 강의찾기 mediaPlayerForm -->
+	<select id="selectLecture" parameterType="int" resultType="Lecture">
+		select * from lecture where lectureno=#{lectureno}
+	</select>
+
+	
+	<!-- teachcourse 리스트 의 갯수 -->
+	<select id="getTotal" resultType="int" parameterType="String">
+		select count(*) from teachcourse where id=#{id}
+	</select>
+	
+	<!-- 문제보관- 문제출력-->
+	
+	<!--  teachmain에서 누른 문제보관함 속 강좌 리스트 뿌리기 -->
+	<select id="getAllCourseListForCodingBox" parameterType="String" resultType="Course">
+		select * from Course where id = #{id}
+	</select>
+	
+ 	 <!--  teachmain에서 누른 문제보관함 속 강의 리스트 뿌리기 -->
+	<select id="getAllLectureListForCodingBox" parameterType="int" resultType="Lecture">
+		select * from Lecture where courseno = #{courseno}
+	</select>
+	
+	<!--   teachmain에서 누른 문제보관함 전체 코딩 문제 가져오기 -->
+	<select id="getAllCodingList" parameterType="String" resultMap="CodingMap">
+		select * from Coding where id = #{id}
+	</select>
+	
+	<!--  teachmain에서 누른 문제보관함 insert -->
+	
+	<insert id="insertCodingfromMain" parameterType="Coding">
+		insert into coding (codingno, codingquestion, codingtemplet, codinganswer,id)
+     		values (coding_seq.nextVal, #{codingquestion}, #{codingtemplet:VARCHAR},#{codinganswer:VARCHAR},#{id})
+	</insert>
+	
+	<select id="getCodingContent" parameterType="int"  resultMap="CodingMap">
+		select * from Coding where codingno = #{codingno}
+	</select>
+	
+	<update id="updateCodingfromMain" parameterType="Coding">
+	update coding set codingquestion = #{codingquestion}, codingtemplet = #{codingtemplet:VARCHAR}, codinganswer = #{codinganswer:VARCHAR}
+	where codingno = #{codingno} 
+	</update>
+	
+	<delete id="deleteCodingfromMain" parameterType="int">
+	delete from coding where codingno = #{codingno}
+	</delete>
+	
+	<select id="getCodingno" parameterType="int" resultType="int">
+		select codingno from lecturecoding where lectureno = #{lectureno} 
+	</select>
+	
+	<!-- <select id="getCodinginlecture" parameterType="int" resultMap="CodingMap">
+		select * from Coding where codingno = #{codingno}
+	</select> -->
+	
+	<select id="getCodinginlecture" parameterType="list" resultMap="CodingMap">
+		select * from Coding where codingno in
+		<foreach collection="list" item="no" open="(" separator="," close=")">
+			#{no}
+     	</foreach>
+	</select> 
+	
+	<!-- 영호 insert -->
+	<insert id="insertLectureCoding" parameterType="map">
+		insert into lecturecoding values(#{lectureno}, #{codingno})
+	</insert>
+	
+	<!-- insertSelectedCodingfromInsertLecture- 코딩탬프테이블에먼저저장 -->
+	<insert id="insertCodingTemp" parameterType="map">
+		insert into codingtemp values (#{id}, #{codingno})
+	</insert>
+	<!-- 코딩탬프 삭제 -->
+	<delete id="deleteCodingTemp" parameterType="String">
+		delete from codingtemp where id=#{id}
+	</delete>
+	<!-- 코딩탬프 찾기 -->
+	<select id="selectForCodingTemp" parameterType="String" resultType="Coding">
+		<!-- select codingno from codingtemp where id=#{id} -->
+		select * from codingtemp where id=#{id}
+	</select>
+ 
+</mapper>
+
+
