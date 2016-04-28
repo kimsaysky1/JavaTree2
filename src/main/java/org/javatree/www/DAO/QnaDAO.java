@@ -1,5 +1,6 @@
 package org.javatree.www.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,5 +26,7 @@ public interface QnaDAO {
 	public Member_jt selectOneMember(String string);
 	public List<Question> selectAllQuestionRelatedInCoding(Map map);
 	public void clickNotification(Map map);
+	public String selectTypeName(int typenoTemp);
+	public void addCurious(Map map);
 	
 }
