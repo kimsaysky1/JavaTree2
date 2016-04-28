@@ -117,10 +117,6 @@ $(function(){
 		} 
 		 
 		 document.getElementById('joinForm').submit();
-<<<<<<< HEAD
-=======
-		
->>>>>>> aa748f1e11e133ac6f1761f2f270fc7fa73e4270
 		
 	});
 		
@@ -128,9 +124,6 @@ $(function(){
 
 </script>
 
-<<<<<<< HEAD
-
-=======
 <script type="text/javascript">
 function idCheck() { 
 	

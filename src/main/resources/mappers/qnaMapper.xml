@@ -180,7 +180,14 @@
 	<delete id="clickNotification" parameterType="map">
    		delete from notification where receiverid = #{id} and questionno = #{questionno}
     </delete>
+    
+    <select id="selectTypeName" parameterType="int" resultType="String">
+    	select type from typename where typeno = #{typeno}
+    </select>
 	
+	<select id="addCurious" parameterType="map">
+		update question set curious = #{curious} where questionno = #{questionno}
+	</select>
 	<!-- <insert id="insert"> 
 	
 	</insert> -->

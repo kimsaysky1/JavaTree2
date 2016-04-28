@@ -56,14 +56,14 @@
 							<div class="container">
 
 								<h3 class="md black">Field</h3>
-								<div>${question.typeno}</div>
+								<div>${typeName}</div>
 
 								<h3 class="md black">Question-title</h3>
 								<div class="row">
 									<div class="col-md-9">
 										<div class="avatar-acount2">
 											<div class="info-acount">
-												<p>ad ma commodo consequat.</p>
+												<p>${question.title}</p>
 											</div>
 										</div>
 									</div>
@@ -87,7 +87,7 @@
 													&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 													<div class="profile-address">
 														<h5>GUNGGUMDO</h5>
-														<p>${question.curious}</p>
+														<p id = "curious">${question.curious}</p>
 													</div>
 													&nbsp; &nbsp;
 
@@ -125,7 +125,7 @@
 													<h4 class="md black"><s:property value="content"/>
 													<div class="comment-meta">
 														<a href="#"><s:property value="regdate"/></a> 
-														<a href="#"><i class="icon md-arrow-up"></i>추천&nbsp;<s:property value="recommend"/></a> 
+														<a href="#"><i class="icon md-arrow-up"></i>추천&nbsp;<span id = "recommend"><s:property value="recommend"/></span></a> 
 														<a href="#" linkvalue = "<s:property value="replyno"/>" class="showRereply"><i class="icon md-back"></i>REPLY</a>
 													</div>
 												</div>
@@ -241,15 +241,18 @@
 	<!-- END / FOOTER -->
 	
 	<script type="text/javascript">
+	
+	
 	$(function(){
-		$("body").on('click', '.showRereply', function(){
+		
+		$("body").on('click', '.showRereply', function(){ // 대댓글 보기
 			var temp = $(this).attr('linkvalue');
 			//$("#"+temp).css('display', 'block');
 			$("#"+temp).toggle(1500);
 			$("#"+temp).focus();
 		});
 		
-		$("body").on('click', '.insertRereplyButton', function(){
+		$("body").on('click', '.insertRereplyButton', function(){ // 대댓글 달기
 			var replyno = $(this).parent().attr('id');
 			var content = $(this).prev().val();
 			$.ajax({
@@ -264,6 +267,24 @@
 						$('<p>'+rereply.id+' '+rereply.content+'</p><br/>').appendTo("#"+replyno);
 					});
 					$('<input type = "text" class="insertRereplyText"/><input type = "button" value="덧글작성" class="insertRereplyButton"/>').appendTo("#"+replyno);
+				}
+			});
+		});
+		
+		
+		$("#addCurious").on('click', function(){
+			var curious = "${question.curious}";
+			var questionno = "${question.questionno}";
+			$.ajax({
+				type: 'GET'
+				, url: 'addCurious'
+				, data : 'question.curious='+curious+'&question.questionno='+questionno
+				, dataType : 'json'
+				, success : function(response){
+					$("#curious").text(response.curious);
+				}
+				, error : function(response){
+					alert('실패');
 				}
 			});
 		});
