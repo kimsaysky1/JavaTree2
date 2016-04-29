@@ -176,12 +176,37 @@
 
 				<div class="paging" align="center">
 					<ul class="pager">
-						<li class="pager-current">1</li>
+						
+						<s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
+             <li> <a><s:property value="#session.currentPage"/></a> </li>
+             </s:if>
+            
+            <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
+            <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/></a></li>
+             <li><a href = 'plusCourseDetailForTeach.action?currentPage=<s:property value="#session.currentPage + 1"/>&courseno=<s:property value="courseno"/>'>next &gt</a></li>
+            </s:elseif>
+			
+			<s:elseif test='#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1'>
+             <li><a href = 'plusCourseDetailForTeach.action?currentPage=<s:property value="#session.currentPage - 1"/>&courseno=<s:property value="courseno"/>'>&lt prev</a></li>
+            <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/> </a> </li>
+            </s:elseif>
+            
+			<s:elseif test="#session.currentPage == 0">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:elseif>
+             
+			<s:else>
+             <li><a href = 'plusCourseDetailForTeach.action?currentPage=<s:property value="#session.currentPage - 1"/>&courseno=<s:property value="courseno"/>'>&lt prev</a></li>
+             <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = 'plusCourseDetailTeach.action?currentPage=<s:property value="#session.currentPage + 1"/>&courseno=<s:property value="courseno"/>'>next &gt</a></li>
+            </s:else>
+						
+						<!-- <li class="pager-current">1</li>
 						<li><a href="#">2</a></li>
 						<li><a href="#">3</a></li>
 						<li><a href="#">4</a></li>
 						<li><a href="#">next ›</a></li>
-						<li><a href="#">last »</a></li>
+						<li><a href="#">last »</a></li> -->
 					</ul>
 				</div>
 

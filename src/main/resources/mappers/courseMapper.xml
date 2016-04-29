@@ -21,7 +21,13 @@
 		<result property="regdate"  column="regdate"/>
 	</resultMap> -->
 	
-	
+		<resultMap type="Course" id="tCourseMap">
+       <result property="id" column="id"/>
+      <result property="courseno" column="courseno"/>
+      <result property="coursename" column="coursename"/>
+      <collection property="courseTypeList" javaType="java.util.ArrayList" column="courseno" ofType="int" select="selectTypeno"/>
+   </resultMap>
+   
 	 <resultMap type="Course" id="sCourseMap">
        <result property="id" column="id"/>
       <result property="courseno" column="courseno"/>
@@ -29,6 +35,8 @@
       <result property="teacherid" column="teacherid"/>
       <collection property="courseTypeList" javaType="java.util.ArrayList" column="courseno" ofType="int" select="selectTypeno"/>
    </resultMap>
+   
+   
 	
 	<resultMap type="Lecture" id="sLectureMap">
        	<result property="coursename" column="coursename"/>
@@ -329,6 +337,22 @@
      	where c.courseno = sl.courseno and sl.id = #{id} and sl.startdate &lt; sysdate and rownum &lt; 4 
      	order by sl.startdate desc
      </select> 
+     
+     <!-- teachmain 초기(전체) 페이징  -->
+	<select id="pagingTeachCourse" resultMap="tCourseMap" parameterType="map">
+		SELECT id, courseno, coursename 
+		from (select rownum as rnum, T1.* from (select courseno, id, coursename from teachcourse where id = #{id} 
+		group by courseno, id, coursename order by courseno desc) T1)
+		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end}
+	</select>
+	
+     <!-- teachmain 강좌수찾기 -->
+     <select id="selectTeachTotal" resultType="int" parameterType="map">
+		SELECT count(*)
+		from (select rownum as rnum, T1.* from (select courseno, id, coursename from teachcourse where id = #{id} 
+		group by courseno, id, coursename order by courseno desc) T1)
+	</select>
+     
      
      <!-- 다운로드를 위한 서브노트 네임 찾기  -->
      <select id="selectUploadedFileName" parameterType="int" resultType="String">

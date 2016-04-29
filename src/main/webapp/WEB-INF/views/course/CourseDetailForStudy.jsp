@@ -187,14 +187,14 @@
             <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/> </a> </li>
             </s:elseif>
             
-			<s:if test="#session.currentPage == 0">
+			<s:elseif test="#session.currentPage == 0">
              <li><a> <s:property value="#session.currentPage"/> </a></li>
-             </s:if>
+             </s:elseif>
              
 			<s:else>
-             <li><a href = 'plusCourseDefaultDetail.action?currentPage=<s:property value="#session.currentPage - 1"/>&courseno=<s:property value="courseno"/>'>&lt prev</a></li>
+             <li><a href = 'plusCourseDetailForStudy.action?currentPage=<s:property value="#session.currentPage - 1"/>&courseno=<s:property value="courseno"/>'>&lt prev</a></li>
              <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/> </a></li>
-             <li><a href = 'plusCourseStudyDetail.action?currentPage=<s:property value="#session.currentPage + 1"/>&courseno=<s:property value="courseno"/>'>next &gt</a></li>
+             <li><a href = 'plusCourseDetailForStudy.action?currentPage=<s:property value="#session.currentPage + 1"/>&courseno=<s:property value="courseno"/>'>next &gt</a></li>
             </s:else>
 					
 						<!-- <li class="pager-current">1</li>

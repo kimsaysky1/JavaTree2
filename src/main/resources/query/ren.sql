@@ -75,3 +75,7 @@ SELECT s.lectureno as studying, l.lectureno as lectureno, c.courseno as courseno
 		order by lectureno asc
 		
 		
+SELECT id, courseno, coursename 
+		from (select rownum as rnum, T1.* from (select courseno, id, coursename from teachcourse where id = 1 
+		group by courseno, id, coursename order by courseno desc) T1)
+		where rnum >= 1 and rnum <= 7

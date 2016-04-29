@@ -187,17 +187,17 @@
             
             
             <s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
-             <li><a href = "#"> <s:property value="#session.currentPage"/> </a></li>
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
              </s:if>
             
             <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
-            <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
+            <li><a><s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
              <li><a href = "plusCourseDefaultMain.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
             </s:elseif>
 			
 			<s:elseif test="#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1">
              <li><a href = "plusCourseDefaultMain.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
-            <li> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></li>
+            <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
             </s:elseif>
 			
 			<s:elseif test="#session.currentPage == 0">
@@ -206,7 +206,7 @@
 			
 			<s:else>
              <li><a href = "plusCourseDefaultMain.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
-             <li> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </li>
+             <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a> </li>
              <li><a href = "plusCourseDefaultMain.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
             </s:else>
                             </ul>

@@ -90,5 +90,7 @@ public interface courseDAO {
 	public Lecture selectCourseForDetail(int courseno);
 	public String selectUploadedFileName(int lectureno);
 	public ArrayList<Lecture> selectCourseDetailForStudy(Map<String, Object> kong);
+	public ArrayList<Course> pagingTeachCourse(Map<String, Object> kong);
+	public int selectTeachTotal(Map<String, Object> kong);
 	
 }
