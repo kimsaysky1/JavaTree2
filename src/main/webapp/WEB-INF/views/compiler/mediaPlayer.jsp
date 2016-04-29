@@ -289,6 +289,8 @@ body {
 	<!-- <input type="file" accept="video/*"/>	 --> 
 	<video width="960" height="540" id="video" autoplay="autoplay" src='../resources/upload/<s:property value="uploadedfilename"/>'>
 		<%-- <source src="" type="video/mp4" /> --%><!-- src="../resources/upload/a.mp4" -->
+		<!-- '../resources/upload/<s:property value="uploadedfilename"/>' -->
+		<!-- ...../upload/ -->
 	</video>
 <div id="seek">
 <input type="range" class="time-slider" id="seek-bar" value="0" step="any" max="100" min="0" step="any" />

@@ -108,6 +108,21 @@
 		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end} 
 	</select>
 	
+	<!-- CourseDetailForStudy 강좌상세보기 -->
+	<select id="selectCourseDetailForStudy" parameterType="map" resultType="Lecture">
+		<if test="id != null">
+		SELECT s.lectureno as studying, l.lectureno as lectureno, c.courseno as courseno,
+		l.lecturename, to_char(l.regdate, 'yyyy/mm/dd') as regdate, n.uploadedfilename,
+		c.coursename as coursename, c.introdution as introdution, c.courseno as courseno, c.id as teacherid
+		FROM lecture l 
+		JOIN course c ON ( l.courseno = c.courseno and c.courseno = #{courseno} )
+		JOIN subnote n ON ( n.courseno = l.courseno and n.courseno = #{courseno} )
+		LEFT OUTER JOIN studylecture s ON (  s.lectureno = l.lectureno and s.courseno = #{courseno} and s.id = #{id}
+		)
+		order by lectureno asc
+		</if>
+	</select>
+	
 	<!-- CourseDefaultDetail 강좌상세보기 -->
 	<select id="selectCourseDefaultDetail" parameterType="map" resultType="Lecture">
 		<if test="id != null">
@@ -315,6 +330,12 @@
      	order by sl.startdate desc
      </select> 
      
+     <!-- 다운로드를 위한 서브노트 네임 찾기  -->
+     <select id="selectUploadedFileName" parameterType="int" resultType="String">
+   		select uploadedfilename from subnote where lectureno = #{lectureno}  
+     </select>
+     
+     
 	<!-- 내가 가르치는 강좌 리스트 - teachMain -->
 	  <select id="selectAllCourseListForTeach" parameterType="String" resultType="Course">
    	<!--    select * from teachcourse where id=#{id}  -->
@@ -381,9 +402,9 @@
    
 		 insert into subnote (id, subnoteno
       	<if test="originalfilename != null"> , originalfilename, uploadedfilename </if>
-      	, lectureno) values (#{id}, subnote_seq.nextVal  
+      	, lectureno, courseno) values (#{id}, subnote_seq.nextVal  
       	<if test="originalfilename != null"> , #{originalfilename} , #{uploadedfilename} </if>
-      	,#{lectureno}) 
+      	,#{lectureno}, #{courseno}) 
    	</insert>
    
 	 <!--insert lecturecoding -->

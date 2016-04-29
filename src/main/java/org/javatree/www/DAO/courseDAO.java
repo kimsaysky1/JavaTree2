@@ -88,5 +88,7 @@ public interface courseDAO {
 	public void insertCodingTemp(Map<String, Object> map);
 	public void insertLectureCoding(Map<String, Object> map);
 	public Lecture selectCourseForDetail(int courseno);
+	public String selectUploadedFileName(int lectureno);
+	public ArrayList<Lecture> selectCourseDetailForStudy(Map<String, Object> kong);
 	
 }

@@ -200,6 +200,10 @@
             <li> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></li>
             </s:elseif>
 			
+			<s:elseif test="#session.currentPage == 0">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:elseif>
+			
 			<s:else>
              <li><a href = "plusCourseDefaultMain.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
              <li> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </li>

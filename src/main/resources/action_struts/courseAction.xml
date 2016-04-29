@@ -34,6 +34,11 @@
         	<result>/WEB-INF/views/course/studyMain.jsp</result>
         </action>
         
+        <action name="selectCourseDetailForStudy" class="org.javatree.www.Action.CourseAction" method="selectCourseDetailForStudy">
+        	<interceptor-ref name="LoginCheckForMember" />
+        	<result>/WEB-INF/views/course/CourseDetailForStudy.jsp</result>
+        </action>
+        
         <action name="searchCourse" class="org.javatree.www.Action.CourseAction" method="searchCourse">
         	<result type="json"></result>
         </action>
@@ -55,6 +60,7 @@
         </action>
         
         <action name="insertLectureForStudy" class="org.javatree.www.Action.CourseAction" method="insertLectureForStudy">
+			<interceptor-ref name="LoginCheckForMember" />
         	<result>/WEB-INF/views/course/CourseDefaultDetail.jsp</result>
         	<result name="error" type="redirect">backAction.action</result>
         </action>
@@ -90,8 +96,17 @@
         	<!--<result>/WEB-INF/views/course/insertLecture.jsp</result>-->
         	<result type="redirect">selectAllCourseListForTeach.action</result>
         </action>
-     
-     
+     	
+     	<!-- downlaod -->
+     <action name="DownLoadFile" class="org.javatree.www.Action.CourseAction" method="DownLoadFile">
+			<result type="stream">
+				<param name="contentType">binary/octet-stream</param>
+				<param name="contentLength">${contentLength}</param>
+				<param name="contentDisposition">${contentDisposition}</param>
+				<param name="inputName">inputStream</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
      
 <!--문제보관함-->        
         

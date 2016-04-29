@@ -1,5 +1,5 @@
 alter table coding add (id varchar2(20) NOT NULL);--20160425 박수지 추가
-
+alter table subnote add (courseno number (6, 0) not null) -- 20160429 류창우 추가
 create sequence question_seq;
 CREATE sequence subnote_seq start with 1 increment by 1;--20160421추가    	
   
@@ -675,8 +675,7 @@ COMMENT ON TABLE typename IS '�� ���̺� : (19)�о� ���̺�
 COMMENT ON COLUMN typename.type IS 'type';
 COMMENT ON COLUMN typename.typeno IS 'typeno';
 
-ALTER TABLE studylecture
-	ADD UNIQUE (lectureno)--20160425 창우 수정, 재수강신청 방지
+
 
 
 

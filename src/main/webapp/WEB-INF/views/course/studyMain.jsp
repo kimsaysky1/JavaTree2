@@ -83,7 +83,7 @@
                         </div>
                         
                         <div class="content-item">
-                            <h3><a href="selectCourseDetailForStudy.action?=<s:property value="courseno" />"><s:property value="coursename" /></a></h3>
+                            <h3><a href="selectCourseDetailForStudy.action?courseno=<s:property value="courseno" />"><s:property value="coursename" /></a></h3>
                             <div class="name-author">
                                 By &nbsp;<s:property value="teacherid" />
                             </div>
@@ -115,22 +115,22 @@
                		   <ul class="pager">
                		   
 			<s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
-             <li><a href = "#"> <s:property value="#session.currentPage"/> </a></li>
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
              </s:if>
             
             <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
-             <li><a href = "#"> <s:property value="#session.currentPage"/> </a></li>
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
              <li><a href = "plusStudyMain.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
             </s:elseif>
 			
 			<s:elseif test="#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1">
              <li><a href = "plusStudyMain.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
-            <li><a href = "#"> <s:property value="#session.currentPage"/> </a></li>
+            <li><a> <s:property value="#session.currentPage"/> </a></li>
             </s:elseif>
 			
-			<s:if test="#session.currentPage == 0">
-             <li><a href = "#"> <s:property value="#session.currentPage"/> </a></li>
-             </s:if>
+			<s:elseif test="#session.currentPage == 0">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:elseif>
 			
 			<s:else>
              <li><a href = "plusStudyMain.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
