@@ -141,6 +141,7 @@ public class MemberAction extends ActionSupport implements SessionAware {
 				session.put("loginId", id);
 				session.put("loginName", member_jt.getUsername());
 				notificationList = dao.checkNotification(id);
+				System.out.println("notificationList: "+notificationList);
 			}
 		}
 		return SUCCESS;

@@ -137,7 +137,6 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 			}
 
 			if (contentList.get(j).contains("public static void main(String[]")) {
-				System.out.println("들어옴3");
 				checkNum++;
 				if (contentList.get(j).contains("public class")) {
 					st = new StringTokenizer(contentList.get(j), " ");
@@ -191,11 +190,10 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 					e.printStackTrace();
 				}
 			}
-			System.out.println("startClass.substring: "+startClass.substring(0, file_name.lastIndexOf(".")));
 			String[] cmd = { "java", "-cp", file_parent, packageNameMap.get(mainClassName) + "."
 					+ startClass.substring(0, file_name.lastIndexOf(".")) };
 			runProcess(cmd);
-			//deleteFile(file_parent);
+			deleteFile(file_parent);
 			checkError(result);
 			resultType = "java";
 		} else {
@@ -301,6 +299,7 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 				}
 			}
 		}*/
+		
 		return SUCCESS;
 	}
 

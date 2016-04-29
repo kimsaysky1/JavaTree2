@@ -5,8 +5,8 @@ public class Notification {
 	private String receiverid;
 	private String message;
 	private String regdate;
-	private int replyno;
 	private int questionno;
+	private int notificationno;
 
 	public String getSenderid() {
 		return senderid;
@@ -40,14 +40,6 @@ public class Notification {
 		this.regdate = regdate;
 	}
 
-	public int getReplyno() {
-		return replyno;
-	}
-
-	public void setReplyno(int replyno) {
-		this.replyno = replyno;
-	}
-
 	public int getQuestionno() {
 		return questionno;
 	}
@@ -56,20 +48,22 @@ public class Notification {
 		this.questionno = questionno;
 	}
 
-	@Override
-	public String toString() {
-		return "Notification [senderid=" + senderid + ", receiverid=" + receiverid + ", message=" + message
-				+ ", regdate=" + regdate + ", replyno=" + replyno + ", questionno=" + questionno + "]";
+	public int getNotificationno() {
+		return notificationno;
 	}
 
-	public Notification(String senderid, String receiverid, String message, String regdate, int replyno,
-			int questionno) {
+	public void setNotificationno(int notificationno) {
+		this.notificationno = notificationno;
+	}
+
+	public Notification(String senderid, String receiverid, String message, String regdate, int questionno,
+			int notificationno) {
 		this.senderid = senderid;
 		this.receiverid = receiverid;
 		this.message = message;
 		this.regdate = regdate;
-		this.replyno = replyno;
 		this.questionno = questionno;
+		this.notificationno = notificationno;
 	}
 
 	public Notification() {

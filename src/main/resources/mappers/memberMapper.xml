@@ -29,7 +29,11 @@
    
    <select id="checkNotification" parameterType="String" resultType="Notification">
    		select senderid, receiverid, message, to_char(regdate, 'yyyy/mm/dd') as regdate,
+<<<<<<< HEAD
    		questionno from notification where receiverid = #{id}
+=======
+   		questionno, notificationno from notification where receiverid = #{id}
+>>>>>>> f7964212bf579397fac0354557825d0303f44943
    </select>
    
   
