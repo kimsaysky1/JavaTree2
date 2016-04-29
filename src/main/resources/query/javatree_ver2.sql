@@ -1,8 +1,16 @@
+alter table notification modify regdate default sysdate -- 20160429 김영호 추가
+alter table rereply modify regdate default sysdate -- 20160429 김영호 추가
+alter table notification modify message varchar2(200) --20160429 김영호 추가
+alter table notification add (notificationno number(6,0)) -- 20160429 김영호 추가
+alter table notification modify (notificationno number(6,0) primary key); -- 20160429 김영호 추가
+alter table notification drop column replyno; -- 20160429 김영호 추가
+create sequence notification_seq -- 20160429 김영호 추가
+
 alter table coding add (id varchar2(20) NOT NULL);--20160425 박수지 추가
 
 create sequence question_seq;
 CREATE sequence subnote_seq start with 1 increment by 1;--20160421추가    	
-  
+
 alter table studylecture add (courseno number(6,0) NOT NULL)--창우 studylecture
 alter table studycourse drop column startdate;
 alter table studycourse drop column enddate;
