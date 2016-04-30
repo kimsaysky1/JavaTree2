@@ -66,13 +66,17 @@ public class QnaAction extends ActionSupport implements SessionAware {
 
 	public String insertQuestionByModal() throws Exception {
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
+		System.out.println("insertquestionmodal 드러옴");
 		String loginId = (String) session.get("loginId");
 		String loginName = (String) session.get("loginName");
-		int typenoTemp = Integer.parseInt(typeno);
+		int typenoTemp = question.getTypeno();
+		System.out.println("loginId: "+loginId);
+		System.out.println("loginName: "+loginName);
 		question.setId(loginId);
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
 		typeName = dao.selectTypeName(typenoTemp);
+		System.out.println("question: "+question);
 		dao.insertQuestion(question);
 		return SUCCESS;
 	}
@@ -89,7 +93,6 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
 		typeName = dao.selectTypeName(typenoTemp);
-		System.out.println("question: "+question);
 		dao.insertQuestion(question);
 		makeQnaDefaultMain(loginId);
 		return SUCCESS;
