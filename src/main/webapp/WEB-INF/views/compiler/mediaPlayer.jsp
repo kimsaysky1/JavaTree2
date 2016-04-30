@@ -373,7 +373,8 @@ body {
 	<button id = "run">실행</button>
 	<br/>
 	<button id = "qna">Q&A</button>
-	
+	<br/>
+	<input type="button" value="문제 저장하기" id = "goCodingbox">
 	
 	<!-- 지식인 연동 모달 -->
 	<input style="display:none;" type="button" id="askToUser" class="mc-btn btn-style-1" data-toggle="modal" data-target="#askSelections"/>
@@ -407,8 +408,8 @@ body {
 			<div class="modal fade" id="writeQuestion" role="dialog">
 	  		</div>
             </div>
-		</div>      
-		      	
+		</div>            	
+                    	<!-- 질문 버튼 끝 -->
 <script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="../resources/javatree_view/html/js/library/bootstrap.min.js"></script>
 <script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery.owl.carousel.js"></script>
@@ -467,6 +468,8 @@ $(function(){
 	 $("#goCodingbox").on("click", function(){
 	      var codingno =  $(".codingList option:selected").val();
 	      var mycode = $('#doccontent > textarea:visible').val();
+	      alert(codingno);
+	      alert(mycode);
 	      $.ajax({
 	         url : '/javatree/course/insertcodinginbox.action',
 	         data : {'codingno' : codingno , 'mycode':mycode},
@@ -502,17 +505,17 @@ $(function(){
 				, data: 'question.content=<pre>'+content+'</pre>&question.title='+title+'&question.typeno='+typeno
 				, success : function(response){
 					alert('성공');
-					$('#writeQuestionModal').modal('hide');
+					$('#writeQuestion').modal('hide');
 				}
 				, error : function(response){
 					alert('실패');
-					$('#writeQuestionModal').modal('hide');
+					$('#writeQuestion').modal('hide');
 				}
 			})
 		});
 		
 		$('body').on('click','.cancel',function(){
-			$('#askSelections').modal('hide');
+			$('#writeQuestion').modal('hide');
 		});
 		 
 	
