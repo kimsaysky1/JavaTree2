@@ -88,7 +88,6 @@
                         <div class="content-item">
                             <h3><a href="/javatree/course/CourseDetailForTeachForm.action?courseno=<s:property value="courseno"/>"><s:property value="coursename" /><!-- CourseTitle --></a></h3>
                             <div class="edit-view">
-                                <a href="" class="edit">Edit</a>
                                 <a href="/javatree/course/insertLectureForm.action?courseno=<s:property value="courseno"/>" class="view">ADD LECTURE</a>
                             </div>
                         </div>

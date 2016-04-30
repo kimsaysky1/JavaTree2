@@ -48,6 +48,11 @@
      	<action name="addCurious" class="org.javatree.www.Action.QnaAction" method="addCurious">
      		<result type="json"></result>
      	</action>
+     	
+     	<action name="addRecommend" class="org.javatree.www.Action.QnaAction" method="addRecommend">
+     		<result type="json"></result>
+     	</action>
+     		
     </package>
 
 </struts>
