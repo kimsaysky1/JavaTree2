@@ -57,6 +57,9 @@
         	<result type="json"></result>
         </action>
      	
+     	<action name="plusSelectListbyField" class="org.javatree.www.Action.QnaAction" method="plusSelectListbyField">
+        	<result type="json"></result>
+        </action>
     </package>
 
 </struts>

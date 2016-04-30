@@ -133,18 +133,18 @@
 	
 	<select id="selectAllQuestion" parameterType="map" resultMap="QuestionMap">
 		SELECT questionno, typeno, codingno, id, username, title,
-		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
-		 (select rownum as rnum, T1.* from (select * from question
-		 <where>
-		 	<if test="typenoList != null">
-			 	typeno in
-			 	<foreach collection="typenoList" item="type" index="index" separator="," open="(" close=")">
-	            #{type}
-	        	</foreach>
-		 	</if>
-		 </where>
-		  order by questionno desc) T1)
- 		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end} 
+      content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
+       (select rownum as rnum, T1.* from (select * from question
+       <where>
+          <if test="typenoList != null">
+             typeno in
+             <foreach collection="typenoList" item="type" index="index" separator="," open="(" close=")">
+               #{type}
+              </foreach>
+          </if>
+       </where>
+        order by questionno desc) T1)
+       where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end} 
 	</select>
 
 	<select id="gunggumAllQuestionList" resultMap="QuestionMap">
@@ -255,11 +255,14 @@
 		update reply set recommend = #{recommend} where replyno = #{replyno}
 	</select>
 	
-	<!-- 분야별 검색 total 가져오기  -->	
+ 	
+
 	<select resultType="int" id="selectFieldTotal" parameterType="map">
-		select count(*) from  (select rownum as rnum, T1.* from (select * from question
-	 	<where>
+		SELECT count(*) from
+		 (select rownum as rnum, T1.* from (select * from question
 		<if test="interest0 != null">
+		where typeno IN 
+		(
 			#{interest0}
 		</if>
 		<if test="interest1 != null">
@@ -274,22 +277,20 @@
 		<if test="interest4 != null">
 			, #{interest4}
 		</if>
-		))
-		</where>
-		order by regdate desc
+		)) 
+		T1)
 	</select>
 	
 	
-	<!-- 분야별 검색   -->	
-	<select resultType="Course" id="selectListbyField" parameterType="map">
 	
-		SELECT questionno, typeno, codingno, id, username, title,
+	<select resultType="Question" id="selectListbyField" parameterType="map">
+	
+	SELECT questionno, typeno, codingno, id, username, title,
 		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
 		 (select rownum as rnum, T1.* from (select * from question
-		 <where>
+		<if test="interest0 != null">
 		where typeno IN 
 		(
-		<if test="interest0 != null">
 			#{interest0}
 		</if>
 		<if test="interest1 != null">
@@ -304,17 +305,19 @@
 		<if test="interest4 != null">
 			, #{interest4}
 		</if>
-		))
-		 </where>
-		order by courseno 
+		)
+		order by questionno 
+		<if test="order == 'asc'">
+		asc
+		</if>
 		<if test="order == 'desc'">
 		desc
 		</if>
-		<if test="order == 'asc'">
-		asc
-		</if>	
-		))where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end}
+		) 
+		T1)
+		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end}
+		
 	
 	</select>
-	
+
 </mapper>
