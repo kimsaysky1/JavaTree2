@@ -105,7 +105,7 @@
                 <div class = "qna-side">
                     <aside class="blog-sidebar">
                     
-                    	<!-- 질문 버튼 -->
+                    	<!-- 질문 버튼 모달-->
                     	
                     	<div class="form-submit-1">
                     		<form action="insertQuestion" name="insertQuestion" method="get">
@@ -168,10 +168,9 @@
 								  	   </div>
 								  </div>
                     		</div>
-                    		</form> <!-- id = "insertQuestionReady"  btn btn-info btn-lg-->
+                    		</form> 
 						</div>
-                    	
-                    	<!-- 질문 버튼 끝 -->
+                    	<!-- 질문 버튼 모달 끝 -->
                     	<br><br>
 
                         <!-- WIDGET SEARCH -->
@@ -208,9 +207,9 @@
                             <div class="tab-pane fade in active" id="design-question">                               
                                 <table class="table-quest">
                                     <tbody>
-                                    	<s:iterator value="bestAllQuestionList">
+                                    	<s:iterator value="bestAllQuestionList" status="incr">
 	                                        <tr>
-	                                         <td class="count">1</td>
+	                                         <td class="count"><s:property value="%{#incr.index+1}"/></td>
 	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>">답변자: <s:property value="id"/> - <s:property value="title"/></a></td>                                          
 	                                        </tr>
                                     	</s:iterator>
@@ -224,9 +223,9 @@
                                 
                                 <table class="table-assignment">
                                     <tbody>
-                                        <s:iterator value="bestRecentQuestionList">
+                                        <s:iterator value="bestRecentQuestionList" status="incr">
 	                                        <tr>
-	                                         <td class="count">1</td>
+	                                         <td class="count"><s:property value="%{#incr.index+1}"/></td>
 	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>">답변자: <s:property value="id"/> - <s:property value="title"/></a></td>                                          
 	                                        </tr>
                                     	</s:iterator>
@@ -260,9 +259,9 @@
                             <div class="tab-pane fade in active" id="design-question1">                               
                                 <table class="table-quest">
                                     <tbody>
- 										<s:iterator value="gunggumAllQuestionList">
+ 										<s:iterator value="gunggumAllQuestionList" status="incr">
 	                                        <tr>
-	                                         <td class="count">1</td>
+	                                         <td class="count"><s:property value="%{#incr.index+1}"/></td>
 	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>">질문자: <s:property value="id"/> -<s:property value="title"/></a></td>                                          
 	                                        </tr>
                                     	</s:iterator>
@@ -276,9 +275,9 @@
                                 
                                 <table class="table-assignment">
                                     <tbody>
-                                        <s:iterator value="gunggumRecentQuestionList">
+                                        <s:iterator value="gunggumRecentQuestionList" status="incr">
 	                                        <tr>
-	                                         <td class="count">1</td>
+	                                         <td class="count"><s:property value="%{#incr.index+1}"/></td>
 	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>"><s:property value="title"/></a></td>                                          
 	                                        </tr>
                                     	</s:iterator>
@@ -361,6 +360,7 @@
 					stringForTokenizer += test[i].value + ',';
 				}
 			}
+			
 			$.ajax({
 				type: 'GET'
 				, url: 'plusQnaDefaultMain'
@@ -381,5 +381,6 @@
 		});
 	});
 	</script>
+	<script src="../resources/checkMessage.js"></script>
 </body>
 </html>

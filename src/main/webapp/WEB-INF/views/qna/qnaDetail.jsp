@@ -114,7 +114,7 @@
 						<hr class="hr2">
 						<section class="profil2">
 							<ul class="list-discussion">
-							
+								<!-- 답변 영역 -->
 								<s:iterator value="replyList">
 									<!-- LIST ITEM -->
 									<li>
@@ -130,6 +130,7 @@
 													</div>
 												</div>
 											</div>
+											<!-- 대댓글 영역 -->
 											<div class ="rereplyArea">
 												<div id="<s:property value="replyno"/>" style="display:none; background-color: lightblue;">
 													<s:iterator value="rereplyList">
@@ -140,10 +141,12 @@
 													<input type = "button" value="덧글작성" class="insertRereplyButton"/>
 												</div>
 											</div>
+											<!-- 대댓글 영역 끝 -->
 										</div>
 									</li>
 									<!-- END / LIST ITEM -->
 								</s:iterator>
+								<!-- 답변 영역 끝 -->
 							</ul>
 					</div>
 	</section>
@@ -202,6 +205,8 @@
 								</tr>
 								<tr>
 									<td></td>
+									<input type="hidden" value="${question.id}" name="notification.receiverid" />
+									<input type="hidden" value="${question.questionno}" name="notification.questionno" />
 									<input type="hidden" value="${question.questionno}" name="reply.questionno" />
 								</tr>
 							</table>
@@ -217,7 +222,7 @@
 	</form>
 	<!-- insertReply 모달 끝-->
 
-<%@include file="/resources/footer.jsp" %>
+	<%@include file="/resources/footer.jsp" %>
 	
 	<script type="text/javascript">
 	
@@ -234,10 +239,16 @@
 		$("body").on('click', '.insertRereplyButton', function(){ // 대댓글 달기
 			var replyno = $(this).parent().attr('id');
 			var content = $(this).prev().val();
+			var questionno = "${question.questionno}";
+			var receiverid = "${question.id}";
+			
+			alert('questionno: '+questionno);
+			alert('receiverid: '+receiverid);
 			$.ajax({
 				type: 'GET'
 				, url: 'insertRereply'
-				, data : 'replyno='+replyno+'&rereply.replyno='+replyno+'&rereply.content='+content
+				, data : 'replyno='+replyno+'&rereply.replyno='+replyno+'&rereply.content='+content+
+				'&notification.questionno='+questionno+'&notification.receiverid='+receiverid
 				, dataType : 'json'
 				, success : function(response){
 					var list = response.rereplyList;
@@ -278,5 +289,6 @@
 	<script type="text/javascript" src="../resources/javatree_view/html/js/library/perfect-scrollbar.min.js"></script>
 	<script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery.easing.min.js"></script>
 	<script type="text/javascript" src="../resources/javatree_view/html/js/scripts.js"></script>
+	<script src="../resources/checkMessage.js"></script>
 </body>
 </html>

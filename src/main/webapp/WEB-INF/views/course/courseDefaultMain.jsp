@@ -187,22 +187,26 @@
             
             
             <s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
-             <li><a href = "#"> <s:property value="#session.currentPage"/> </a></li>
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
              </s:if>
             
             <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
-            <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
+            <li><a><s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
              <li><a href = "plusCourseDefaultMain.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
             </s:elseif>
 			
 			<s:elseif test="#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1">
              <li><a href = "plusCourseDefaultMain.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
-            <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
+            <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
             </s:elseif>
+			
+			<s:elseif test="#session.currentPage == 0">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:elseif>
 			
 			<s:else>
              <li><a href = "plusCourseDefaultMain.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
-             <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a> </li>
              <li><a href = "plusCourseDefaultMain.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
             </s:else>
                             </ul>
@@ -254,7 +258,7 @@
                                         <s:iterator value="allRank" status="counter" >
                                         <tr>
                                          <td class="count"> <s:property value="#counter.index + 1" /> </td>
-                                            <td><s:property value="coursename" /> &nbsp;[ &nbsp;ID: &nbsp; <s:property value="id" /> &nbsp; ]</td>                                          
+                                            <td><a href="selectCourseDefaultDetail.action?courseno=<s:property value="courseno" />"><s:property value="coursename" /></a> &nbsp;[ &nbsp;ID: &nbsp; <s:property value="id" /> &nbsp; ]</td>                                          
                                         </tr>
 										</s:iterator>
 										
@@ -271,7 +275,7 @@
                                         <s:iterator value="recentRank" status="counter" >
                                         <tr>
                                          <td class="count"> <s:property value="#counter.index + 1" /> </td>
-                                            <td><s:property value="coursename" />&nbsp;[ID: &nbsp;<s:property value="id" />&nbsp; ]</td>                                          
+                                            <td><a href="selectCourseDefaultDetail.action?courseno=<s:property value="courseno" />"><s:property value="coursename" /></a>&nbsp;[ID: &nbsp;<s:property value="id" />&nbsp; ]</td>                                          
                                         </tr>
 										</s:iterator>
                                     </tbody>

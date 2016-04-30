@@ -10,7 +10,10 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../resources/jquery-2.2.3.min.js"></script>
 <script type="text/javascript" src="../resources/jquery-ui.min.js"></script>
-<!-- <link rel="stylesheet" type="text/css" href="css/vol-bar.css"> -->
+<%-- <script type="text/javascript" src="../resources/jqueryFileTree.js"></script>
+<script type="text/javascript" src="../resources/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery.easing.js"></script>
+<link rel="stylesheet" type="text/css" href="../resources/jqueryFileTree.css"/> --%>
 <style type="text/css">
 	   
 video {pointer-events: none;
@@ -289,6 +292,8 @@ body {
 	<!-- <input type="file" accept="video/*"/>	 --> 
 	<video width="960" height="540" id="video" autoplay="autoplay" src='../resources/upload/<s:property value="uploadedfilename"/>'>
 		<%-- <source src="" type="video/mp4" /> --%><!-- src="../resources/upload/a.mp4" -->
+		<!-- '../resources/upload/<s:property value="uploadedfilename"/>' -->
+		<!-- ...../upload/ -->
 	</video>
 <div id="seek">
 <input type="range" class="time-slider" id="seek-bar" value="0" step="any" max="100" min="0" step="any" />
@@ -369,6 +374,7 @@ body {
 	<br/>
 	<button id = "qna">Q&A</button>
 	
+	<div id="tree">트리</div>
 	
 	<!-- 지식인 연동 모달 -->
 	<input style="display:none;" type="button" id="askToUser" class="mc-btn btn-style-1" data-toggle="modal" data-target="#askSelections"/>
@@ -469,6 +475,11 @@ body {
 <script type="text/javascript">
 
 $(function(){
+	 $('#tree').fileTree({ root: '/C:/' }, function(file) {
+			alert(1);
+	        alert(file);
+	    });
+	
 	
 	 $("#goCodingbox").on("click", function(){
 	      var codingno =  $(".codingList option:selected").val();

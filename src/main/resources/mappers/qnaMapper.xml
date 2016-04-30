@@ -103,6 +103,21 @@
 		)
 	</insert>
 	
+	<insert id="insertNotification">
+		insert into notification
+		(senderid, receiverid, message, regdate, questionno, notificationno
+		) 
+		values
+		(
+		#{senderid}
+		, #{receiverid}
+		, #{message}
+		, sysdate
+		, #{questionno}
+		, notification_seq.nextVal
+		)
+	</insert>
+	
 	<select id="getTotal" resultType="int">
 		select count(*) from question
 	</select>
@@ -178,7 +193,7 @@
 	</select>
 	
 	<delete id="clickNotification" parameterType="map">
-   		delete from notification where receiverid = #{id} and questionno = #{questionno}
+   		delete from notification where receiverid = #{id} and notificationno = #{notificationno}
     </delete>
     
     <select id="selectTypeName" parameterType="int" resultType="String">

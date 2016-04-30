@@ -14,6 +14,7 @@ import org.javatree.www.Util.PageNavigator;
 import org.javatree.www.VO.Ability;
 import org.javatree.www.VO.Interest;
 import org.javatree.www.VO.Member_jt;
+import org.javatree.www.VO.Notification;
 import org.javatree.www.VO.Question;
 import org.javatree.www.VO.Reply;
 import org.javatree.www.VO.Rereply;
@@ -47,7 +48,9 @@ public class QnaAction extends ActionSupport implements SessionAware {
 	private int end;
 	private int curious;
 	private Map<String, Object> session;
-	private boolean notification;
+	private boolean notificationCheck;
+	private Notification notification;
+	private int notificationno;
 	private String id;
 
 	public String insertQuestionByModal() throws Exception {
@@ -59,7 +62,6 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
 		typeName = dao.selectTypeName(typenoTemp);
-		System.out.println("typeName: " + typeName);
 		dao.insertQuestion(question);
 		return SUCCESS;
 	}
@@ -76,26 +78,37 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
 		typeName = dao.selectTypeName(typenoTemp);
-		System.out.println("typeName: " + typeName);
 		dao.insertQuestion(question);
 		makeQnaDefaultMain(loginId);
 		return SUCCESS;
 	}
 
-	public String insertReplyReady() throws Exception {
-		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
-		question = dao.selectOneQuestion(questionno);
-		return SUCCESS;
-	}
-
 	public String insertReply() throws Exception {
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
-		reply.setId("1");
-		reply.setUsername("1");
+		String loginId = (String) session.get("loginId");
+		String loginName = (String) session.get("loginName");
+		reply.setId(loginId);
+		reply.setUsername(loginName);
 		dao.insertReply(reply);
+		notification.setSenderid(loginId);
+		notification.setMessage(loginId + " 님이 답변을 다셨습니다.");
+		dao.insertNotification(notification);
 		question = dao.selectOneQuestion(reply.getQuestionno());
 		replyList = dao.selectAllReply(reply.getQuestionno());
-		System.out.println("replyList: " + replyList);
+		return SUCCESS;
+	}
+	
+	public String insertRereply() throws Exception {
+		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
+		String loginId = (String) session.get("loginId");
+		String loginName = (String) session.get("loginName");
+		rereply.setId(loginId);
+		rereply.setUsername(loginName);
+		dao.insertRereply(rereply);
+		notification.setSenderid(loginId);
+		notification.setMessage(loginId + " 님이 "+notification.getReceiverid()+"님의 답변에 댓글을 다셨습니다.");
+		dao.insertNotification(notification);
+		rereplyList = dao.selectAllRereply(replyno);
 		return SUCCESS;
 	}
 
@@ -158,7 +171,6 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		map.put("end", 5);
 		map.put("codingno", codingno);
 		questionList = dao.selectAllQuestionRelatedInCoding(map);
-		System.out.println("questionList: " + questionList);
 		gunggumAllQuestionList = dao.gunggumAllQuestionList();
 		gunggumRecentQuestionList = dao.gunggumRecentQuestionList();
 		bestAllQuestionList = dao.bestAllQuestionList();
@@ -214,36 +226,25 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question = dao.selectOneQuestion(questionno);
 		replyList = dao.selectAllReply(questionno);
 		typeName = dao.selectTypeName(question.getTypeno());
-		if (notification) {
+		if (notificationCheck) {
 			Map map = new HashMap();
 			id = (String) session.get("loginId");
 			map.put("id", id);
-			map.put("questionno", questionno);
+			map.put("notificationno", notificationno);
+			System.out.println("notificationno: "+notificationno);
 			dao.clickNotification(map);
 		}
 		return SUCCESS;
 	}
 
-	public String insertRereply() throws Exception {
-		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
-		rereply.setId("1");
-		rereply.setUsername("1");
-		rereply.setRegdate("2016-04-19");
-		System.out.println("rereply: " + rereply);
-		dao.insertRereply(rereply);
-		rereplyList = dao.selectAllRereply(replyno);
-		System.out.println("rereplyList: " + rereplyList);
-		return SUCCESS;
-	}
+
 
 	public String addCurious() throws Exception {
-		System.out.println("들어온다");
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
 		Map map = new HashMap();
 		curious = question.getCurious() + 1;
 		map.put("questionno", question.getQuestionno());
 		map.put("curious", curious);
-		System.out.println("map: " + map);
 		dao.addCurious(map);
 		return SUCCESS;
 	}
@@ -400,11 +401,19 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		this.codingtemplet = codingtemplet;
 	}
 
-	public boolean getNotification() {
+	public boolean getNotificationCheck() {
+		return notificationCheck;
+	}
+
+	public void setNotificationCheck(boolean notificationCheck) {
+		this.notificationCheck = notificationCheck;
+	}
+
+	public Notification getNotification() {
 		return notification;
 	}
 
-	public void setNotification(boolean notification) {
+	public void setNotification(Notification notification) {
 		this.notification = notification;
 	}
 
@@ -430,6 +439,14 @@ public class QnaAction extends ActionSupport implements SessionAware {
 
 	public void setCurious(int curious) {
 		this.curious = curious;
+	}
+	
+	public int getNotificationno() {
+		return notificationno;
+	}
+
+	public void setNotificationno(int notificationno) {
+		this.notificationno = notificationno;
 	}
 
 	@Override

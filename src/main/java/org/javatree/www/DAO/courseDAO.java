@@ -87,5 +87,10 @@ public interface courseDAO {
 	public ArrayList<Coding> getSelectedCoding(String id);
 	public void insertCodingTemp(Map<String, Object> map);
 	public void insertLectureCoding(Map<String, Object> map);
+	public Lecture selectCourseForDetail(int courseno);
+	public String selectUploadedFileName(int lectureno);
+	public ArrayList<Lecture> selectCourseDetailForStudy(Map<String, Object> kong);
+	public ArrayList<Course> pagingTeachCourse(Map<String, Object> kong);
+	public int selectTeachTotal(Map<String, Object> kong);
 	
 }
