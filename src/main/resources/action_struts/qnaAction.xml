@@ -26,7 +26,6 @@
      	
      	<action name="qnaDefaultMain" class="org.javatree.www.Action.QnaAction" method="qnaDefaultMain">
      		<result name="success">/WEB-INF/views/qna/qnaDefaultMain.jsp</result>
-     		<result name="error" type="redirect">/member/loginFrom.action</result>
      	</action>
      	
      	<action name="watchRelatedQuestion" class="org.javatree.www.Action.QnaAction" method="watchRelatedQuestion">

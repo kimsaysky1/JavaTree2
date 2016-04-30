@@ -11,7 +11,6 @@
 <!-- Google font -->
 <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Raleway:300,400,700,900' rel='stylesheet' type='text/css'>
-<!-- Css -->
 <link rel="stylesheet" type="text/css" href="../resources/javatree_view/html/css/library/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="../resources/javatree_view/html/css/library/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../resources/javatree_view/html/css/library/owl.carousel.css">
@@ -284,7 +283,8 @@
 					$("#curious").text(response.curious);
 				}
 				, error : function(response){
-					alert('실패');
+					var url = '../member/loginFrom.action';    
+					$(location).attr('href',url);
 				}
 			});
 		});
@@ -302,7 +302,8 @@
 					recommend.text(response.recommend);
 				}
 				, error : function(response){
-					alert('실패');
+					var url = '../member/loginFrom.action';    
+					$(location).attr('href',url);
 				}
 			});
 		});

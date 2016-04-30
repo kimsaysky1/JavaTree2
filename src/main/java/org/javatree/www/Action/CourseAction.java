@@ -2137,7 +2137,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 */
 		public String insertcodinginbox(){
 			
-			System.out.println("소연 들어옴");
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			
 			id = (String)session.get("loginId");
@@ -2148,7 +2147,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			studycoding.put("codingno", codingno);
 			studycoding.put("coding", mycode);
 			
-			System.out.println("studycoding: "+studycoding);
 			dao.insertcodinginbox(studycoding);
 			
 			

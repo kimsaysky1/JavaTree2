@@ -66,7 +66,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
 		String loginId = (String) session.get("loginId");
 		String loginName = (String) session.get("loginName");
-		int typenoTemp = Integer.parseInt(typeno);
+		int typenoTemp = question.getTypeno();
 		question.setId(loginId);
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
@@ -124,40 +124,42 @@ public class QnaAction extends ActionSupport implements SessionAware {
 
 	public void makeQnaDefaultMain(String loginId) {
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
-		Member_jt member = dao.selectOneMember(loginId);
-		typenoList = new ArrayList<>();
-		int questionnum = member.getCountquestion();
-		int responsenum = member.getCountresponse();
-		int recommendnum = member.getCountrecommend();
-		ArrayList<Interest> interestList = member.getInterestList();
-		ArrayList<Ability> abilityList = member.getAbilityList();
-		for (int i = 0; i < abilityList.size(); i++) {
-			if (abilityList.get(i).getValue() == 3) {
-				if (!(typenoList.contains(abilityList.get(i).getTypeno()))) {
-					typenoList.add(abilityList.get(i).getTypeno());
-				}
-			}
-		}
-		for (int i = 0; i < interestList.size(); i++) {
-			if (interestList.get(i).getValue() == 3) {
-				if (!(typenoList.contains(interestList.get(i).getTypeno()))) {
-					typenoList.add(interestList.get(i).getTypeno());
-				}
-			}
-		}
-		if (questionnum >= responsenum) {
+		if(loginId != null){
+			Member_jt member = dao.selectOneMember(loginId);
+			typenoList = new ArrayList<>();
+			int questionnum = member.getCountquestion();
+			int responsenum = member.getCountresponse();
+			int recommendnum = member.getCountrecommend();
+			ArrayList<Interest> interestList = member.getInterestList();
+			ArrayList<Ability> abilityList = member.getAbilityList();
 			for (int i = 0; i < abilityList.size(); i++) {
-				if (abilityList.get(i).getValue() == 2) {
+				if (abilityList.get(i).getValue() == 3) {
 					if (!(typenoList.contains(abilityList.get(i).getTypeno()))) {
 						typenoList.add(abilityList.get(i).getTypeno());
 					}
 				}
 			}
-		} else if (questionnum < responsenum) {
 			for (int i = 0; i < interestList.size(); i++) {
-				if (interestList.get(i).getValue() == 2) {
+				if (interestList.get(i).getValue() == 3) {
 					if (!(typenoList.contains(interestList.get(i).getTypeno()))) {
 						typenoList.add(interestList.get(i).getTypeno());
+					}
+				}
+			}
+			if (questionnum >= responsenum) {
+				for (int i = 0; i < abilityList.size(); i++) {
+					if (abilityList.get(i).getValue() == 2) {
+						if (!(typenoList.contains(abilityList.get(i).getTypeno()))) {
+							typenoList.add(abilityList.get(i).getTypeno());
+						}
+					}
+				}
+			} else if (questionnum < responsenum) {
+				for (int i = 0; i < interestList.size(); i++) {
+					if (interestList.get(i).getValue() == 2) {
+						if (!(typenoList.contains(interestList.get(i).getTypeno()))) {
+							typenoList.add(interestList.get(i).getTypeno());
+						}
 					}
 				}
 			}
@@ -189,9 +191,6 @@ public class QnaAction extends ActionSupport implements SessionAware {
 
 	public String qnaDefaultMain() throws Exception {
 		String loginId = (String) session.get("loginId");
-		if (loginId == null) {
-			return ERROR;
-		}
 		makeQnaDefaultMain(loginId);
 		return SUCCESS;
 	}
