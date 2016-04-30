@@ -225,6 +225,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 	public String qnaDetail() throws Exception {
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
 		question = dao.selectOneQuestion(questionno);
+		question.setContent("<pre>"+ question.getContent()+"</pre>");
 		replyList = dao.selectAllReply(questionno);
 		typeName = dao.selectTypeName(question.getTypeno());
 		if (notificationCheck) {
