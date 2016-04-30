@@ -121,11 +121,11 @@
 										<div class="list-body">
 											<div class="answer_bg">
 												<div class="avatar-acount">
-													<cite class="xsm black bold"><s:property value="id"/></cite>
-													<h4 class="md black"><s:property value="content"/> 
+													<cite class="xsm black bold">ID&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="id"/></cite>
+													<h4 class="md black"><s:property value="content"/> </h4>
 													<div class="comment-meta">
 														<a href="#"><s:property value="regdate"/></a> 
-														<a href="#" class="addRecommend" id ="<s:property value="replyno"/>"><i class="icon md-arrow-up"></i>추천&nbsp;
+														<a href="#" class="addRecommend" recommendValue ="<s:property value="replyno"/>"><i class="icon md-arrow-up"></i>추천&nbsp;
 														<span><s:property value="recommend"/></span></a> 
 														<a href="#" linkvalue = "<s:property value="replyno"/>" class="showRereply"><i class="icon md-back"></i>REPLY</a>
 													</div>
@@ -133,13 +133,17 @@
 											</div>
 											<!-- 대댓글 영역 -->
 											<div class ="rereplyArea">
-												<div id="<s:property value="replyno"/>" style="display:none; background-color: lightblue;">
+												<div id="<s:property value="replyno"/>" style="display:none; background-color: white;" class = "innerrereplyArea">
+												<div class ="ininnerrereplyArea">
 													<s:iterator value="rereplyList">
-														<p><s:property value="id"/> <s:property value="content"/></p>
+														<p><span><s:property value="id"/></span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<s:property value="content"/>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<a href ="#">x</a></p>
 														<br/>
 													</s:iterator>
-													<input type = "text" class="insertRereplyText"/>
-													<input type = "button" value="덧글작성" class="insertRereplyButton"/>
+													<input type="text" style="width: 700px;" class="insertRereplyText">
+													&nbsp;&nbsp;
+													<input type="button" value="덧글작성" class="mc-btn-9">
+											<!-- 		<input type = "button" value="덧글작성" class="mc-btn-9"/> -->
+												</div>
 												</div>
 											</div>
 											<!-- 대댓글 영역 끝 -->
@@ -233,12 +237,13 @@
 		
 		$("body").on('click', '.showRereply', function(){ // 대댓글 보기
 			var temp = $(this).attr('linkvalue');
+	
 			//$("#"+temp).css('display', 'block');
-			$("#"+temp).toggle(1500);
+			$("#"+temp).slideToggle(300);
 			$("#"+temp).focus();
 		});
 		
-		$("body").on('click', '.insertRereplyButton', function(){ // 대댓글 달기
+		$("body").on('click', '.mc-btn-9', function(){ // 대댓글 달기
 			var replyno = $(this).parent().attr('id');
 			var content = $(this).prev().val();
 			var questionno = "${question.questionno}";
@@ -256,9 +261,10 @@
 					var list = response.rereplyList;
 					$("#"+replyno).html('');
 					list.forEach(function(rereply){
-						$('<p>'+rereply.id+' '+rereply.content+'</p><br/>').appendTo("#"+replyno);
+						$('<p>'+rereply.id+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+rereply.content+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+'<a href ="#">x</a>'+'</p><br/>').appendTo("#"+replyno);
 					});
-					$('<input type = "text" class="insertRereplyText"/><input type = "button" value="덧글작성" class="insertRereplyButton"/>').appendTo("#"+replyno);
+					
+					$('<input type="text" style="width: 700px;" class="insertRereplyText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="덧글작성" class="mc-btn-9">').appendTo("#"+replyno);
 				}
 			});
 		});
@@ -282,7 +288,7 @@
 		});
 		
 		$('body').on('click', '.addRecommend', function(){
-			var replyno = $(this).attr('id');
+			var replyno = $(this).attr('recommendValue');
 			var recommend = $(this).parent().find('span')
 			var recommendValue = recommend.text();
 			$.ajax({
