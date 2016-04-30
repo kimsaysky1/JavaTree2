@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +25,15 @@
 function updateLectureForm(){
 	var form = document.getElementById("updateLectureForm");
 	//opener.document.getElementById("lectureno").value = lectureno;
-	
 	form.submit();
+	
+}
+
+function closeWindow() {
 	this.close();
 }
+
+
 
 </script>
 
@@ -67,7 +72,9 @@ function updateLectureForm(){
   						<div class="form-action">
                            <%--  <input type="submit" value="Save and Next" onclick="javascript:updateLectureForm('<s:property value="lectureno"/>')" class="submit mc-btn-3 btn-style-1"> --%>
                             <input type="submit" value="Save and Next" onclick="javascript:updateLectureForm()" class="submit mc-btn-3 btn-style-1">
-                            <input type="submit" value="Cancel" class="submit mc-btn-3 btn-style-1">
+                            
+                            <input type="button" value="Cancel" class="submit mc-btn-3 btn-style-1" id="close" onclick="javascript:closeWindow()">
+                            
                         </div>
 
                      
@@ -79,7 +86,14 @@ function updateLectureForm(){
     </section>
     <!-- END / CREATE COURSE CONTENT -->
         
-   
+   	<s:if test="message != null">
+  		<script type="text/javascript">
+   		var result = "${message}";
+   		alert(result);
+   		this.close();
+	</script>
+	</s:if>
+
 
 	
 	<!-- Load jQuery -->
