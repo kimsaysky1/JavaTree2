@@ -5107,7 +5107,7 @@ footer#footer.footer-style-2 {
   margin-left: 10px;
 }
 .form-login3 {
-  background-color: #000040;
+  background-color: rgba(0, 0, 0, 0.6);
   width :380px;
   padding: 45px;
   margin-bottom: 50px;

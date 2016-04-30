@@ -40,7 +40,7 @@
 <title>CourseDefaultDetail</title>
 </head>
 <body>
-<%@include file="/resources/header.jsp" %>
+<%@include file="/resources/header2.jsp" %>
 	
 		<!-- 가운데 영역 -->
 	<section class="blog2">
@@ -155,6 +155,10 @@
             <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/> </a> </li>
             </s:elseif>
 			
+			<s:elseif test="#session.currentPage == 0">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:elseif>
+			
 			<s:else>
              <li><a href = 'plusCourseDefaultDetail.action?currentPage=<s:property value="#session.currentPage - 1"/>&courseno=<s:property value="courseno"/>'>&lt prev</a></li>
              <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/> </a></li>
@@ -231,9 +235,9 @@
                        f1.submit();
                        event.preventDefault(); 
                         }
-              if(event.keyCode == 8){
+              		if(event.keyCode == 8){
                         return event.keyCode = 17;
-                        }
+                       }
               }
               document.onkeydown = backSpaceKey;
               

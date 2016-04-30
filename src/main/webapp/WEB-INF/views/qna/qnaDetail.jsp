@@ -26,7 +26,7 @@
 <script type="text/javascript" src="../resources/jquery-ui.min.js"></script>
 </head>
 <body>
-	<%@include file="/resources/header.jsp"%>
+	<%@include file="/resources/header2.jsp"%>
 
 	<!-- 중간 슬라이더 부분 -->
 	<section class="sub-banner sub-banner-course">

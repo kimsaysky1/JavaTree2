@@ -29,12 +29,12 @@
         
         <action name="login" class="org.javatree.www.Action.MemberAction" method="login">
         	<!-- <result>/WEB-INF/views/index.jsp</result> -->
-        	<result type="redirect">/index.action</result>
+        	<result type="redirect">../index.action</result>
         </action>
         
         <action name="logout" class="org.javatree.www.Action.MemberAction" method="logout">
         	<!-- <result>/WEB-INF/views/index.jsp</result> -->
-        	<result type="redirect">/index.action</result>
+        	<result type="redirect">../index.action</result>
         </action>
         
         <action name="checkNotification" class="org.javatree.www.Action.MemberAction" method="checkNotification">

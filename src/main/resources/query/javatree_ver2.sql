@@ -9,7 +9,7 @@ alter table notification drop column replyno; -- 20160429 김영호 추가
 create sequence notification_seq -- 20160429 김영호 추가
 
 alter table coding add (id varchar2(20) NOT NULL);--20160425 박수지 추가
-
+alter table subnote add (courseno number (6, 0) not null) -- 20160429 류창우 추가
 create sequence question_seq;
 CREATE sequence subnote_seq start with 1 increment by 1;--20160421추가    	
 
@@ -34,6 +34,14 @@ DROP TABLE coding CASCADE CONSTRAINTS;
 CREATE sequence coding_seq start with 1 increment by 1;
 
 alter table coding drop column regdate;--20160424 박수지 추가
+alter table notification modify regdate default sysdate
+alter table notification modify message varchar2(200)
+alter table rereply modify regdate default sysdate
+alter table notification add (notificationno number(6,0));
+alter table notification drop column replyno; 
+create sequence notification_seq
+alter table notification modify (notificationno number(6,0) primary key);
+alter table subnote add (courseno number (6, 0) not null)
 
 CREATE TABLE lecturecoding
 (
@@ -688,8 +696,7 @@ COMMENT ON TABLE typename IS '�� ���̺� : (19)�о� ���̺�
 COMMENT ON COLUMN typename.type IS 'type';
 COMMENT ON COLUMN typename.typeno IS 'typeno';
 
-ALTER TABLE studylecture
-	ADD UNIQUE (lectureno)--20160425 창우 수정, 재수강신청 방지
+
 
 
 

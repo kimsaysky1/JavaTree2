@@ -26,7 +26,7 @@
 <title>JavaTree(Q&A) Main</title>
 </head>
 <body>
-		<%@include file="/resources/header.jsp" %>
+		<%@include file="/resources/header2.jsp" %>
 		
 		 <section class="sub-banner sub-banner-course">
         <div class="awe-static bg-sub-banner-course"></div>
