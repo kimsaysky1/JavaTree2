@@ -6,10 +6,10 @@ $(function(){
 			, success : function(response){
 				$('.list-notification').html('');
 				if(response.notificationList != null){
+					$(".itemnew").hide();
 					var notificationList = response.notificationList;
-					if(notificationList.length == 0){
-						$(".itemnew").hide();
-					}else{
+					$('.count-value').text(notificationList.length);
+					if(notificationList.length != 0){
 						$(".itemnew").show();
 						notificationList.forEach(function(notification){
 							var author = $('.author');

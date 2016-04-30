@@ -22,7 +22,7 @@
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
 <script type="text/javascript" src="script/jquery-2.2.3.min.js"></script>
-<script type="text/javascript" src="script/jquery-ui.min.js" ></script>    
+<script type="text/javascript" src="script/jquery-ui.min.js" ></script> 
 <title>JavaTree(Q&A) Main</title>
 </head>
 <body>
@@ -70,9 +70,9 @@
        <fieldset>
        <legend>List</legend>
        <br>
-       <select name="listoption" style="width: 120px; height: 30px;">
-       <option value="new">최신순</option>
-       <option value="old">오래된 순</option>
+       <select name="listoption" style="width: 120px; height: 30px;" onchange="javascript:selectEvent(this)">
+       <option value="desc" selected="selected">최신순</option>
+       <option value="asc">오래된 순</option>
        </select>
 		 </fieldset>
 		 </div>
@@ -96,7 +96,7 @@
 					</s:iterator>
                         <ul class="pager">
                             
-                            <li><a href="#" id= "watchMore">더보기</a></li>
+                           <!-- <li><a href="#" id= "watchMore">더보기</a></li> -->
                         </ul>
                     </div>
                 </div>
@@ -106,69 +106,12 @@
                     <aside class="blog-sidebar">
                     
                     	<!-- 질문 버튼 모달-->
-                    	
                     	<div class="form-submit-1">
-                    		<form action="insertQuestion" name="insertQuestion" method="get">
-								<input type="button" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
-                    			<div class="container">
-									<div class="modal fade" id="writeQuestion" role="dialog">
-								    	<div class="modal-dialog modal-lg">
-										      <!-- Modal content-->
-									      <div class="modal-content">
-									        <div class="modal-header">
-									          <button type="button" class="close" data-dismiss="modal">&times;</button>
-									          <h4 class="modal-title">Modal Header</h4>
-									        </div>
-									        <div class="modal-body">
-									            <table style='width: 800px;'>
-												<tr>
-													<td style='width: 100px; height: 70px; text-align:center;'><b>FIELD</b></td>
-													<td><select id="typeno" name="typeno" style="width: 100px;">
-													 <option value="1">PUREJAVA</option>
-													 <option value="2">WEB</option>
-													 <option value="3">MOBILE</option>
-													 <option value="4">IOT</option>
-													 <option value="5">SWING</option>
-													 <option value="6">JDBC</option>
-													 <option value="7">API</option>
-													 <option value="8">SPRING</option>
-													 <option value="9">STRUTS</option>
-													 <option value="10">etcFramework</option>
-													 <option value="11">ETC</option>
-													</select></td>
-												</tr>
-												<tr>
-													<td style='height: 20px;'></td>
-													<td></td>
-												</tr>
-												<tr>
-													<td style='width: 100px; text-align:center;'><b>QUESTION</b></td>
-													<td><textarea id="question.title" name="question.title" style="height: 100px;"></textarea></td>
-												</tr>
-												<tr>
-													<td style='height: 20px;'></td>
-													<td></td>
-												</tr>
-												<tr>
-													<td style='width: 100px; text-align:center;'><b>content</b></td>
-													<td><textarea id="question.content" name="question.content" style="height: 250px;"></textarea></td>
-												</tr>
-													<tr>
-													<td style='height: 20px;'></td>
-													<td></td>
-												</tr>
-												</table>
-									        </div>
-									        <div class="modal-footer">
-									        	<input type="submit" value="등록" class="mc-btn-5">&nbsp;&nbsp;&nbsp;
-												<input type="reset" value="취소" class="mc-btn-5">
-									          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-									        </div>
-									      </div>
-								  	   </div>
-								  </div>
+							<input type="button" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
+                    		<div class="container">
+								<div class="modal fade" id="writeQuestion" role="dialog">
+							  	</div>
                     		</div>
-                    		</form> 
 						</div>
                     	<!-- 질문 버튼 모달 끝 -->
                     	<br><br>
@@ -233,7 +176,6 @@
                                 </table>
                             </div>
                             <!-- END / DESIGN ASSIGNMENT -->
-    
                         </div>
                         <!-- 내용 끝 -->
                         <!-- 베스트 랭킹 탭 끝 -->
@@ -316,10 +258,83 @@
 	<script type="text/javascript">
 	
 	$(function(){
-		
 		$('#insertQuestionReady').on('click', function(){
 			insertQuestion.submit();
 		});
+		
+		$('#insertQuestionModal').on('click', function(){
+			var str = '';
+			str += '<div class="modal-dialog modal-lg">'
+			str += '<div class="modal-content">';
+			str += '<div class="modal-header">';
+			str += '<button type="button" class="close" data-dismiss="modal">&times;</button>';
+			str += '<h4 class="modal-title">Modal Header</h4>';
+			str += '</div>';
+			str += '<div class="modal-body">';
+			str += '<table style=\'width: 800px;\'>';
+			str += '<tr><td style=\'width: 100px; height: 70px; text-align:center;\'><b>FIELD</b></td>';
+			str += '<td><select id="typeno" name="typeno" style="width: 100px;">';
+			str +='<option value="1">PUREJAVA</option>';
+			str +='<option value="2">WEB</option>';
+			str +='<option value="3">MOBILE</option>';
+			str +='<option value="4">IOT</option>';
+			str +='<option value="5">SWING</option>';
+			str +='<option value="6">JDBC</option>';
+			str +='<option value="7">API</option>';
+			str +='<option value="8">SPRING</option>';
+			str +='<option value="9">STRUTS</option>';
+			str += '<option value="10">etcFramework</option>';
+			str += '<option value="11">ETC</option>';
+			str += '</select></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td></tr>';
+			str += '<tr><td style=\'width: 100px; text-align:center;\'><b>QUESTION</b></td>';
+			str += '<td><textarea id="title" name="question.title" style="height: 100px;"></textarea></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td></tr>';
+			str += '<tr><td style=\'width: 100px; text-align:center;\'><b>content</b></td>';
+			str += '<td><textarea id="content" name="question.content" style="height: 250px;"></textarea></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td></tr></table></div>';
+			str += '<div class="modal-footer">';
+			str += '<input type="button" value="등록" id="executeModal" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
+			str += '<input type="button" value="취소" id="removeModal" class="mc-btn-5"></div></div></div>';
+			
+			$('#writeQuestion').html(str);
+		});
+		$('body').on('click', '#removeModal', function(){
+			$('#writeQuestion').modal('hide');
+		});
+		
+		$('body').on('click', '#executeModal', function(){
+			
+			var title = $('#title').val();
+			var typeno = $('#typeno option:selected').val();
+			var content = $('#content').val();
+			
+			$.ajax({
+				type: 'POST'
+					, url: 'insertQuestion'
+					, data : 'question.title='+title+'&question.content='+content+'&typeno='+typeno
+					, dataType : 'json'
+					, success : function(response){
+						$('#writeQuestion').modal('hide');
+						$('#writeQuestion').html('');
+						
+						var list = response.questionList;
+						var indexNum = 1;
+						$('.blog-list-content').html('');
+						list.forEach(function(question){
+							var divTag = $('<div class="post" id='+(indexNum++)+'><div class="post-body"></div></div>');
+							divTag.html('<div class="post-title"><h3 class="md"><a href="qnaDetail.action?questionno='+question.questionno+'">'
+							+question.title+'</a></h3></div><div class="post-meta">by'
+							+question.username+' '+question.regdate+'</div>').appendTo(".blog-list-content");
+						});
+						$('<ul class="pager"><li><a href="#" id= "watchMore">더보기</a></li></ul>').appendTo('.blog-list-content');
+					}
+					, error : function(response){
+						alert('실패');
+					}
+			});
+		});
+		
 		
 		$("body").on('click', "#searchByCheckBox", function(){
 			var stringForTokenizer = '';
@@ -379,6 +394,78 @@
 			});
 			//event.preventDefault(); 
 		});
+		
+		function selectByField(asd) {
+			 
+			var order;
+			
+			var sum = 0;
+			 sum = $(":checkbox:checked").length;
+			 
+			 if(sum > 5){
+				 alert( sum + "개 이상은 선택할 수 없습니다." );	
+				 $(asd).prop("checked",false);	 
+			 }
+			
+			    $( "select option:selected" ).each(function() {
+			    	order = $( this ).val();
+			    });
+			    
+			 var str = '';	
+			 var cnt;
+			 $(":checkbox:checked").each(function(index){
+			        if(index == cnt-1){
+			        	str += $(this).val();
+			        }else{
+			        	str += $(this).val()+",";
+			        }
+			    });
+			 
+			 
+			 $.ajax({
+			        type : 'get', 
+			        url : 'selectListbyField',
+			        data : "interestString="+str+"&order="+order,
+			        success : function(response){
+			        	$(".blog-list-content").html(' ');
+		        		
+			        	 var list = response.courseList;
+			        	 list.forEach(function(course){
+			 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
+			 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
+			 				+course.coursename+'</a></h3></div><div class="post-meta">by'
+			 				+course.username+' on '+course.regdate+'</div><div class="post-link"><a href="blog-single.jsp?courseno='+course.courseno
+			 				+'"><i class="fa fa-play-circle-o"></i>Lecture List</a></div>').appendTo(".blog-list-content");
+			 			});
+			        	 
+			        	 var curPage = Number(response.currentPage);
+			        	 var curPagePlus = Number(response.currentPage+1);
+			        	 var curPageMinus = Number(response.currentPage-1);
+			        	 var endPage =  Number(response.endPageGroup);
+			        	 			        	 
+			        	 var paging = $('<ul class="pager"></ul>');
+			        	 if(curPage == 1 & endPage == 1){
+			        		 var paging0 = '<li><a href="#">'+ curPage +'</a></li>';
+			        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
+			        	 }else if(curPage == 1 & endPage != 1){
+			        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+			        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
+			        	 }else if(curPage == endPage & endPage != 1){
+			        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
+			        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
+			        	 }else{
+			        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+			        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
+			        	 }
+			        
+			        }
+			 
+			 });
+			 str = '';
+			 
+		}		
+		
+		
 	});
 	</script>
 	<script src="../resources/checkMessage.js"></script>

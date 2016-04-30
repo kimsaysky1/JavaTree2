@@ -1,3 +1,18 @@
+SELECT questionno, typeno, codingno, id, username, title,
+		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
+		 (select rownum as rnum, T1.* from (select * from question
+		where typeno IN 
+		(
+			8
+		))
+		order by courseno 
+		desc
+		))where rnum >= 1 and rnum <= 7
+
+
+
+
+
 SELECT LEVEL 
 FROM   dual
 CONNECT BY LEVEL <= 10

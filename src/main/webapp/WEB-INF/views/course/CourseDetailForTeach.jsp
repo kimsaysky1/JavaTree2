@@ -39,27 +39,27 @@
 }
  */
  
- 
  function updateLecture(lectureno){
-	
-	window.open('/javatree/course/updateLectureForm.action?lectureno='+lectureno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
-	/*  window.open('updateLecture.action?custid='+custid.value,'pop','resizable=no scrollbars=yes top=300 left=500 width=300 height=180'); */
-	 /* locatrion.href="/javatree/course/updateLecture.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>"; */
- }
- 
- function  updateSubnote(){
-		var lectureno=$('#lectureno').val();
-		window.open('/javatree/course/updateSubnoteForm.action?lectureno='+lectureno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
-	 }
- 
- function updateCoding(lectureno,courseno){
-	    window.open('/javatree/course/codingMainInsertLectureView.action?lectureno='+lectureno+'&courseno='+courseno,'pop','resizable=no scrollbars=yes top=50 left=200 width=1200 height=870');
+		
+		window.open('/javatree/course/updateLectureForm.action?lectureno='+lectureno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
+		/*  window.open('updateLecture.action?custid='+custid.value,'pop','resizable=no scrollbars=yes top=300 left=500 width=300 height=180'); */
+		 /* locatrion.href="/javatree/course/updateLecture.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>"; */
 	 }
 	 
-function checkVideo(lectureno,courseno){
-	      window.open('/javatree/course/mediaPlayerForm.action?lectureno='+lectureno+'codingno='+codingno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
-	 }
+	 function  updateSubnote(lectureno){
+			/* var lectureno=$('#lectureno').val(); */
+			window.open('/javatree/course/updateSubnoteForm.action?lectureno='+lectureno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
+		 }
+	 
+	 function updateCoding(lectureno,courseno){
+		    window.open('/javatree/course/codingMainInsertLectureView.action?lectureno='+lectureno+'&courseno='+courseno,'pop','resizable=no scrollbars=yes top=50 left=200 width=1200 height=870');
+		 }
+		 
+	function checkVideo(lectureno,courseno){
+		      window.open('/javatree/course/mediaPlayerForm.action?lectureno='+lectureno+'&codingno='+codingno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
+		 }
 
+ 
 </script>
 
 
@@ -170,8 +170,8 @@ function checkVideo(lectureno,courseno){
 								<td class="submissions"><a href="#"><s:property value="lecturename"/></a></td>
 								<td class="author"><a href="javascript:updateLecture(<s:property value="lectureno"/>, <s:property value="courseno"/>)">Edit<%-- <s:property value="lectureno"/> --%></a></td>
 								<td class="score"><a href="/javatree/course/deleteLecture.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>">Delete</a></td><!-- javascript:deleteLecture(); -->
-								<td class="submit-date"><a href="javascript:updateSubnote()">Paper</a></td>
-								<td class="submit-date"><a href="">Question</a></td>
+								<td class="submit-date"><a href="javascript:updateSubnote(<s:property value="lectureno"/>)">Paper</a></td>
+								<td class="submit-date"><a href="javascript:updateCoding(<s:property value="lectureno"/>, <s:property value="courseno"/>)">Question</a></td>
 								<td class="submit-date"><a href="javascript:checkVideo(<s:property value="lectureno"/>, <s:property value="courseno"/>)">PlayView</a></td>
 							</tr>
 

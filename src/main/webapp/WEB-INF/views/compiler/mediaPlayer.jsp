@@ -374,7 +374,6 @@ body {
 	<br/>
 	<button id = "qna">Q&A</button>
 	
-	<div id="tree">트리</div>
 	
 	<!-- 지식인 연동 모달 -->
 	<input style="display:none;" type="button" id="askToUser" class="mc-btn btn-style-1" data-toggle="modal" data-target="#askSelections"/>
@@ -402,70 +401,14 @@ body {
          <!-- 지식인 연동 모달 끝 -->
          
 		<!-- 질문 버튼 -->
-                    	
-                   	<div class="form-submit-1">
-						<input type="button" style="display:none;" id = "insertQuestion" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestionModal"/>
-                   			<div class="container">
-								<div class="modal fade" id="writeQuestionModal" role="dialog">
-							    	<div class="modal-dialog modal-lg">
-									      <!-- Modal content-->
-								      <div class="modal-content">
-								        <div class="modal-header">
-								          <button type="button" class="close" data-dismiss="modal">&times;</button>
-								          <h4 class="modal-title">Modal Header</h4>
-								        </div>
-								        <div class="modal-body">
-								            <table style='width: 800px;'>
-											<tr>
-												<td style='width: 200px; height: 70px; text-align:center;'><b>FIELD</b></td>
-												<td style='width: 500px;'><select id="questionTypeno" style="width: 100px;">
-												 <option value="1">PUREJAVA</option>
-												 <option value="2">WEB</option>
-												 <option value="3">MOBILE</option>
-												 <option value="4">IOT</option>
-												 <option value="5">SWING</option>
-												 <option value="6">JDBC</option>
-												 <option value="7">API</option>
-												 <option value="8">SPRING</option>
-												 <option value="9">STRUTS</option>
-												 <option value="10">etcFramework</option>
-												 <option value="11">ETC</option>
-												</select></td>
-											</tr>
-											<tr>
-												<td style='height: 20px;'></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td style='width:200px; text-align:center;'><b>QUESTION</b></td>
-												<td><textarea id="questionTitle" style="height: 100px; width: 500px;"></textarea></td>
-											</tr>
-											<tr>
-												<td style='height: 20px;'></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td style='width: 200px; text-align:center;'><b>content</b></td>
-												<td ><textarea id="questionContent" style="height: 250px; width: 500px;"></textarea></td>
-											</tr>
-												<tr>
-												<td style='height: 20px;'></td>
-												<td></td>
-											</tr>
-											</table>
-								        </div>
-								        <div class="modal-footer">
-								        	<button id = "insertQuestionBtn" class="mc-btn-5">등록</button>&nbsp;&nbsp;
-											<button class="cancel">취소</button>
-								          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-								        </div>
-								      </div>
-							  	   </div>
-							  </div>
-                   		</div>
-					</div>
-                   	
-                    	<!-- 질문 버튼 끝 -->
+        <div class="form-submit-1">
+			<input type="button" style="display:none;" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
+            <div class="container">
+			<div class="modal fade" id="writeQuestion" role="dialog">
+	  		</div>
+            </div>
+		</div>      
+		      	
 <script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="../resources/javatree_view/html/js/library/bootstrap.min.js"></script>
 <script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery.owl.carousel.js"></script>
@@ -475,10 +418,50 @@ body {
 <script type="text/javascript">
 
 $(function(){
-	 $('#tree').fileTree({ root: '/C:/' }, function(file) {
+	
+	
+	$('#insertQuestionModal').on('click', function(){
+		var str = '';
+		str += '<div class="modal-dialog modal-lg">'
+		str += '<div class="modal-content">';
+		str += '<div class="modal-header">';
+		str += '<button type="button" class="close" data-dismiss="modal">&times;</button>';
+		str += '<h4 class="modal-title">Modal Header</h4>';
+		str += '</div>';
+		str += '<div class="modal-body">';
+		str += '<table style=\'width: 800px;\'>';
+		str += '<tr><td style=\'width: 100px; height: 70px; text-align:center;\'><b>FIELD</b></td>';
+		str += '<td><select id="questionTypeno" style="width: 100px;">';
+		str +='<option value="1">PUREJAVA</option>';
+		str +='<option value="2">WEB</option>';
+		str +='<option value="3">MOBILE</option>';
+		str +='<option value="4">IOT</option>';
+		str +='<option value="5">SWING</option>';
+		str +='<option value="6">JDBC</option>';
+		str +='<option value="7">API</option>';
+		str +='<option value="8">SPRING</option>';
+		str +='<option value="9">STRUTS</option>';
+		str += '<option value="10">etcFramework</option>';
+		str += '<option value="11">ETC</option>';
+		str += '</select></td></tr>';
+		str += '<tr><td style=\'height: 20px;\'></td></tr>';
+		str += '<tr><td style=\'width: 100px; text-align:center;\'><b>QUESTION</b></td>';
+		str += '<td><textarea id="questionTitle" style="height: 100px;"></textarea></td></tr>';
+		str += '<tr><td style=\'height: 20px;\'></td></tr>';
+		str += '<tr><td style=\'width: 100px; text-align:center;\'><b>content</b></td>';
+		str += '<td><textarea id="questionContent" style="height: 250px;"></textarea></td></tr>';
+		str += '<tr><td style=\'height: 20px;\'></td></tr></table></div>';
+		str += '<div class="modal-footer">';
+		str += '<input type="button" value="등록" id = "insertQuestionBtn" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
+		str += '<input type="button" value="취소" class="cancel"></div></div></div>';
+		
+		$('#writeQuestion').html(str);
+	});
+	
+	 /* $('#tree').fileTree({ root: '/C:/' }, function(file) {
 			alert(1);
 	        alert(file);
-	    });
+	    }); */
 	
 	
 	 $("#goCodingbox").on("click", function(){
@@ -502,27 +485,27 @@ $(function(){
 		$('#makeQuestion').on('click', function(){
 			var codingtemplet = $('#doccontent textarea:visible').val();
 			$('#askSelections').modal('hide');
-			$('#insertQuestion').trigger('click');
+			$('#insertQuestionModal').trigger('click');
 			$('#questionContent').val(codingtemplet);
 			//window.open('/javatree/qna/insertQuestionReady.action?codingtemplet='+codingtemplet);
 		});
 		
-		$('#insertQuestionBtn').on('click', function(){
+		$('body').on('click', '#insertQuestionBtn', function(){
 			/* window.open('/javatree/qna/insertQuestionReady.action?question.content='+content
 					+'&question.title='+title+'&question.typeno='+typeno); */
-					
 			var typeno = $("#questionTypeno option:selected").val();
 			var title = $("#questionTitle").val();
 			var content = $("#questionContent").val();
-			
 			$.ajax({
 				type: 'POST'
 				, url: '/javatree/qna/insertQuestionByModal.action'
 				, data: 'question.content=<pre>'+content+'</pre>&question.title='+title+'&question.typeno='+typeno
 				, success : function(response){
+					alert('성공');
 					$('#writeQuestionModal').modal('hide');
 				}
 				, error : function(response){
+					alert('실패');
 					$('#writeQuestionModal').modal('hide');
 				}
 			})

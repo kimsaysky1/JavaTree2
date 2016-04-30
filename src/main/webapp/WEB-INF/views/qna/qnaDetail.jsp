@@ -232,7 +232,6 @@
 	
 	<script type="text/javascript">
 	
-	
 	$(function(){
 		
 		$("body").on('click', '.showRereply', function(){ // 대댓글 보기
