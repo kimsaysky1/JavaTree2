@@ -1274,6 +1274,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			dao.deleteCheckLecture(lectureno);
 			dao.deleteStudyLecture(lectureno);
 			dao.deleteSubnote(lectureno);
+			dao.deleteTeachLecture(lectureno);
 			dao.deleteLectureCoding(lectureno);
 			dao.deleteLecture(lectureno);
 			

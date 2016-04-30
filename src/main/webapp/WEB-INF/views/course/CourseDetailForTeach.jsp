@@ -52,6 +52,18 @@
 		window.open('/javatree/course/updateSubnoteForm.action?lectureno='+lectureno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
 	 }
 
+ function updateCoding(){
+	 var codingno=$('#codingno').val();
+	 var lectureno=$('#lectureno').val();
+		window.open('/javatree/course/updateCoding.action?lectureno='+lectureno+'codingno='+codingno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
+ }
+ 
+ function checkVideo(){
+	 var codingno=$('#codingno').val();
+	 var lectureno=$('#lectureno').val();
+		window.open('/javatree/course/mediaPlayerForm.action?lectureno='+lectureno+'codingno='+codingno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
+ }
+ 
 </script>
 
 
@@ -161,11 +173,13 @@
 							<tr class="new">
 								<td class="submissions"><a href="#"><s:property value="lecturename"/></a></td>
 								<input type="hidden" id="lectureno" value='<s:property value="lectureno"/>' >
+								<input type="hidden" id="courseno" value='<s:property value="courseno"/>' >
 								<td class="author"><a href="javascript:updateLecture()">Edit<%-- <s:property value="lectureno"/> --%></a></td>
 								<td class="score"><a href="/javatree/course/deleteLecture.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>">Delete</a></td><!-- javascript:deleteLecture(); -->
 								<td class="submit-date"><a href="javascript:updateSubnote()">Paper</a></td>
-								<td class="submit-date"><a href="">Question</a></td>
-								<td class="submit-date"><a href="/javatree/course/mediaPlayerForm.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>">PlayView</a></td>
+								<td class="submit-date"><a href="javascript:updateCoding()">Question</a></td>
+								<%-- <td class="submit-date"><a href="/javatree/course/mediaPlayerForm.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>">PlayView</a></td> --%>
+								<td class="submit-date"><a href="javascript:checkVideo()">PlayView</a></td>
 							</tr>
 
 
