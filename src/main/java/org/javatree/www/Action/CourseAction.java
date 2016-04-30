@@ -1705,16 +1705,20 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 * teachMain - 강좌 상세 페이지 - 강의 삭제 
 		 */
 		public String deleteLecture(){
-			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			
-			dao.deleteCheckLecture(lectureno);
-			dao.deleteStudyLecture(lectureno);
-			dao.deleteSubnote(lectureno);
-			dao.deleteTeachLecture(lectureno);
-			dao.deleteLectureCoding(lectureno);
-			dao.deleteLecture(lectureno);
-			
-			return SUCCESS;
+		    courseDAO dao = sqlSession.getMapper(courseDAO.class);
+	         System.out.println("deletelecture 옴, lectureno : "+lectureno);
+	         System.out.println("courseno : "+courseno);
+	         dao.deleteCheckLecture(lectureno);
+	         dao.deleteStudyLecture(lectureno);
+	         dao.deleteTeachLecture(lectureno);
+	         dao.deleteSubnote(lectureno);
+	         dao.deleteLectureCoding(lectureno);
+	         dao.deleteLecture(lectureno);
+	         System.out.println("courseno : "+courseno);
+	         lectureList= dao.selectAllLectureListForTeach(courseno);
+	         System.out.println("leclist>> " + lectureList);
+	         course= dao.selectCourse(courseno);
+	         return SUCCESS;
 		}
 		
 		/**
