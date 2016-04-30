@@ -11,7 +11,14 @@
     <package name="default" namespace="/" extends="struts-default">
 		
         <default-action-ref name="index" />
-       
+        
+        <action name="callIndex">
+        	<result type="redirectAction">
+        		<param name="actionName">index</param>
+        		<param name="namespace">/</param>
+        	</result>
+        </action>
+        
         <action name="index">
            <result>/WEB-INF/views/index.jsp</result>
         </action>

@@ -15,8 +15,8 @@
 
 				<!-- LOGO -->
 				<div class="logo">
-					<a href="callIndex.action">   
-					<img src="resources/javatree_view/html/images/logo.png" alt="" width="210px;"></a>
+					<a href="index.action">   
+					<img src="../resources/javatree_view/html/images/logo.png" alt="" width="210px;"></a>
 				</div>
 				<!-- END / LOGO -->
 
@@ -31,7 +31,7 @@
 
 					<!-- MENU -->
 					<ul class="menu">
-						<li class="current-menu-item"><a href="index.action">HOME</a></li>
+						<li class="current-menu-item"><a href="index.html">HOME</a></li>
 						<li class="menu-item-has-children megamenu col-4"><a href="/javatree/course/selectAllCourseList.action">COURSE</a></li>
 						<li class="menu-item-has-children"><a href="/javatree/qna/qnaDefaultMain.action" id="jt">JAVATree</a></li>					
 					<s:if test="%{#session.loginId != null}">
@@ -62,7 +62,7 @@
 					<!-- account 사진 및 로그아웃 -->
 					<li class="list-item account">
 							<div class="account-info item-click">
-								<img src="resources/javatree_view/html/images/account_kong.png"
+								<img src="../resources/javatree_view/html/images/team-13.jpg"
 									alt="">
 							</div>
 							<div class="toggle-account toggle-list">

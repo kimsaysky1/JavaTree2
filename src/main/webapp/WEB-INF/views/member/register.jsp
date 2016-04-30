@@ -126,7 +126,7 @@ $(function(){
 </script>
 </head>
 <body>
-	<%@include file="/resources/header.jsp" %>
+	<%@include file="/resources/header2.jsp" %>
 
 
 	<section id="login-content" class="login-content">

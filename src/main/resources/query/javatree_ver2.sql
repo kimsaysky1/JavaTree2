@@ -24,6 +24,14 @@ DROP TABLE coding CASCADE CONSTRAINTS;
 CREATE sequence coding_seq start with 1 increment by 1;
 
 alter table coding drop column regdate;--20160424 박수지 추가
+alter table notification modify regdate default sysdate
+alter table notification modify message varchar2(200)
+alter table rereply modify regdate default sysdate
+alter table notification add (notificationno number(6,0));
+alter table notification drop column replyno; 
+create sequence notification_seq
+alter table notification modify (notificationno number(6,0) primary key);
+alter table subnote add (courseno number (6, 0) not null)
 
 CREATE TABLE lecturecoding
 (

@@ -38,7 +38,7 @@ function joinForm() {
     
 </head>
 <body>
-<%@include file="/resources/header.jsp" %>
+<%@include file="/resources/header2.jsp" %>
 		
 		<section id="login-content" class="login-content">
         <div class="awe-parallax bg-login-content"></div>

@@ -40,7 +40,7 @@
 <title>CourseDefaultDetail</title>
 </head>
 <body>
-<%@include file="/resources/header.jsp" %>
+<%@include file="/resources/header2.jsp" %>
 	
 		<!-- 가운데 영역 -->
 	<section class="blog2">
@@ -223,9 +223,9 @@
                        f1.submit();
                        event.preventDefault(); 
                         }
-              if(event.keyCode == 8){
+              		if(event.keyCode == 8){
                         return event.keyCode = 17;
-                        }
+                       }
               }
               document.onkeydown = backSpaceKey;
               
