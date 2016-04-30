@@ -379,6 +379,10 @@
 			});
 			//event.preventDefault(); 
 		});
+		
+		
+		
+		
 	});
 	</script>
 	<script src="../resources/checkMessage.js"></script>
