@@ -279,29 +279,6 @@
 		order by regdate desc
 	</select>
 	
-		<!-- 분야별 검색 total 가져오기  -->	
-	<select resultType="int" id="selectFieldTotal" parameterType="map">
-		select count(*) from  (select rownum as rnum, T1.* from (select * from question
-	 	<where>
-		<if test="interest0 != null">
-			#{interest0}
-		</if>
-		<if test="interest1 != null">
-			, #{interest1}
-		</if>
-		<if test="interest2 != null">
-			, #{interest2}
-		</if>
-		<if test="interest3 != null">
-			, #{interest3}
-		</if>
-		<if test="interest4 != null">
-			, #{interest4}
-		</if>
-		))
-		</where>
-		order by regdate desc
-	</select>		
 	
 	<!-- 분야별 검색   -->	
 	<select resultType="Course" id="selectListbyField" parameterType="map">
