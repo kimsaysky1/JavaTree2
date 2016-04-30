@@ -33,6 +33,6 @@ public interface QnaDAO {
 	public void insertNotification(Notification notification);
 	public void addRecommend(Map map);
 	public int selectFieldTotal(Map<String, Object> kong);
-	public ArrayList<Course> selectListbyField(Map<String, Object> kong);
+	public List<Question> selectListbyField(Map<String, Object> kong);
 	
 }

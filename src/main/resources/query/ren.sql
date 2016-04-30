@@ -3,11 +3,12 @@ SELECT questionno, typeno, codingno, id, username, title,
 		 (select rownum as rnum, T1.* from (select * from question
 		where typeno IN 
 		(
-			8
-		))
-		order by courseno 
-		desc
-		))where rnum >= 1 and rnum <= 7
+			1
+		)
+		order by questionno asc
+		)
+		T1)
+		where rnum >= 8 and rnum <= 14
 
 
 
