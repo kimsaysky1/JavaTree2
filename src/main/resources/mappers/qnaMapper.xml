@@ -254,8 +254,67 @@
 	<select id="addRecommend" parameterType="map">
 		update reply set recommend = #{recommend} where replyno = #{replyno}
 	</select>
-	<!-- <insert id="insert"> 
 	
-	</insert> -->
+	<!-- 분야별 검색 total 가져오기  -->	
+	<select resultType="int" id="selectFieldTotal" parameterType="map">
+		select count(*) from  (select rownum as rnum, T1.* from (select * from question
+	 	<where>
+		<if test="interest0 != null">
+			#{interest0}
+		</if>
+		<if test="interest1 != null">
+			, #{interest1}
+		</if>
+		<if test="interest2 != null">
+			, #{interest2}
+		</if>
+		<if test="interest3 != null">
+			, #{interest3}
+		</if>
+		<if test="interest4 != null">
+			, #{interest4}
+		</if>
+		))
+		</where>
+		order by regdate desc
+	</select>
+	
+	
+	<!-- 분야별 검색   -->	
+	<select resultType="Course" id="selectListbyField" parameterType="map">
+	
+		SELECT questionno, typeno, codingno, id, username, title,
+		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
+		 (select rownum as rnum, T1.* from (select * from question
+		 <where>
+		where typeno IN 
+		(
+		<if test="interest0 != null">
+			#{interest0}
+		</if>
+		<if test="interest1 != null">
+			, #{interest1}
+		</if>
+		<if test="interest2 != null">
+			, #{interest2}
+		</if>
+		<if test="interest3 != null">
+			, #{interest3}
+		</if>
+		<if test="interest4 != null">
+			, #{interest4}
+		</if>
+		))
+		 </where>
+		order by courseno 
+		<if test="order == 'desc'">
+		desc
+		</if>
+		<if test="order == 'asc'">
+		asc
+		</if>	
+		))where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end}
+	
+	</select>
 	
 </mapper>
