@@ -146,10 +146,7 @@
                                     	by <a href="#"><s:property value="username" /></a> on <s:property value="regdate" />
                                 	</div>  
                                    <div class="post-link">
-                                    <a href="blog-single.jsp?courseno=<s:property value="courseno" />">
-                                        <i class="fa fa-play-circle-o"></i>
-                                        Lecture List
-                                    </a>
+                              
                                 	</div>                           
                             </div>
                      </div> 

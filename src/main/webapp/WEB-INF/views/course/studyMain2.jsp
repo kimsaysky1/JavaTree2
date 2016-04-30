@@ -36,12 +36,6 @@
 		                    <h2 class="big">USER NAME</h2>
 		                </div>     
 		            </div>
-		            <div class="info-follow">
-		                <div class="trophies">
-		                    <span>JAVA KONG</span>
-		                    <p>POINT</p>
-		                </div>
-		            </div>
 		        </div>
 		    </section>
         <!-- END / PROFILE FEATURE -->
@@ -66,83 +60,101 @@
         </div>
     </section>
    <!-- END / CONTENT BAR -->
-		
-		
-		<!-- 가운데 영역 -->
+   
+   <!-- 가운데 영역 -->
 		<section class="blog">
 			<div id="mid-course" class="mid-course">
 				<div class="container">				
 				 <h2>MY COURSE</h2>
 				<br>
-				<div class = "form-study">
+			<div class = "form-study">
+				<div class="tab-content">
+                    <!-- MY SUBMISSIONS -->
+                    <div class="tab-pane fade in active" id="mysubmissions">
+                        <div class="table-wrap">
+                            <!-- TABLE HEAD -->
+                            <div class="table-head">
+                                <div class="submissions"></div>
+                                <div class="total-subm">Submissions</div>
+                                <div class="replied">Replied</div>
+                                <div class="latest-reply">Latest Reply</div>
+                                <div class="tb-icon"></div>
+                            </div>
+                            <!-- END / TABLE HEAD -->
 
-		<s:iterator value="courseList" status="incr">		
-				<div class = "form-study-course" id ="<s:property value="%{#incr.index+1}"/>">
-				    <div class="study-course-bg mc-item3">
-                        
-                        <div class="meta-categories"><s:iterator value="courseTypeList" ><s:property/>&nbsp;&nbsp;&nbsp;&nbsp;</s:iterator>
-                        </div>
-                        
-                        <div class="content-item">
-                            <h3><a href="selectCourseDetailForStudy.action?courseno=<s:property value="courseno" />"><s:property value="coursename" /></a></h3>
-                            <div class="name-author">
-                                By &nbsp;<s:property value="teacherid" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-               </s:iterator>
-               
-               <s:if test="courseList == null">
-               		<div class = "form-study-course" >
-				    <div class="study-course-bg mc-item3">
-                        
-                        <div class="meta-categories">
-                        	
-                        </div>
-                        
-                        <div class="content-item">
-                            <h3>- 정보 없음 -</h3>
-                            <div class="name-author">
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-               </s:if>
-  
-                <div class = "paging" align="center">
-               		   <ul class="pager">
-               		   
-			<s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
-             <li><a> <s:property value="#session.currentPage"/> </a></li>
-             </s:if>
-            
-            <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
-             <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
-             <li><a href = "plusStudyMain.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
-            </s:elseif>
-			
-			<s:elseif test="#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1">
-             <li><a href = "plusStudyMain.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
-            <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
-            </s:elseif>
-			
-			<s:elseif test="#session.currentPage == 0">
-             <li><a> <s:property value="#session.currentPage"/> </a></li>
-             </s:elseif>
-			
-			<s:else>
-             <li><a href = "plusStudyMain.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
-             <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
-             <li><a href = "plusStudyMain.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
-            </s:else>
-				
-                        </ul>
-                 </div>       
-                
-             </div>         
-				
-				<!-- SIDEBAR -->
+                            <!-- TABLE BODY -->
+                            <div class="table-body">
+                                <!-- TABLE ITEM -->
+                                <div class="table-item">
+                                    <div class="thead">
+                                        <div class="submissions"><a href="#">Learning for dummies</a></div>
+                                        <div class="total-subm">0/4</div>
+                                        <div class="replied">0/2</div>
+                                        <div class="latest-reply">11. Jul , 2014</div>
+                                        <div class="toggle tb-icon">
+                                            <a href="#"><i class="fa fa-angle-down"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="tbody">
+                                        <!-- ITEM -->
+                                        <div class="item">
+                                            <div class="submissions"><a href="#">Title of Assignment 1 in course</a></div>
+                                            <div class="total-subm">Submited</div>
+                                            <div class="replied">Replied</div>
+                                            <div class="latest-reply">11. Jul , 2014</div>
+                                            <div class="link tb-icon">
+                                                <a href="#"><i class="fa fa-play-circle-o"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- END / ITEM -->
+
+                                        <!-- ITEM -->
+                                        <div class="item">
+                                            <div class="submissions"><a href="#">Title of Assignment 2 in course</a></div>
+                                            <div class="total-subm">Submited</div>
+                                            <div class="replied">Replied</div>
+                                            <div class="latest-reply">11. Jul , 2014</div>
+                                            <div class="link tb-icon">
+                                                <a href="#"><i class="fa fa-play-circle-o"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- END / ITEM -->
+
+                                        <!-- ITEM -->
+                                        <div class="item">
+                                            <div class="submissions"><a href="#">Title of Assignment 3 in course</a></div>
+                                            <div class="total-subm">Submited</div>
+                                            <div class="replied">Replied</div>
+                                            <div class="latest-reply">11. Jul , 2014</div>
+                                            <div class="link tb-icon">
+                                                <a href="#"><i class="fa fa-play-circle-o"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- END / ITEM -->
+
+                                        <!-- ITEM -->
+                                        <div class="item">
+                                            <div class="submissions"><a href="#">Title of Assignment 4 in course</a></div>
+                                            <div class="total-subm">Submited</div>
+                                            <div class="replied">Replied</div>
+                                            <div class="latest-reply">11. Jul , 2014</div>
+                                            <div class="link tb-icon">
+                                                <a href="#"><i class="fa fa-play-circle-o"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- END / ITEM -->
+
+                                    </div>
+                                </div>
+                                <!-- END / TABLE ITEM -->
+                                </div>
+                                </div>
+                                </div>
+		</div>
+		</div>
+
+	<!-- SIDEBAR -->
                 <div class = "course-side">
                     <aside class="blog-sidebar">
                     
@@ -212,13 +224,11 @@
                     </aside>    
 				</div>
 				  <!-- END / SIDEBAR -->
-				</div>
-			</div>
-			
-		</section>
-		
-		
-<%@include file="/resources/footer.jsp" %>
+				  </div>
+				  </div>
+				  </section>
+				  
+				  <%@include file="/resources/footer.jsp" %>
 	
 	<!-- Load jQuery -->
 	<script type="text/javascript"
@@ -236,45 +246,32 @@
 	<script type="text/javascript"
 		src="../resources/javatree_view/html/js/scripts.js"></script>
 		
-<script>
-$(function(){
-	 
-$("body").on('click', '#watchMore', function(){
-	
-	var start = $(".form-study > div:first").attr('id');
-	start = parseInt(start) + 2;
-	var end = start + 1;
-	var stringForTokenizer = '';
-	//var test = $("[name=interest]");
-/* 	for(var i = 0; i < test.length; i++){
-		if(test[i].checked){
-			stringForTokenizer += test[i].value + ',';
-		}
-	} */
-	
-	$.ajax({
-		type: 'GET'
-		, url: 'plusStudyMain'
-		, data : 'start='+start+'&end='+end
-		, success : function(response){
-			var indexNum = start;
-			var list = response.courseList;
-			
-			$('.form-study').html('');
-			
-			list.forEach(function(course){
-				
-				var divTag = $('<div class="form-study-course" id='+(indexNum++)+'><div class="study-course-bg mc-item3"></div></div>');
-				
-				divTag.html('<div class="meta-categories">'+ course.courseTypeList +'</div><div class="content-item"><h3><a href="selectCourseDetailForStudy.action?courseno='+course.courseno
-						+'">'+course.coursename+'</a></h3><div class="name-author"> By '+course.teacherid+'</div></div>').prependTo(".form-study");
-			
-			});
-		}
-	});
-	//event.preventDefault(); 
-});
-});	
+	<script type="text/javascript">
+
+    $.each($('.table-wrap'), function() {
+        $(this)
+            .find('.table-item')
+            .children('.thead:not(.active)')
+            .next('.tbody').hide();
+        $(this)
+            .find('.table-item')
+            .delegate('.thead', 'click', function(evt) {
+                evt.preventDefault();
+                if ($(this).hasClass('active')==false) {
+                    $('.table-item')
+                        .find('.thead')
+                        .removeClass('active')
+                        .siblings('.tbody')
+                            .slideUp(200);
+                }
+                $(this)
+                    .toggleClass('active')
+                    .siblings('.tbody')
+                        .slideToggle(200);
+        });
+    });
+
 </script>
+
 </body>
 </html>

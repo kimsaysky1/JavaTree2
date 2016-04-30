@@ -201,6 +201,16 @@ h3,
   line-height: 1.5em;
   color: #666;
 }
+
+h3,
+.big2 {
+  font-family: 'Lato', sans-serif;
+  font-size: 32px;
+  line-height: 1.5em;
+  color: #00356a;
+  font-weight: 600;
+}
+
 h4,
 .md {
   font-family: 'Lato', sans-serif;
@@ -1601,7 +1611,7 @@ table.mc-table tbody .new .submissions a:before {
   background-image: url("../images/bg-newletter.jpg");
 }
 .bg-profile-feature {
-  background-image: url('../images/bg/parallax-1.jpg');
+  background-image: url('../images/bg/mainimg_2.jpg');
 }
 .bg-featured-request-teacher {
   background-image: url('../images/bg/parallax-1.jpg');
@@ -2107,7 +2117,7 @@ table.mc-table tbody .new .submissions a:before {
 }
 
 .course-side{
-	width: 350px;
+	width: 340px;
 	float: right;
 	
 }
@@ -5080,7 +5090,7 @@ footer#footer.footer-style-2 {
 }
 
 .form-study{
-	width :700px;
+	width :765px;
 	float: left;
 }
 
@@ -5635,7 +5645,9 @@ footer#footer.footer-style-2 {
 /*-- PROFILE FEATURE --*/
 .profile-feature {
   position: relative;
-  padding: 45px 0;
+  padding-top:15px;
+  padding-bottom: 30px;
+  /* padding: 45px 0; */
   z-index: 9;
 }
 .info-author {
