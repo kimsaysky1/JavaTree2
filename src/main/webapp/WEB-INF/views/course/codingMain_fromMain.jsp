@@ -229,9 +229,10 @@ $(document).ready(function() {
     $('#btnRight').click(function(e) {
     	var selectedOpts = $('#lstBox1 option:selected');
     	var lectureno = $("#lecturelistbox option:selected").val();
-        var codingnoList = [];
+        var codingnoList = '';
         $('#lstBox1 :selected').each(function(i, selected) {
-        	codingnoList[i] = $(selected).val();
+        	
+        	codingnoList +=','+ $(selected).val();
         	alert("코딩넘버리스트: "+codingnoList);
         });
         

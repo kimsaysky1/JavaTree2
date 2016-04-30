@@ -2163,10 +2163,16 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			System.out.println("codingnoList: "+codingnoList);
 			///coding= dao.selectedCheck(codingnoList);
 			/*codingquestion = coding.getCodingquestion();*/
-			
+			/*Map<String, Object> map = new HashMap<>();
+			for(int i = 0; i < codingnoList.size(); i++){
+				map.put("codingno", codingnoList.get(i));
+				System.out.println("map: "+map);
+				coding= dao.selectedCheck(map);
+				System.out.println("coding: "+coding);
+			}*/
 			
 			ArrayList<String> tempList = new ArrayList<>();
-			String temp = codingListForInsert.get(0);
+			String temp = codingnoList.get(0).toString();
 			StringTokenizer st = new StringTokenizer(temp, ",");
 			while(st.hasMoreTokens()){
 				tempList.add(st.nextToken());
@@ -2174,24 +2180,27 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				
 			System.out.println("tempList.size(): "+tempList.size());
 			System.out.println("tempList: "+tempList);
-			id=(String) session.get("loginId");
+			//id=(String) session.get("loginId");
 			Map<String, Object> map = new HashMap<>();
 			
 			for(int i = 0; i < tempList.size(); i++){
 				
 				map.put("codingno", tempList.get(i));
-				map.put("id", id);
+				//map.put("id", id);
 				System.out.println("map: "+map);
-				dao.insertCodingTemp(map);
+				coding=dao.selectedCheck(map);
 				
 				//dao.insertLectureCoding(map);
 				System.out.println(i+"번 완료");
+				System.out.println(coding);
 			}
 			
 			//codingFormlecturelist();
 			
 			return SUCCESS;
 		}
+		
+		
 		
 		public String studyMainView2(){
 			
