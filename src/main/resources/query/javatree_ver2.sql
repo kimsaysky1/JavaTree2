@@ -1,5 +1,12 @@
+create table codingtemp
+(
+   id varchar2(20) NOT NULL,
+   codingno number(6,0) NOT NULL
+) --20160430 박수지 추가
+
 alter table question modify title varchar2(200); -- 20160430 김영호 추가
 
+alter table subnote add (courseno number (6, 0) not null) -- 20160429 류창우 추가
 alter table notification modify regdate default sysdate -- 20160429 김영호 추가
 alter table rereply modify regdate default sysdate -- 20160429 김영호 추가
 alter table notification modify message varchar2(200) --20160429 김영호 추가
@@ -9,7 +16,7 @@ alter table notification drop column replyno; -- 20160429 김영호 추가
 create sequence notification_seq -- 20160429 김영호 추가
 
 alter table coding add (id varchar2(20) NOT NULL);--20160425 박수지 추가
-alter table subnote add (courseno number (6, 0) not null) -- 20160429 류창우 추가
+
 create sequence question_seq;
 CREATE sequence subnote_seq start with 1 increment by 1;--20160421추가    	
 

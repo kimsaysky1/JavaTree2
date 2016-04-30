@@ -250,6 +250,10 @@
 	<select id="addCurious" parameterType="map">
 		update question set curious = #{curious} where questionno = #{questionno}
 	</select>
+	
+	<select id="addRecommend" parameterType="map">
+		update reply set recommend = #{recommend} where replyno = #{replyno}
+	</select>
 	<!-- <insert id="insert"> 
 	
 	</insert> -->

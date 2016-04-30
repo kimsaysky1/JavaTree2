@@ -47,6 +47,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 	private int start;
 	private int end;
 	private int curious;
+	private int recommend;
 	private Map<String, Object> session;
 	private boolean notificationCheck;
 	private Notification notification;
@@ -97,7 +98,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		replyList = dao.selectAllReply(reply.getQuestionno());
 		return SUCCESS;
 	}
-	
+
 	public String insertRereply() throws Exception {
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
 		String loginId = (String) session.get("loginId");
@@ -106,7 +107,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		rereply.setUsername(loginName);
 		dao.insertRereply(rereply);
 		notification.setSenderid(loginId);
-		notification.setMessage(loginId + " 님이 "+notification.getReceiverid()+"님의 답변에 댓글을 다셨습니다.");
+		notification.setMessage(loginId + " 님이 " + notification.getReceiverid() + "님의 답변에 댓글을 다셨습니다.");
 		dao.insertNotification(notification);
 		rereplyList = dao.selectAllRereply(replyno);
 		return SUCCESS;
@@ -236,7 +237,6 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 
-
 	public String addCurious() throws Exception {
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
 		Map map = new HashMap();
@@ -244,6 +244,16 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		map.put("questionno", question.getQuestionno());
 		map.put("curious", curious);
 		dao.addCurious(map);
+		return SUCCESS;
+	}
+
+	public String addRecommend() throws Exception {
+		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
+		Map map = new HashMap();
+		recommend = reply.getRecommend() + 1;
+		map.put("replyno", reply.getReplyno());
+		map.put("recommend", recommend);
+		dao.addRecommend(map);
 		return SUCCESS;
 	}
 
@@ -438,7 +448,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 	public void setCurious(int curious) {
 		this.curious = curious;
 	}
-	
+
 	public int getNotificationno() {
 		return notificationno;
 	}
@@ -447,7 +457,14 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		this.notificationno = notificationno;
 	}
 
-	
+	public int getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(int recommend) {
+		this.recommend = recommend;
+	}
+
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;

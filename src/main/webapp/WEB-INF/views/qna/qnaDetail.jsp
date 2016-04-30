@@ -125,7 +125,8 @@
 													<h4 class="md black"><s:property value="content"/> 
 													<div class="comment-meta">
 														<a href="#"><s:property value="regdate"/></a> 
-														<a href="#"><i class="icon md-arrow-up"></i>추천&nbsp;<s:property value="recommend"/></a> 
+														<a href="#" class="addRecommend" id ="<s:property value="replyno"/>"><i class="icon md-arrow-up"></i>추천&nbsp;
+														<span><s:property value="recommend"/></span></a> 
 														<a href="#" linkvalue = "<s:property value="replyno"/>" class="showRereply"><i class="icon md-back"></i>REPLY</a>
 													</div>
 												</div>
@@ -272,6 +273,24 @@
 				, dataType : 'json'
 				, success : function(response){
 					$("#curious").text(response.curious);
+				}
+				, error : function(response){
+					alert('실패');
+				}
+			});
+		});
+		
+		$('body').on('click', '.addRecommend', function(){
+			var replyno = $(this).attr('id');
+			var recommend = $(this).parent().find('span')
+			var recommendValue = recommend.text();
+			$.ajax({
+				type: 'GET'
+				, url: 'addRecommend'
+				, data : 'reply.replyno='+replyno+'&reply.recommend='+recommendValue
+				, dataType : 'json'
+				, success : function(response){
+					recommend.text(response.recommend);
 				}
 				, error : function(response){
 					alert('실패');

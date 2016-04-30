@@ -30,5 +30,6 @@ public interface QnaDAO {
 	public String selectTypeName(int typenoTemp);
 	public void addCurious(Map map);
 	public void insertNotification(Notification notification);
+	public void addRecommend(Map map);
 	
 }
