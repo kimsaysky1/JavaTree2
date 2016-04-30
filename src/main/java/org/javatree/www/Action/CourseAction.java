@@ -138,6 +138,10 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	private ArrayList<Course> recourseList;
 	private ArrayList<String> interestList;
 	private String codingquestion;
+	
+	private ArrayList<Integer> codingnoList= new ArrayList<>();
+	
+	
 	private static final Logger logger = LoggerFactory.getLogger(CourseAction.class);
 	
 	public String DownLoadFile() throws Exception {
@@ -1961,7 +1965,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			System.out.println("lectureno : "+lectureno);
 			
-			ArrayList<Integer> codingnoList= new ArrayList<>();
+			
 			codingnoList = dao.getCodingno(lectureno);
 			
 			System.out.println("codingnoList1 : "+codingnoList);
@@ -2152,11 +2156,174 @@ public class CourseAction extends ActionSupport implements SessionAware {
 
 		
 		public String selectedCheck(){
+			System.out.println("체크");
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			//coding= dao.selectedCheck(codingnoList);
+			System.out.println("codingnoList: "+codingnoList);
+			///coding= dao.selectedCheck(codingnoList);
 			/*codingquestion = coding.getCodingquestion();*/
+			
+			
+			ArrayList<String> tempList = new ArrayList<>();
+			String temp = codingListForInsert.get(0);
+			StringTokenizer st = new StringTokenizer(temp, ",");
+			while(st.hasMoreTokens()){
+				tempList.add(st.nextToken());
+			}
+				
+			System.out.println("tempList.size(): "+tempList.size());
+			System.out.println("tempList: "+tempList);
+			id=(String) session.get("loginId");
+			Map<String, Object> map = new HashMap<>();
+			
+			for(int i = 0; i < tempList.size(); i++){
+				
+				map.put("codingno", tempList.get(i));
+				map.put("id", id);
+				System.out.println("map: "+map);
+				dao.insertCodingTemp(map);
+				
+				//dao.insertLectureCoding(map);
+				System.out.println(i+"번 완료");
+			}
+			
+			//codingFormlecturelist();
+			
 			return SUCCESS;
 		}
+		
+		public String studyMainView2(){
+			
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			
+			//페이지 시작 값, 마지막 값, 현재 페이지 = 1
+			start = 1;
+			end = 7;
+			currentPage = 1;
+			int countPerPage = 7;		//페이지당 글목록 수
+			
+			Map<String, Object> kong = new HashMap<>();
+			
+			if(((String) session.get("loginId")) != null){
+				kong.put("id", (String)session.get("loginId"));
+			}
+			
+			kong.put("start", start);
+			kong.put("end", end);
+			int totalRecordsCount = dao.selectTotal(kong);
+			
+			if(totalRecordsCount != 0){
+			
+			ArrayList<String> tempList1 = new ArrayList<>();
+			tempList1 =  dao.selectLatelyPurchasedLectureList1(kong);
+			ArrayList<String> tempList2 = new ArrayList<>();
+			tempList2 =  dao.selectLatelyPurchasedLectureList2(kong);
+			
+			latelyPurchasedLectureList = new ArrayList<>();
+			
+			for (int i = 0; i < tempList1.size(); i++) {
+				Lecture l = new Lecture(tempList1.get(i), tempList2.get(i));
+				latelyPurchasedLectureList.add(l);
+			}
+			
+			ArrayList<String> tempList3 = new ArrayList<>();
+			tempList3 =  dao.recentlyCompletedLectureList1(kong);
+			ArrayList<String> tempList4 = new ArrayList<>();
+			tempList4 =  dao.recentlyCompletedLectureList2(kong);
+			
+			recentlyCompletedLectureList = new ArrayList<>();
+			
+			for (int i = 0; i < tempList3.size(); i++) {
+				Lecture l = new Lecture(tempList3.get(i), tempList4.get(i));
+				recentlyCompletedLectureList.add(l);
+			}
+		
+			courseList = dao.pagingStudyCourse(kong);
+			
+			for (int i = 0; i < courseList.size(); i++) {
+				
+				for (int j = 0; j < courseList.get(i).getCourseTypeList().size(); j++) {
+					
+					String key = courseList.get(i).getCourseTypeList().get(j);
+					
+					switch (key) {
+					case "1":
+						courseList.get(i).getCourseTypeList().set(j, "Purejava");
+						break;
+					case "2":
+						courseList.get(i).getCourseTypeList().set(j, "Web");
+						break;
+					case "3":
+						courseList.get(i).getCourseTypeList().set(j, "Mobile");
+						break;
+					case "4":
+						courseList.get(i).getCourseTypeList().set(j, "IOT");
+						break;
+					case "5":
+						courseList.get(i).getCourseTypeList().set(j, "Swing");
+						break;
+					case "6":
+						courseList.get(i).getCourseTypeList().set(j, "JDBC");
+						break;
+					case "7":
+						courseList.get(i).getCourseTypeList().set(j, "API");
+						break;
+					case "8":
+						courseList.get(i).getCourseTypeList().set(j, "Spring");
+						break;
+					case "9":
+						courseList.get(i).getCourseTypeList().set(j, "Struts");
+						break;
+					case "10":
+						courseList.get(i).getCourseTypeList().set(j, "etcFramework");
+						break;
+					case "11":
+						courseList.get(i).getCourseTypeList().set(j, "etc");
+						break;
+					default:
+						break;
+					}
+					
+				}
+				
+			}
+			
+			if(session.get("searchText") == null) searchText = null;
+			
+			if(totalRecordsCount % countPerPage == 0 ){
+				endPageGroup = (int)(totalRecordsCount/countPerPage);		//총 (페이지)그룹 수
+			}else{
+				endPageGroup = (int)(totalRecordsCount/countPerPage)+1;		//총 (페이지)그룹 수
+			}
+			if(currentPage == 0){
+				currentPage = 1;
+			}
+					
+			session.put("currentPage", currentPage);
+			session.put("CountPerPage", countPerPage);
+			session.put("endPageGroup", endPageGroup);
+			
+			}else{
+				session.put("currentPage", 0);
+			}
+			
+		/*	session.put("pend", end);
+			session.put("pstart", start);
+			session.put("operation", "plusSearchCourse");
+			session.put("pcurrentPage", currentPage);
+			session.put("pCountPerPage", countPerPage);
+			session.put("pendPageGroup", endPageGroup);
+			session.put("psearchText", (String)session.get("searchText"));*/
+			
+			return SUCCESS;
+			
+		}
+		
+
+		
+		
+		
+		
+		
 		
 		
 		
@@ -2242,8 +2409,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public void setId(String id) {
 			this.id = id;
 		}
-	
-		
 	
 		public int getCourseno() {
 			return courseno;
@@ -2646,13 +2811,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			this.codingListForInsert = codingListForInsert;
 		}
 
-
-
 		public String getCodingquestion() {
 			return codingquestion;
 		}
-
-
 
 		public void setCodingquestion(String codingquestion) {
 			this.codingquestion = codingquestion;
@@ -2681,6 +2842,13 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public void setContentLength(long contentLength) {
 			this.contentLength = contentLength;
 		}
+		public ArrayList<Integer> getCodingnoList() {
+			return codingnoList;
+		}
+		public void setCodingnoList(ArrayList<Integer> codingnoList) {
+			this.codingnoList = codingnoList;
+		}
 	
+		
 		
 }

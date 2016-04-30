@@ -66,7 +66,11 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
 		String loginId = (String) session.get("loginId");
 		String loginName = (String) session.get("loginName");
+<<<<<<< HEAD
 		int typenoTemp = question.getTypeno();
+=======
+		int typenoTemp = Integer.parseInt(typeno);
+>>>>>>> 73d93e48aae7c7a0419d9a8870b7e447a73790cf
 		question.setId(loginId);
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
@@ -87,6 +91,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
 		typeName = dao.selectTypeName(typenoTemp);
+		System.out.println("question: "+question);
 		dao.insertQuestion(question);
 		makeQnaDefaultMain(loginId);
 		return SUCCESS;
