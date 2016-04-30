@@ -16,13 +16,12 @@
 				<interceptor-ref name="defaultStack"/>
 				<interceptor-ref name="loginCheck"/>
 			</interceptor-stack>
-     	
      	 </interceptors>
 		
         <default-action-ref name="index" />
        
 		<global-results>
-			<result name="login" type="redirect">/loginFrom.action</result>
+			<result name="login" type="redirect">../member/loginFrom.action</result>
 		</global-results>
        
         <action name="index">
