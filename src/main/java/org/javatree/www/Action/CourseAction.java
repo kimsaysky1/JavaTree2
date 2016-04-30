@@ -2149,6 +2149,16 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			return SUCCESS;
 		}
 	
+
+		
+		public String selectedCheck(){
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			//coding= dao.selectedCheck(codingnoList);
+			/*codingquestion = coding.getCodingquestion();*/
+			return SUCCESS;
+		}
+		
+		
 		
 		//getter setter
 

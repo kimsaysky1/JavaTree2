@@ -107,13 +107,11 @@
                     
                     	<!-- 질문 버튼 모달-->
                     	<div class="form-submit-1">
-                    		<!-- <form action="insertQuestion" name="insertQuestion" method="get"> -->
-								<input type="button" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
-                    			<div class="container">
-									<div class="modal fade" id="writeQuestion" role="dialog">
-								  	</div>
-                    			</div>
-                    		<!-- </form>  -->
+							<input type="button" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
+                    		<div class="container">
+								<div class="modal fade" id="writeQuestion" role="dialog">
+							  	</div>
+                    		</div>
 						</div>
                     	<!-- 질문 버튼 모달 끝 -->
                     	<br><br>
@@ -178,7 +176,6 @@
                                 </table>
                             </div>
                             <!-- END / DESIGN ASSIGNMENT -->
-    
                         </div>
                         <!-- 내용 끝 -->
                         <!-- 베스트 랭킹 탭 끝 -->
@@ -297,13 +294,16 @@
 			str += '<td><textarea id="content" name="question.content" style="height: 250px;"></textarea></td></tr>';
 			str += '<tr><td style=\'height: 20px;\'></td></tr></table></div>';
 			str += '<div class="modal-footer">';
-			str += '<input type="button" value="등록" id="removeModal" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
-			str += '<input type="reset" value="취소" class="mc-btn-5"></div></div></div>';
+			str += '<input type="button" value="등록" id="executeModal" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
+			str += '<input type="button" value="취소" id="removeModal" class="mc-btn-5"></div></div></div>';
 			
 			$('#writeQuestion').html(str);
 		});
-		
 		$('body').on('click', '#removeModal', function(){
+			$('#writeQuestion').modal('hide');
+		});
+		
+		$('body').on('click', '#executeModal', function(){
 			
 			var title = $('#title').val();
 			var typeno = $('#typeno option:selected').val();
