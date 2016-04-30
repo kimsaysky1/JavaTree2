@@ -9,6 +9,16 @@
 
     <package name="course" namespace="/course" extends="default, json-default">
     
+    	<action name="studyMainView2" class="org.javatree.www.Action.CourseAction" method="studyMainView2">
+        	<interceptor-ref name="LoginCheckForMember" />
+        	<result>/WEB-INF/views/course/studyMain2.jsp</result>
+        </action>
+        
+        <action name="selectCourseDetailForStudy" class="org.javatree.www.Action.CourseAction" method="selectCourseDetailForStudy">
+        	<result type="json"></result>
+        </action>
+        
+    
         <action name="selectAllCourseList" class="org.javatree.www.Action.CourseAction" method="selectAllCourseList">
         	<result>/WEB-INF/views/course/courseDefaultMain.jsp</result>
         </action>
@@ -26,7 +36,7 @@
         </action>
         
      	<action name="plusStudyMain" class="org.javatree.www.Action.CourseAction" method="plusStudyMain">
-        	<result>/WEB-INF/views/course/studyMain2.jsp</result>
+        	<result>/WEB-INF/views/course/studyMain.jsp</result>
         </action>
         
         <action name="plusTeachMain" class="org.javatree.www.Action.CourseAction" method="plusTeachMain">
@@ -36,7 +46,7 @@
        
         <action name="studyMainView" class="org.javatree.www.Action.CourseAction" method="studyMainView">
         	<interceptor-ref name="LoginCheckForMember" />
-        	<result>/WEB-INF/views/course/studyMain2.jsp</result>
+        	<result>/WEB-INF/views/course/studyMain.jsp</result>
         </action>
         
         <action name="selectCourseDetailForStudy" class="org.javatree.www.Action.CourseAction" method="selectCourseDetailForStudy">
@@ -172,6 +182,10 @@
         </action>
         
         <action name="showcodingcontent" class="org.javatree.www.Action.CourseAction" method="showcodingcontent">
+        	<result type="json"></result>
+        </action>
+        
+        <action name="insertcodinginbox" class="org.javatree.www.Action.CourseAction" method="insertcodinginbox">
         	<result type="json"></result>
         </action>
         

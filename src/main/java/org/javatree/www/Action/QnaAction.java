@@ -62,21 +62,15 @@ public class QnaAction extends ActionSupport implements SessionAware {
 
 	private String order;
 
-	private ArrayList<Course> courseList;
-
 	public String insertQuestionByModal() throws Exception {
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
-		System.out.println("insertquestionmodal 드러옴");
 		String loginId = (String) session.get("loginId");
 		String loginName = (String) session.get("loginName");
-		int typenoTemp = question.getTypeno();
-		System.out.println("loginId: "+loginId);
-		System.out.println("loginName: "+loginName);
+		int typenoTemp = Integer.parseInt(typeno);
 		question.setId(loginId);
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
 		typeName = dao.selectTypeName(typenoTemp);
-		System.out.println("question: "+question);
 		dao.insertQuestion(question);
 		return SUCCESS;
 	}
@@ -93,6 +87,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
 		typeName = dao.selectTypeName(typenoTemp);
+		System.out.println("question: "+question);
 		dao.insertQuestion(question);
 		makeQnaDefaultMain(loginId);
 		return SUCCESS;
@@ -131,7 +126,6 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
 		Member_jt member = dao.selectOneMember(loginId);
 		typenoList = new ArrayList<>();
-
 		int questionnum = member.getCountquestion();
 		int responsenum = member.getCountresponse();
 		int recommendnum = member.getCountrecommend();
@@ -283,7 +277,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		ArrayList<String> interestList = new ArrayList<>();
 		
 		StringTokenizer st = new StringTokenizer(interestString, ",");
-		
+		System.out.println("intereststring>> " + interestString);
 		while (st.hasMoreTokens()) {
 			interestList.add(st.nextToken());
 		}
@@ -293,7 +287,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		for (int i = 0; i < interestList.size(); i++) {
 			kong.put("interest"+i, interestList.get(i));
 		}
-		
+		session.put("order", order);
 		kong.put("order", order);
 		start = 1;
 		end = 7;
@@ -303,7 +297,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		kong.put("end", end);
 		
 		int totalRecordsCount = dao.selectFieldTotal(kong);
-		
+		System.out.println("total> " + totalRecordsCount);
 		int countPerPage = 7;		//페이지당 글목록 수
 		endPageGroup = 1;
 		if(totalRecordsCount % countPerPage == 0 ){
@@ -320,8 +314,8 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		session.put("CountPerPage", countPerPage);
 		session.put("endPageGroup", endPageGroup);
 		
-		courseList= dao.selectListbyField(kong);		
-		
+		questionList= dao.selectListbyField(kong);		
+		System.out.println("questionList>> " + questionList);
 		//궁금도 랭킹
 		/*allRank = dao.selectAllRank();
 		recentRank = dao.selectRecentRank();*/
@@ -335,6 +329,65 @@ public class QnaAction extends ActionSupport implements SessionAware {
 				session.put("pendPageGroup", endPageGroup);
 				session.put("porder", order);
 				session.put("interest", interestString);
+		
+		return SUCCESS;
+	}
+	
+	public String plusSelectListbyField(){
+		System.out.println("qna>>"+interestString);
+		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
+		
+		ArrayList<String> interestList = new ArrayList<>();
+		
+		StringTokenizer st = new StringTokenizer(interestString, ",");
+		while (st.hasMoreTokens()) {
+			interestList.add(st.nextToken());
+		}
+		
+		Map<String, Object> kong = new HashMap<>();
+		for (int i = 0; i < interestList.size(); i++) {
+			kong.put("interest"+i, interestList.get(i));
+		}
+		
+		int countPerPage = (int) session.get("CountPerPage");		//페이지당 글목록 수
+		
+		System.out.println("get.currpage>> " + currentPage);
+		
+		start = countPerPage*currentPage-(countPerPage-1);
+		end = countPerPage*currentPage;
+		
+		System.out.println("start>> " + start);
+		System.out.println("end>> " + end);
+		
+		kong.put("start", start);
+		kong.put("end", end);
+		kong.put("order", (String)session.get("order"));
+		int totalRecordsCount = dao.selectFieldTotal(kong);
+		
+		if(totalRecordsCount % countPerPage == 0 ){
+			endPageGroup = (int)(totalRecordsCount/countPerPage);		//총 (페이지)그룹 수
+		}else{
+			endPageGroup = (int)(totalRecordsCount/countPerPage)+1;		//총 (페이지)그룹 수
+		}
+		
+		if(currentPage == 0){
+			currentPage = 1;
+		}
+		
+		session.put("currentPage", currentPage);
+		session.put("CountPerPage", countPerPage);
+		session.put("endPageGroup", endPageGroup);
+		
+		
+		questionList= dao.selectListbyField(kong);		
+		System.out.println("ques>> " + questionList);
+		
+		session.put("pend", end);
+		session.put("pstart", start);
+		session.put("operation", "plusSelectListbyField");
+		session.put("pcurrentPage", currentPage);
+		session.put("pCountPerPage", countPerPage);
+		session.put("pendPageGroup", endPageGroup);
 		
 		return SUCCESS;
 	}
@@ -583,14 +636,5 @@ public class QnaAction extends ActionSupport implements SessionAware {
 	public void setOrder(String order) {
 		this.order = order;
 	}
-
-	public ArrayList<Course> getCourseList() {
-		return courseList;
-	}
-
-	public void setCourseList(ArrayList<Course> courseList) {
-		this.courseList = courseList;
-	}
-	
 	
 }
