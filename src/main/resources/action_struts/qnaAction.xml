@@ -16,10 +16,6 @@
      		<result>/WEB-INF/views/qna/qnaDefaultMain.jsp</result>
      	</action>
      	
-     	<action name="insertReplyReady" class="org.javatree.www.Action.QnaAction" method="insertReplyReady">
-     		<result>/WEB-INF/views/qna/qnaReply.jsp</result>
-     	</action>
-     	
      	<action name="insertReply" class="org.javatree.www.Action.QnaAction" method="insertReply">
      		<result>/WEB-INF/views/qna/qnaDetail.jsp</result>
      	</action>
@@ -46,6 +42,10 @@
      	</action> 
      	
      	<action name="searchListByInterest" class="org.javatree.www.Action.QnaAction" method="searchListByInterest">
+     		<result type="json"></result>
+     	</action>
+     	
+     	<action name="addCurious" class="org.javatree.www.Action.QnaAction" method="addCurious">
      		<result type="json"></result>
      	</action>
     </package>

@@ -10,7 +10,17 @@
    
     <package name="default" namespace="/" extends="struts-default">
 		
+     	 <interceptors>
+     	  <interceptor name="loginCheck" class="org.javatree.www.interceptor.LoggingInterceptor"/>
+     	  	<interceptor-stack name="LoginCheckForMember">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="loginCheck"/>
+			</interceptor-stack>
+     	
+     	 </interceptors>
+		
         <default-action-ref name="index" />
+<<<<<<< HEAD
         
         <action name="callIndex">
         	<result type="redirectAction">
@@ -19,11 +29,18 @@
         	</result>
         </action>
         
+=======
+       
+		<global-results>
+			<result name="login" type="redirect">/loginFrom.action</result>
+		</global-results>
+       
+>>>>>>> e64725c8eac93bf2ffa96201f82154a8a97fa633
         <action name="index">
            <result>/WEB-INF/views/index.jsp</result>
         </action>
+        
      	
-     	  
 
 <!-- 비밀번호, 아이디 찾는 폼 -->
 

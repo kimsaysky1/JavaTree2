@@ -52,6 +52,18 @@
 		window.open('/javatree/course/updateSubnoteForm.action?lectureno='+lectureno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
 	 }
 
+ function updateCoding(){
+	 var codingno=$('#codingno').val();
+	 var lectureno=$('#lectureno').val();
+		window.open('/javatree/course/updateCoding.action?lectureno='+lectureno+'codingno='+codingno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
+ }
+ 
+ function checkVideo(){
+	 var codingno=$('#codingno').val();
+	 var lectureno=$('#lectureno').val();
+		window.open('/javatree/course/mediaPlayerForm.action?lectureno='+lectureno+'codingno='+codingno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
+ }
+ 
 </script>
 
 
@@ -161,11 +173,13 @@
 							<tr class="new">
 								<td class="submissions"><a href="#"><s:property value="lecturename"/></a></td>
 								<input type="hidden" id="lectureno" value='<s:property value="lectureno"/>' >
+								<input type="hidden" id="courseno" value='<s:property value="courseno"/>' >
 								<td class="author"><a href="javascript:updateLecture()">Edit<%-- <s:property value="lectureno"/> --%></a></td>
 								<td class="score"><a href="/javatree/course/deleteLecture.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>">Delete</a></td><!-- javascript:deleteLecture(); -->
 								<td class="submit-date"><a href="javascript:updateSubnote()">Paper</a></td>
-								<td class="submit-date"><a href="">Question</a></td>
-								<td class="submit-date"><a href="/javatree/course/mediaPlayerForm.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>">PlayView</a></td>
+								<td class="submit-date"><a href="javascript:updateCoding()">Question</a></td>
+								<%-- <td class="submit-date"><a href="/javatree/course/mediaPlayerForm.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>">PlayView</a></td> --%>
+								<td class="submit-date"><a href="javascript:checkVideo()">PlayView</a></td>
 							</tr>
 
 
@@ -176,12 +190,37 @@
 
 				<div class="paging" align="center">
 					<ul class="pager">
-						<li class="pager-current">1</li>
+						
+						<s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
+             <li> <a><s:property value="#session.currentPage"/></a> </li>
+             </s:if>
+            
+            <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
+            <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/></a></li>
+             <li><a href = 'plusCourseDetailForTeach.action?currentPage=<s:property value="#session.currentPage + 1"/>&courseno=<s:property value="courseno"/>'>next &gt</a></li>
+            </s:elseif>
+			
+			<s:elseif test='#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1'>
+             <li><a href = 'plusCourseDetailForTeach.action?currentPage=<s:property value="#session.currentPage - 1"/>&courseno=<s:property value="courseno"/>'>&lt prev</a></li>
+            <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/> </a> </li>
+            </s:elseif>
+            
+			<s:elseif test="#session.currentPage == 0">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:elseif>
+             
+			<s:else>
+             <li><a href = 'plusCourseDetailForTeach.action?currentPage=<s:property value="#session.currentPage - 1"/>&courseno=<s:property value="courseno"/>'>&lt prev</a></li>
+             <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = 'plusCourseDetailTeach.action?currentPage=<s:property value="#session.currentPage + 1"/>&courseno=<s:property value="courseno"/>'>next &gt</a></li>
+            </s:else>
+						
+						<!-- <li class="pager-current">1</li>
 						<li><a href="#">2</a></li>
 						<li><a href="#">3</a></li>
 						<li><a href="#">4</a></li>
 						<li><a href="#">next ›</a></li>
-						<li><a href="#">last »</a></li>
+						<li><a href="#">last »</a></li> -->
 					</ul>
 				</div>
 

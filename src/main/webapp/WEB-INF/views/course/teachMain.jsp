@@ -77,6 +77,26 @@
 				<br>
 				<div class = "form-study">
 				
+				<s:iterator value="courseList" status="incr">	
+				<input type="hidden" name="courseno" value="courseList.courseno">	
+				<div class = "form-study-course" id ="<s:property value="%{#incr.index+1}"/>">
+				    <div class="study-course-bg mc-item3">
+                        
+                        <div class="meta-categories"><s:iterator value="courseTypeList" ><s:property/>&nbsp;&nbsp;&nbsp;&nbsp;</s:iterator>
+                        </div>
+                        
+                        <div class="content-item">
+                            <h3><a href="/javatree/course/CourseDetailForTeachForm.action?courseno=<s:property value="courseno"/>"><s:property value="coursename" /><!-- CourseTitle --></a></h3>
+                            <div class="edit-view">
+                                <a href="" class="edit">Edit</a>
+                                <a href="/javatree/course/insertLectureForm.action?courseno=<s:property value="courseno"/>" class="view">ADD LECTURE</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               </s:iterator>
+				
+				
 <!-- 				<div class = "form-study-course">
 				         <div class="study-course-bg mc-item3">
 		         
@@ -90,7 +110,12 @@
                         	</div>
                     </div>
                 </div> -->
-<s:iterator value="courseList" status="st"> 
+                
+                
+                
+                
+                
+<%-- <s:iterator value="courseList" status="st"> 
 <!-- <input type="hidden" name="courseno" value="courseList.courseno">  -->
                 <div class = "form-study-course">
 				         <div class="study-course-bg mc-item3">
@@ -107,34 +132,44 @@
                         	</div>
                     </div>
                 </div>
-</s:iterator>              
+</s:iterator>               --%>
  			<div class = "paging" align="center">
-                		<a href="javascript:search(${pagenavi.currentPage-1});">&lt;</a>
-<s:iterator begin="pagenavi.startPageGroup" end="pagenavi.endPageGroup" var="total">
-                       
-	
-				<s:if test="pagenavi.currentPage == #total">
-					<a href="javascript:search('<s:property value="#total"/>');"><s:property value="#total"/></a>
-				</s:if>
-				<s:else>
-					<a href="javascript:search('<s:property value="#total"/>');"><s:property value="#total"/></a>
-				</s:else>
-</s:iterator>
-			<a href="javascript:search(${pagenavi.currentPage+1});">&gt;</a>
+	<ul class="pager">
+		<s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
+             <li> <a><s:property value="#session.currentPage"/></a> </li>
+             </s:if>
+            
+            <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
+            <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/></a></li>
+             <li><a href = 'plusTeachMain.action?currentPage=<s:property value="#session.currentPage + 1"/>&courseno=<s:property value="courseno"/>'>next &gt</a></li>
+            </s:elseif>
+			
+			<s:elseif test='#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1'>
+             <li><a href = 'plusTeachMain.action?currentPage=<s:property value="#session.currentPage - 1"/>&courseno=<s:property value="courseno"/>'>&lt prev</a></li>
+            <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/> </a> </li>
+            </s:elseif>
+            
+			<s:elseif test="#session.currentPage == 0">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:elseif>
+             
+			<s:else>
+             <li><a href = 'plusTeachMain.action?currentPage=<s:property value="#session.currentPage - 1"/>&courseno=<s:property value="courseno"/>'>&lt prev</a></li>
+             <li><a><s:property value="#session.currentPage"/>/<s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = 'plusTeachMain.action?currentPage=<s:property value="#session.currentPage + 1"/>&courseno=<s:property value="courseno"/>'>next &gt</a></li>
+            </s:else>
                 
                 
-                
-                
-               		<!--    <ul class="pager">
+               		<!--    
                             <li class="pager-current">1</li>
                             <li><a href="#">2</a></li>
                             <li><a href="#">3</a></li>
                             <li><a href="#">4</a></li>
                             <li><a href="#">next ›</a></li>
                             <li><a href="#">last »</a></li>
-                        </ul> -->
+                         -->
 
-
+			</ul>
          
                  </div>       
                 </div>

@@ -56,14 +56,14 @@
 							<div class="container">
 
 								<h3 class="md black">Field</h3>
-								<div>${question.typeno}</div>
+								<div>${typeName}</div>
 
 								<h3 class="md black">Question-title</h3>
 								<div class="row">
 									<div class="col-md-9">
 										<div class="avatar-acount2">
 											<div class="info-acount">
-												<p>ad ma commodo consequat.</p>
+												<p>${question.title}</p>
 											</div>
 										</div>
 									</div>
@@ -87,7 +87,7 @@
 													&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 													<div class="profile-address">
 														<h5>GUNGGUMDO</h5>
-														<p>${question.curious}</p>
+														<p id = "curious">${question.curious}</p>
 													</div>
 													&nbsp; &nbsp;
 
@@ -114,7 +114,7 @@
 						<hr class="hr2">
 						<section class="profil2">
 							<ul class="list-discussion">
-							
+								<!-- 답변 영역 -->
 								<s:iterator value="replyList">
 									<!-- LIST ITEM -->
 									<li>
@@ -125,11 +125,12 @@
 													<h4 class="md black"><s:property value="content"/>
 													<div class="comment-meta">
 														<a href="#"><s:property value="regdate"/></a> 
-														<a href="#"><i class="icon md-arrow-up"></i>추천&nbsp;<s:property value="recommend"/></a> 
+														<a href="#"><i class="icon md-arrow-up"></i>추천&nbsp;<span id = "recommend"><s:property value="recommend"/></span></a> 
 														<a href="#" linkvalue = "<s:property value="replyno"/>" class="showRereply"><i class="icon md-back"></i>REPLY</a>
 													</div>
 												</div>
 											</div>
+											<!-- 대댓글 영역 -->
 											<div class ="rereplyArea">
 												<div id="<s:property value="replyno"/>" style="display:none; background-color: lightblue;">
 													<s:iterator value="rereplyList">
@@ -140,10 +141,12 @@
 													<input type = "button" value="덧글작성" class="insertRereplyButton"/>
 												</div>
 											</div>
+											<!-- 대댓글 영역 끝 -->
 										</div>
 									</li>
 									<!-- END / LIST ITEM -->
 								</s:iterator>
+								<!-- 답변 영역 끝 -->
 							</ul>
 					</div>
 	</section>
@@ -202,6 +205,8 @@
 								</tr>
 								<tr>
 									<td></td>
+									<input type="hidden" value="${question.id}" name="notification.receiverid" />
+									<input type="hidden" value="${question.questionno}" name="notification.questionno" />
 									<input type="hidden" value="${question.questionno}" name="reply.questionno" />
 								</tr>
 							</table>
@@ -217,24 +222,33 @@
 	</form>
 	<!-- insertReply 모달 끝-->
 
-<%@include file="/resources/footer.jsp" %>
+	<%@include file="/resources/footer.jsp" %>
 	
 	<script type="text/javascript">
+	
+	
 	$(function(){
-		$("body").on('click', '.showRereply', function(){
+		
+		$("body").on('click', '.showRereply', function(){ // 대댓글 보기
 			var temp = $(this).attr('linkvalue');
 			//$("#"+temp).css('display', 'block');
 			$("#"+temp).toggle(1500);
 			$("#"+temp).focus();
 		});
 		
-		$("body").on('click', '.insertRereplyButton', function(){
+		$("body").on('click', '.insertRereplyButton', function(){ // 대댓글 달기
 			var replyno = $(this).parent().attr('id');
 			var content = $(this).prev().val();
+			var questionno = "${question.questionno}";
+			var receiverid = "${question.id}";
+			
+			alert('questionno: '+questionno);
+			alert('receiverid: '+receiverid);
 			$.ajax({
 				type: 'GET'
 				, url: 'insertRereply'
-				, data : 'replyno='+replyno+'&rereply.replyno='+replyno+'&rereply.content='+content
+				, data : 'replyno='+replyno+'&rereply.replyno='+replyno+'&rereply.content='+content+
+				'&notification.questionno='+questionno+'&notification.receiverid='+receiverid
 				, dataType : 'json'
 				, success : function(response){
 					var list = response.rereplyList;
@@ -243,6 +257,24 @@
 						$('<p>'+rereply.id+' '+rereply.content+'</p><br/>').appendTo("#"+replyno);
 					});
 					$('<input type = "text" class="insertRereplyText"/><input type = "button" value="덧글작성" class="insertRereplyButton"/>').appendTo("#"+replyno);
+				}
+			});
+		});
+		
+		
+		$("#addCurious").on('click', function(){
+			var curious = "${question.curious}";
+			var questionno = "${question.questionno}";
+			$.ajax({
+				type: 'GET'
+				, url: 'addCurious'
+				, data : 'question.curious='+curious+'&question.questionno='+questionno
+				, dataType : 'json'
+				, success : function(response){
+					$("#curious").text(response.curious);
+				}
+				, error : function(response){
+					alert('실패');
 				}
 			});
 		});
@@ -257,5 +289,6 @@
 	<script type="text/javascript" src="../resources/javatree_view/html/js/library/perfect-scrollbar.min.js"></script>
 	<script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery.easing.min.js"></script>
 	<script type="text/javascript" src="../resources/javatree_view/html/js/scripts.js"></script>
+	<script src="../resources/checkMessage.js"></script>
 </body>
 </html>

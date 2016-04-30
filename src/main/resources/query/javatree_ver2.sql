@@ -1,8 +1,16 @@
-alter table coding add (id varchar2(20) NOT NULL);--20160425 박수지 추가
+alter table notification modify regdate default sysdate -- 20160429 김영호 추가
+alter table rereply modify regdate default sysdate -- 20160429 김영호 추가
+alter table notification modify message varchar2(200) --20160429 김영호 추가
+alter table notification add (notificationno number(6,0)) -- 20160429 김영호 추가
+alter table notification modify (notificationno number(6,0) primary key); -- 20160429 김영호 추가
+alter table notification drop column replyno; -- 20160429 김영호 추가
+create sequence notification_seq -- 20160429 김영호 추가
 
+alter table coding add (id varchar2(20) NOT NULL);--20160425 박수지 추가
+alter table subnote add (courseno number (6, 0) not null) -- 20160429 류창우 추가
 create sequence question_seq;
 CREATE sequence subnote_seq start with 1 increment by 1;--20160421추가    	
-  
+
 alter table studylecture add (courseno number(6,0) NOT NULL)--창우 studylecture
 alter table studycourse drop column startdate;
 alter table studycourse drop column enddate;
@@ -51,6 +59,28 @@ alter table coding drop column typeno;
 alter table subnote modify originalfilename null--20160421�߰�
 alter table subnote modify uploadedfilename null--20160421�߰�
 
+CREATE TABLE notification
+(
+   senderid varchar2(20) NOT NULL,
+   receiverid varchar2(20) NOT NULL,
+   message varchar2(30) NOT NULL,
+   regdate date DEFAULT sysdate NOT NULL
+);
+
+alter table notification add (questionno number(6,0));
+
+alter table notification add (replyno number(6,0));
+
+ALTER TABLE notification
+   ADD FOREIGN KEY (senderid)
+   REFERENCES member_jt (id)
+;
+
+
+ALTER TABLE notification
+   ADD FOREIGN KEY (receiverid)
+   REFERENCES member_jt (id)
+;
 --notnull����
 --ALTER TABLE ���̺�� MODIFY �÷��� NULL;
 --ALTER TABLE ���̺�� DROP CONSTRAINT �������Ǹ�
@@ -661,8 +691,7 @@ COMMENT ON TABLE typename IS '�� ���̺� : (19)�о� ���̺�
 COMMENT ON COLUMN typename.type IS 'type';
 COMMENT ON COLUMN typename.typeno IS 'typeno';
 
-ALTER TABLE studylecture
-	ADD UNIQUE (lectureno)--20160425 창우 수정, 재수강신청 방지
+
 
 
 
