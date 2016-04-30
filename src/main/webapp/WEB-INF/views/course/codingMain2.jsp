@@ -167,7 +167,7 @@ $(document).ready(function() {
    
    $("#courselistbox").change(function(){
       var courseno=$(this).val()      
-      
+      $('#lstBox2 option').remove();
       $.ajax({
          url : 'golecturelist.action',
          data : {'courseno' : courseno},
@@ -187,8 +187,8 @@ $(document).ready(function() {
    
    $("#lecturelistbox").change(function(){
       var lectureno = $(this).val()
-      
-
+      $('#lstBox2 option').remove();
+		
       
       $.ajax({
          url:'gocodinglist.action',

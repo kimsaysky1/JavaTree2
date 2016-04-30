@@ -104,6 +104,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	//private static final String UploadPath="C://apache-tomcat-8.0.32/wtpwebapps/JavaTree/resources/upload/";
 	//private static final String UploadPath="C://upload/";
 	private static final String UploadPath="C://apache-tomcat-8.0.33/webapps/javatree/resources/upload/";
+	private static final String UploadPath2="C://upload/";
 	
 	private File saveFile;
 	
@@ -1632,7 +1633,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
             
             //여기까지 내꺼
 				/*서브노트파일*/
-				File note=new File(UploadPath+uploadFileName.get(1));
+				File note=new File(UploadPath2+uploadFileName.get(1));
 				FileUtils.copyFile(upload.get(1), note); /*실제파일저장*/
 				System.out.println(note+"subnote");
 				
@@ -1746,7 +1747,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			map.put("originalfilename", originalfilename);
-			map.put("uploadedfilename", UploadPath+uploadedfilename);
+			map.put("uploadedfilename", uploadedfilename);
 			map.put("lectureno", lectureno);
 			
 			dao.updateLecture(map);
@@ -1771,7 +1772,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 		
 			/*서브노트파일*/
-			File note=new File(UploadPath+uploadFileName.get(1));
+			File note=new File(UploadPath2+uploadFileName.get(0));
 			FileUtils.copyFile(upload.get(0), note);
 			
 			originalfilename="subnote,"+note+","+System.currentTimeMillis();
@@ -1781,7 +1782,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			id=(String) session.get("loginId");
 			subnote.setId(id);
 			subnote.setOriginalfilename(originalfilename);
-			subnote.setUploadedfilename(UploadPath+uploadedfilename);
+			subnote.setUploadedfilename(uploadedfilename);
 			subnote.setLectureno(lectureno);
 			
 			dao.updateSubnote(subnote);
