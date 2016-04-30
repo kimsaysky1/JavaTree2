@@ -214,7 +214,7 @@ $(document).ready(function() {
    });
    
    
-   $('#lstBox1').change(function(){
+  /*  $('#lstBox1').change(function(){
       
       $.ajax({
          url : 'deleteCodingfromMain.action',
@@ -223,16 +223,76 @@ $(document).ready(function() {
          }
       });
       
-   });
+   }); */
+   
 
     $('#btnRight').click(function(e) {
-        var selectedOpts = $('#lstBox1 option:selected');
-        if (selectedOpts.length == 0) {
+        //var selectedOpts = $('#lstBox1 option:selected');
+        /* var aaa = $('#lstBox2 option:selected').val();
+        alert(aaa); */
+       /*  var codingnoList = [];
+        var codingno = $('#lstBox1 option:selected').val();
+        alert("코딩넘버: "+codingno); */
+        /* codingnoList=
+        alert("코딩넘버"+codingList[0]);
+        alert("코딩넘버"+codingList[1]);
+        alert("코딩넘버"+codingList[2]); */
+        var codingnoList = [];
+        $('#lstBox1 option:selected').each(function(index) {
+        	var codingno = $('#lstBox1 option:selected').val();
+        	codingnoList.push(codingno) ;
+        	alert("코딩넘버리스트: "+codingnoList);
+          }); 
+        
+              
+        
+       
+        //alert("코딩넘버"+codingno[0]);
+        //alert("코딩넘버"+codingno[1]);
+        //alert("codingno.length: "+codingno.length);
+        /* for (var i =0; i<codingno.length;i++){
+        	var codingno2= codingno[i];
+        	alert("코딩넘버포문"+codingno2[i]);
+        	
+        } */
+        
+      /*   $.ajax({
+	         url : 'selectedCheck.action',
+	         data : 'codingnoList='+codingnoList+'&codingno='+codingno,
+	         success : function(response){
+	        	 alert("response.codingquestion"+response.codingquestion);
+	        	
+	         }
+	      }); */
+        
+        
+       /*  alert("==> :: " + selectedOpts.val());
+        var aaa = $('#lstBox2');
+        alert(aaa.length);
+        for( var i = 0; i<aaa.length; i++) {
+        	var bbb = aaa.options[i].value;
+        	if(selectedOpts == bbb) {
+        		
+        	}else {
+        		
+        	}
+        } */
+        
+        
+        
+       /*  if (selectedOpts.length == 0) {
             e.preventDefault();
         }
+        else if(selectedOpts == $('#lstBox2 option:selected').val()) {
+			alert("여기 들어오나?");        	
+        }else {
+        	
         $('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
+        } */
+        
+        
         //$('#lstBox2').append($(selectedOpts).clone());
-        e.preventDefault();
+       // e.preventDefault();
     });
 
     $('#btnLeft').click(function(e) {

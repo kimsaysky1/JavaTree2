@@ -604,6 +604,11 @@
 		<!-- select codingno from codingtemp where id=#{id} -->
 		select * from codingtemp where id=#{id}
 	</select>
+	
+	<select id="selectedCheck" parameterType="int" resultType="Coding">
+	
+		select * from coding where codingno=#{codingno}
+	</select>
  
 </mapper>
 

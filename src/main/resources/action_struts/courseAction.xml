@@ -257,6 +257,15 @@
         	<result>/WEB-INF/views/course/CourseDetailForTeach.jsp</result>
         </action>
         
+        
+        
+        
+        
+        
+        <action name="selectedCheck" class="org.javatree.www.Action.CourseAction" method="selectedCheck">
+        	<result type="json"></result>
+        </action>
+        
     </package>
 
     <!-- Add packages here -->
