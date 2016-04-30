@@ -6097,7 +6097,7 @@ margin-left:490px;
 }
 /*-- profile-guest-view --*/
 .profile-email-address {
-  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   padding-top: 10px;
 }
 .profile-email {
@@ -6125,20 +6125,20 @@ margin-left:490px;
 }
 /* table-asignment */
 .table-wrap .submissions {
-  width: 85%;
+  width: 45%;
   min-height: 1px;
   float: left;
-  padding: 0 0px;
+  padding: 0 15px;
 }
 .table-wrap .total-subm {
   width: 15%;
   min-height: 1px;
   text-align: center;
-  float: right;
-  padding: 0 0px;
+  float: left;
+  padding: 0 15px;
 }
 .table-wrap .replied {
-  width: 0%;
+  width: 15%;
   min-height: 1px;
   text-align: center;
   float: left;
@@ -6146,14 +6146,14 @@ margin-left:490px;
 }
 .table-wrap .latest-reply {
   position: relative;
-  width: 0%;
+  width: 19%;
   min-height: 1px;
   text-align: center;
   float: left;
   padding: 0 15px;
 }
 .table-wrap .tb-icon {
-  width: 0%;
+  width: 6%;
   min-height: 1px;
   float: left;
   padding-right: 10px;
