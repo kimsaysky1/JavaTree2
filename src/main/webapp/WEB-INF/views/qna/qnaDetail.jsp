@@ -74,8 +74,7 @@
 									<div class="col-md-9">
 										<div class="avatar-acount">
 											<div class="info-acount">
-												<p> ${question.content}</p>
-												<div class="profile-email-address">
+											<div class="profile-email-address">
 													<div class="profile-email">
 														<h5>ID</h5>
 														<p>${question.id}</p>
@@ -84,6 +83,10 @@
 														<h5>DATE</h5>
 														<p>${question.regdate}</p>
 													</div>
+											</div>
+												<p> ${question.content}</p>
+												<div class="profile-email-address">
+												
 													&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 													<div class="profile-address">
 														<h5>GUNGGUMDO</h5>
@@ -95,7 +98,7 @@
 														<input type="button" value="궁금해요" id="addCurious"
 															class="mc-btn-8">
 													</div>
-													&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+			
 													&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
 													<div class="profile-address">
 														<form action=""></form>
