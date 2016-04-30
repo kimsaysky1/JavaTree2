@@ -149,8 +149,9 @@
 								</s:iterator>
 								<!-- 답변 영역 끝 -->
 							</ul>
+								</section>
 					</div>
-	</section>
+
 	<!-- END / DISCUSSION -->
 	</div>
 	</div>

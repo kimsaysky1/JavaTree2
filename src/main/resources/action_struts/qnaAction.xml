@@ -17,7 +17,7 @@
      	</action>
      	
      	<action name="insertReply" class="org.javatree.www.Action.QnaAction" method="insertReply">
-     		<result>/WEB-INF/views/qna/qnaDetail.jsp</result>
+     		<result>/WEB-INF/views/qna/qnaDetail2.jsp</result>
      	</action>
      	
      	<action name="insertRereply" class="org.javatree.www.Action.QnaAction" method="insertRereply">
@@ -34,7 +34,7 @@
      	</action>
      	
      	<action name="qnaDetail" class="org.javatree.www.Action.QnaAction" method="qnaDetail">
-     		<result>/WEB-INF/views/qna/qnaDetail.jsp</result>
+     		<result>/WEB-INF/views/qna/qnaDetail2.jsp</result>
      	</action>
      	
      	<action name="plusQnaDefaultMain" class="org.javatree.www.Action.QnaAction" method="plusQnaDefaultMain">
