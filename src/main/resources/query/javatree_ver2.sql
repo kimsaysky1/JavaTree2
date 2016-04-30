@@ -1,3 +1,5 @@
+alter table question modify title varchar2(200); -- 20160430 김영호 추가
+
 alter table notification modify regdate default sysdate -- 20160429 김영호 추가
 alter table rereply modify regdate default sysdate -- 20160429 김영호 추가
 alter table notification modify message varchar2(200) --20160429 김영호 추가
@@ -249,6 +251,9 @@ CREATE TABLE studylecture
 	startdate date NOT NULL,
 	enddate date NOT NULL
 );
+
+
+
 
 CREATE TABLE question
 (

@@ -56,7 +56,7 @@
 	<insert id="insertQuestion" parameterType="Question">
 		insert into question
 		(questionno, typeno
-		<if test="codingno != null">
+		<if test="codingno != 0">
 		, codingno
 		</if>
 		, id, username, title, content
@@ -65,7 +65,7 @@
 		(
 		question_seq.nextVal
 		, #{typeno}
-		<if test="codingno != null">
+		<if test="codingno != 0">
 		, #{codingno}
 		</if>
 		, #{id}

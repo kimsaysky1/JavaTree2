@@ -122,10 +122,10 @@
 											<div class="answer_bg">
 												<div class="avatar-acount">
 													<cite class="xsm black bold"><s:property value="id"/></cite>
-													<h4 class="md black"><s:property value="content"/>
+													<h4 class="md black"><s:property value="content"/> 
 													<div class="comment-meta">
 														<a href="#"><s:property value="regdate"/></a> 
-														<a href="#"><i class="icon md-arrow-up"></i>추천&nbsp;<span id = "recommend"><s:property value="recommend"/></span></a> 
+														<a href="#"><i class="icon md-arrow-up"></i>추천&nbsp;<s:property value="recommend"/></a> 
 														<a href="#" linkvalue = "<s:property value="replyno"/>" class="showRereply"><i class="icon md-back"></i>REPLY</a>
 													</div>
 												</div>

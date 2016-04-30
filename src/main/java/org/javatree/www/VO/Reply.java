@@ -64,14 +64,6 @@ public class Reply {
 		this.regdate = regdate;
 	}
 
-	public int getrecommend() {
-		return recommend;
-	}
-
-	public void setrecommend(int recommend) {
-		this.recommend = recommend;
-	}
-
 	public ArrayList<Rereply> getRereplyList() {
 		return rereplyList;
 	}
@@ -86,6 +78,14 @@ public class Reply {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public int getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(int recommend) {
+		this.recommend = recommend;
 	}
 
 	@Override
@@ -107,5 +107,5 @@ public class Reply {
 		this.title = title;
 		this.rereplyList = rereplyList;
 	}
-	
+
 }

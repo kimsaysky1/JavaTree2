@@ -231,12 +231,10 @@ public class QnaAction extends ActionSupport implements SessionAware {
 			id = (String) session.get("loginId");
 			map.put("id", id);
 			map.put("notificationno", notificationno);
-			System.out.println("notificationno: "+notificationno);
 			dao.clickNotification(map);
 		}
 		return SUCCESS;
 	}
-
 
 
 	public String addCurious() throws Exception {
@@ -449,6 +447,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		this.notificationno = notificationno;
 	}
 
+	
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
