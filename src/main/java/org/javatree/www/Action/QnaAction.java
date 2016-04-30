@@ -64,7 +64,8 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question.setId("1");
 		question.setUsername("1");
 		question.setTypeno(Integer.parseInt(typeno));
-		question.setCodingno(1);
+		
+		System.out.println("question: "+question);
 		dao.insertQuestion(question);
 		String loginId = (String) session.get("loginId");
 		if (loginId == null) {
