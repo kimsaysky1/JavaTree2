@@ -22,7 +22,7 @@
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
 <script type="text/javascript" src="script/jquery-2.2.3.min.js"></script>
-<script type="text/javascript" src="script/jquery-ui.min.js" ></script>    
+<script type="text/javascript" src="script/jquery-ui.min.js" ></script> 
 <title>JavaTree(Q&A) Main</title>
 </head>
 <body>
@@ -106,69 +106,14 @@
                     <aside class="blog-sidebar">
                     
                     	<!-- 질문 버튼 모달-->
-                    	
                     	<div class="form-submit-1">
-                    		<form action="insertQuestion" name="insertQuestion" method="get">
-								<input type="button" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
+                    		<!-- <form action="insertQuestion" name="insertQuestion" method="get"> -->
+								<input type="button" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
                     			<div class="container">
 									<div class="modal fade" id="writeQuestion" role="dialog">
-								    	<div class="modal-dialog modal-lg">
-										      <!-- Modal content-->
-									      <div class="modal-content">
-									        <div class="modal-header">
-									          <button type="button" class="close" data-dismiss="modal">&times;</button>
-									          <h4 class="modal-title">Modal Header</h4>
-									        </div>
-									        <div class="modal-body">
-									            <table style='width: 800px;'>
-												<tr>
-													<td style='width: 100px; height: 70px; text-align:center;'><b>FIELD</b></td>
-													<td><select id="typeno" name="typeno" style="width: 100px;">
-													 <option value="1">PUREJAVA</option>
-													 <option value="2">WEB</option>
-													 <option value="3">MOBILE</option>
-													 <option value="4">IOT</option>
-													 <option value="5">SWING</option>
-													 <option value="6">JDBC</option>
-													 <option value="7">API</option>
-													 <option value="8">SPRING</option>
-													 <option value="9">STRUTS</option>
-													 <option value="10">etcFramework</option>
-													 <option value="11">ETC</option>
-													</select></td>
-												</tr>
-												<tr>
-													<td style='height: 20px;'></td>
-													<td></td>
-												</tr>
-												<tr>
-													<td style='width: 100px; text-align:center;'><b>QUESTION</b></td>
-													<td><textarea id="question.title" name="question.title" style="height: 100px;"></textarea></td>
-												</tr>
-												<tr>
-													<td style='height: 20px;'></td>
-													<td></td>
-												</tr>
-												<tr>
-													<td style='width: 100px; text-align:center;'><b>content</b></td>
-													<td><textarea id="question.content" name="question.content" style="height: 250px;"></textarea></td>
-												</tr>
-													<tr>
-													<td style='height: 20px;'></td>
-													<td></td>
-												</tr>
-												</table>
-									        </div>
-									        <div class="modal-footer">
-									        	<input type="submit" value="등록" class="mc-btn-5">&nbsp;&nbsp;&nbsp;
-												<input type="reset" value="취소" class="mc-btn-5">
-									          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-									        </div>
-									      </div>
-								  	   </div>
-								  </div>
-                    		</div>
-                    		</form> 
+								  	</div>
+                    			</div>
+                    		<!-- </form>  -->
 						</div>
                     	<!-- 질문 버튼 모달 끝 -->
                     	<br><br>
@@ -316,10 +261,80 @@
 	<script type="text/javascript">
 	
 	$(function(){
-		
 		$('#insertQuestionReady').on('click', function(){
 			insertQuestion.submit();
 		});
+		
+		$('#insertQuestionModal').on('click', function(){
+			var str = '';
+			str += '<div class="modal-dialog modal-lg">'
+			str += '<div class="modal-content">';
+			str += '<div class="modal-header">';
+			str += '<button type="button" class="close" data-dismiss="modal">&times;</button>';
+			str += '<h4 class="modal-title">Modal Header</h4>';
+			str += '</div>';
+			str += '<div class="modal-body">';
+			str += '<table style=\'width: 800px;\'>';
+			str += '<tr><td style=\'width: 100px; height: 70px; text-align:center;\'><b>FIELD</b></td>';
+			str += '<td><select id="typeno" name="typeno" style="width: 100px;">';
+			str +='<option value="1">PUREJAVA</option>';
+			str +='<option value="2">WEB</option>';
+			str +='<option value="3">MOBILE</option>';
+			str +='<option value="4">IOT</option>';
+			str +='<option value="5">SWING</option>';
+			str +='<option value="6">JDBC</option>';
+			str +='<option value="7">API</option>';
+			str +='<option value="8">SPRING</option>';
+			str +='<option value="9">STRUTS</option>';
+			str += '<option value="10">etcFramework</option>';
+			str += '<option value="11">ETC</option>';
+			str += '</select></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td></tr>';
+			str += '<tr><td style=\'width: 100px; text-align:center;\'><b>QUESTION</b></td>';
+			str += '<td><textarea id="title" name="question.title" style="height: 100px;"></textarea></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td></tr>';
+			str += '<tr><td style=\'width: 100px; text-align:center;\'><b>content</b></td>';
+			str += '<td><textarea id="content" name="question.content" style="height: 250px;"></textarea></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td></tr></table></div>';
+			str += '<div class="modal-footer">';
+			str += '<input type="button" value="등록" id="removeModal" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
+			str += '<input type="reset" value="취소" class="mc-btn-5"></div></div></div>';
+			
+			$('#writeQuestion').html(str);
+		});
+		
+		$('body').on('click', '#removeModal', function(){
+			
+			var title = $('#title').val();
+			var typeno = $('#typeno option:selected').val();
+			var content = $('#content').val();
+			
+			$.ajax({
+				type: 'POST'
+					, url: 'insertQuestion'
+					, data : 'question.title='+title+'&question.content='+content+'&typeno='+typeno
+					, dataType : 'json'
+					, success : function(response){
+						$('#writeQuestion').modal('hide');
+						$('#writeQuestion').html('');
+						
+						var list = response.questionList;
+						var indexNum = 1;
+						$('.blog-list-content').html('');
+						list.forEach(function(question){
+							var divTag = $('<div class="post" id='+(indexNum++)+'><div class="post-body"></div></div>');
+							divTag.html('<div class="post-title"><h3 class="md"><a href="qnaDetail.action?questionno='+question.questionno+'">'
+							+question.title+'</a></h3></div><div class="post-meta">by'
+							+question.username+' '+question.regdate+'</div>').appendTo(".blog-list-content");
+						});
+						$('<ul class="pager"><li><a href="#" id= "watchMore">더보기</a></li></ul>').appendTo('.blog-list-content');
+					}
+					, error : function(response){
+						alert('실패');
+					}
+			});
+		});
+		
 		
 		$("body").on('click', "#searchByCheckBox", function(){
 			var stringForTokenizer = '';

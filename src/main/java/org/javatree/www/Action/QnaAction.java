@@ -79,6 +79,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
 		typeName = dao.selectTypeName(typenoTemp);
+		System.out.println("question: "+question);
 		dao.insertQuestion(question);
 		makeQnaDefaultMain(loginId);
 		return SUCCESS;
