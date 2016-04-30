@@ -185,6 +185,10 @@
         	<result type="json"></result>
         </action>
         
+        <action name="insertcodinginbox" class="org.javatree.www.Action.CourseAction" method="insertcodinginbox">
+        	<result type="json"></result>
+        </action>
+        
          <!--뷰 teachMain- questionBox 내 update -->
         <action name="updateCodingfromMainView" class="org.javatree.www.Action.CourseAction" method="updateCodingfromMainView">
         	<result>/WEB-INF/views/course/updateCoding.jsp</result>	
