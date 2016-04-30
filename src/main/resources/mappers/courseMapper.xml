@@ -224,9 +224,11 @@
 	
 	select * from	
 	(select rownum as rnum, courseno, coursename, id, username, INTRODUTION, to_char(regdate, 'yyyy/mm/dd') as regdate
-	from (select * from course where courseno in (select courseno from coursetype where typeno IN 
-		(
+	from (select * from course where courseno in (select courseno from coursetype  
+		
 		<if test="interest0 != null">
+			where typeno IN
+			(
 			#{interest0}
 		</if>
 		<if test="interest1 != null">

@@ -10,8 +10,10 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.struts2.interceptor.SessionAware;
 import org.javatree.www.DAO.QnaDAO;
+import org.javatree.www.DAO.courseDAO;
 import org.javatree.www.Util.PageNavigator;
 import org.javatree.www.VO.Ability;
+import org.javatree.www.VO.Course;
 import org.javatree.www.VO.Interest;
 import org.javatree.www.VO.Member_jt;
 import org.javatree.www.VO.Notification;
@@ -53,6 +55,14 @@ public class QnaAction extends ActionSupport implements SessionAware {
 	private Notification notification;
 	private int notificationno;
 	private String id;
+	private String interestString;
+	private int currentPage;
+
+	private int endPageGroup;
+
+	private String order;
+
+	private ArrayList<Course> courseList;
 
 	public String insertQuestionByModal() throws Exception {
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
@@ -255,6 +265,73 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		map.put("replyno", reply.getReplyno());
 		map.put("recommend", recommend);
 		dao.addRecommend(map);
+		return SUCCESS;
+	}
+	
+	/**
+	 * qnaDefaultMain - 분야별 검색
+	 * **/
+	
+	public String selectListbyField(){
+		
+		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
+		
+		ArrayList<String> interestList = new ArrayList<>();
+		
+		StringTokenizer st = new StringTokenizer(interestString, ",");
+		
+		while (st.hasMoreTokens()) {
+			interestList.add(st.nextToken());
+		}
+		
+		Map<String, Object> kong = new HashMap<>();
+		
+		for (int i = 0; i < interestList.size(); i++) {
+			kong.put("interest"+i, interestList.get(i));
+		}
+		
+		kong.put("order", order);
+		start = 1;
+		end = 7;
+		currentPage = 1;
+		
+		kong.put("start", start);
+		kong.put("end", end);
+		
+		int totalRecordsCount = dao.selectFieldTotal(kong);
+		
+		int countPerPage = 7;		//페이지당 글목록 수
+		endPageGroup = 1;
+		if(totalRecordsCount % countPerPage == 0 ){
+			endPageGroup = (int)(totalRecordsCount/countPerPage);		//총 (페이지)그룹 수
+		}else{
+			endPageGroup = (int)(totalRecordsCount/countPerPage)+1;		//총 (페이지)그룹 수
+		}
+		
+		if(currentPage == 0){
+			currentPage = 1;
+		}
+		
+		session.put("currentPage", currentPage);
+		session.put("CountPerPage", countPerPage);
+		session.put("endPageGroup", endPageGroup);
+		
+		courseList= dao.selectListbyField(kong);		
+		
+		//궁금도 랭킹
+		/*allRank = dao.selectAllRank();
+		recentRank = dao.selectRecentRank();*/
+		
+		//backAction을 위한 세션값
+				session.put("pend", end);
+				session.put("pstart", start);
+				session.put("operation", "selectListbyField");
+				session.put("pcurrentPage", currentPage);
+				session.put("pCountPerPage", countPerPage);
+				session.put("pendPageGroup", endPageGroup);
+				session.put("porder", order);
+				session.put("interest", interestString);
+		
 		return SUCCESS;
 	}
 
@@ -471,4 +548,45 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		this.session = session;
 	}
 
+	public String getInterestString() {
+		return interestString;
+	}
+
+	public void setInterestString(String interestString) {
+		this.interestString = interestString;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getEndPageGroup() {
+		return endPageGroup;
+	}
+
+	public void setEndPageGroup(int endPageGroup) {
+		this.endPageGroup = endPageGroup;
+	}
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public ArrayList<Course> getCourseList() {
+		return courseList;
+	}
+
+	public void setCourseList(ArrayList<Course> courseList) {
+		this.courseList = courseList;
+	}
+	
+	
 }

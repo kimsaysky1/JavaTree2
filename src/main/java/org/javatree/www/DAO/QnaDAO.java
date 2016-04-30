@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.javatree.www.VO.Course;
 import org.javatree.www.VO.Member_jt;
 import org.javatree.www.VO.Notification;
 import org.javatree.www.VO.Question;
@@ -31,5 +32,7 @@ public interface QnaDAO {
 	public void addCurious(Map map);
 	public void insertNotification(Notification notification);
 	public void addRecommend(Map map);
+	public int selectFieldTotal(Map<String, Object> kong);
+	public ArrayList<Course> selectListbyField(Map<String, Object> kong);
 	
 }

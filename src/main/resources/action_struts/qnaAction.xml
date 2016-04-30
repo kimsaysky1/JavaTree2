@@ -52,7 +52,11 @@
      	<action name="addRecommend" class="org.javatree.www.Action.QnaAction" method="addRecommend">
      		<result type="json"></result>
      	</action>
-     		
+     	
+     	<action name="selectListbyField" class="org.javatree.www.Action.QnaAction" method="selectListbyField">
+        	<result type="json"></result>
+        </action>
+     	
     </package>
 
 </struts>
