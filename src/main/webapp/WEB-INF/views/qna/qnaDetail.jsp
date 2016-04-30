@@ -125,7 +125,7 @@
 													<h4 class="md black"><s:property value="content"/> 
 													<div class="comment-meta">
 														<a href="#"><s:property value="regdate"/></a> 
-														<a href="#" class="addRecommend" id ="<s:property value="replyno"/>"><i class="icon md-arrow-up"></i>추천&nbsp;
+														<a href="#" class="addRecommend" recommendValue ="<s:property value="replyno"/>"><i class="icon md-arrow-up"></i>추천&nbsp;
 														<span><s:property value="recommend"/></span></a> 
 														<a href="#" linkvalue = "<s:property value="replyno"/>" class="showRereply"><i class="icon md-back"></i>REPLY</a>
 													</div>
@@ -227,7 +227,6 @@
 	
 	<script type="text/javascript">
 	
-	
 	$(function(){
 		
 		$("body").on('click', '.showRereply', function(){ // 대댓글 보기
@@ -281,7 +280,7 @@
 		});
 		
 		$('body').on('click', '.addRecommend', function(){
-			var replyno = $(this).attr('id');
+			var replyno = $(this).attr('recommendValue');
 			var recommend = $(this).parent().find('span')
 			var recommendValue = recommend.text();
 			$.ajax({

@@ -197,115 +197,17 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 			checkError(result);
 			resultType = "java";
 		} else {
-			System.out.println("메인 메소드가 한 개가 아님");
+			error = true;
+			result = "오류: 메인 메소드가 없거나 1개 이상입니다.";
 			resultType = "java";
 		}
-		
-		/*for (int i = 0; i < contentList.size(); i++) {
-			if (contentList.get(i).contains("page language=\"java\" contentType=\"text/html; charset=UTF-8\"")) {
-				file_parent = "C:/Program Files/Apache Software Foundation/Tomcat 8.0/webapps/test/guest/" + id;
-				file_name = "a" + i + ".jsp";
-				makeJspFile(file_parent, file_name, contentList.get(i));
-				resultType = "jsp";
-				result = "http://203.233.196.88:8585/test/guest/" + id + "/" + file_name;
-				break;
-			} else {
-				for (int j = 0; j < contentList.size(); j++) {
-					if (contentList.get(j).trim().startsWith("package")) {
-						st = new StringTokenizer(contentList.get(j).trim(), " ");
-						boolean check = false;
-
-						while (st.hasMoreTokens()) {
-							String temp = st.nextToken();
-							if (check) {
-								packageName = temp;
-								break;
-							}
-							if (temp.equals("package")) {
-								check = true;
-							}
-						}
-						st = new StringTokenizer(packageName, ";");
-						while (st.hasMoreTokens()) {
-							packageName = st.nextToken();
-							break;
-						}
-					}
-
-					if (contentList.get(j).contains("public static void main(String[]")) {
-						checkNum++;
-						if (contentList.get(j).contains("public class")) {
-							st = new StringTokenizer(contentList.get(j), " ");
-							buf = new StringBuffer(st.nextToken());
-							while (st.hasMoreTokens()) {
-								String str = st.nextToken();
-								buf.append(" " + str);
-								if (buf.substring(buf.length() - 12, buf.length()).equals("public class")) {
-									mainClassName = st.nextToken();
-									classNameMap.put(mainClassName, contentList.get(j));
-									packageNameMap.put(mainClassName, packageName);
-									startClass = mainClassName + ".java";
-									break;
-								}
-							}
-						} else {
-							st = new StringTokenizer(contentList.get(j), " ");
-							while (st.hasMoreTokens()) {
-								String str = st.nextToken();
-								if (str.equals("class")) {
-									String subClassName = st.nextToken();
-									classNameMap.put(subClassName, contentList.get(j));
-									packageNameMap.put(subClassName, packageName);
-									break;
-								}
-							}
-						}
-					} else {
-						st = new StringTokenizer(contentList.get(j), " ");
-						while (st.hasMoreTokens()) {
-							String str = st.nextToken();
-							if (str.equals("class")) {
-								String subClassName = st.nextToken();
-								classNameMap.put(subClassName, contentList.get(j));
-								packageNameMap.put(subClassName, packageName);
-								break;
-							}
-						}
-					}
-				}
-				if (checkNum == 1) {
-					for (String s : classNameMap.keySet()) {
-						file_parent = "C:/compiler/" + id;
-						file_name = s + ".java";
-						try {
-							String packagePath = packageNameMap.get(s).replace(".", "/");
-							makeJavaFile(file_parent, file_name, classNameMap.get(s), packagePath);
-							makeClassFile(file_parent + "/" + packagePath);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-					String[] cmd = { "java", "-cp", file_parent, packageNameMap.get(mainClassName) + "."
-							+ startClass.substring(0, file_name.lastIndexOf(".")) };
-					runProcess(cmd);
-					//deleteFile(file_parent);
-					checkError(result);
-					resultType = "java";
-					break;
-				} else {
-					System.out.println("메인 메소드가 한 개가 아님");
-					resultType = "java";
-					break;
-				}
-			}
-		}*/
 		
 		return SUCCESS;
 	}
 
 	private void checkError(String result) {
 		System.out.println("result: " + result);
-		if (result.contains("C:\\compiler\\" + id) && result.contains("^")) {
+		if (result.contains("오류:")) {
 			error = true;
 			System.out.println("에러 있음");
 		} else {
@@ -383,7 +285,7 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 			e.printStackTrace();
 		}
 	}
-
+	
 	private int runProcess(String command) {
 		Process pro = null;
 		try {
