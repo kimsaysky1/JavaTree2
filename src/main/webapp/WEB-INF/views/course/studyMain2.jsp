@@ -68,17 +68,18 @@
 				 <h2>MY COURSE</h2>
 				<br>
 			<div class = "form-study">
+			
 				<div class="tab-content">
                     <!-- MY SUBMISSIONS -->
                     <div class="tab-pane fade in active" id="mysubmissions">
                         <div class="table-wrap">
                             <!-- TABLE HEAD -->
                             <div class="table-head">
-                                <div class="submissions"></div>
+                                <div class="submissions">aaaaaaa</div>
                                 <div class="total-subm">Submissions</div>
                                 <div class="replied">Replied</div>
                                 <div class="latest-reply">Latest Reply</div>
-                                <div class="tb-icon"></div>
+                                <div class="tb-icon">ssss</div>
                             </div>
                             <!-- END / TABLE HEAD -->
 
