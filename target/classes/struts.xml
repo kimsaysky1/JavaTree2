@@ -20,22 +20,11 @@
      	 </interceptors>
 		
         <default-action-ref name="index" />
-<<<<<<< HEAD
-        
-        <action name="callIndex">
-        	<result type="redirectAction">
-        		<param name="actionName">index</param>
-        		<param name="namespace">/</param>
-        	</result>
-        </action>
-        
-=======
        
 		<global-results>
 			<result name="login" type="redirect">/loginFrom.action</result>
 		</global-results>
        
->>>>>>> e64725c8eac93bf2ffa96201f82154a8a97fa633
         <action name="index">
            <result>/WEB-INF/views/index.jsp</result>
         </action>
