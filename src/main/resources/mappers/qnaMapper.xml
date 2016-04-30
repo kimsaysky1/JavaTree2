@@ -163,16 +163,63 @@
 	</select>
 	
 	<select id="bestAllQuestionList" resultMap="ReplyMap">
-		select * from reply where questionno in (SELECT questionno from
-		 (select rownum as rnum, T1.* from (select * from reply order by recommend desc) T1)
- 		where rnum <![CDATA[>]]>= 1 and rnum <![CDATA[<]]>= 3)
+		select T3.* from
+			(
+			select rownum as rnum2, questionno, replyno, id, username, content, regdate, recommend from reply where questionno in 
+				(
+				select questionno from
+					(
+					select rownum as rnum, T1.* from 
+						(
+						select * from reply order by recommend desc
+						) T1
+					)
+			 	where rnum <![CDATA[>]]>= 1 and rnum <![CDATA[<]]>= 3
+				)
+				and replyno in
+				(
+					select replyno from
+					(
+					select rownum as rnum3, T1.* from 
+						(
+						select * from reply order by recommend desc
+						) T1
+					)
+			 		where rnum3 <![CDATA[>]]>= 1 and rnum3 <![CDATA[<]]>= 3
+				)
+			) T3
+		where rnum2 <![CDATA[>]]>= 1 and rnum2 <![CDATA[<]]>= 3 order by recommend desc
 	</select>
 	
 	<select id="bestRecentQuestionList" resultMap="ReplyMap">
-		select * from reply where questionno in (SELECT questionno from
-		 (select rownum as rnum, T1.* from (select * from reply where add_months(sysdate, -3) 
-		 <![CDATA[<]]>= regdate order by recommend desc) T1)
- 		where rnum <![CDATA[>]]>= 1 and rnum <![CDATA[<]]>= 3)
+		select T3.* from
+			(
+			select rownum as rnum2, questionno, replyno, id, username, content, regdate, recommend from reply where questionno in 
+				(
+				select questionno from
+					(
+					select rownum as rnum, T1.* from 
+						(
+						select * from reply where add_months(sysdate, -3) 
+		 				<![CDATA[<]]>= regdate order by recommend desc
+						) T1
+					)
+			 	where rnum <![CDATA[>]]>= 1 and rnum <![CDATA[<]]>= 3
+				)
+				and replyno in
+				(
+					select replyno from
+					(
+					select rownum as rnum3, T1.* from 
+						(
+						select * from reply where add_months(sysdate, -3) 
+		 				<![CDATA[<]]>= regdate order by recommend desc
+						) T1
+					)
+			 		where rnum3 <![CDATA[>]]>= 1 and rnum3 <![CDATA[<]]>= 3
+				)
+			) T3
+		where rnum2 <![CDATA[>]]>= 1 and rnum2 <![CDATA[<]]>= 3 order by recommend desc	
 	</select>
 	
 	<select id="selectOneQuestion" parameterType="int" resultMap="QuestionMap">
