@@ -51,7 +51,7 @@ function idCheck() {
 		return false;
 	} else {
 		idck=1;
-		window.open('idCheck.action?id='+id.value,'pop','resizable=no scrollbars=yes top=300 left=500 width=300 height=180');	
+		window.open('idCheck.action?id='+id.value,'pop','resizable=no scrollbars=yes top=300 left=500 width=400 height=230');	
 	}	
 }
 
@@ -137,7 +137,7 @@ function idCheck() {
 		return false;
 	} else {
 		idck=1;
-		window.open('idCheck.action?id='+id.value,'pop','resizable=no scrollbars=yes top=300 left=500 width=300 height=180');	
+		window.open('idCheck.action?id='+id.value,'pop','resizable=no scrollbars=yes top=300 left=500 width=400 height=230');	
 	}	
 }
 
