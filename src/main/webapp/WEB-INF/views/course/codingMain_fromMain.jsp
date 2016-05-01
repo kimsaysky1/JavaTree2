@@ -261,24 +261,28 @@ $(document).ready(function() {
 	     		alert("codingListForInsert[2]: "+codingListForInsert[2]);
 	     		alert("codingquestionList: "+codingquestionList);
 	     		
-	     		for(var i=0; i<codingListForInsert.length; i++){
-	     			for(var j=0; i<codingquestionList.length;i++){
-	     				var compare = codingListForInsert[i];
-	     				alert("compare: "+compare);
-	     				var compareCodingquesetion= codingquestionList[j];
-	     				alert("compareCodingquesetion: "+compareCodingquesetion);
-	     				if(compare != compareCodingquesetion){
-	     					alert("같지않다");
-	     					$('<option value="'+$(this).val()+'">'+$(this).val().html()+'</option>').appendTo('#lstBox2');
+	     		var check =false;
+	     		alert("codingquestionList.length: "+codingquestionList.length);
+ 				alert("codingListForInsert.length: "+codingListForInsert.length);
+ 				
+	      		for(var i=0; i<codingquestionList.length; i++){
+	     			for(var j=0; j<codingListForInsert.length;j++){
+	     				var lstbox1val= codingquestionList[i];
+	     				alert("lstbox1val: "+lstbox1val);
+	     				var lstbox2val = codingListForInsert[j];
+	     				alert("lstbox2val: "+lstbox2val);
+	     				
+	     				if(lstbox2val == lstbox1val){
+	     					alert("같다");
+	     					check=true;
+	     					//return false;
 	     				}
-	     				else{
-	     					alert("같은것은 넣을 수 없습니다.");
-	     				}
-	     					
 	     			}
-	     			
-	     		}
-	        	 
+	     			if(!check){
+	     		    	$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
+
+	     		    }
+	     		} 
 	        	 
 	         }
 	      });
