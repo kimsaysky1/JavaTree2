@@ -280,7 +280,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 					
 			ArrayList<Lecture> tempList = new ArrayList<>();
 			ArrayList<Lecture> tempList2 = new ArrayList<>();
-			ArrayList<Lecture> tempList3 = new ArrayList<>();
 			//tempList = dao.selectCourseDetailForStudy(kong);
 			tempList = dao.selectWatchingLecture(kong);
 			System.out.println("tempList>> " + tempList);
@@ -296,14 +295,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				}
 			}
 			
-			for (int i = 0; i < tempList.size(); i++) {
-				for (int j = 0; j < tempList3.size(); j++) {
-					if(tempList.get(i).getLectureno() == tempList3.get(j).getLectureno()){
-						tempList.get(i).setStudying(tempList3.get(j).getStudying());
-						//강좌 수강여부 붙이기
-					}
-				}
-			}
 			
 			if(end > tempList.size()){
 				end = tempList.size();			
@@ -2404,9 +2395,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	            else{
 	            	System.out.println("같은것 있음. 등록 불가 ");
 	            }
-	            
 	         }
-	         
 	         codingFormlecturelist();
 	         return SUCCESS;
 	      }
@@ -2498,6 +2487,19 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 		}
 		
+		/**
+		 * updateCodingForLecture - 문제 보관함에 문제 수정 폼
+		 */
+		public String updateCodingfromInsertLectureView(){
+			
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			
+			id = (String)session.get("loginId");
+			codingList =  dao.getAllCodingList(id);
+			
+			return SUCCESS;
+			
+		}
 		
 		/**
 		 * updateCoding - 문제 보관함에 문제 수정
@@ -2683,8 +2685,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				System.out.println("checkCoding: "+checkCoding);
 			}
 			
-			//codingFormlecturelist();
-			//showCodinglist();
+			codingFormlecturelist();
+			showCodinglist();
 			return SUCCESS;
 		}
 		

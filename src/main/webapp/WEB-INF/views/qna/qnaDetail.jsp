@@ -93,7 +93,7 @@
 														<p>${question.regdate}</p>
 													</div>
 													&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-													<div class="profile-address">
+													<div id = "curiousDiv" class="profile-address">
 														<h5>GUNGGUMDO</h5>
 														<p>${question.curious}</p>
 													</div>
@@ -285,9 +285,6 @@
 			var questionno = "${question.questionno}";
 			var receiverid = "${question.id}";
 			
-			alert('questionno: '+questionno);
-			alert('receiverid: '+receiverid);
-			alert('replyno:'+replyno);
 			$.ajax({
 				type: 'GET'
 				, url: 'insertRereply'
@@ -307,7 +304,7 @@
 		});
 		
 		
-		$("#addCurious").on('click', function(){
+		$(".mc-btn-10").on('click', function(){
 			var curious = "${question.curious}";
 			var questionno = "${question.questionno}";
 			$.ajax({
@@ -316,7 +313,7 @@
 				, data : 'question.curious='+curious+'&question.questionno='+questionno
 				, dataType : 'json'
 				, success : function(response){
-					$("#curious").text(response.curious);
+					$("#curiousDiv p").text(response.curious);
 				}
 				, error : function(response){
 					var url = '../member/loginFrom.action';    
@@ -327,15 +324,44 @@
 		
 		$('body').on('click', '.addRecommend', function(){
 			var replyno = $(this).attr('recommendValue');
-			var recommend = $(this).parent().find('span')
+			var recommend = $(this).parent().find('span');
 			var recommendValue = recommend.text();
+			var questionno = "${question.questionno}";
+			var tempScrollTop = $(window).scrollTop();
 			$.ajax({
 				type: 'GET'
 				, url: 'addRecommend'
-				, data : 'reply.replyno='+replyno+'&reply.recommend='+recommendValue
+				, data : 'reply.replyno='+replyno+'&reply.recommend='+recommendValue+'&questionno='+questionno
 				, dataType : 'json'
 				, success : function(response){
-					recommend.text(response.recommend);
+					//recommend.text(response.recommend);
+						console.log('성공');
+						$(window).scrollTop(tempScrollTop);
+						var list = response.replyList;
+						$('.list-discussion').html('');
+						list.forEach(function(reply){
+							
+						var divTag = $('<li><div class="list-body"></div></li>');
+					 	divTag.html('<div class="answer_bg"><div class="avatar-acount"><cite class="xsm black bold">ID&nbsp;&nbsp;&nbsp;&nbsp;'+reply.id
+					 	+'</cite><h4 class="md black">'+reply.content+'</h4><div class="comment-meta">'
+					 	+'<a href="#">'+reply.regdate+'</a>'
+					 	+'<a href="#" class="addRecommend" recommendValue ="'+reply.replyno+'"><i class="icon md-arrow-up"></i>추천&nbsp;'
+					 	+'<span>'+reply.recommend+'</span></a>'
+					 	+'<a href="#" linkvalue = "'+reply.replyno+'" class="showRereply"><i class="icon md-back"></i>REPLY</a>'
+					 	+'</div></div></div>'
+					 	+'<div class ="rereplyArea">'
+					 	+'<div id="'+reply.replyno+'" style="display:none; background-color: white;" class = "innerrereplyArea">'
+					 	+'<div class ="ininnerrereplyArea">'
+					 	+'<s:iterator value="rereplyList">'
+					 	+'<p><span><s:property value="id"/></span>'
+					 	+'&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;'
+					 	+'<s:property value="content"/>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;'
+					 	+'<a href ="#">x</a></p><br/></s:iterator>'
+					 	+'<input type="text" style="width: 700px;" class="insertRereplyText">'
+					 	+'&nbsp;&nbsp;<input type="button" value="덧글작성" class="mc-btn-9">'
+					 	+'</div></div></div>'
+					 	).appendTo(".list-discussion");
+					});
 				}
 				, error : function(response){
 					var url = '../member/loginFrom.action';    
