@@ -75,30 +75,35 @@
                         <div class="table-wrap">
                             <!-- TABLE HEAD -->
                             <div class="table-head">
-                                <div class="submissions">aaaaaaa</div>
-                                <div class="total-subm">Submissions</div>
-                                <div class="replied">Replied</div>
-                                <div class="latest-reply">Latest Reply</div>
-                                <div class="tb-icon">ssss</div>
+                                <div class="submissions">Title</div>
+                                <div class="total-subm"></div>
+                                <div class="replied"></div>
+                                <div class="latest-reply">ID(SUBNOTE)</div>
+                                <div class="tb-icon"></div>
                             </div>
                             <!-- END / TABLE HEAD -->
 
                             <!-- TABLE BODY -->
+                    
                             <div class="table-body">
+                         
                                 <!-- TABLE ITEM -->
-                                <div class="table-item">
-                                    <div class="thead">
-                                        <div class="submissions"><a href="#">Learning for dummies</a></div>
-                                        <div class="total-subm">0/4</div>
-                                        <div class="replied">0/2</div>
-                                        <div class="latest-reply">11. Jul , 2014</div>
+                                
+                                    
+                               <s:iterator value="courseList">
+                               <div class="table-item" >
+                                    <div class="thead" id="<s:property value="courseno" />">
+                                        <div class="submissions"><s:property value="coursename" /></div>
+                                        <div class="total-subm"></div>
+                                        <div class="replied"></div>
+                                        <div class="latest-reply"><s:property value="teacherid" /></div>
                                         <div class="toggle tb-icon">
-                                            <a href="#"><i class="fa fa-angle-down"></i></a>
+                                            <a><i class="fa fa-angle-down"></i></a>
                                         </div>
                                     </div>
-
-                                    <div class="tbody">
-                                        <!-- ITEM -->
+                                    
+                                      <!-- <div class="tbody">
+                                        ITEM
                                         <div class="item">
                                             <div class="submissions"><a href="#">Title of Assignment 1 in course</a></div>
                                             <div class="total-subm">Submited</div>
@@ -107,52 +112,53 @@
                                             <div class="link tb-icon">
                                                 <a href="#"><i class="fa fa-play-circle-o"></i></a>
                                             </div>
-                                        </div>
-                                        <!-- END / ITEM -->
-
-                                        <!-- ITEM -->
-                                        <div class="item">
-                                            <div class="submissions"><a href="#">Title of Assignment 2 in course</a></div>
-                                            <div class="total-subm">Submited</div>
-                                            <div class="replied">Replied</div>
-                                            <div class="latest-reply">11. Jul , 2014</div>
-                                            <div class="link tb-icon">
-                                                <a href="#"><i class="fa fa-play-circle-o"></i></a>
-                                            </div>
-                                        </div>
-                                        <!-- END / ITEM -->
-
-                                        <!-- ITEM -->
-                                        <div class="item">
-                                            <div class="submissions"><a href="#">Title of Assignment 3 in course</a></div>
-                                            <div class="total-subm">Submited</div>
-                                            <div class="replied">Replied</div>
-                                            <div class="latest-reply">11. Jul , 2014</div>
-                                            <div class="link tb-icon">
-                                                <a href="#"><i class="fa fa-play-circle-o"></i></a>
-                                            </div>
-                                        </div>
-                                        <!-- END / ITEM -->
-
-                                        <!-- ITEM -->
-                                        <div class="item">
-                                            <div class="submissions"><a href="#">Title of Assignment 4 in course</a></div>
-                                            <div class="total-subm">Submited</div>
-                                            <div class="replied">Replied</div>
-                                            <div class="latest-reply">11. Jul , 2014</div>
-                                            <div class="link tb-icon">
-                                                <a href="#"><i class="fa fa-play-circle-o"></i></a>
-                                            </div>
-                                        </div>
-                                        <!-- END / ITEM -->
-
-                                    </div>
-                                </div>
+                                        </div>-->
+                                 
+                                    </div> 
+								</s:iterator>
+								  
+                                  
+                                
                                 <!-- END / TABLE ITEM -->
                                 </div>
+                                <div class = "paging" align="center">
+               		   <ul class="pager">
+               		   
+			<s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:if>
+            
+            <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
+             <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "plusStudyMain2.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1">
+             <li><a href = "plusStudyMain2.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
+            <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.currentPage == 0">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:elseif>
+			
+			<s:else>
+             <li><a href = "plusStudyMain2.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
+             <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "plusStudyMain2.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
+            </s:else>
+				
+                        </ul>
+                 </div>   
                                 </div>
                                 </div>
+                                
+                              
+                                
 		</div>
+		
+		  
+		
 		</div>
 
 	<!-- SIDEBAR -->
@@ -248,27 +254,138 @@
 		src="../resources/javatree_view/html/js/scripts.js"></script>
 		
 	<script type="text/javascript">
+	function List() {
+		   this.elements = {};
+		   this.idx = 0;
+		   this.length = 0;
+		}
 
+		List.prototype.add = function(element) {
+		   this.length++;
+		   this.elements[this.idx++] = element;
+		};
+
+		List.prototype.get = function(idx) {
+		   return this.elements[idx];
+		};
+
+	
+	var sel = '';
+	var prev = 0;
+	var approve = 'deny';
+	 var list = new List();
+	 
     $.each($('.table-wrap'), function() {
         $(this)
             .find('.table-item')
             .children('.thead:not(.active)')
             .next('.tbody').hide();
+        
         $(this)
             .find('.table-item')
             .delegate('.thead', 'click', function(evt) {
-                evt.preventDefault();
+            	evt.preventDefault();
+            	
+            	var id = $(this).attr('id');
+                alert("id> " + id);
+                
+              if(prev == 0){
+            	  prev = id;
+              }
+               
+             alert("list길이> " + list.length);
+             
+             approve = 'approve';
+             
+              for(var i=0; i<list.length; i++) {
+            	    if(list.get(i) == id){
+            	    	approve = 'deny';
+            	    	break;
+            	    }
+            	}
+              
+      		
+            
+      		/* alert(list.get(0)); */
+      		
+      		
+             if(approve == 'approve'){
+            	list.add(id);
+                sel = $(this);
+                $.ajax({
+				        type : 'get', 
+				        url : 'selectListForSlide',
+				        data : "courseno="+id,
+				        success : function(response){
+				        	
+				        	var divTag = $('<div class="tbody"></div>');
+			 				divTag.html('<div class="item"><div class="submissions"></div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"><a href="selectCourseDetailForStudy.action?courseno='+id+'">>>강좌상세정보</div><div class="link tb-icon"></div></div>')
+			 				.insertAfter(sel); 	  
+				        	
+				        	 var list = response.lectureList;
+				        	 list.forEach(function(lec){
+				 				
+				        	 	var divTag = $('<div class="tbody"></div>');
+				 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="../compiler/Compiler.action?lectureno='+lec.lectureno+'"><i class="fa fa-play-circle-o"></i></a></div></div>')
+				 				.insertAfter(sel); 	  
+				        		 
+				        		 /* var divTag = $('<div class="post"><div class="post-body"></div></div>');
+				 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
+				 				+course.coursename+'</a></h3></div><div class="post-meta">by'
+				 				+course.username+' on '+course.regdate+'</div><div class="post-link"><a href="blog-single.jsp?courseno='+course.courseno
+				 				+'"><i class="fa fa-play-circle-o"></i>Lecture List</a></div>').appendTo(".blog-list-content"); */
+				 			
+				 			});
+				        	 
+				        	/*  var curPage = Number(response.currentPage);
+				        	 var curPagePlus = Number(response.currentPage+1);
+				        	 var curPageMinus = Number(response.currentPage-1);
+				        	 var endPage =  Number(response.endPageGroup);
+				        	 			        	 
+				        	 var paging = $('<ul class="pager"></ul>');
+				        	 if(curPage == 1 & endPage == 1){
+				        		 var paging0 = '<li><a href="#">'+ curPage+'</a></li>';
+				        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
+				        	 }else if(curPage == 1 & endPage != 1){
+				        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage+ +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+				        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
+				        	 }else if(curPage == endPage & endPage != 1){
+				        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li>';	
+				        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
+				        	 }else{
+				        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+				        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
+				        	 } */
+				        	
+				        }
+               
+				 });
+             }
+                //slide effect 시작
                 if ($(this).hasClass('active')==false) {
-                    $('.table-item')
+                	$('.table-item')
                         .find('.thead')
                         .removeClass('active')
                         .siblings('.tbody')
                             .slideUp(200);
+                	
+                	$('.table-item')
+                    .find('.thead').children().children().children().html('');
+                    
                 }
-                $(this)
+                	$(this)
                     .toggleClass('active')
                     .siblings('.tbody')
                         .slideToggle(200);
+                	//slide effect 종료
+               
+               
+                	/*  var divTag = $('<div class="tbody"></div>');
+		 				divTag.html('<div class="item"><div class="submissions">Title</div><div class="total-subm">Submited</div><div class="replied">Replied</div><div class="latest-reply">11. Jul , 2014</div><div class="link tb-icon"><a href="#"><i class="fa fa-play-circle-o"></i></a></div></div>')
+		 				.insertAfter($(this));     */        
+                
+           				
+                   
         });
     });
 
