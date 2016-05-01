@@ -2212,9 +2212,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	            else{
 	            	System.out.println("같은것 있음. 등록 불가 ");
 	            }
-	            
 	         }
-	         
 	         codingFormlecturelist();
 	         return SUCCESS;
 	      }
@@ -2306,6 +2304,19 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 		}
 		
+		/**
+		 * updateCodingForLecture - 문제 보관함에 문제 수정 폼
+		 */
+		public String updateCodingfromInsertLectureView(){
+			
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			
+			id = (String)session.get("loginId");
+			codingList =  dao.getAllCodingList(id);
+			
+			return SUCCESS;
+			
+		}
 		
 		/**
 		 * updateCoding - 문제 보관함에 문제 수정
@@ -2491,8 +2502,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				System.out.println("checkCoding: "+checkCoding);
 			}
 			
-			//codingFormlecturelist();
-			//showCodinglist();
+			codingFormlecturelist();
+			showCodinglist();
 			return SUCCESS;
 		}
 		

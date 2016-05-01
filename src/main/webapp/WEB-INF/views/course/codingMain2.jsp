@@ -61,21 +61,21 @@
 
                         <li>
                            <div class="list-body">
-                              <a href="/javatree/course/updateCodingfromMainViewfromInsertLectureView.action">
+                              <a href="/javatree/course/updateCodingfromInsertLectureView.action">
                                  <h6>UPDATE</h6>
                               </a>
                            </div>
 
                         </li>
                         
-                           <li>
+                        <!-- <li>
                            <div class="list-body">
                               <a href="/javatree/course/deleteCodingfromMainView.action">
                                  <h6>DELETE</h6>
                               </a>
                            </div>
 
-                        </li>
+                        </li> -->
 
                      </ul>
                   </div>

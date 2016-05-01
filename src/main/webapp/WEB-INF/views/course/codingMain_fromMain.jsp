@@ -260,15 +260,15 @@ $(document).ready(function() {
 		     		alert("codingquestionList: "+codingquestionList);
 		     		
 		     		var check =false;
-		     		//alert("codingquestionList.length: "+codingquestionList.length);
-	 				//alert("codingListForInsert.length: "+codingListForInsert.length);
+		     		alert("codingquestionList.length: "+codingquestionList.length);
+	 				alert("codingListForInsert.length: "+codingListForInsert.length);
 	 				
 	 				for(var i=0; i<codingquestionList.length; i++){
-			     		for(var j=0; j<codingListForInsert.length;j++){
+			     		for(var j=0; j<codingListForInsert.length; j++){
 			     			var lstbox1val= codingquestionList[i];
-			     			//alert("lstbox1val: "+lstbox1val);
+			     			alert("lstbox1val: "+lstbox1val);
 			     			var lstbox2val = codingListForInsert[j];
-			     			//alert("lstbox2val: "+lstbox2val);
+			     			alert("lstbox2val: "+lstbox2val);
 			     				
 			     			if(lstbox2val == lstbox1val){
 			     				alert("같다");
@@ -277,7 +277,7 @@ $(document).ready(function() {
 			     			}
 			     		}
 			     		if(!check){
-			     			alert(다르다);
+			     			alert("다르다");
 			     		    $('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
 	
 			     		}
