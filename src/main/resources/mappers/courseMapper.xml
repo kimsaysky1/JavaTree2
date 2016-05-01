@@ -646,6 +646,15 @@
 	<select id="selectLectureCoding" parameterType="map" resultType="int">
 		select count(*) from lecturecoding where lectureno=#{lectureno} and codingno=#{codingno}
 	</select>
+
+	<select id="selectFileName" parameterType="int" resultType="String">
+		select uploadedfilename from lecture where lectureno = #{lectureno}
+	</select>
+	
+	<select id="selectSubNoteName" parameterType="int" resultType="String">
+		select uploadedfilename from subnote where lectureno = #{lectureno}
+	</select>
+	
  
 </mapper>
 

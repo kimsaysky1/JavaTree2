@@ -106,7 +106,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	//private static final String UploadPath="C://upload/";
 	private static final String UploadPath="C://apache-tomcat-8.0.33/webapps/javatree/resources/upload/";
 	private static final String UploadPath2="C://upload/";
-	
+	private File directoryPath;
 	private File saveFile;
 	
 	private List<File> upload = new ArrayList<File>();
@@ -141,7 +141,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	private String codingquestion;
 	
 	private ArrayList<String> codingnoListforCheck;
-	
+	private String filename;
 	
 	ArrayList<Coding> checkCoding= new ArrayList<>();
 	
@@ -1846,9 +1846,21 @@ public class CourseAction extends ActionSupport implements SessionAware {
     		//System.out.println(getUpload()+"실제파일");
     		//System.out.println(ServletActionContext.getRequest().getRequestURL());
     		
+			/*file_parent = file_parent + "/" + packagePath;
+			directoryPath = new File(file_parent + "/");
+			File file = new File(file_parent, file_name);*/
+			
+			String loginId = (String)session.get("loginId");
     		/*강의video*/
     		//System.out.println(UploadPath+uploadFileName.get(0));
-    		File video=new File(UploadPath+uploadFileName.get(0)); /*파일네임*/
+    		
+			directoryPath = new File(UploadPath +loginId+"/");
+			if (!directoryPath.exists()) {
+				directoryPath.mkdirs();
+			}
+			System.out.println("filename>> " + directoryPath+uploadFileName.get(0));
+			File video=new File(directoryPath, uploadFileName.get(0)); /*파일네임*/
+    		
     		FileUtils.copyFile(upload.get(0), video); /*실제파일저장*/
     		//System.out.println(video+"video");
     		
@@ -1923,7 +1935,13 @@ public class CourseAction extends ActionSupport implements SessionAware {
             
             //여기까지 내꺼
 				/*서브노트파일*/
-				File note=new File(UploadPath2+uploadFileName.get(1));
+    			  
+    			directoryPath = new File(UploadPath2 +loginId+"/");
+    				if (!directoryPath.exists()) {
+    					directoryPath.mkdirs();
+    				}  
+    			  
+				File note=new File(directoryPath, uploadFileName.get(1));
 				FileUtils.copyFile(upload.get(1), note); /*실제파일저장*/
 				System.out.println(note+"subnote");
 				
@@ -1967,7 +1985,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			return SUCCESS;
 		}
 		
-		
 		/**
 		 * teachMain - 강좌 상세 페이지 띠우기
 		 */
@@ -1997,7 +2014,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 */
 		public String deleteLecture(){
 		    courseDAO dao = sqlSession.getMapper(courseDAO.class);
-	         System.out.println("deletelecture 옴, lectureno : "+lectureno);
+		    filename = dao.selectFileName(lectureno); // 삭제용 비디오파일네임 
+		    String sfilename = dao.selectSubNoteName(lectureno); // 삭제용 서브노트파일네임 
+		    System.out.println("deletelecture 옴, lectureno : "+lectureno);
 	         System.out.println("courseno : "+courseno);
 	         dao.deleteCheckLecture(lectureno);
 	         dao.deleteStudyLecture(lectureno);
@@ -2009,9 +2028,68 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         lectureList= dao.selectAllLectureListForTeach(courseno);
 	         System.out.println("leclist>> " + lectureList);
 	         course= dao.selectCourse(courseno);
+	         
+	         directoryPath = new File(UploadPath + (String)session.get("loginId"));
+	         String path = UploadPath + (String)session.get("loginId");
+	 		System.out.println("filename>> " + filename);
+	         
+	         if (directoryPath.isDirectory()) {
+	 			String[] childFiles = directoryPath.list();
+	 			
+	 				for (String childFilePath : childFiles) {
+	 						if(childFilePath.equals(filename)){
+							System.out.println("childfilePath>> " + childFilePath);
+							File file2 = new File(directoryPath, childFilePath);
+							file2.delete();
+						}
+	 					/*deleteFile(path + "/" + childFilePath, filename);*/
+	 			}
+	 		} 
+	         
+	         
+	         
+	         directoryPath = new File(UploadPath2 + (String)session.get("loginId"));
+		        String spath = UploadPath2 + (String)session.get("loginId");
+		         
+		         if (directoryPath.isDirectory()) {
+		 			String[] childFiles = directoryPath.list();
+		 			
+		 				for (String childFilePath : childFiles) {
+		 						if(childFilePath.equals(sfilename)){
+								
+		 						File file2 = new File(directoryPath, childFilePath);
+								file2.delete();
+							}
+		 					/*deleteFile(path + "/" + childFilePath, filename);*/
+		 			}
+		 		} 
+	         
+	         
+	         
 	         return SUCCESS;
 		}
 		
+		public void deleteFile(String path, String filename) {
+			File file = new File(path);
+			if (file.isDirectory()) {
+				String[] childFiles = file.list();
+				if (childFiles == null) {
+					file.delete();
+				} else {
+					for (String childFilePath : childFiles) {
+						System.out.println("childFilePath");
+						if(childFilePath.equals(filename)){
+							
+							File file2 = new File(path+"/"+childFilePath);
+							file2.delete();
+						}
+						//deleteFile(path + "/" + childFilePath);
+					}
+				}
+			} else {
+				file.delete();
+			}
+		}
 		/**
 		 * teachMain - 강좌 상세 페이지 - 수정 폼
 		 */
@@ -2024,24 +2102,119 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 * teachMain - 강좌 상세 페이지 - 수정 
 		 */
 		public String updateLecture() throws IOException{
+		
+			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-
 			
-			/*강의video*/
-			File video=new File(UploadPath+uploadFileName.get(0)); /*파일네임*/
-			FileUtils.copyFile(upload.get(0), video); /*실제파일저장*/
+			String loginId = (String)session.get("loginId");
 			
-			originalfilename="lecture,"+UploadPath+video+","+System.currentTimeMillis();/*실제파일이름*/
-			uploadedfilename=uploadFileName.get(0); /*실제파일경로*/
+			filename = dao.selectFileName(lectureno); //삭제용 파일 네임
+    		System.out.println("filename>> " + filename);
 			
-			Map<String, Object> map = new HashMap<String, Object>();
+			directoryPath = new File(UploadPath +loginId+"/");
+			if (!directoryPath.exists()) {
+				directoryPath.mkdirs();
+			}
+			System.out.println("filenamee디렉토리포함>> " + directoryPath +" ㄹㄴㄹ " +uploadFileName.get(0));
+			File video=new File(directoryPath, uploadFileName.get(0)); /*파일네임*/
+    		
+    		FileUtils.copyFile(upload.get(0), video); /*실제파일저장*/
 			
-			map.put("originalfilename", originalfilename);
-			map.put("uploadedfilename", uploadedfilename);
-			map.put("lectureno", lectureno);
+			originalfilename=video+","+System.currentTimeMillis(); //실제파일이름
+    		uploadedfilename=uploadFileName.get(0); //실제파일경로*/
+    		
+    		//System.out.println("경로1: "+uploadedfilename);
+    		 //입력받은 파일 이름을 가지고 File 객체를 생성
+    		
+			//lecture.setUploadedfilename(uploadedfilename);
+			//lecture.setOriginalfilename(originalfilename);
+			//dao.insertLecture(lecture);
+    		
+    		System.out.println("update> " + uploadedfilename + " / original " + originalfilename + " / lectureno > " + lectureno);
+    		
+			try {
+ 			   Class.forName("oracle.jdbc.driver.OracleDriver");
+ 			  // System.out.println("드라이버 검색 성공");
+ 			  }catch(ClassNotFoundException e) {
+ 			   System.err.println("error = " + e);
+ 			   System.exit(1);
+ 			  }
+ 			  Connection conn = null;
+ 			  PreparedStatement pstmt = null;
+ 			  String url = "jdbc:oracle:thin:@localhost:1521:xe";
+ 			  String id = "hr";
+ 			  String pass = "hr";
+ 			  String query = null;
+ 			  try {
+ 			   conn = DriverManager.getConnection(url, id, pass);
+ 			  }catch(SQLException e) {
+ 			   System.err.println("sql error = " + e);
+ 			   System.exit(1); // 비정상 종료시 사용되는 함수이다.
+ 			  }
+ 			  
+ 			  /*Scanner sc = new Scanner(System.in);
+ 			  System.out.print("업로드 할 파일 = ");
+ 			  String filename = sc.next();*/
+ 			 
+ 			  //File f = new File(filename);
+ 			  if(!video.exists()) {
+ 			   System.out.println("파일이 존재 하지 않습니다.");
+ 			   System.exit(1);
+ 			  }
+ 			  
+ 			  ByteArrayOutputStream bos = new ByteArrayOutputStream();
+ 			  FileInputStream fis = new FileInputStream(video);
+ 			  while(true) {
+ 			   int x = fis.read();
+ 			   if(x == -1) break;
+ 			   bos.write(x);
+ 			  }
+ 			  fis.close();
+ 			  bos.close(); 
+ 			  ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+ 			  
+ 			  int lecNo = dao.selectMaxLectureno();
+ 			  System.out.println("lecNo>> " + lecNo);
+ 			  
+ 			  query = "update lecture set filedata = ? where lectureno = ? ";
+ 			  try {
+ 			   pstmt = conn.prepareStatement(query);
+ 			   pstmt.setBinaryStream(1, bis, bos.size());
+ 			   pstmt.setInt(2, lecNo);
+ 			   int row =  pstmt.executeUpdate();
+ 			   System.out.println("업로드 성공!" + row);
+ 			   pstmt.close();
+ 			   conn.close();
+ 			  }catch(SQLException e) {
+ 			   System.err.println("sql error = " + e);
+ 			  }
+ 			  
+ 			 Map<String, Object> map = new HashMap<String, Object>();
+ 			
+ 			map.put("originalfilename", originalfilename);
+ 			map.put("uploadedfilename", uploadedfilename);
+ 			map.put("lectureno", lectureno);
+ 			
+ 			dao.updateLecture(map);
+ 			  
+			  directoryPath = new File(UploadPath + (String)session.get("loginId"));
+		        String path = UploadPath + (String)session.get("loginId");
+		         
+		         if (directoryPath.isDirectory()) {
+		 			String[] childFiles = directoryPath.list();
+		 			
+		 				for (String childFilePath : childFiles) {
+		 						if(childFilePath.equals(filename)){
+								
+		 						File file2 = new File(directoryPath, childFilePath);
+								file2.delete();
+							}
+		 					/*deleteFile(path + "/" + childFilePath, filename);*/
+		 			}
+		 		} 
 			
-			dao.updateLecture(map);
-			
+		    message = "업데이트 성공"; 
+		         
 			return SUCCESS;
 		}
 		
@@ -2058,15 +2231,21 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 * teachMain - 강좌 상세 페이지 - 교안 수정 폼
 		 */
 		public String updateSubnote() throws IOException{
-			
+			System.out.println("updatesubnote 들어옴");
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-		
-			/*서브노트파일*/
-			File note=new File(UploadPath2+uploadFileName.get(0));
+			directoryPath = new File(UploadPath2 + (String)session.get("loginId"));
+	        String path = UploadPath2+ (String)session.get("loginId");
+			
+	        /*서브노트파일*/
+			File note=new File(directoryPath, uploadFileName.get(0));
 			FileUtils.copyFile(upload.get(0), note);
 			
 			originalfilename="subnote,"+note+","+System.currentTimeMillis();
 			uploadedfilename=uploadFileName.get(0);
+			
+			System.out.println("lectureno>> " + lectureno);
+			filename = dao.selectSubNoteName(lectureno); //삭제용 파일 네임
+			System.out.println("filename은 뭘까? >> " + filename);
 			
 			subnote = new Subnote();
 			id=(String) session.get("loginId");
@@ -2076,7 +2255,20 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			subnote.setLectureno(lectureno);
 			
 			dao.updateSubnote(subnote);
+		         
+		         if (directoryPath.isDirectory()) {
+		 			String[] childFiles = directoryPath.list();
+		 			
+		 				for (String childFilePath : childFiles) {
+		 						if(childFilePath.equals(filename)){
+								
+		 						File file2 = new File(directoryPath, childFilePath);
+								file2.delete();
+							}
+		 			}
+		 		} 
 			
+		     message = "업데이트 성공";
 			return SUCCESS;
 		}
 		/**
@@ -3153,8 +3345,25 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public void setCheckCoding(ArrayList<Coding> checkCoding) {
 			this.checkCoding = checkCoding;
 		}
-	
-	
-		
+
+		public File getDirectoryPath() {
+			return directoryPath;
+		}
+
+		public void setDirectoryPath(File directoryPath) {
+			this.directoryPath = directoryPath;
+		}
+
+		public static String getUploadpath2() {
+			return UploadPath2;
+		}
+
+		public String getFilename() {
+			return filename;
+		}
+
+		public void setFilename(String filename) {
+			this.filename = filename;
+		}
 		
 }

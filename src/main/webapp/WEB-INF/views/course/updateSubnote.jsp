@@ -27,14 +27,16 @@ function updateSubnoteForm(){
 	//opener.document.getElementById("lectureno").value = lectureno;
 	
 	form.submit();
+}
+function closeWindow() {
 	this.close();
 }
-
 </script>
 
 </head>
 <body>
-        
+        <h2><s:property value="courseno"/></h2>
+        <h3><s:property value="lectureno"/></h3>
        <section id="create-course-section" class="create-course-section">
         <div class="container">
     
@@ -67,7 +69,7 @@ function updateSubnoteForm(){
   						<div class="form-action">
                            <%--  <input type="submit" value="Save and Next" onclick="javascript:updateLectureForm('<s:property value="lectureno"/>')" class="submit mc-btn-3 btn-style-1"> --%>
                             <input type="submit" value="Update" onclick="javascript:updateSubnoteForm()" class="submit mc-btn-3 btn-style-1">
-                            <input type="submit" value="Cancel" class="submit mc-btn-3 btn-style-1">
+                            <input type="button" value="Cancel" class="submit mc-btn-3 btn-style-1" id="close" onclick="javascript:closeWindow()">
                         </div>
 
                      
@@ -79,7 +81,13 @@ function updateSubnoteForm(){
     </section>
     <!-- END / CREATE COURSE CONTENT -->
         
-   
+    	<s:if test="message != null">
+  		<script type="text/javascript">
+   		var result = "${message}";
+   		alert(result);
+   		this.close();
+	</script>
+	</s:if>
 
 	
 	<!-- Load jQuery -->

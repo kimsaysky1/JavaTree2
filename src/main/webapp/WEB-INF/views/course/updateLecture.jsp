@@ -39,7 +39,8 @@ function closeWindow() {
 
 </head>
 <body>
-        
+        <h2><s:property value="courseno"/></h2>
+        <h3><s:property value="lectureno"/></h3>
        <section id="create-course-section" class="create-course-section">
         <div class="container">
     

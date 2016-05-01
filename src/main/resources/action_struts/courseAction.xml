@@ -237,7 +237,7 @@
         
       	<!-- courseDetailForteach - 강의 비디오 수정 -->
         <action name="updateLecture" class="org.javatree.www.Action.CourseAction" method="updateLecture" >
-        	<result type="redirect">CourseDetailForTeachForm</result>
+        	<result>/WEB-INF/views/course/updateLecture.jsp</result>
         </action>
         
         <!-- courseDetailForteach - 강의 서브노트 수정 폼-->
@@ -247,7 +247,7 @@
         
         <!-- courseDetailForteach - 강의 서브노트 수정 -->
         <action name="updateSubnote" class="org.javatree.www.Action.CourseAction" method="updateSubnote" >
-        	<result type="redirect">CourseDetailForTeachForm</result>
+        	<result>/WEB-INF/views/course/updateSubnote.jsp</result>
         </action>
         
          <!--  courseDetailForteach - 강의 코딩문제보관함 뷰 -->
