@@ -264,26 +264,33 @@ $(document).ready(function() {
 	     		var check =false;
 	     		alert("codingquestionList.length: "+codingquestionList.length);
  				alert("codingListForInsert.length: "+codingListForInsert.length);
- 				
-	      		for(var i=0; i<codingquestionList.length; i++){
-	     			for(var j=0; j<codingListForInsert.length;j++){
-	     				var lstbox1val= codingquestionList[i];
-	     				alert("lstbox1val: "+lstbox1val);
-	     				var lstbox2val = codingListForInsert[j];
-	     				alert("lstbox2val: "+lstbox2val);
-	     				
-	     				if(lstbox2val == lstbox1val){
-	     					alert("같다");
-	     					check=true;
-	     					//return false;
-	     				}
-	     			}
-	     			if(!check){
-	     		    	$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
+ 					for(var i=0; i<codingquestionList.length; i++){
+		     			for(var j=0; j<codingListForInsert.length;j++){
+		     				var lstbox1val= codingquestionList[i];
+		     				alert("lstbox1val: "+lstbox1val);
+		     				var lstbox2val = codingListForInsert[j];
+		     				alert("lstbox2val: "+lstbox2val);
+		     				
+		     				if(lstbox2val == lstbox1val){
+		     					alert("같다");
+		     					check=true;
+		     					//return false;
+		     				}
+		     			}
+		     			if(!check){
+		     		    	$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
 
-	     		    }
-	     		} 
-	        	 
+		     		    }
+		     		}
+ 				/* 
+ 				if(codingListForInsert.length==0){
+ 					$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
+ 				}else{
+ 					
+ 					
+ 				}	 */		
+	      		
+	      			        	 
 	         }
 	      });
       
@@ -326,8 +333,11 @@ $(document).ready(function() {
           }); 
     });
     
-   
-   
+  /*  	function insertST(){
+   		var btninsert= document.getElementById("btninsert");
+   		
+   	} */
+    
    
 
     

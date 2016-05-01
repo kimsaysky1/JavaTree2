@@ -593,7 +593,7 @@
 	
 	<!-- 영호 insert -->
 	<insert id="insertLectureCoding" parameterType="map">
-		insert into lecturecoding values(#{lectureno}, #{codingno})
+		insert into lecturecoding values(#{lectureno}, #{codingno}) 
 	</insert>
 	
 	<!-- insertSelectedCodingfromInsertLecture- 코딩탬프테이블에먼저저장 -->
@@ -612,6 +612,10 @@
 	
 	<select id="selectedCheck" parameterType="int" resultType="Coding">
 		select * from coding where codingno=#{codingno}
+	</select>
+	
+	<select id="selectLectureCoding" parameterType="map" resultType="int">
+		select count(*) from lecturecoding where lectureno=#{lectureno} and codingno=#{codingno}
 	</select>
  
 </mapper>

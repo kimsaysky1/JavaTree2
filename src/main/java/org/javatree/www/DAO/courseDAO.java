@@ -93,5 +93,6 @@ public interface courseDAO {
 	public ArrayList<Course> pagingTeachCourse(Map<String, Object> kong);
 	public int selectTeachTotal(Map<String, Object> kong);
 	public Coding selectedCheck(int codingno);
+	public int selectLectureCoding(Map<String, Object> map);
 	
 }

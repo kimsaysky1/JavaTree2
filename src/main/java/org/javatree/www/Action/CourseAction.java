@@ -2075,8 +2075,16 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         for(int i = 0; i < tempList.size(); i++){
 	            map.put("codingno", tempList.get(i));
 	            map.put("lectureno", lectureno);
-	            dao.insertLectureCoding(map);
-	            System.out.println(i+"번 완료");
+	            int s= dao.selectLectureCoding(map);
+	            System.out.println("s: "+s);
+	            if(s == 0){
+	            	dao.insertLectureCoding(map);
+	            	System.out.println(i+"번 완료");
+	            }
+	            else{
+	            	System.out.println("같은것 있음. 등록 불가 ");
+	            }
+	            
 	         }
 	         
 	         codingFormlecturelist();
@@ -2312,7 +2320,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}
 	
 
-		
+		/*문제보관함- lstbox1, 2 중복값 체크위함 */
 		public String selectedCheck(){
 			System.out.println("체크");
 			System.out.println("lectureno: "+lectureno);
@@ -2356,7 +2364,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			}
 			
 			//codingFormlecturelist();
-			
+			//showCodinglist();
 			return SUCCESS;
 		}
 		
