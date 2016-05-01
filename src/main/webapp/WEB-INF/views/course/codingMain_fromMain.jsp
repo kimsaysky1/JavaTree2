@@ -229,33 +229,71 @@ $(document).ready(function() {
     $('#btnRight').click(function(e) {
     	var selectedOpts = $('#lstBox1 option:selected');
     	var lectureno = $("#lecturelistbox option:selected").val();
-        var codingnoList = [];
+    	var simp = ',';
+        var codingnoListforCheck = '';
         $('#lstBox1 :selected').each(function(i, selected) {
-        	codingnoList[i] = $(selected).val();
-        	alert("코딩넘버리스트: "+codingnoList);
+        	
+        	codingnoListforCheck += simp + $(selected).val();
+        	alert("코딩넘버리스트: "+codingnoListforCheck);
         });
         
         $.ajax({
 	         url : 'selectedCheck.action',
-	         data : 'codingnoList='+codingnoList+'&lectureno='+lectureno,
+	         data : 'codingnoListforCheck='+codingnoListforCheck+'&lectureno='+lectureno,
+	         dataType : 'json',
 	         success : function(response){
-	        	 alert("response.codingquestion"+response.codingquestion);
-	        	
+	        	 //alert(response.checkCoding);
+	        	 var list = response.checkCoding;
+	        	 var codingquestionList=[];
+	        	 list.forEach(function(coding){
+	        		 alert(coding.codingquestion);
+	        		 codingquestionList.push(coding.codingno);
+	        	 });
+	        	 alert("codingquestionList: "+codingquestionList);
+	        	 
+	        	 /* listbox2 값 모두받아오기  */
+	             var codingListForInsert = [];
+	             $('#lstBox2 option').each(function(index) {
+	                codingListForInsert.push( $(this).val()) ;
+	               });
+	     		alert("codingListForInsert[0]: "+codingListForInsert[0]);
+	     		alert("codingListForInsert[1]: "+codingListForInsert[1]);
+	     		alert("codingListForInsert[2]: "+codingListForInsert[2]);
+	     		alert("codingquestionList: "+codingquestionList);
+	     		
+	     		var check =false;
+	     		alert("codingquestionList.length: "+codingquestionList.length);
+ 				alert("codingListForInsert.length: "+codingListForInsert.length);
+ 				for(var i=0; i<codingquestionList.length; i++){
+		     		for(var j=0; j<codingListForInsert.length;j++){
+		     			var lstbox1val= codingquestionList[i];
+		     			alert("lstbox1val: "+lstbox1val);
+		     			var lstbox2val = codingListForInsert[j];
+		     			alert("lstbox2val: "+lstbox2val);
+		     				
+		     			if(lstbox2val == lstbox1val){
+		     				alert("같다");
+		     				check=true;
+		     					//return false;
+		     			}
+		     		}
+		     		if(!check){
+		     		    $('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
+
+		     		   }
+		     	}
+ 				/* 
+ 				if(codingListForInsert.length==0){
+ 					$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
+ 				}else{
+ 					
+ 					
+ 				}	 */		
+	      		
+	      			        	 
 	         }
 	      });
-        
-        
-       	/* if (selectedOpts.length == 0) {
-            e.preventDefault();
-        }
-        else if(selectedOpts == $('#lstBox2 option:selected').val()) {
-			alert("여기 들어오나?");        	
-        }else {
-        	$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
-        }  */
-        
-        //$('#lstBox2').append($(selectedOpts).clone());
-       // e.preventDefault();
+      
     });
 
     $('#btnLeft').click(function(e) {
@@ -295,8 +333,11 @@ $(document).ready(function() {
           }); 
     });
     
-   
-   
+  /*  	function insertST(){
+   		var btninsert= document.getElementById("btninsert");
+   		
+   	} */
+    
    
 
     

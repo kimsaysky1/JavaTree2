@@ -92,8 +92,13 @@ public interface courseDAO {
 	public ArrayList<Lecture> selectCourseDetailForStudy(Map<String, Object> kong);
 	public ArrayList<Course> pagingTeachCourse(Map<String, Object> kong);
 	public int selectTeachTotal(Map<String, Object> kong);
+<<<<<<< HEAD
 	public Coding selectedCheck(int codingnoList);
 	public ArrayList<Lecture> selectWatchingLecture(Map<String, Object> kong);
 	public ArrayList<Lecture> selectWatchingLecture1(Map<String, Object> kong);
+=======
+	public Coding selectedCheck(int codingno);
+	public int selectLectureCoding(Map<String, Object> map);
+>>>>>>> fc6cb6160aad5086a3a9a21f21f66f548fab687d
 	
 }
