@@ -240,67 +240,49 @@ $(document).ready(function() {
         $.ajax({
 	         url : 'selectedCheck.action',
 	         data : 'codingnoListforCheck='+codingnoListforCheck+'&lectureno='+lectureno,
+	         dataType : 'json',
 	         success : function(response){
-	        	alert("response: "+response[1].codingno);
-	        	// alert("response.codingquestion"+response.codingquestion);
-	        	// coding 보낸다음 다 처리해서 codingquestion을 꺼내서 그걸 비교한다음에 맞는codingquestion만 보내라  
-	        	//$(response.codingl)
-	         	//var c= response.codingl.val();
-	         	//alert("c: "+c )
-	         	
-	         	//response.codingquestion
+	        	 //alert(response.checkCoding);
+	        	 var list = response.checkCoding;
+	        	 var codingquestionList=[];
+	        	 list.forEach(function(coding){
+	        		 alert(coding.codingquestion);
+	        		 codingquestionList.push(coding.codingno);
+	        	 });
+	        	 alert("codingquestionList: "+codingquestionList);
+	        	 
+	        	 /* listbox2 값 모두받아오기  */
+	             var codingListForInsert = [];
+	             $('#lstBox2 option').each(function(index) {
+	                codingListForInsert.push( $(this).val()) ;
+	               });
+	     		alert("codingListForInsert[0]: "+codingListForInsert[0]);
+	     		alert("codingListForInsert[1]: "+codingListForInsert[1]);
+	     		alert("codingListForInsert[2]: "+codingListForInsert[2]);
+	     		alert("codingquestionList: "+codingquestionList);
+	     		
+	     		for(var i=0; i<codingListForInsert.length; i++){
+	     			for(var j=0; i<codingquestionList.length;i++){
+	     				var compare = codingListForInsert[i];
+	     				alert("compare: "+compare);
+	     				var compareCodingquesetion= codingquestionList[j];
+	     				alert("compareCodingquesetion: "+compareCodingquesetion);
+	     				if(compare != compareCodingquesetion){
+	     					alert("같지않다");
+	     					$('<option value="'+$(this).val()+'">'+$(this).val().html()+'</option>').appendTo('#lstBox2');
+	     				}
+	     				else{
+	     					alert("같은것은 넣을 수 없습니다.");
+	     				}
+	     					
+	     			}
+	     			
+	     		}
+	        	 
+	        	 
 	         }
 	      });
-        /* var ar= $('#lstBox2 option').val();
-        alert("ar"+ar); */
-       	/* listbox2 값 모두받아오기  */
-        var codingListForInsert = [];
-        $('#lstBox2 option').each(function(index) {
-           codingListForInsert.push( $(this).val()) ;
-          });
-		//alert(codingListForInsert[0]);
-		//alert(codingListForInsert[1]);
-		//alert(codingListForInsert[2]);
-		
-		/* 설마이중포문? */
-		/* for(var i=0; i<codingListForInsert.length; i++){
-			for(var j=0; i<odingquestionList.length;i++){
-				var compare = codingListForInsert[i];
-				alert("compare: "+compare);
-				var compareCodingquesetion= codingquestionList[i];
-				if(compare== compareCodingquesetion){
-					
-				}
-				else{
-					$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
-				}
-					
-			}
-			
-		} */
-		
-        
-       /*  if (selectedOpts.length == 0) {
-            e.preventDefault();
-        }
-        else if(selectedOpts == codingListForInsert.get[0]) {
-			alert("여기 들어오나?");        	
-        }else {
-        	$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
-        }  
-         */
-        
-        /* if (selectedOpts.length == 0) {
-            e.preventDefault();
-        }
-        else if(selectedOpts == $('#lstBox2 option:selected').val()) {
-			alert("여기 들어오나?");        	
-        }else {
-        	$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
-        }  
-         */
-        //$('#lstBox2').append($(selectedOpts).clone());
-       // e.preventDefault();
+      
     });
 
     $('#btnLeft').click(function(e) {
