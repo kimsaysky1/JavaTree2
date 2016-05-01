@@ -82,7 +82,7 @@
 									<div class="col-md-9">
 										<div class="avatar-acount">
 											<div class="info-acount">
-												<p> ${question.content}</p>
+												<p>${question.content}</p>
 												<div class="profile-email-address">
 													<div class="profile-email">
 														<h5>ID</h5>
@@ -264,7 +264,7 @@
 			str += '<td><textarea style="height: 180px;" readonly="readonly"></textarea></td></tr>';
 			str += '<tr><td style=\'height: 20px;\'></td></tr>';
 			str += '<tr><td style=\'width: 100px; text-align: center;\'><b>ANSWER CONTENT</b></td>';
-			str += '<td><textarea name="reply.content" style="height: 280px;"></textarea></td></tr>';
+			str += '<td><textarea id = "replyContent" name="reply.content" style="height: 280px;"></textarea></td></tr>';
 			str += '<tr><td style=\'height: 20px;\'></td></tr>';
 			str += '<tr><input type="hidden" value="" name="notification.receiverid" />';
 			str += '<input type="hidden" value="" name="notification.questionno" />';
@@ -272,8 +272,6 @@
 			str += '</table></div>';
 			str += '<div class="modal-footer"><input type="button" value="등록" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
 			str += '<input type="button" value="취소" class="mc-btn-5"></div></div></div>';
-			
-			alert(str);
 			$("#insertReply").html(str);
 		});
 		
