@@ -106,7 +106,7 @@
 													&nbsp;&nbsp;
 													<div class="profile-address" align="right" style="float: right;">
 														<form action=""></form>
-														<input type="button" id = "#insertReplyModal" value="답변달기" data-toggle="modal"
+														<input type="button" id = "insertReplyModal" value="답변달기" data-toggle="modal"
 															data-target="#insertReply" class="mc-btn-8">
 													</div>
 												</div>
@@ -233,7 +233,7 @@
 							<input type="reset" value="취소" class="mc-btn-5">
 						</div>
 					</div>
-				</div> --%>
+				</div>  --%>
 			</div>
 		</div>
 	<!-- insertReply 모달 끝-->
@@ -244,8 +244,37 @@
 	
 	$(function(){
 		
-		$('body').on('click', '#insertReplyModal', function(){
-				
+		$('#insertReplyModal').on('click', function(){
+			alert(1);
+			var str = '';
+			str += '<div class="modal-dialog modal-lg">';
+			str += '<div class="modal-content">';
+			str += '<div class="modal-header">';
+			str += '<button type="button" class="close" data-dismiss="modal">&times;</button>';
+			str += '<h4 class="modal-title">Reply</h4></div>';
+			str += '<div class="modal-body">';
+			str += '<table style=\'width: 800px;\'><tr>';
+			str += '<td style=\'width: 100px; text-align: center;\'><b>FIELD</b></td>';
+			str += '<td>${question.typeno}</td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td></tr>';
+			str += '<tr><td style=\'width: 100px; text-align: center;\'><b>QUESTION TITLE</b></td>';
+			str += '<td><textarea style="height: 60px;" readonly="readonly"></textarea></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td></tr>';
+			str += '<tr><td style=\'width: 100px; text-align: center;\'><b>QUESTION CONTENT</b></td>';
+			str += '<td><textarea style="height: 180px;" readonly="readonly"></textarea></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td></tr>';
+			str += '<tr><td style=\'width: 100px; text-align: center;\'><b>ANSWER CONTENT</b></td>';
+			str += '<td><textarea name="reply.content" style="height: 280px;"></textarea></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td></tr>';
+			str += '<tr><input type="hidden" value="" name="notification.receiverid" />';
+			str += '<input type="hidden" value="" name="notification.questionno" />';
+			str += '<input type="hidden" value="" name="reply.questionno" /></tr>';
+			str += '</table></div>';
+			str += '<div class="modal-footer"><input type="button" value="등록" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
+			str += '<input type="button" value="취소" class="mc-btn-5"></div></div></div>';
+			
+			alert(str);
+			$("#insertReply").html(str);
 		});
 		
 		$("body").on('click', '.showRereply', function(){ // 대댓글 보기
