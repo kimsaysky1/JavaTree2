@@ -255,42 +255,42 @@ $(document).ready(function() {
 	             var codingListForInsert = [];
 	             $('#lstBox2 option').each(function(index) {
 	                codingListForInsert.push( $(this).val()) ;
-	               });
-	     		alert("codingListForInsert[0]: "+codingListForInsert[0]);
-	     		alert("codingListForInsert[1]: "+codingListForInsert[1]);
-	     		alert("codingListForInsert[2]: "+codingListForInsert[2]);
-	     		alert("codingquestionList: "+codingquestionList);
-	     		
-	     		var check =false;
-	     		alert("codingquestionList.length: "+codingquestionList.length);
- 				alert("codingListForInsert.length: "+codingListForInsert.length);
- 				for(var i=0; i<codingquestionList.length; i++){
-		     		for(var j=0; j<codingListForInsert.length;j++){
-		     			var lstbox1val= codingquestionList[i];
-		     			alert("lstbox1val: "+lstbox1val);
-		     			var lstbox2val = codingListForInsert[j];
-		     			alert("lstbox2val: "+lstbox2val);
-		     				
-		     			if(lstbox2val == lstbox1val){
-		     				alert("같다");
-		     				check=true;
-		     					//return false;
-		     			}
-		     		}
-		     		if(!check){
-		     		    $('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
-
-		     		   }
-		     	}
- 				/* 
- 				if(codingListForInsert.length==0){
- 					$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
- 				}else{
- 					
- 					
- 				}	 */		
-	      		
-	      			        	 
+	             });
+		     		//alert("codingListForInsert[0]: "+codingListForInsert[0]);
+		     		alert("codingquestionList: "+codingquestionList);
+		     		
+		     		var check =false;
+		     		//alert("codingquestionList.length: "+codingquestionList.length);
+	 				//alert("codingListForInsert.length: "+codingListForInsert.length);
+	 				
+	 				for(var i=0; i<codingquestionList.length; i++){
+			     		for(var j=0; j<codingListForInsert.length;j++){
+			     			var lstbox1val= codingquestionList[i];
+			     			//alert("lstbox1val: "+lstbox1val);
+			     			var lstbox2val = codingListForInsert[j];
+			     			//alert("lstbox2val: "+lstbox2val);
+			     				
+			     			if(lstbox2val == lstbox1val){
+			     				alert("같다");
+			     				check=true;
+			     					//return false;
+			     			}
+			     		}
+			     		if(!check){
+			     			alert(다르다);
+			     		    $('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
+	
+			     		}
+			     	}
+	 				/* 
+	 				if(codingListForInsert.length==0){
+	 					$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
+	 				}else{
+	 					
+	 					
+	 				}	 */		
+		      		
+		      			        	 
 	         }
 	      });
       
