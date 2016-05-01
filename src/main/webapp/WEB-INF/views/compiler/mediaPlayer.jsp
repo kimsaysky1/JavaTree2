@@ -459,12 +459,6 @@ $(function(){
 		$('#writeQuestion').html(str);
 	});
 	
-	 /* $('#tree').fileTree({ root: '/C:/' }, function(file) {
-			alert(1);
-	        alert(file);
-	    }); */
-	
-	
 	 $("#goCodingbox").on("click", function(){
 	      var codingno =  $(".codingList option:selected").val();
 	      var mycode = $('#doccontent > textarea:visible').val();

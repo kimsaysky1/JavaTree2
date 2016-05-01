@@ -87,7 +87,7 @@
                                     <h3 class="md"><a href="qnaDetail.action?questionno=<s:property value="questionno"/>"><s:property value="title"/></a></h3>
                                 </div>
                                 <div class="post-meta">
-                                    by &nbsp;&nbsp;<a href="#"><s:property value="username"/></a>&nbsp;&nbsp;&nbsp; <s:property value="regdate"/>
+                                    by <a href="#"><s:property value="username"/></a> <s:property value="regdate"/>
                                 </div>                                           
                             </div>
                             <!-- END / POST BODY -->
@@ -268,10 +268,10 @@
 			str += '<div class="modal-content">';
 			str += '<div class="modal-header">';
 			str += '<button type="button" class="close" data-dismiss="modal">&times;</button>';
-			str += '<h4 class="modal-title">ASK Question</h4>';
+			str += '<h4 class="modal-title">Modal Header</h4>';
 			str += '</div>';
 			str += '<div class="modal-body">';
-			str += '<table style=\'width: 830px;\'>';
+			str += '<table style=\'width: 800px;\'>';
 			str += '<tr><td style=\'width: 100px; height: 70px; text-align:center;\'><b>FIELD</b></td>';
 			str += '<td><select id="typeno" name="typeno" style="width: 100px;">';
 			str +='<option value="1">PUREJAVA</option>';
@@ -294,9 +294,8 @@
 			str += '<td><textarea id="content" name="question.content" style="height: 250px;"></textarea></td></tr>';
 			str += '<tr><td style=\'height: 20px;\'></td></tr></table></div>';
 			str += '<div class="modal-footer">';
-			str += '<div style="margin-right:330px;" >';
-			str += '<input type="button" value="등록" id="executeModal" class="mc-btn-11">&nbsp;&nbsp;&nbsp;';
-			str += '<input type="button" value="취소" id="removeModal" class="mc-btn-11"></div></div></div></div>';
+			str += '<input type="button" value="등록" id="executeModal" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
+			str += '<input type="button" value="취소" id="removeModal" class="mc-btn-5"></div></div></div>';
 			
 			$('#writeQuestion').html(str);
 		});
@@ -437,8 +436,8 @@
 		        	 list.forEach(function(question){
 		 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 		 				divTag.html('<div class="post-title"><h3 class="md"><a href="qnaDetail.action?questionno='+question.questionno+'">'
-		 				+question.title+'</a></h3></div><div class="post-meta">by&nbsp;&nbsp;'
-		 				+question.username+'&nbsp;&nbsp;&nbsp;'+question.regdate+'</div></div>').appendTo(".blog-list-content");
+		 				+question.title+'</a></h3></div><div class="post-meta">by'
+		 				+question.username+' on '+question.regdate+'</div></div>').appendTo(".blog-list-content");
 		 			});
 		        	 
 		        	 var curPage = Number(response.currentPage);
