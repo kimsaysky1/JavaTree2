@@ -93,7 +93,7 @@
 														<p>${question.regdate}</p>
 													</div>
 													&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-													<div class="profile-address">
+													<div id = "curiousDiv" class="profile-address">
 														<h5>GUNGGUMDO</h5>
 														<p>${question.curious}</p>
 													</div>
@@ -304,7 +304,7 @@
 		});
 		
 		
-		$("#addCurious").on('click', function(){
+		$(".mc-btn-10").on('click', function(){
 			var curious = "${question.curious}";
 			var questionno = "${question.questionno}";
 			$.ajax({
@@ -313,7 +313,7 @@
 				, data : 'question.curious='+curious+'&question.questionno='+questionno
 				, dataType : 'json'
 				, success : function(response){
-					$("#curious").text(response.curious);
+					$("#curiousDiv p").text(response.curious);
 				}
 				, error : function(response){
 					var url = '../member/loginFrom.action';    
@@ -328,7 +328,6 @@
 			var recommendValue = recommend.text();
 			var questionno = "${question.questionno}";
 			var tempScrollTop = $(window).scrollTop();
-			alert(tempScrollTop);
 			$.ajax({
 				type: 'GET'
 				, url: 'addRecommend'
@@ -337,11 +336,11 @@
 				, success : function(response){
 					//recommend.text(response.recommend);
 						console.log('성공');
-						
+						$(window).scrollTop(tempScrollTop);
 						var list = response.replyList;
 						$('.list-discussion').html('');
 						list.forEach(function(reply){
-						
+							
 						var divTag = $('<li><div class="list-body"></div></li>');
 					 	divTag.html('<div class="answer_bg"><div class="avatar-acount"><cite class="xsm black bold">ID&nbsp;&nbsp;&nbsp;&nbsp;'+reply.id
 					 	+'</cite><h4 class="md black">'+reply.content+'</h4><div class="comment-meta">'
@@ -362,7 +361,6 @@
 					 	+'&nbsp;&nbsp;<input type="button" value="덧글작성" class="mc-btn-9">'
 					 	+'</div></div></div>'
 					 	).appendTo(".list-discussion");
-					 	$(window).scrollTop(tempScrollTop);
 					});
 				}
 				, error : function(response){
