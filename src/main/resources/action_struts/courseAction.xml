@@ -177,7 +177,7 @@
         
         <!-- 뷰 (인서트렉쳐안의 코딩박스 클릭시 인서트뷰, 코딩다케) -->
         <action name="insertSelectedCodingfromInsertLectureView" class="org.javatree.www.Action.CourseAction" method="insertSelectedCodingfromInsertLectureView">
-        	<result>/WEB-INF/views/course/insertCoding2.jsp</result>
+        	<result>/WEB-INF/views/course/insertCodingForLecture.jsp</result>
         </action>
         
          <!--액션 인서트렉쳐 에서 누른 문제보관함 폼(codingMain)의 첫 화면에서 코딩 insert하기   -->
@@ -202,12 +202,12 @@
         	<result type="redirect">updateCodingfromMainView.action</result>	
         </action>
          <!--뷰 insertLecture- questionBox 내 update -->
-        <action name="updateCodingfromMainViewfromInsertLectureView" class="org.javatree.www.Action.CourseAction" method="updateCodingfromMainViewfromInsertLectureView">
-        	<result>/WEB-INF/views/course/updateCoding2.jsp</result>	
+        <action name="updateCodingfromInsertLectureView" class="org.javatree.www.Action.CourseAction" method="updateCodingfromInsertLectureView">
+        	<result>/WEB-INF/views/course/updateCodingForLecture.jsp</result>	
         </action>
         <!--액션 insertLecture 에서 누른 문제보관함 폼(codingMain)에 코딩 UPDATE하기   -->
-        <action name="updateCodingfromInsertLecture" class="org.javatree.www.Action.CourseAction" method="updateCodingfromInsertLecture">
-        	<result type="redirect">updateCodingfromMainViewfromInsertLectureView.action</result>	
+        <action name="updateCodingfromMain" class="org.javatree.www.Action.CourseAction" method="updateCodingfromMain">
+        	<result type="redirect">updateCodingfromInsertLectureView.action</result>	
         </action>
         
         <!--삭제하기-->
