@@ -8,7 +8,7 @@
 	<package name="compiler" namespace="/compiler" extends="default, json-default">
 		<action name="Compiler" class="org.javatree.www.Action.CompilerAction" method="watchLecture">
 			<interceptor-ref name="LoginCheckForMember" />
-			<result>/WEB-INF/views/compiler/mediaPlayer.jsp</result>
+			<result>/WEB-INF/views/compiler/mediaPlayer3.jsp</result>
 		</action>
 		
 		<action name="callSpecificCoding" class="org.javatree.www.Action.CompilerAction" method="callSpecificCoding">
