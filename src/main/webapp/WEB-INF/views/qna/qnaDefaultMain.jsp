@@ -415,7 +415,6 @@
 		    $( "select option:selected" ).each(function() {
 		    	order = $( this ).val();
 		    });
-		    alert("order> " + order);
 		    
 		 var str = '';	
 		 var cnt;
@@ -427,7 +426,6 @@
 		        }
 		    });
 		 
-		 alert("str> " + str);
 		 $.ajax({
 		        type : 'get', 
 		        url : 'selectListbyField',
@@ -548,8 +546,6 @@
 				        	str += $(this).val()+",";
 				        }
 				    });
-				 alert("Str>> "+ str);
-				 alert("order>> " + order);
 				 $.ajax({
 				        type : 'get', 
 				        url : 'selectListbyField',
