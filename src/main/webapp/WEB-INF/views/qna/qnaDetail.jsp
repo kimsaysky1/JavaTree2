@@ -59,7 +59,7 @@
 									<div class="col-md-9">
 										<div class="avatar-acount2">
 										<div class="info-acount">
-										<p>${typeName}</p>
+										<p id = "typeName">${typeName}</p>
 										</div>
 										</div>
 									</div>
@@ -70,7 +70,7 @@
 									<div class="col-md-9">
 										<div class="avatar-acount2">
 											<div class="info-acount">
-												<p>${question.title}</p>
+												<p id ="questionTitle">${question.title}</p>
 											</div>
 										</div>
 									</div>
@@ -81,7 +81,7 @@
 								<div class="row">
 									<div class="col-md-9">
 										<div class="avatar-acount">
-											<div class="info-acount">
+											<div id = "questionContent" class="info-acount">
 												<p>${question.content}</p>
 												<div class="profile-email-address">
 													<div class="profile-email">
@@ -177,63 +177,6 @@
 	<!-- insertReply 모달 -->
 		<div class="container">
 			<div class="modal fade" id="insertReply" role="dialog">
-				<%-- <div class="modal-dialog modal-lg">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Reply</h4>
-						</div>
-						<div class="modal-body">
-							<table style='width: 800px;'>
-								<tr>
-									<td style='width: 100px; text-align: center;'><b>FIELD</b></td>
-									<td>${question.typeno}</td>
-								</tr>
-								<tr>
-									<td style='height: 20px;'></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td style='width: 100px; text-align: center;'><b>QUESTION
-											TITLE</b></td>
-									<td><textarea style="height: 60px;" readonly="readonly">${question.title}</textarea></td>
-								</tr>
-								<tr>
-									<td style='height: 20px;'></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td style='width: 100px; text-align: center;'><b>QUESTION
-											CONTENT</b></td>
-									<td><textarea style="height: 180px;" readonly="readonly">${question.content}</textarea></td>
-								</tr>
-								<tr>
-									<td style='height: 20px;'></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td style='width: 100px; text-align: center;'><b>ANSWER
-											CONTENT</b></td>
-									<td><textarea name="reply.content" style="height: 280px;"></textarea></td>
-								</tr>
-								<tr>
-									<td style='height: 20px;'></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<input type="hidden" value="${question.id}" name="notification.receiverid" />
-									<input type="hidden" value="${question.questionno}" name="notification.questionno" />
-									<input type="hidden" value="${question.questionno}" name="reply.questionno" />
-								</tr>
-							</table>
-						</div>
-						<div class="modal-footer">
-							<input type="submit" value="등록" class="mc-btn-5">&nbsp;&nbsp;&nbsp;
-							<input type="reset" value="취소" class="mc-btn-5">
-						</div>
-					</div>
-				</div>  --%>
 			</div>
 		</div>
 	<!-- insertReply 모달 끝-->
@@ -245,7 +188,10 @@
 	$(function(){
 		
 		$('#insertReplyModal').on('click', function(){
-			alert(1);
+			var tempType = $("#typeName").text();
+			var	tempTitle = $("#questionTitle").text();
+			var tempContent = $("#questionContent pre").text();
+			
 			var str = '';
 			str += '<div class="modal-dialog modal-lg">';
 			str += '<div class="modal-content">';
@@ -255,24 +201,75 @@
 			str += '<div class="modal-body">';
 			str += '<table style=\'width: 800px;\'><tr>';
 			str += '<td style=\'width: 100px; text-align: center;\'><b>FIELD</b></td>';
-			str += '<td>${question.typeno}</td></tr>';
+			str += '<td>'+tempType+'</td></tr>';
 			str += '<tr><td style=\'height: 20px;\'></td></tr>';
 			str += '<tr><td style=\'width: 100px; text-align: center;\'><b>QUESTION TITLE</b></td>';
-			str += '<td><textarea style="height: 60px;" readonly="readonly"></textarea></td></tr>';
+			str += '<td><textarea style="height: 60px;" readonly="readonly">'+tempTitle+'</textarea></td></tr>';
 			str += '<tr><td style=\'height: 20px;\'></td></tr>';
 			str += '<tr><td style=\'width: 100px; text-align: center;\'><b>QUESTION CONTENT</b></td>';
-			str += '<td><textarea style="height: 180px;" readonly="readonly"></textarea></td></tr>';
+			str += '<td><textarea style="height: 180px;" readonly="readonly">'+tempContent+'</textarea></td></tr>';
 			str += '<tr><td style=\'height: 20px;\'></td></tr>';
 			str += '<tr><td style=\'width: 100px; text-align: center;\'><b>ANSWER CONTENT</b></td>';
 			str += '<td><textarea id = "replyContent" name="reply.content" style="height: 280px;"></textarea></td></tr>';
 			str += '<tr><td style=\'height: 20px;\'></td></tr>';
-			str += '<tr><input type="hidden" value="" name="notification.receiverid" />';
-			str += '<input type="hidden" value="" name="notification.questionno" />';
-			str += '<input type="hidden" value="" name="reply.questionno" /></tr>';
 			str += '</table></div>';
-			str += '<div class="modal-footer"><input type="button" value="등록" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
-			str += '<input type="button" value="취소" class="mc-btn-5"></div></div></div>';
+			str += '<div class="modal-footer"><input type="button" id="executeModal" value="등록" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
+			str += '<input type="button" id="removeModal" value="취소" class="mc-btn-5"></div></div></div>';
 			$("#insertReply").html(str);
+		});
+		
+		$('body').on('click', '#executeModal', function(){
+			
+			var replyContent = $("#replyContent").val();
+			var questionId = "${question.id}";
+			var questionNo = "${question.questionno}";
+			
+			$.ajax({
+				type: 'POST'
+					, url: 'insertReply'
+					, data : 'notification.receiverid='+questionId+'&notification.questionno='
+							+questionNo+'&reply.questionno='+questionNo+'&reply.content='+replyContent
+					, dataType : 'json'
+					, success : function(response){
+						$('#insertReply').modal('hide');
+						$('#insertReply').html('');
+						console.log('성공');
+						
+						var list = response.replyList;
+						$('.list-discussion').html('');
+						list.forEach(function(reply){
+							
+							var divTag = $('<li><div class="list-body"></div></li>');
+						 	divTag.html('<div class="answer_bg"><div class="avatar-acount"><cite class="xsm black bold">ID&nbsp;&nbsp;&nbsp;&nbsp;'+reply.id
+						 	+'</cite><h4 class="md black">'+reply.content+'</h4><div class="comment-meta">'
+						 	+'<a href="#">'+reply.regdate+'</a>'
+						 	+'<a href="#" class="addRecommend" recommendValue ="'+reply.recommend+'"><i class="icon md-arrow-up"></i>추천&nbsp;'
+						 	+'<span>'+reply.recommend+'</span></a>'
+						 	+'<a href="#" linkvalue = "'+reply.replyno+'" class="showRereply"><i class="icon md-back"></i>REPLY</a>'
+						 	+'</div></div></div>'
+						 	+'<div class ="rereplyArea">'
+						 	+'<div id="'+reply.replyno+'" style="display:none; background-color: white;" class = "innerrereplyArea">'
+						 	+'<div class ="ininnerrereplyArea">'
+						 	+'<s:iterator value="rereplyList">'
+						 	+'<p><span><s:property value="id"/></span>'
+						 	+'&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;'
+						 	+'<s:property value="content"/>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;'
+						 	+'<a href ="#">x</a></p><br/></s:iterator>'
+						 	+'<input type="text" style="width: 700px;" class="insertRereplyText">'
+						 	+'&nbsp;&nbsp;<input type="button" value="덧글작성" class="mc-btn-9">'
+						 	+'</div></div></div>'
+						 	).appendTo(".list-discussion");
+						});
+					}
+					, error : function(response){
+						console.log('실패');
+					}
+			});
+			
+		});
+		
+		$('body').on('click', '#removeModal', function(){
+			$('#insertReply').modal('hide');
 		});
 		
 		$("body").on('click', '.showRereply', function(){ // 대댓글 보기

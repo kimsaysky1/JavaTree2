@@ -17,7 +17,7 @@
      	</action>
      	
      	<action name="insertReply" class="org.javatree.www.Action.QnaAction" method="insertReply">
-     		<result>/WEB-INF/views/qna/qnaDetail.jsp</result>
+     		<result type="json"></result>
      	</action>
      	
      	<action name="insertRereply" class="org.javatree.www.Action.QnaAction" method="insertRereply">
