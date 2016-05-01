@@ -11,7 +11,6 @@
 <!-- Google font -->
 <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Raleway:300,400,700,900' rel='stylesheet' type='text/css'>
-<!-- Css -->
 <link rel="stylesheet" type="text/css" href="../resources/javatree_view/html/css/library/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="../resources/javatree_view/html/css/library/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../resources/javatree_view/html/css/library/owl.carousel.css">
@@ -139,7 +138,12 @@
 												<div id="<s:property value="replyno"/>" style="display:none; background-color: white;" class = "innerrereplyArea">
 												<div class ="ininnerrereplyArea">
 													<s:iterator value="rereplyList">
-														<p><span><s:property value="id"/></span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<s:property value="content"/>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<a href ="#">x</a></p>
+														<p>
+														<span>
+														<s:property value="id"/></span>
+														&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+														<s:property value="content"/>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+														<a href ="#">x</a></p>
 														<br/>
 													</s:iterator>
 													<input type="text" style="width: 700px;" class="insertRereplyText">
@@ -239,20 +243,21 @@
 		
 		$("body").on('click', '.showRereply', function(){ // 대댓글 보기
 			var temp = $(this).attr('linkvalue');
-	
+			alert('누름');
 			//$("#"+temp).css('display', 'block');
 			$("#"+temp).slideToggle(300);
 			$("#"+temp).focus();
 		});
 		
 		$("body").on('click', '.mc-btn-9', function(){ // 대댓글 달기
-			var replyno = $(this).parent().attr('id');
+			var replyno = $(this).parent().parent().first().attr('id');
 			var content = $(this).prev().val();
 			var questionno = "${question.questionno}";
 			var receiverid = "${question.id}";
 			
 			alert('questionno: '+questionno);
 			alert('receiverid: '+receiverid);
+			alert('replyno:'+replyno);
 			$.ajax({
 				type: 'GET'
 				, url: 'insertRereply'
@@ -284,7 +289,8 @@
 					$("#curious").text(response.curious);
 				}
 				, error : function(response){
-					alert('실패');
+					var url = '../member/loginFrom.action';    
+					$(location).attr('href',url);
 				}
 			});
 		});
@@ -302,7 +308,8 @@
 					recommend.text(response.recommend);
 				}
 				, error : function(response){
-					alert('실패');
+					var url = '../member/loginFrom.action';    
+					$(location).attr('href',url);
 				}
 			});
 		});
