@@ -38,6 +38,10 @@
         	<result>/WEB-INF/views/course/studyMain.jsp</result>
         </action>
         
+        <action name="plusStudyMain2" class="org.javatree.www.Action.CourseAction" method="plusStudyMain2">
+        	<result>/WEB-INF/views/course/studyMain2.jsp</result>
+        </action>
+        
         <action name="plusTeachMain" class="org.javatree.www.Action.CourseAction" method="plusTeachMain">
         	<result>/WEB-INF/views/course/teachMain.jsp</result>
         </action>

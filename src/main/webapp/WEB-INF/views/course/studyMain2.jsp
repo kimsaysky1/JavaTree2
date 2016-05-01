@@ -112,57 +112,53 @@
                                             <div class="link tb-icon">
                                                 <a href="#"><i class="fa fa-play-circle-o"></i></a>
                                             </div>
-                                        </div>
+                                        </div>-->
                                  
-                                        END / ITEM
-
-                                        ITEM
-                                        <div class="item">
-                                            <div class="submissions"><a href="#">Title of Assignment 2 in course</a></div>
-                                            <div class="total-subm">Submited</div>
-                                            <div class="replied">Replied</div>
-                                            <div class="latest-reply">11. Jul , 2014</div>
-                                            <div class="link tb-icon">
-                                                <a href="#"><i class="fa fa-play-circle-o"></i></a>
-                                            </div>
-                                        </div>
-                                        END / ITEM
-
-                                        ITEM
-                                        <div class="item">
-                                            <div class="submissions"><a href="#">Title of Assignment 3 in course</a></div>
-                                            <div class="total-subm">Submited</div>
-                                            <div class="replied">Replied</div>
-                                            <div class="latest-reply">11. Jul , 2014</div>
-                                            <div class="link tb-icon">
-                                                <a href="#"><i class="fa fa-play-circle-o"></i></a>
-                                            </div>
-                                        </div>
-                                        END / ITEM
-
-                                        ITEM
-                                        <div class="item">
-                                            <div class="submissions"><a href="#">Title of Assignment 4 in course</a></div>
-                                            <div class="total-subm">Submited</div>
-                                            <div class="replied">Replied</div>
-                                            <div class="latest-reply">11. Jul , 2014</div>
-                                            <div class="link tb-icon">
-                                                <a href="#"><i class="fa fa-play-circle-o"></i></a>
-                                            </div>
-                                        </div>
-                                        END / ITEM
-
-                                    </div> -->
-                                    </div>
+                                    </div> 
 								</s:iterator>
-								
+								  
                                   
                                 
                                 <!-- END / TABLE ITEM -->
                                 </div>
+                                <div class = "paging" align="center">
+               		   <ul class="pager">
+               		   
+			<s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:if>
+            
+            <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
+             <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "plusStudyMain2.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1">
+             <li><a href = "plusStudyMain2.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
+            <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.currentPage == 0">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:elseif>
+			
+			<s:else>
+             <li><a href = "plusStudyMain2.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
+             <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "plusStudyMain2.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
+            </s:else>
+				
+                        </ul>
+                 </div>   
                                 </div>
                                 </div>
+                                
+                              
+                                
 		</div>
+		
+		  
+		
 		</div>
 
 	<!-- SIDEBAR -->
