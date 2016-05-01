@@ -8,17 +8,16 @@
     <constant name="struts.devMode" value="true" />
 
     <package name="course" namespace="/course" extends="default, json-default">
-    
+    	
+    	<action name="selectListForSlide" class="org.javatree.www.Action.CourseAction" method="selectListForSlide">
+        	<result type="json"></result>
+        </action>
+    	
     	<action name="studyMainView2" class="org.javatree.www.Action.CourseAction" method="studyMainView2">
         	<interceptor-ref name="LoginCheckForMember" />
         	<result>/WEB-INF/views/course/studyMain2.jsp</result>
         </action>
         
-        <action name="selectCourseDetailForStudy" class="org.javatree.www.Action.CourseAction" method="selectCourseDetailForStudy">
-        	<result type="json"></result>
-        </action>
-        
-    
         <action name="selectAllCourseList" class="org.javatree.www.Action.CourseAction" method="selectAllCourseList">
         	<result>/WEB-INF/views/course/courseDefaultMain.jsp</result>
         </action>
