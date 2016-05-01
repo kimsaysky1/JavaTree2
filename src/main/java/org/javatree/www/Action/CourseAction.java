@@ -37,6 +37,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 
@@ -240,6 +241,13 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			recentlyCompletedLectureList.add(l);
 		}
 		
+		session.put("currentPage", currentPage);
+		
+		session.put("pend", end);
+		session.put("pstart", start);
+		session.put("operation", "plusStudyMain2");
+		session.put("pcurrentPage", currentPage);
+		
 		return SUCCESS;
 	}
 	
@@ -260,22 +268,42 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		System.out.println("total>> " + totalRecordsCount);
 		if(totalRecordsCount != 0){
 					//페이지당 글목록 수
-			
 			if(totalRecordsCount % countPerPage == 0 ){
 				endPageGroup = (int)(totalRecordsCount/countPerPage);		//총 (페이지)그룹 수
 			}else{
 				endPageGroup = (int)(totalRecordsCount/countPerPage)+1;		//총 (페이지)그룹 수
 			}
 			
-			if(endPageGroup == 0) endPageGroup = 1;
-			
 			if(currentPage == 0){
 				currentPage = 1;
 			}
 					
 			ArrayList<Lecture> tempList = new ArrayList<>();
-			tempList = dao.selectCourseDetailForStudy(kong);
+			ArrayList<Lecture> tempList2 = new ArrayList<>();
+			ArrayList<Lecture> tempList3 = new ArrayList<>();
+			//tempList = dao.selectCourseDetailForStudy(kong);
+			tempList = dao.selectWatchingLecture(kong);
+			System.out.println("tempList>> " + tempList);
+			tempList2 = dao.selectWatchingLecture1(kong);
 			lectureList = new ArrayList<>();
+			
+			for (int i = 0; i < tempList.size(); i++) {
+				for (int j = 0; j < tempList2.size(); j++) {
+					if(tempList.get(i).getLectureno() == tempList2.get(j).getLectureno()){
+						tempList.get(i).setUploadedfilename(tempList2.get(j).getUploadedfilename());
+						//subnote 붙이기
+					}
+				}
+			}
+			
+			for (int i = 0; i < tempList.size(); i++) {
+				for (int j = 0; j < tempList3.size(); j++) {
+					if(tempList.get(i).getLectureno() == tempList3.get(j).getLectureno()){
+						tempList.get(i).setStudying(tempList3.get(j).getStudying());
+						//강좌 수강여부 붙이기
+					}
+				}
+			}
 			
 			if(end > tempList.size()){
 				end = tempList.size();			
@@ -667,6 +695,104 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			allRank = dao.selectAllRank();
 			recentRank = dao.selectRecentRank();
 			
+		}else if (((String)session.get("operation")).equals("plusStudyMain2")
+				|| ((String)session.get("operation")).equals("studyMainView2")) {
+		
+			
+			Map <String,Object> gong = new HashMap();
+			if(session.get("loginId") != null){
+				gong.put("id", (String)session.get("loginId"));
+			}
+			
+			int countPerPage = (int) session.get("pCountPerPage");		//페이지당 글목록 수
+			
+			System.out.println("currentPage>> " + currentPage);
+			currentPage = (int)session.get("pcurrentPage");
+			
+			start = countPerPage*currentPage-(countPerPage-1);
+			end = countPerPage*currentPage;
+			gong.put("start", start);
+			gong.put("end", end);
+			
+			courseList = dao.pagingStudyCourse(gong);
+			
+			/*for (int i = 0; i < courseList.size(); i++) {
+				
+				for (int j = 0; j < courseList.get(i).getCourseTypeList().size(); j++) {
+					
+					String key = courseList.get(i).getCourseTypeList().get(j);
+					
+					switch (key) {
+					case "1":
+						courseList.get(i).getCourseTypeList().set(j, "Purejava");
+						break;
+					case "2":
+						courseList.get(i).getCourseTypeList().set(j, "Web");
+						break;
+					case "3":
+						courseList.get(i).getCourseTypeList().set(j, "Mobile");
+						break;
+					case "4":
+						courseList.get(i).getCourseTypeList().set(j, "IOT");
+						break;
+					case "5":
+						courseList.get(i).getCourseTypeList().set(j, "Swing");
+						break;
+					case "6":
+						courseList.get(i).getCourseTypeList().set(j, "JDBC");
+						break;
+					case "7":
+						courseList.get(i).getCourseTypeList().set(j, "API");
+						break;
+					case "8":
+						courseList.get(i).getCourseTypeList().set(j, "Spring");
+						break;
+					case "9":
+						courseList.get(i).getCourseTypeList().set(j, "Struts");
+						break;
+					case "10":
+						courseList.get(i).getCourseTypeList().set(j, "etcFramework");
+						break;
+					case "11":
+						courseList.get(i).getCourseTypeList().set(j, "etc");
+						break;
+					default:
+						break;
+					}
+					
+				}
+				
+			}*/
+			
+			ArrayList<String> tempList1 = new ArrayList<>();
+			tempList1 =  dao.selectLatelyPurchasedLectureList1(gong);
+			ArrayList<String> tempList2 = new ArrayList<>();
+			tempList2 =  dao.selectLatelyPurchasedLectureList2(gong);
+			
+			latelyPurchasedLectureList = new ArrayList<>();
+			
+			for (int i = 0; i < tempList1.size(); i++) {
+				Lecture l = new Lecture(tempList1.get(i), tempList2.get(i));
+				latelyPurchasedLectureList.add(l);
+			}
+			
+			ArrayList<String> tempList3 = new ArrayList<>();
+			tempList3 =  dao.recentlyCompletedLectureList1(gong);
+			ArrayList<String> tempList4 = new ArrayList<>();
+			tempList4 =  dao.recentlyCompletedLectureList2(gong);
+			
+			recentlyCompletedLectureList = new ArrayList<>();
+			
+			for (int i = 0; i < tempList3.size(); i++) {
+				Lecture l = new Lecture(tempList3.get(i), tempList4.get(i));
+				recentlyCompletedLectureList.add(l);
+			}
+			
+			session.put("currentPage", currentPage);
+			session.put("CountPerPage", countPerPage);
+			session.put("endPageGroup", session.get("pendPageGroup"));
+			
+			return "STUDY";
 		}else{
 			
 			
@@ -1086,7 +1212,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			System.out.println("리스트>>" + lectureList);
 			coursename = lectureList.get(0).getCoursename();
 			introdution = lectureList.get(0).getIntrodution();
+		
 		}else{
+		
 			if(endPageGroup == 0) endPageGroup = 1;
 			lecture = dao.selectCourseForDetail(courseno);
 			coursename = lecture.getCoursename();
@@ -1098,7 +1226,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		session.put("endPageGroup", endPageGroup);
 		System.out.println("endpage>> " + endPageGroup);
 		System.out.println("curpage>> " + currentPage);
-		
+		System.out.println("courselist>> " + courseList);
 		
 		return SUCCESS;
 	}
@@ -2466,8 +2594,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				
 			}
 			
-			if(session.get("searchText") == null) searchText = null;
-			
 			if(totalRecordsCount % countPerPage == 0 ){
 				endPageGroup = (int)(totalRecordsCount/countPerPage);		//총 (페이지)그룹 수
 			}else{
@@ -2488,13 +2614,12 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				session.put("currentPage", 0);
 			}
 			
-			/*session.put("pend", end);
+			session.put("pend", end);
 			session.put("pstart", start);
-			session.put("operation", "plusSearchCourse");
+			session.put("operation", "studyMainView2");
 			session.put("pcurrentPage", currentPage);
 			session.put("pCountPerPage", countPerPage);
 			session.put("pendPageGroup", endPageGroup);
-			session.put("psearchText", (String)session.get("searchText"));*/
 			
 			return SUCCESS;
 			

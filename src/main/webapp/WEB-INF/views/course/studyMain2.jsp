@@ -20,7 +20,7 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
-<title>studyMain</title>
+<title>studyMain2</title>
 </head>
 <body>
 <%@include file="/resources/header2.jsp" %>

@@ -80,12 +80,13 @@
        
         <action name="backAction" class="org.javatree.www.Action.CourseAction" method="backAction">
         	<result>/WEB-INF/views/course/courseDefaultMain.jsp</result>
+        	<result name="STUDY">/WEB-INF/views/course/studyMain2.jsp</result>
         </action>
         
         <action name="insertLectureForStudy" class="org.javatree.www.Action.CourseAction" method="insertLectureForStudy">
 			<interceptor-ref name="LoginCheckForMember" />
         	<result>/WEB-INF/views/course/CourseDefaultDetail.jsp</result>
-        	<result name="error" type="redirect">backAction.action</result>
+        	<result name="error" type="redirect">index.action</result>
         </action>
         
         <action name="teachMainView">

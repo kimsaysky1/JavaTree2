@@ -123,7 +123,9 @@
 								<td class="author"></td>
 								<td class="score"></td>
 					
-					<s:url id ="download" action = "DownLoadFile">
+								
+								<s:if test="studying != null">
+									<s:url id ="download" action = "DownLoadFile">
 						<s:param name ="uploadedfile">
 							${uploadedfilename}
 						</s:param>
@@ -137,11 +139,11 @@
 					<td class="submit-date">
 						<s:a href="%{download}" method="post">${uploadedfilename}</s:a>
 					</td>
-								
-								<s:if test="studying != null">
 									<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>'>Watch</a></td>
 								</s:if>
 								<s:else>
+								<td class="submit-date"></td>
+								<td class="submit-date"></td>
 									<td class="submit-date"><a href='insertLectureForStudy.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno" />&coursename=<s:property value="coursename" />&teacherid=<s:property value="teacherid" />'>Apply</a></td>
 								</s:else>
 								
@@ -235,6 +237,65 @@
 		src="../resources/javatree_view/html/js/library/jquery.easing.min.js"></script>
 	<script type="text/javascript"
 		src="../resources/javatree_view/html/js/scripts.js"></script>
-
+<script>
+	
+	$(document).ready(function() { 
+		
+		//backspace 제어
+		 try{
+             /*
+             * [페이지 자동 이벤트 처리기]
+             * 기능 : 검색어 입력 후 BackSpace를 눌렀을때, 404에러나는 것 방지 처리
+             * 처리 : Backspace Code 입력시 '목록' 버튼을 누르게 하고, 실제 backSapce Code를 막는다
+             */
+             <%-- var $HOME_PATH ='<%=request.getContextPath()%>'; --%>
+             function backSpaceKey() {
+                 if(event.keyCode==8){                    
+                       var f1 = document.frm;
+                      
+                       /* f1.action=$HOME_PATH+"/board/dispatch_document.jsp?cur_page=1"; */
+                       f1.action = "backAction.action"
+                       f1.target="_self";
+                       f1.submit();
+                       event.preventDefault(); 
+                        }
+              		if(event.keyCode == 8){
+                        return event.keyCode = 17;
+                       }
+              }
+              document.onkeydown = backSpaceKey;
+              
+   }catch(err){
+              //alert('An error has occurred ');
+   }
+		
+		// BackSpace 키 방지 이벤트
+	   /*  $(document).keydown(function(e){   
+	        if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA"){       
+	            if(e.keyCode === 8){   
+	            	
+	            	return false;
+	            }
+	        }
+	    }); */
+	 
+	    //window.history.forward(0);
+	    
+	    //뒤로가기 버튼 방지
+	     //history.replaceState(null, null, "backAction.action");
+	   /*  $(window).bind("hashchange", function(){
+	   		history.pushState(null, null, "backAction.action");
+	    }); */
+	
+	    //브라우저 뒤로가기 제어!
+	history.pushState(null, null, location.href);
+  	window.onpopstate = function(event) {
+	    	
+	    	location.replace("backAction.action");
+   };
+	    
+	});
+	
+	</script>
 </body>
 </html>
