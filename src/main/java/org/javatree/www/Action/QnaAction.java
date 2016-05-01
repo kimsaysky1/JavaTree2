@@ -87,7 +87,6 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
 		typeName = dao.selectTypeName(typenoTemp);
-		System.out.println("question: "+question);
 		dao.insertQuestion(question);
 		makeQnaDefaultMain(loginId);
 		return SUCCESS;
@@ -109,19 +108,16 @@ public class QnaAction extends ActionSupport implements SessionAware {
 	}
 
 	public String insertRereply() throws Exception {
-		System.out.println("일단 들어옴");
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
 		String loginId = (String) session.get("loginId");
 		String loginName = (String) session.get("loginName");
 		rereply.setId(loginId);
 		rereply.setUsername(loginName);
-		System.out.println("rereply: "+rereply);
 		dao.insertRereply(rereply);
 		notification.setSenderid(loginId);
 		notification.setMessage(loginId + " 님이 " + notification.getReceiverid() + "님의 답변에 댓글을 다셨습니다.");
 		dao.insertNotification(notification);
 		rereplyList = dao.selectAllRereply(replyno);
-		System.out.println("rereplyList: "+rereplyList);
 		return SUCCESS;
 	}
 

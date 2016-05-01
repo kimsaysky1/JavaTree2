@@ -101,7 +101,7 @@
 													&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
 													<div class="profile-address">
 														<form action=""></form>
-														<input type="button" value="답변달기" data-toggle="modal"
+														<input type="button" id = "#insertReplyModal" value="답변달기" data-toggle="modal"
 															data-target="#insertReply" class="mc-btn-8">
 													</div>
 												</div>
@@ -170,10 +170,9 @@
 	</section>
 
 	<!-- insertReply 모달 -->
-	<form action="insertReply" name="insertReply" method="get">
 		<div class="container">
 			<div class="modal fade" id="insertReply" role="dialog">
-				<div class="modal-dialog modal-lg">
+				<%-- <div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -229,10 +228,9 @@
 							<input type="reset" value="취소" class="mc-btn-5">
 						</div>
 					</div>
-				</div>
+				</div> --%>
 			</div>
 		</div>
-	</form>
 	<!-- insertReply 모달 끝-->
 
 	<%@include file="/resources/footer.jsp" %>
@@ -241,9 +239,12 @@
 	
 	$(function(){
 		
+		$('body').on('click', '#insertReplyModal', function(){
+				
+		});
+		
 		$("body").on('click', '.showRereply', function(){ // 대댓글 보기
 			var temp = $(this).attr('linkvalue');
-			alert('누름');
 			//$("#"+temp).css('display', 'block');
 			$("#"+temp).slideToggle(300);
 			$("#"+temp).focus();
