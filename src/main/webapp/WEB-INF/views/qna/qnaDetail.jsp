@@ -55,7 +55,15 @@
 							<div class="container">
 
 								<h3 class="md black">Field</h3>
-								<div>${typeName}</div>
+								<div class="row">
+									<div class="col-md-9">
+										<div class="avatar-acount2">
+										<div class="info-acount">
+										<p>${typeName}</p>
+										</div>
+										</div>
+									</div>
+								</div>
 
 								<h3 class="md black">Question-title</h3>
 								<div class="row">
@@ -68,12 +76,14 @@
 									</div>
 								</div>
 
+			
 								<h3 class="md black">Question</h3>
 								<div class="row">
 									<div class="col-md-9">
 										<div class="avatar-acount">
 											<div class="info-acount">
-											<div class="profile-email-address">
+												<p> ${question.content}</p>
+												<div class="profile-email-address">
 													<div class="profile-email">
 														<h5>ID</h5>
 														<p>${question.id}</p>
@@ -82,24 +92,19 @@
 														<h5>DATE</h5>
 														<p>${question.regdate}</p>
 													</div>
-											</div>
-												<p> ${question.content}</p>
-												<div class="profile-email-address">
-												
 													&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 													<div class="profile-address">
 														<h5>GUNGGUMDO</h5>
-														<p id = "curious">${question.curious}</p>
+														<p>${question.curious}</p>
 													</div>
 													&nbsp; &nbsp;
 
 													<div class="profile-address">
 														<input type="button" value="궁금해요" id="addCurious"
-															class="mc-btn-8">
+															class="mc-btn-10">
 													</div>
-			
-													&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-													<div class="profile-address">
+													&nbsp;&nbsp;
+													<div class="profile-address" align="right" style="float: right;">
 														<form action=""></form>
 														<input type="button" value="답변달기" data-toggle="modal"
 															data-target="#insertReply" class="mc-btn-8">
@@ -138,7 +143,12 @@
 												<div id="<s:property value="replyno"/>" style="display:none; background-color: white;" class = "innerrereplyArea">
 												<div class ="ininnerrereplyArea">
 													<s:iterator value="rereplyList">
-														<p><span><s:property value="id"/></span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<s:property value="content"/>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<a href ="#">x</a></p>
+														<p>
+														<span>
+														<s:property value="id"/></span>
+														&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+														<s:property value="content"/>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+														<a href ="#">x</a></p>
 														<br/>
 													</s:iterator>
 													<input type="text" style="width: 700px;" class="insertRereplyText">
@@ -238,20 +248,21 @@
 		
 		$("body").on('click', '.showRereply', function(){ // 대댓글 보기
 			var temp = $(this).attr('linkvalue');
-	
+			alert('누름');
 			//$("#"+temp).css('display', 'block');
 			$("#"+temp).slideToggle(300);
 			$("#"+temp).focus();
 		});
 		
 		$("body").on('click', '.mc-btn-9', function(){ // 대댓글 달기
-			var replyno = $(this).parent().attr('id');
+			var replyno = $(this).parent().parent().first().attr('id');
 			var content = $(this).prev().val();
 			var questionno = "${question.questionno}";
 			var receiverid = "${question.id}";
 			
 			alert('questionno: '+questionno);
 			alert('receiverid: '+receiverid);
+			alert('replyno:'+replyno);
 			$.ajax({
 				type: 'GET'
 				, url: 'insertRereply'

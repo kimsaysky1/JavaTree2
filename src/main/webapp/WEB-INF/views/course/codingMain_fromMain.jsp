@@ -241,7 +241,7 @@ $(document).ready(function() {
 	         url : 'selectedCheck.action',
 	         data : 'codingnoListforCheck='+codingnoListforCheck+'&lectureno='+lectureno,
 	         success : function(response){
-	        	alert("response: "+response[0].codingno);
+	        	alert("response: "+response[1].codingno);
 	        	// alert("response.codingquestion"+response.codingquestion);
 	        	// coding 보낸다음 다 처리해서 codingquestion을 꺼내서 그걸 비교한다음에 맞는codingquestion만 보내라  
 	        	//$(response.codingl)
