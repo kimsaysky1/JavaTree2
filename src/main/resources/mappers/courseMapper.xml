@@ -120,14 +120,43 @@
 	<select id="selectCourseDetailForStudy" parameterType="map" resultType="Lecture">
 		<if test="id != null">
 		SELECT s.lectureno as studying, l.lectureno as lectureno, c.courseno as courseno,
-		l.lecturename, to_char(l.regdate, 'yyyy/mm/dd') as regdate, n.uploadedfilename,
+		l.lecturename, to_char(l.regdate, 'yyyy/mm/dd') as regdate,
 		c.coursename as coursename, c.introdution as introdution, c.courseno as courseno, c.id as teacherid
 		FROM lecture l 
 		JOIN course c ON ( l.courseno = c.courseno and c.courseno = #{courseno} )
-		JOIN subnote n ON ( n.courseno = l.courseno and n.courseno = #{courseno} )
 		LEFT OUTER JOIN studylecture s ON (  s.lectureno = l.lectureno and s.courseno = #{courseno} and s.id = #{id}
 		)
-		order by lectureno asc
+		</if>
+	</select>
+	
+	
+	<select id="selectWatchingLecture" parameterType="map" resultType="Lecture">
+		<if test="id != null">
+		SELECT 
+		lecturename, to_char(regdate, 'yyyy/mm/dd') as regdate, lectureno
+		FROM lecture 
+		where courseno = #{courseno}
+		order by lectureno desc
+		</if>
+	</select>
+	
+	<select id="selectWatchingLecture1" parameterType="map" resultType="Lecture">
+		<if test="id != null">
+		SELECT 
+		uploadedfilename, lectureno
+		FROM subnote 
+		where courseno = #{courseno}
+		order by lectureno desc
+		</if>
+	</select>
+	
+		<select id="selectWatchingLecture2" parameterType="map" resultType="Lecture">
+		<if test="id != null">
+		SELECT 
+		lectureno
+		FROM studylecture 
+		where courseno = #{courseno} and id = #{id}
+		order by lectureno desc
 		</if>
 	</select>
 	

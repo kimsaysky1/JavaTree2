@@ -80,6 +80,7 @@
        
         <action name="backAction" class="org.javatree.www.Action.CourseAction" method="backAction">
         	<result>/WEB-INF/views/course/courseDefaultMain.jsp</result>
+        	<result name="STUDY">/WEB-INF/views/course/studyMain2.jsp</result>
         </action>
         
         <action name="insertLectureForStudy" class="org.javatree.www.Action.CourseAction" method="insertLectureForStudy">
