@@ -228,7 +228,7 @@
 	</select>
 	
 	<select id="selectAllReply" parameterType="int" resultMap="ReplyMap">
-		select * from reply where questionno = #{questionno} order by recommend desc
+		select * from reply where questionno = #{questionno} order by recommend desc, regdate desc
 	</select>
 	
 	<select id="selectAllRereply" parameterType="int" resultType="Rereply">
