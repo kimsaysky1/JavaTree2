@@ -610,7 +610,7 @@
 		select * from codingtemp where id=#{id}
 	</select>
 	
-	<select id="selectedCheck" parameterType="map" resultType="Coding">
+	<select id="selectedCheck" parameterType="int" resultType="Coding">
 		select * from coding where codingno=#{codingno}
 	</select>
  
