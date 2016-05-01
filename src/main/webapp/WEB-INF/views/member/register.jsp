@@ -124,24 +124,6 @@ $(function(){
 
 </script>
 
-<script type="text/javascript">
-function idCheck() { 
-	
-	var id = document.getElementById("id");
-
-	if(id.value == "") {
-		id.setAttribute("placeholder", "아이디를 입력해주세요!");
-		return false;
-	} else if(id.value.length < 3 || id.value.length > 15) {
-		alert("아이디는 3~15자리 입니다.");
-		return false;
-	} else {
-		idck=1;
-		window.open('idCheck.action?id='+id.value,'pop','resizable=no scrollbars=yes top=300 left=500 width=400 height=230');	
-	}	
-}
-
-</script>
 </head>
 <body>
 	<%@include file="/resources/header2.jsp" %>
