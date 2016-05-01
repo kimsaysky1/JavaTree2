@@ -611,7 +611,6 @@
 	</select>
 	
 	<select id="selectedCheck" parameterType="int" resultType="Coding">
-	
 		select * from coding where codingno=#{codingno}
 	</select>
  
