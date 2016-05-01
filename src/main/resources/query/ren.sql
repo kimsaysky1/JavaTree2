@@ -10,6 +10,19 @@ SELECT questionno, typeno, codingno, id, username, title,
 		T1)
 		where rnum >= 8 and rnum <= 14
 
+		LEFT OUTER JOIN subnote n ON ( n.courseno = l.courseno and n.courseno = 29 )
+		
+SELECT s.lectureno as studying, l.lectureno as lectureno, c.courseno as courseno,
+		l.lecturename, to_char(l.regdate, 'yyyy/mm/dd') as regdate, n.uploadedfilename,
+		c.coursename as coursename, c.introdution as introdution, c.courseno as courseno, c.id as teacherid
+		FROM lecture l 
+		JOIN course c ON ( l.courseno = c.courseno and c.courseno = 29 )
+		LEFT OUTER JOIN studylecture s ON (  s.lectureno = l.lectureno and s.courseno = 29 and s.id = 3 )
+		order by lectureno asc	
+		
+		
+		
+		
 SELECT s.lectureno as studying, l.lectureno as lectureno, c.courseno as courseno,
 		l.lecturename, to_char(l.regdate, 'yyyy/mm/dd') as regdate, n.uploadedfilename,
 		c.coursename as coursename, c.introdution as introdution, c.courseno as courseno, c.id as teacherid

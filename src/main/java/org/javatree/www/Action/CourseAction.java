@@ -1095,7 +1095,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		session.put("endPageGroup", endPageGroup);
 		System.out.println("endpage>> " + endPageGroup);
 		System.out.println("curpage>> " + currentPage);
-		
+		System.out.println("courselist>> " + courseList);
 		
 		return SUCCESS;
 	}

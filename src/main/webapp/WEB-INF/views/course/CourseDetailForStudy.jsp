@@ -123,7 +123,9 @@
 								<td class="author"></td>
 								<td class="score"></td>
 					
-					<s:url id ="download" action = "DownLoadFile">
+								
+								<s:if test="studying != null">
+									<s:url id ="download" action = "DownLoadFile">
 						<s:param name ="uploadedfile">
 							${uploadedfilename}
 						</s:param>
@@ -137,11 +139,11 @@
 					<td class="submit-date">
 						<s:a href="%{download}" method="post">${uploadedfilename}</s:a>
 					</td>
-								
-								<s:if test="studying != null">
 									<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>'>Watch</a></td>
 								</s:if>
 								<s:else>
+								<td class="submit-date"></td>
+								<td class="submit-date"></td>
 									<td class="submit-date"><a href='insertLectureForStudy.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno" />&coursename=<s:property value="coursename" />&teacherid=<s:property value="teacherid" />'>Apply</a></td>
 								</s:else>
 								
