@@ -263,7 +263,9 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		recommend = reply.getRecommend() + 1;
 		map.put("replyno", reply.getReplyno());
 		map.put("recommend", recommend);
+		System.out.println("map: "+map);
 		dao.addRecommend(map);
+		replyList = dao.selectAllReply(questionno);
 		return SUCCESS;
 	}
 	
