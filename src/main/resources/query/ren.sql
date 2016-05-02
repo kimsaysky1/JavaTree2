@@ -1,3 +1,8 @@
+alter table lecture modify (lecturename varchar2(100));
+alter table course modify (coursename varchar2(100));--20160502 박수지 추가
+alter table studycourse modify (coursename varchar2(100));--20160502 박수지 추가
+alter table teachcourse modify (coursename varchar2(100));--20160502 박수지 추가
+
 SELECT questionno, typeno, codingno, id, username, title,
 		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
 		 (select rownum as rnum, T1.* from (select * from question
@@ -10,6 +15,8 @@ SELECT questionno, typeno, codingno, id, username, title,
 		T1)
 		where rnum >= 8 and rnum <= 14
 
+		alter table lecture modify (lecturename varchar2(100));
+		
 	SELECT s.lectureno as studying, l.lectureno as lectureno, c.courseno as courseno,
 		l.lecturename, to_char(l.regdate, 'yyyy/mm/dd') as regdate,
 		c.coursename as coursename, c.introdution as introdution, c.courseno as courseno, c.id as teacherid

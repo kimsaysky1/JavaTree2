@@ -20,6 +20,7 @@ import java.util.StringTokenizer;
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.type.IntegerTypeHandler;
 import org.apache.struts2.interceptor.SessionAware;
 import org.javatree.www.DAO.QnaDAO;
 import org.javatree.www.DAO.courseDAO;
@@ -140,9 +141,13 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	private ArrayList<String> interestList;
 	private String codingquestion;
 	
-	private ArrayList<String> codingnoListforCheck;
+	private String codingnoListforCheck;
 	private String filename;
 	
+	//영호 새로 추가
+	
+	private ArrayList<Integer> codingNoList;
+	//영호 새로 추가 끝
 	ArrayList<Coding> checkCoding= new ArrayList<>();
 	
 	
@@ -295,7 +300,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				}
 			}
 			
-			
+			System.out.println("slide>> " + tempList);
+
 			if(end > tempList.size()){
 				end = tempList.size();			
 			}
@@ -322,19 +328,24 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	
 	
 	public String DownLoadFile() throws Exception {
-		System.out.println("lectureno: "+getLectureno());
-		courseDAO dao = sqlSession.getMapper(courseDAO.class);
-		String filename = dao.selectUploadedFileName(lectureno);
-		System.out.println("filename: " + filename);
-		String inputPath = UploadPath + filename;
-		File file = new File(inputPath);
-		setContentLength(file.length());
 		
-		//contentDisposition 다운로드 창을 띄우는 부분
-		setContentDisposition("attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
+			System.out.println("lectureno: "+getLectureno());
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			String uploadid = dao.selectUploadedFileName(lectureno);
+			
+			System.out.println("lecture: >> " + uploadid);
+			
+			String inputPath = UploadPath2 + uploadid+ "/"+uploadedfilename;
+			File file = new File(inputPath);
+			System.out.println("inputPath>> " + inputPath + "~~ " + "filename>> " + uploadedfilename);
+			setContentLength(file.length());
+			
+			//contentDisposition 다운로드 창을 띄우는 부분
+			setContentDisposition("attachment; filename=" + URLEncoder.encode(uploadedfilename, "UTF-8"));
+			
+			setInputStream(new FileInputStream(inputPath));
 		
-		setInputStream(new FileInputStream(inputPath));
-
+		
 		return SUCCESS;
 	}
 	/**
@@ -1191,6 +1202,18 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			tempList = dao.selectCourseDetailForStudy(kong);
 			System.out.println("templist>> " + tempList);
 			
+			ArrayList<Lecture> tempList2 = new ArrayList<>();
+			tempList2 = dao.selectWatchingLecture1(kong);
+			System.out.println("templist2>> " + tempList2);
+			for (int i = 0; i < tempList.size(); i++) {
+				for (int j = 0; j < tempList2.size(); j++) {
+					if(tempList.get(i).getLectureno() == tempList2.get(j).getLectureno()){
+						tempList.get(i).setSubnoteName(tempList2.get(j).getUploadedfilename());
+						//subnote 붙이기
+					}
+				}
+			}
+			
 			lectureList = new ArrayList<>();
 			
 			if(end > tempList.size()){
@@ -1203,7 +1226,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			System.out.println("리스트>>" + lectureList);
 			coursename = lectureList.get(0).getCoursename();
 			introdution = lectureList.get(0).getIntrodution();
-		
+			
 		}else{
 		
 			if(endPageGroup == 0) endPageGroup = 1;
@@ -1217,7 +1240,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		session.put("endPageGroup", endPageGroup);
 		System.out.println("endpage>> " + endPageGroup);
 		System.out.println("curpage>> " + currentPage);
-		System.out.println("courselist>> " + courseList);
+		System.out.println("스터디 디테일 courselist>> " + courseList);
 		
 		return SUCCESS;
 	}
@@ -1320,6 +1343,19 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			ArrayList<Lecture> tempList = new ArrayList<>();
 			tempList = dao.selectCourseDefaultDetail(kong);
+			
+			ArrayList<Lecture> tempList2 = new ArrayList<>();
+			tempList2 = dao.selectWatchingLecture1(kong);
+			System.out.println("templist2>> " + tempList2);
+			for (int i = 0; i < tempList.size(); i++) {
+				for (int j = 0; j < tempList2.size(); j++) {
+					if(tempList.get(i).getLectureno() == tempList2.get(j).getLectureno()){
+						tempList.get(i).setSubnoteName(tempList2.get(j).getUploadedfilename());
+						//subnote 붙이기
+					}
+				}
+			}
+			
 			lectureList = new ArrayList<>();
 			
 			if(end > tempList.size()){
@@ -1337,6 +1373,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			lecture = dao.selectCourseForDetail(courseno);
 			coursename = lecture.getCoursename();
 			introdution = lecture.getIntrodution();
+			currentPage = 0;
 		}
 		
 		session.put("currentPage", currentPage);
@@ -1384,6 +1421,19 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		
 		ArrayList<Lecture> tempList = new ArrayList<>();
 		tempList = dao.selectCourseDefaultDetail(kong);
+		
+		ArrayList<Lecture> tempList2 = new ArrayList<>();
+		tempList2 = dao.selectWatchingLecture1(kong);
+		System.out.println("templist2>> " + tempList2);
+		for (int i = 0; i < tempList.size(); i++) {
+			for (int j = 0; j < tempList2.size(); j++) {
+				if(tempList.get(i).getLectureno() == tempList2.get(j).getLectureno()){
+					tempList.get(i).setSubnoteName(tempList2.get(j).getUploadedfilename());
+					//subnote 붙이기
+				}
+			}
+		}
+		
 		lectureList = new ArrayList<>();
 		
 		if(end > tempList.size()){
@@ -1406,6 +1456,11 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	public String insertLectureForStudy() {
 		
 		courseDAO dao = sqlSession.getMapper(courseDAO.class);
+		
+		//자신의 강의 여부 체크
+		String teacher = dao.checkMyLecture(lectureno);
+		if(!teacher.equals((String)session.get("loginId"))){
+		
 		Map<String, Object> kong = new HashMap<>();
 		
 		System.out.println("loginId>> " + session.get("loginId"));
@@ -1445,10 +1500,60 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			return ERROR;
 		}
 		selectCourseDefaultDetail(kong);
+		} // 내 강의가 아닐 경우
 		
 		return SUCCESS;
 	}
 	
+	public String insertLectureForStudy1() {
+		
+		courseDAO dao = sqlSession.getMapper(courseDAO.class);
+		String teacher = dao.checkMyLecture(lectureno);
+		if(!teacher.equals((String)session.get("loginId"))){
+		Map<String, Object> kong = new HashMap<>();
+		
+		System.out.println("loginId>> " + session.get("loginId"));
+		
+		if(session.get("loginId") != null){
+			kong.put("id", (String)session.get("loginId"));
+		}else{
+			message = "수강 신청 실패!";
+			return ERROR;
+		}
+		
+		System.out.println("lecno> " + lectureno + " / courseno> " + courseno
+				+ " / coursename> " + coursename + "teacherid> " + teacherid);
+		
+		kong.put("lectureno", lectureno);
+		kong.put("courseno", courseno);
+		kong.put("coursename", coursename);
+		kong.put("teacherid", teacherid);
+		int confirm = dao.updateMemberPoint(kong);
+		
+		System.out.println("confirm>> " + confirm);
+		
+		if(confirm == 1){
+			
+			try {
+				int k = dao.checkStudyCourse(kong);
+				System.out.println("k> " + k);
+				if (k == 0) {
+					dao.insertLectureForStudy(kong);
+				}
+				dao.insertLectureForStudy1(kong);
+				dao.updateStudentCount(lectureno);
+			} catch (Exception e) {
+				return ERROR;
+			}
+			message = "수강 신청 완료!";
+		}else {
+			return ERROR;
+		}
+		
+		selectCourseDefaultDetail(kong);
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * CourseDefaultDetail - 강좌 쪽 상세보기 페이지 (수강 신청 후 다시 리스트 뿌리면서 들어오기)
@@ -1477,10 +1582,22 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			session.put("currentPage", currentPage);
 			session.put("CountPerPage", countPerPage);
 			session.put("endPageGroup", endPageGroup);
-			
 		
 			ArrayList<Lecture> tempList = new ArrayList<>();
 			tempList = dao.selectCourseDefaultDetail(kong2);
+			
+			ArrayList<Lecture> tempList2 = new ArrayList<>();
+			tempList2 = dao.selectWatchingLecture1(kong2);
+			System.out.println("templist2>> " + tempList2);
+			for (int i = 0; i < tempList.size(); i++) {
+				for (int j = 0; j < tempList2.size(); j++) {
+					if(tempList.get(i).getLectureno() == tempList2.get(j).getLectureno()){
+						tempList.get(i).setSubnoteName(tempList2.get(j).getUploadedfilename());
+						//subnote 붙이기
+					}
+				}
+			}
+			
 			lectureList = new ArrayList<>();
 			
 			if(end > tempList.size()){
@@ -1815,14 +1932,14 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			//System.out.println(uploadFileName+"파일네임");
 			//System.out.println(getUpload()+"실제파일");
 			
-			String a= uploadFileName.get(0);
+			/*String a= uploadFileName.get(0);
 			String b= uploadFileName.get(1);
 			
 			String [] video_chk = a.split("\\.");
 			String [] note_chk = b.split("\\.");
 			
 			String check_point1= video_chk[1];
-			String check_point2= note_chk[1];
+			String check_point2= note_chk[1];*/
 			
 			//System.out.println("check_point1 : "+check_point1);
 			//System.out.println("check_point2 : "+check_point2);	   
@@ -1924,7 +2041,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
             
             //여기까지 내꺼
 				/*서브노트파일*/
-    			  
+    		
+    		if(!uploadFileName.get(1).isEmpty()){
+    		
     			directoryPath = new File(UploadPath2 +loginId+"/");
     				if (!directoryPath.exists()) {
     					directoryPath.mkdirs();
@@ -1948,16 +2067,16 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				System.out.println("subnote3: "+subnote);
 				System.out.println(subnote+"서브노트객체");
 				dao.insertSubnote(subnote);
-	/*struts.properties src 파일사이즈 속성. 값. byte값단위로 */
+    		}
+				
+				/*struts.properties src 파일사이즈 속성. 값. byte값단위로 */
 				
 				/*insert Teachlecture*/
 				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("id", id);
-				//System.out.println(courseno+"티치렉쳐");
+				map.put("id", (String)session.get("loginId"));
 				map.put("courseno", courseno);
 				map.put("point", 0);
 				map.put("studentcount", 0);
-				//System.out.println(map+"티치렉쳐맵");
 				dao.insertTeachLecture(map);
 			
 			
@@ -1968,9 +2087,10 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				for(int i=0; i<codingList.size();i++){
 					coding= codingList.get(i);
 					map.put("codingno", coding.getCodingno());
+					dao.insertlecturecodingInInsertLecture(map);
+					dao.deleteCodingTemp(id);
 				}			
-				dao.insertlecturecodingInInsertLecture(map);
-				dao.deleteCodingTemp(id);
+				
 			return SUCCESS;
 		}
 		
@@ -1982,7 +2102,10 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			id=(String) session.get("loginId");
 			
 			lectureList = dao.selectAllLectureListForTeach(courseno);
-			
+			System.out.println("lecturelist>> " + lectureList + " / length>> " + lectureList.size());
+			if(lectureList.size() == 0){
+				currentPage = 0;
+			}
 			course=dao.selectCourse(courseno);     
 			return SUCCESS;
 		}
@@ -1993,6 +2116,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public String mediaPlayerForm(){
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			System.out.println("미디어플레이어폼 lectureno: "+lectureno);
+			id = dao.checkMyLecture(lectureno);
 			lecture = dao.selectLecture(lectureno);
 			
 			return SUCCESS;
@@ -2321,18 +2445,12 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public String codingFormlecturelist(){
 			
 			try{
-				
 				courseDAO dao = sqlSession.getMapper(courseDAO.class);
-				
 				lectureList = dao.getAllLectureListForCodingBox(courseno);
-				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-	
-			
 			return SUCCESS;
-			
 		}
 		
 		/**
@@ -2362,7 +2480,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}
 		
 		/*insertSelectedCodingfromMain- 문제 보관함 메인 화면에서의 등록 */
-	      public String insertSelectedCodingfromMain(){
+/*	      public String insertSelectedCodingfromMain(){
 	         
 	         System.out.println("codingListForInsert: "+codingListForInsert);// codingListForInsert: [1,3]
 	         System.out.println("size: "+codingListForInsert.size());
@@ -2380,15 +2498,46 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         System.out.println("tempList: "+tempList);
 	         
 	         Map<String, Object> map = new HashMap<>();
+	         Map<String, Object> mapfordele = new HashMap<>();
+	         ArrayList<Integer> codingListCheck = new ArrayList<>();//20160501추가 - codingno;; for delete (왼쪽버튼 눌렀을때)
+	         
+	         boolean delCk=false;
 	         
 	         for(int i = 0; i < tempList.size(); i++){
 	            map.put("codingno", tempList.get(i));
 	            map.put("lectureno", lectureno);
-	            int s= dao.selectLectureCoding(map);
+	            codingno=Integer.parseInt(tempList.get(i));//20160501추가
+	            System.out.println("lectureno:"+lectureno);
+	            codingListCheck= dao.selectedAllLectureCoding(lectureno);  //20160501추가 - codingno;; for delete (왼쪽버튼 눌렀을때)
+	            System.out.println("codingListCheck: "+codingListCheck);
+	            int sa= dao.selectedAllLectureCodingCount(lectureno);//20160501추가 - count;; for delete (왼쪽버튼 눌렀을때)
+	            System.out.println("selectAlllecturecodingCount: "+sa);
+	            
+	            deleteLectureCoding
+	            if(sa > tempList.size()){
+		            for(int j=0; j<codingListCheck.size();j++){
+		            	if(codingno == codingListCheck.get(j)){
+		            		delCk=true;
+		            	}
+		            }
+		            if(!check){
+		            	System.out.println("가져온 값과 db 값 비교했을때 다르다 ");
+		            	mapfordele.put("codingno", codingno);
+		            	mapfordele.put("lectureno", lectureno);
+		            	dao.deleteLectureCodingForQuestionBox(mapfordele);
+		            	System.out.println("mapfordele: "+mapfordele);
+		            	System.out.println("delete완성");
+		     		}
+	            	
+	            }
+	            
+	            
+	            saveLectureCoding
+	            int s= dao.selectLectureCoding(map);//20160501추가 - count ;;for count check (중복저장 피하기위해)
 	            System.out.println("s: "+s);
 	            if(s == 0){
 	            	dao.insertLectureCoding(map);
-	            	System.out.println(i+"번 완료");
+	            	System.out.println(i+"번째값 등록 완료");
 	            }
 	            else{
 	            	System.out.println("같은것 있음. 등록 불가 ");
@@ -2396,7 +2545,85 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         }
 	         codingFormlecturelist();
 	         return SUCCESS;
-	      }
+	      }*/
+		
+		
+	      public String insertSelectedCodingfromMain(){
+		         
+		         System.out.println("codingListForInsert: "+codingListForInsert);// codingListForInsert: [1,3]
+		         System.out.println("size: "+codingListForInsert.size());
+		         System.out.println("codingListForInsert.get(0): "+codingListForInsert.get(0));
+		         courseDAO dao = sqlSession.getMapper(courseDAO.class);
+		         
+		         ArrayList<String> tempList = new ArrayList<>();
+		         String temp = codingListForInsert.get(0);
+		         StringTokenizer st = new StringTokenizer(temp, ",");
+		         while(st.hasMoreTokens()){
+		            tempList.add(st.nextToken());
+		         }
+		            
+		         System.out.println("tempList.size(): "+tempList.size());
+		         System.out.println("tempList: "+tempList);
+		         
+		         Map<String, Object> map = new HashMap<>();
+		         Map<String, Object> mapfordele = new HashMap<>();
+		         ArrayList<Integer> codingListCheck = new ArrayList<>();//20160501추가 - codingno;; for delete (왼쪽버튼 눌렀을때)
+		         
+		         boolean delCk=false;
+		         
+		        
+		         
+		         
+		         
+		         for(int i = 0; i < tempList.size(); i++){
+		            map.put("codingno", tempList.get(i));
+		            map.put("lectureno", lectureno);
+		            codingno=Integer.parseInt(tempList.get(i));//20160501추가
+		            System.out.println("lectureno:"+lectureno);
+		            codingListCheck= dao.selectedAllLectureCoding(lectureno);  //20160501추가 - codingno;; for delete (왼쪽버튼 눌렀을때)
+		            System.out.println("codingListCheck: "+codingListCheck);
+		            int sa= dao.selectedAllLectureCodingCount(lectureno);//20160501추가 - count;; for delete (왼쪽버튼 눌렀을때) //db의 lecturecoding
+		            System.out.println("selectAlllecturecodingCount: "+sa);
+		            
+		            
+		            /*deleteLectureCoding*/
+		            if(sa > tempList.size()){
+			            for(int j=0; j<codingListCheck.size();j++){
+			            	if(codingno == codingListCheck.get(j)){ //뷰에서 가져온거랑 db비교
+			            		delCk=true;
+			            	}
+			            }
+		            }
+		            if(check){
+		            	System.out.println("가져온 값과 db 값 비교했을때 다르다 ");
+		            	mapfordele.put("codingno", codingno);
+		            	mapfordele.put("lectureno", lectureno);
+		            	dao.deleteLectureCodingForQuestionBox(mapfordele);
+		            	System.out.println("mapfordele: "+mapfordele);
+		            	System.out.println("delete완성");
+		     		}
+		          
+		            else{
+		            	 /*saveLectureCoding*/
+			            int s= dao.selectLectureCoding(map);//20160501추가 - count ;;for count check (중복저장 피하기위해)
+			            System.out.println("s: "+s);
+			            if(s == 0){
+			            	dao.insertLectureCoding(map);
+			            	System.out.println(i+"번째값 등록 완료");
+			            }
+			            else{
+			            	System.out.println("같은것 있음. 등록 불가 ");
+			            }
+		            }
+		            
+		           
+		         }
+		         codingFormlecturelist();
+		         return SUCCESS;
+		      }
+		
+		
+		
 
 		/*insertSelectedCodingfromMain- 인서트렉쳐 할때의 메인화면에서 등록 */
 		public String insertSelectedCodingfromInsertLecture(){
@@ -2438,7 +2665,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			System.out.println("lectureno : "+lectureno);
 			ArrayList<Integer> codingnoList= new ArrayList<>();
-			
 			codingnoList = dao.getCodingno(lectureno);
 			
 			System.out.println("codingnoList1 : "+codingnoList);
@@ -2638,11 +2864,10 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			return SUCCESS;
 		}
-	
+		
 
 		/*문제보관함- lstbox1, 2 중복값 체크위함 */
 		public String selectedCheck(){
-			System.out.println("체크");
 			System.out.println("lectureno: "+lectureno);
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			System.out.println("codingnoListforCheck: "+codingnoListforCheck);
@@ -2657,34 +2882,25 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			}*/
 			
 			ArrayList<String> tempList = new ArrayList<>();
-			String temp = codingnoListforCheck.get(0).toString();
-			StringTokenizer st = new StringTokenizer(temp, ",");
+			StringTokenizer st = new StringTokenizer(codingnoListforCheck, ",");
 			while(st.hasMoreTokens()){
 				tempList.add(st.nextToken());
 			}
 				
 			System.out.println("tempList.size(): "+tempList.size());
 			System.out.println("tempList: "+tempList);
-			//id=(String) session.get("loginId");
-			//Map<String, Object> map = new HashMap<>();
-			//ArrayList<Coding> checkCoding= new ArrayList<>();
 			
 			for(int i = 0; i < tempList.size(); i++){
 				System.out.println(tempList.get(i));
 				codingno= Integer.parseInt(tempList.get(i)) ;
-				//map.put("codingno", tempList.get(i));
-				//map.put("id", id);
-				//System.out.println("map: "+map);
-				coding=dao.selectedCheck(codingno);
-				//dao.insertLectureCoding(map);
-				//System.out.println(i+"번 완료");
-				System.out.println(coding);
+				coding= dao.selectedCheck(codingno);
+				System.out.println("coding: "+coding);
 				checkCoding.add(coding);
 				System.out.println("checkCoding: "+checkCoding);
 			}
-			
-			codingFormlecturelist();
-			showCodinglist();
+			lectureList = dao.getAllLectureListForCodingBox(courseno);
+			//codingFormlecturelist();
+			//showCodinglist();
 			return SUCCESS;
 		}
 		
@@ -2818,13 +3034,37 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}
 		
 		
+		//영호 문제보관함 시작
+		
+		public String DuplicateCheck() throws Exception{
+			System.out.println("lectureno: "+lectureno);
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			codingList = dao.selectedAllCoding(lectureno);
+			codingNoList = dao.selectedAllLectureCoding(lectureno);
+			System.out.println("codingList:" +codingList);
+			System.out.println("codingNoList: "+codingNoList);
+			return SUCCESS;
+		}
+		
+		
+		
 		//getter setter
 
-	
+		
+		
+		
+		public ArrayList<Integer> getCodingNoList() {
+			return codingNoList;
+		}
+
+		public void setCodingNoList(ArrayList<Integer> codingNoList) {
+			this.codingNoList = codingNoList;
+		}
+
 		public Coding getCoding() {
 			return coding;
 		}
-	
+
 		public void setCoding(Coding coding) {
 			this.coding = coding;
 		}
@@ -3333,12 +3573,15 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public void setContentLength(long contentLength) {
 			this.contentLength = contentLength;
 		}
-		public ArrayList<String> getCodingnoListforCheck() {
+		
+		public String getCodingnoListforCheck() {
 			return codingnoListforCheck;
 		}
-		public void setCodingnoListforCheck(ArrayList<String> codingnoListforCheck) {
+
+		public void setCodingnoListforCheck(String codingnoListforCheck) {
 			this.codingnoListforCheck = codingnoListforCheck;
 		}
+
 		public ArrayList<Coding> getCheckCoding() {
 			return checkCoding;
 		}

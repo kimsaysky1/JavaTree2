@@ -36,8 +36,6 @@
       <collection property="courseTypeList" javaType="java.util.ArrayList" column="courseno" ofType="int" select="selectTypeno"/>
    </resultMap>
    
-   
-	
 	<resultMap type="Lecture" id="sLectureMap">
        	<result property="coursename" column="coursename"/>
       	<result property="lecturename" column="lecturename"/>
@@ -51,6 +49,11 @@
       <result property="codinganswer"  column="codinganswer"  jdbcType="CLOB" javaType="java.lang.String" typeHandler="org.apache.ibatis.type.ClobTypeHandler"/>
       <result property="id" column="id"/>
    </resultMap>
+	
+	<!-- <resultMap type="Coding" id="lectureCodingMap">
+		<result property="codingno" column=""/>
+		<result property="lectureno" column=""/>
+	</resultMap> -->
 	
 	<select id="selectCoursename" resultType="String">
 		select coursename from course where courseno = #{courseno}
@@ -126,6 +129,7 @@
 		JOIN course c ON ( l.courseno = c.courseno and c.courseno = #{courseno} )
 		LEFT OUTER JOIN studylecture s ON (  s.lectureno = l.lectureno and s.courseno = #{courseno} and s.id = #{id}
 		)
+		order by lectureno asc
 		</if>
 	</select>
 	
@@ -150,7 +154,7 @@
 		</if>
 	</select>
 	
-		<select id="selectWatchingLecture2" parameterType="map" resultType="Lecture">
+	<!-- 	<select id="selectWatchingLecture2" parameterType="map" resultType="Lecture">
 		<if test="id != null">
 		SELECT 
 		lectureno
@@ -158,7 +162,7 @@
 		where courseno = #{courseno} and id = #{id}
 		order by lectureno desc
 		</if>
-	</select>
+	</select> -->
 	
 	<!-- CourseDefaultDetail 강좌상세보기 -->
 	<select id="selectCourseDefaultDetail" parameterType="map" resultType="Lecture">
@@ -168,8 +172,7 @@
 		c.coursename as coursename, c.introdution as introdution, c.courseno as courseno, c.id as teacherid
 		FROM lecture l 
 		JOIN course c ON ( l.courseno = c.courseno and c.courseno = #{courseno} )
-		LEFT OUTER JOIN studylecture s ON (  s.lectureno = l.lectureno and s.courseno = #{courseno} and s.id = #{id}
-		)
+		LEFT OUTER JOIN studylecture s ON (  s.lectureno = l.lectureno and s.courseno = #{courseno} and s.id = #{id})
 		order by lectureno asc
 		</if>
 		<if test="id == null">
@@ -387,7 +390,7 @@
      
      <!-- 다운로드를 위한 서브노트 네임 찾기  -->
      <select id="selectUploadedFileName" parameterType="int" resultType="String">
-   		select uploadedfilename from subnote where lectureno = #{lectureno}  
+   		select id from subnote where lectureno = #{lectureno}  
      </select>
      
      
@@ -445,7 +448,7 @@
         		 select max(lectureno) from lecture 
         	</selectKey>
         	insert into teachlecture (id, courseno, lectureno, point, studentcount)
-		values (#{id}, #{courseno} ,#{lectureno}, #{point}, (select count(*) from studylecture where lectureno=#{lectureno}))
+		values (#{id}, #{courseno} ,#{lectureno}, #{point}, #{studentcount})
    	</insert>
      	
    
@@ -638,14 +641,29 @@
 		<!-- select codingno from codingtemp where id=#{id} -->
 		select * from codingtemp where id=#{id}
 	</select>
-	
+	<!-- 코딩박스 중복저장 방지 - 일치하는코딩객체가져오기-->
 	<select id="selectedCheck" parameterType="int" resultType="Coding">
 		select * from coding where codingno=#{codingno}
 	</select>
-	
+	<!-- 코딩박스 중복저장 방지 - 일치하는코딩객체개수가져오기-->
 	<select id="selectLectureCoding" parameterType="map" resultType="int">
 		select count(*) from lecturecoding where lectureno=#{lectureno} and codingno=#{codingno}
 	</select>
+	
+	<!-- 코딩박스 왼쪽버튼 누를때 삭제하기전 비교할 전체 codingno int다치들 다같이 찾아오기 -->
+	<select id="selectedAllLectureCoding" parameterType="int" resultType="int">
+		select codingno from lecturecoding where lectureno=#{lectureno}
+	</select>
+	
+	<!-- 코딩박스 왼쪽버튼 누를때 삭제하기전 비교할 count 전체 알아오기 -->
+	<select id="selectedAllLectureCodingCount" parameterType="int" resultType="int">
+		select count(*) from lecturecoding where lectureno=#{lectureno}
+	</select>
+	
+	<!-- 코딩박스 왼쪽버튼 누를때 삭제하기 -->
+	<delete id="deleteLectureCodingForQuestionBox" parameterType="map">
+		delete from lecturecoding where codingno=#{codingno} and lectureno=#{lectureno}
+	</delete>
 
 	<select id="selectFileName" parameterType="int" resultType="String">
 		select uploadedfilename from lecture where lectureno = #{lectureno}
@@ -654,8 +672,16 @@
 	<select id="selectSubNoteName" parameterType="int" resultType="String">
 		select uploadedfilename from subnote where lectureno = #{lectureno}
 	</select>
-	
+	<select id="checkMyLecture" parameterType="int" resultType="String">
+		select id from teachlecture where lectureno = #{lectureno}
+	</select>
  
+ 	<!-- 영호 추가 -->
+ 	
+ 	<select id="selectedAllCoding" parameterType="int" resultType="Coding">
+ 		select * from coding
+ 		where codingno in (select codingno from lecturecoding where lectureno = #{lectureno})
+ 	</select>
 </mapper>
 
 

@@ -89,6 +89,12 @@
         	<result name="error" type="redirect">index.action</result>
         </action>
         
+        <action name="insertLectureForStudy1" class="org.javatree.www.Action.CourseAction" method="insertLectureForStudy1">
+			<interceptor-ref name="LoginCheckForMember" />
+        	<result>/WEB-INF/views/course/CourseDetailForStudy.jsp</result>
+        	<result name="error" type="redirect">index.action</result>
+        </action>
+        
         <action name="teachMainView">
         	<result>/WEB-INF/views/course/teachMain.jsp</result>
         </action>
@@ -275,15 +281,19 @@
         	<result>/WEB-INF/views/course/CourseDetailForTeach.jsp</result>
         </action>
         
-        
-        
-        
-        
-        
         <action name="selectedCheck" class="org.javatree.www.Action.CourseAction" method="selectedCheck">
         	<result type="json"></result>
         </action>
         
+        
+        
+        <!-- 영호 작성 문제보관함 시작 -->
+        
+        <action name="DuplicateCheck" class="org.javatree.www.Action.CourseAction" method="DuplicateCheck">
+        	<result type="json"></result>
+        </action>
+        
+        <!-- 영호 작성 문제보관함 종료 -->
     </package>
 
     <!-- Add packages here -->

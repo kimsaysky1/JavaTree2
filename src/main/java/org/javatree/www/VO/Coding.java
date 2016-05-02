@@ -7,6 +7,7 @@ public class Coding {
 	private String codinganswer;
 	private String regdate;
 	private String id;
+
 	
 	public Coding() {
 	}
@@ -14,8 +15,7 @@ public class Coding {
 		this.codingno = codingno;
 		this.id = id;
 	}
-
-
+	
 	public Coding(int codingno, String codingquestion, String codingtemplet, String codinganswer, String regdate,
 			String id) {
 		this.codingno = codingno;

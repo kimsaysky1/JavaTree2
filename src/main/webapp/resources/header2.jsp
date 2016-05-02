@@ -109,12 +109,10 @@
 					<!-- END / LIST ACCOUNT INFO -->
 					<ul class="menu">
 						<li class="menu-item-has-children"><a href="/javatree/course/selectAllCourseList.action" id="jt">MY PAGE</a>
-							
 								<ul class="sub-menu">
 									<li><a href="/javatree/course/selectAllCourseListForTeach.action">Teach MYPAGE</a></li>
-									<li><a href="/javatree/course/studyMainView.action">Study MYPAGE</a></li>
+									<li><a href="/javatree/course/studyMainView2.action">Study MYPAGE</a></li>
 								</ul>
-							
 						</li>
 					</ul>
 					</s:if>

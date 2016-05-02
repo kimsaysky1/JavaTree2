@@ -28,6 +28,7 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
+    
 <title>DetailCourse-study</title>
 </head>
 <body>
@@ -126,8 +127,8 @@
 								
 								<s:if test="studying != null">
 									<s:url id ="download" action = "DownLoadFile">
-						<s:param name ="uploadedfile">
-							${uploadedfilename}
+						<s:param name ="uploadedfilename">
+							${subnoteName}
 						</s:param>
 						<s:param name = "lectureno">
 							${lectureno}
@@ -137,14 +138,14 @@
 					<td class="submit-date"></td>
 								
 					<td class="submit-date">
-						<s:a href="%{download}" method="post">${uploadedfilename}</s:a>
+						<s:a href="%{download}" method="post">${subnoteName}</s:a>
 					</td>
 									<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>'>Watch</a></td>
 								</s:if>
 								<s:else>
 								<td class="submit-date"></td>
 								<td class="submit-date"></td>
-									<td class="submit-date"><a href='insertLectureForStudy.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno" />&coursename=<s:property value="coursename" />&teacherid=<s:property value="teacherid" />'>Apply</a></td>
+									<td class="submit-date"><a href='insertLectureForStudy1.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno" />&coursename=<s:property value="coursename" />&teacherid=<s:property value="teacherid" />'>Apply</a></td>
 								</s:else>
 								
 					
@@ -158,16 +159,14 @@
 								<td class="submit-date"><a href="">PlayView</a></td>
 								<td class="submit-date"><a href="">Download SubNote</a></td>
 							</tr> -->
-							<s:if test="lectureList == null">
-							<tr class="new">
+						<!-- 	<tr class="new">
 								<td class="submissions"></td>
 								<td class="author">&nbsp;&nbsp;&nbsp;&nbsp;정&nbsp;&nbsp;보&nbsp;&nbsp;없&nbsp;&nbsp;음</td>
 								<td class="score"></td>
 								<td class="submit-date"></td>
 								<td class="submit-date"></td>
 								<td class="submit-date"></td>
-							</tr>
-							</s:if>
+							</tr> -->
 						</tbody>
 					</table>
 				</div>
@@ -243,7 +242,7 @@
 		
 		//backspace 제어
 		 try{
-             /*
+			 /*
              * [페이지 자동 이벤트 처리기]
              * 기능 : 검색어 입력 후 BackSpace를 눌렀을때, 404에러나는 것 방지 처리
              * 처리 : Backspace Code 입력시 '목록' 버튼을 누르게 하고, 실제 backSapce Code를 막는다
