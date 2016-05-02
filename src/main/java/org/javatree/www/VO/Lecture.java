@@ -33,11 +33,7 @@ public class Lecture {
 	
 	public Lecture(int courseno, int lectureno, String lecturename, String regdate, String originalfilename,
 			String uploadedfilename, String startdate, String enddate, String coursename, String introdution,
-<<<<<<< HEAD
-			String studying, String teacherid, String subnoteName) {
-=======
-			String studying, String teacherid, ArrayList<Coding> codingList) {
->>>>>>> dc09945ebdcb01fde54096b1fa5ea645d72a89ee
+			String studying, String teacherid, String subnoteName, ArrayList<Coding> codingList) {
 		super();
 		this.courseno = courseno;
 		this.lectureno = lectureno;
@@ -51,11 +47,8 @@ public class Lecture {
 		this.introdution = introdution;
 		this.studying = studying;
 		this.teacherid = teacherid;
-<<<<<<< HEAD
 		this.subnoteName = subnoteName;
-=======
 		this.codingList = codingList;
->>>>>>> dc09945ebdcb01fde54096b1fa5ea645d72a89ee
 	}
 
 	public int getCourseno() {
@@ -163,21 +156,20 @@ public class Lecture {
 		this.teacherid = teacherid;
 	}
 
-<<<<<<< HEAD
 	public String getSubnoteName() {
 		return subnoteName;
 	}
 
 	public void setSubnoteName(String subnoteName) {
 		this.subnoteName = subnoteName;
-=======
+	}
+	
 	public ArrayList<Coding> getCodingList() {
 		return codingList;
 	}
 
 	public void setCodingList(ArrayList<Coding> codingList) {
 		this.codingList = codingList;
->>>>>>> dc09945ebdcb01fde54096b1fa5ea645d72a89ee
 	}
 
 	@Override
@@ -186,16 +178,7 @@ public class Lecture {
 				+ ", regdate=" + regdate + ", originalfilename=" + originalfilename + ", uploadedfilename="
 				+ uploadedfilename + ", startdate=" + startdate + ", enddate=" + enddate + ", coursename=" + coursename
 				+ ", introdution=" + introdution + ", studying=" + studying + ", teacherid=" + teacherid
-<<<<<<< HEAD
-				+ ", subnoteName=" + subnoteName + "]";
+				+ ", subnoteName=" + subnoteName + ", codingList=" + codingList + "]";
 	}
-
-=======
-				+ ", codingList=" + codingList + "]";
-	}
-
-	
-
-	
->>>>>>> dc09945ebdcb01fde54096b1fa5ea645d72a89ee
+				
 }
