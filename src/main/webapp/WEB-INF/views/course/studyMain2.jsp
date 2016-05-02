@@ -45,13 +45,13 @@
         <div class="container">
             <ul>
                 <li class="current">
-                    <a href="account-learning.html">
+                    <a href="/javatree/course/studyMainView2.action">
                         <i class="icon md-book-1"></i>
                         Learning
                     </a>
                 </li>
                 <li>
-                    <a href="/javatree/course/teachMainView.action">
+                    <a href="/javatree/course/selectAllCourseListForTeach.action">
                         <i class="icon md-people"></i>
                         Teaching
                     </a>
@@ -168,7 +168,7 @@
                     <!-- 질문 보관함 -->
                     	
                     	<div class="form-submit-1">
-							<input type="button" value="QUESTION BOX" class="mc-btn btn-style-1">
+							<input type="button" id="questionBox" value="QUESTION BOX" class="mc-btn btn-style-1">
 						</div>
                     	
                         <!-- 보관함 끝-->
@@ -254,140 +254,148 @@
 		src="../resources/javatree_view/html/js/scripts.js"></script>
 		
 	<script type="text/javascript">
-	function List() {
-		   this.elements = {};
-		   this.idx = 0;
-		   this.length = 0;
-		}
-
-		List.prototype.add = function(element) {
-		   this.length++;
-		   this.elements[this.idx++] = element;
-		};
-
-		List.prototype.get = function(idx) {
-		   return this.elements[idx];
-		};
-
 	
-	var sel = '';
-	var prev = 0;
-	var approve = 'deny';
-	 var list = new List();
-	 
-    $.each($('.table-wrap'), function() {
-        $(this)
-            .find('.table-item')
-            .children('.thead:not(.active)')
-            .next('.tbody').hide();
-        
-        $(this)
-            .find('.table-item')
-            .delegate('.thead', 'click', function(evt) {
-            	evt.preventDefault();
-            	
-            	var id = $(this).attr('id');
-                alert("id> " + id);
-                
-              if(prev == 0){
-            	  prev = id;
-              }
-               
-             alert("list길이> " + list.length);
-             
-             approve = 'approve';
-             
-              for(var i=0; i<list.length; i++) {
-            	    if(list.get(i) == id){
-            	    	approve = 'deny';
-            	    	break;
-            	    }
-            	}
-              
-      		
-            
-      		/* alert(list.get(0)); */
-      		
-      		
-             if(approve == 'approve'){
-            	list.add(id);
-                sel = $(this);
-                $.ajax({
-				        type : 'get', 
-				        url : 'selectListForSlide',
-				        data : "courseno="+id,
-				        success : function(response){
-				        	
-				        	var divTag = $('<div class="tbody"></div>');
-			 				divTag.html('<div class="item"><div class="submissions"></div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"><a href="selectCourseDetailForStudy.action?courseno='+id+'">>>강좌상세정보</div><div class="link tb-icon"></div></div>')
-			 				.insertAfter(sel); 	  
-				        	
-				        	 var list = response.lectureList;
-				        	 list.forEach(function(lec){
-				 				
-				        	 	var divTag = $('<div class="tbody"></div>');
-				 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="../compiler/Compiler.action?lectureno='+lec.lectureno+'"><i class="fa fa-play-circle-o"></i></a></div></div>')
+	$(function(){
+		$("#questionBox").on('click',function(){
+			
+		});
+		
+		
+		function List() {
+			   this.elements = {};
+			   this.idx = 0;
+			   this.length = 0;
+			}
+	
+			List.prototype.add = function(element) {
+			   this.length++;
+			   this.elements[this.idx++] = element;
+			};
+	
+			List.prototype.get = function(idx) {
+			   return this.elements[idx];
+			};
+	
+		
+		var sel = '';
+		var prev = 0;
+		var approve = 'deny';
+		 var list = new List();
+		 
+	    $.each($('.table-wrap'), function() {
+	        $(this)
+	            .find('.table-item')
+	            .children('.thead:not(.active)')
+	            .next('.tbody').hide();
+	        
+	        $(this)
+	            .find('.table-item')
+	            .delegate('.thead', 'click', function(evt) {
+	            	evt.preventDefault();
+	            	
+	            	var id = $(this).attr('id');
+	                alert("id> " + id);
+	                
+	              if(prev == 0){
+	            	  prev = id;
+	              }
+	               
+	             alert("list길이> " + list.length);
+	             
+	             approve = 'approve';
+	             
+	              for(var i=0; i<list.length; i++) {
+	            	    if(list.get(i) == id){
+	            	    	approve = 'deny';
+	            	    	break;
+	            	    }
+	            	}
+	              
+	      		
+	            
+	      		/* alert(list.get(0)); */
+	      		
+	      		
+	             if(approve == 'approve'){
+	            	list.add(id);
+	                sel = $(this);
+	                $.ajax({
+					        type : 'get', 
+					        url : 'selectListForSlide',
+					        data : "courseno="+id,
+					        success : function(response){
+					        	
+					        	var divTag = $('<div class="tbody"></div>');
+				 				divTag.html('<div class="item"><div class="submissions"></div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"><a href="selectCourseDetailForStudy.action?courseno='+id+'">>>강좌상세정보</div><div class="link tb-icon"></div></div>')
 				 				.insertAfter(sel); 	  
-				        		 
-				        		 /* var divTag = $('<div class="post"><div class="post-body"></div></div>');
-				 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
-				 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-				 				+course.username+' on '+course.regdate+'</div><div class="post-link"><a href="blog-single.jsp?courseno='+course.courseno
-				 				+'"><i class="fa fa-play-circle-o"></i>Lecture List</a></div>').appendTo(".blog-list-content"); */
-				 			
-				 			});
-				        	 
-				        	/*  var curPage = Number(response.currentPage);
-				        	 var curPagePlus = Number(response.currentPage+1);
-				        	 var curPageMinus = Number(response.currentPage-1);
-				        	 var endPage =  Number(response.endPageGroup);
-				        	 			        	 
-				        	 var paging = $('<ul class="pager"></ul>');
-				        	 if(curPage == 1 & endPage == 1){
-				        		 var paging0 = '<li><a href="#">'+ curPage+'</a></li>';
-				        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
-				        	 }else if(curPage == 1 & endPage != 1){
-				        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage+ +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
-				        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
-				        	 }else if(curPage == endPage & endPage != 1){
-				        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li>';	
-				        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
-				        	 }else{
-				        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
-				        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
-				        	 } */
-				        	
-				        }
-               
-				 });
-             }
-                //slide effect 시작
-                if ($(this).hasClass('active')==false) {
-                	$('.table-item')
-                        .find('.thead')
-                        .removeClass('active')
-                        .siblings('.tbody')
-                            .slideUp(200);
-                	
-                	$('.table-item')
-                    .find('.thead').children().children().children().html('');
-                    
-                }
-                	$(this)
-                    .toggleClass('active')
-                    .siblings('.tbody')
-                        .slideToggle(200);
-                	//slide effect 종료
-               
-               
-                	/*  var divTag = $('<div class="tbody"></div>');
-		 				divTag.html('<div class="item"><div class="submissions">Title</div><div class="total-subm">Submited</div><div class="replied">Replied</div><div class="latest-reply">11. Jul , 2014</div><div class="link tb-icon"><a href="#"><i class="fa fa-play-circle-o"></i></a></div></div>')
-		 				.insertAfter($(this));     */        
-                
-           				
-                   
-        });
-    });
+					        	
+					        	 var list = response.lectureList;
+					        	 list.forEach(function(lec){
+					 				
+					        	 	var divTag = $('<div class="tbody"></div>');
+					 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="../compiler/Compiler.action?lectureno='+lec.lectureno+'"><i class="fa fa-play-circle-o"></i></a></div></div>')
+					 				.insertAfter(sel); 	  
+					        		 
+					        		 /* var divTag = $('<div class="post"><div class="post-body"></div></div>');
+					 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
+					 				+course.coursename+'</a></h3></div><div class="post-meta">by'
+					 				+course.username+' on '+course.regdate+'</div><div class="post-link"><a href="blog-single.jsp?courseno='+course.courseno
+					 				+'"><i class="fa fa-play-circle-o"></i>Lecture List</a></div>').appendTo(".blog-list-content"); */
+					 			
+					 			});
+					        	 
+					        	/*  var curPage = Number(response.currentPage);
+					        	 var curPagePlus = Number(response.currentPage+1);
+					        	 var curPageMinus = Number(response.currentPage-1);
+					        	 var endPage =  Number(response.endPageGroup);
+					        	 			        	 
+					        	 var paging = $('<ul class="pager"></ul>');
+					        	 if(curPage == 1 & endPage == 1){
+					        		 var paging0 = '<li><a href="#">'+ curPage+'</a></li>';
+					        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
+					        	 }else if(curPage == 1 & endPage != 1){
+					        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage+ +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+					        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
+					        	 }else if(curPage == endPage & endPage != 1){
+					        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li>';	
+					        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
+					        	 }else{
+					        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+					        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
+					        	 } */
+					        	
+					        }
+	               
+					 });
+	             }
+	                //slide effect 시작
+	                if ($(this).hasClass('active')==false) {
+	                	$('.table-item')
+	                        .find('.thead')
+	                        .removeClass('active')
+	                        .siblings('.tbody')
+	                            .slideUp(200);
+	                	
+	                	$('.table-item')
+	                    .find('.thead').children().children().children().html('');
+	                    
+	                }
+	                	$(this)
+	                    .toggleClass('active')
+	                    .siblings('.tbody')
+	                        .slideToggle(200);
+	                	//slide effect 종료
+	               
+	               
+	                	/*  var divTag = $('<div class="tbody"></div>');
+			 				divTag.html('<div class="item"><div class="submissions">Title</div><div class="total-subm">Submited</div><div class="replied">Replied</div><div class="latest-reply">11. Jul , 2014</div><div class="link tb-icon"><a href="#"><i class="fa fa-play-circle-o"></i></a></div></div>')
+			 				.insertAfter($(this));     */        
+	                
+	           				
+	                   
+	        });
+	    });
+	});
 
 </script>
 

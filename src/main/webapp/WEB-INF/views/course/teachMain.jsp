@@ -52,7 +52,7 @@
         <div class="container">
             <ul>
                 <li>
-                    <a href="/javatree/course/selectAllCourseListForStudy.action">
+                    <a href="/javatree/course/studyMainView2.action">
                         <i class="icon md-book-1"></i>
                         Learning
                     </a>
