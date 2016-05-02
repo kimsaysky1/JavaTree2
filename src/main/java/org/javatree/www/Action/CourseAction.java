@@ -2721,15 +2721,10 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 */
 		public String updateCodingfromMain(){
 			
-			System.out.println("문제 보관함의 문제를 수정하겠다");
-			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			
-			id = (String)session.get("loginId");
+			id = (String) session.get("loginId");
 			coding.setId(id);
-			
-			System.out.println("코딩 들어있니" +coding);
-			
 			dao.updateCodingfromMain(coding);
 			
 			return SUCCESS;
@@ -2762,7 +2757,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 	
 			coding = dao.getCodingContent(codingno);
-
+			System.out.println("update coding: "+coding);
 			return SUCCESS;	
 		}
 		
@@ -3043,9 +3038,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         }
 	         
 	         codingNoList = dao.selectedAllLectureCoding(lectureno);
-	         
-	         System.out.println("tempList: "+tempList);
-	         System.out.println("codingNoList: "+codingNoList);
 	         
 	         boolean check = false;
 	         

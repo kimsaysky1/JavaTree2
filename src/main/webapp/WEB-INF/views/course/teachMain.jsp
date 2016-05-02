@@ -52,11 +52,7 @@
         <div class="container">
             <ul>
                 <li>
-<<<<<<< HEAD
-                    <a href="/javatree/course/studyMainView.action">
-=======
                     <a href="/javatree/course/studyMainView2.action">
->>>>>>> f96567531c8e94532a040642727282ade2fc287b
                         <i class="icon md-book-1"></i>
                         Learning
                     </a>

@@ -53,20 +53,14 @@
 											<h6>MAIN</h6>
 										</a>
 									</div>
-
-
 								</li>
-
 								<li>
 									<div class="list-body">
 										<a href="/javatree/course/insertCodingfromMainView.action">
 											<h6>INSERT</h6>
 										</a>
 									</div>
-
-
 								</li>
-
 								<li>
 									<div class="list-body">
 										<a href="/javatree/course/updateCodingfromMainView.action">
@@ -113,16 +107,15 @@
 								</td>
 								<td style='width: 30px;'></td>
 								<td>
-								<form id = "form1" action="updateCodingfromMain.action">
 									<table style='width: 550px;'>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>QUESTION</b></td>
-											<td><textarea style="height: 60px;" id="q_title"name = "coding.codingquestion" placeholder=""></textarea></td>
+											<td><textarea style="height: 60px;" id="q_title" name = "coding.codingquestion" placeholder=""></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
 											<td></td>
-										</tr>
+										</tr> 
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>CODE</b></td>
 											<td><textarea style="height: 220px;" id = "codebox" name = "coding.codingtemplet"  placeholder=""></textarea></td>
@@ -142,10 +135,9 @@
 										</tr>
 										<tr>
 											<td><input type="hidden" id = "codeno" name ="coding.codingno" value ="" ></td>
-											<td><input type="submit" id = "submit_btn"  value="수정" style="float: right;"></td>
+											<td><input type="button" id = "submit_btn"  value="수정" style="float: right;"></td>
 										</tr>
 									</table>
-									</form>
 								</td>
 							</tr>
 						</table>
@@ -175,18 +167,16 @@
 		$("#codinglistbox").change(function(){
 			var codingno= parseInt($(this).val());		
 			
-			
 			$.ajax({
 				url : 'showcodingcontent.action',
 				data : {'codingno' : codingno},
+				dataType: 'json',
 				success : function(response){
-					
-					var codingn =  parseInt(response.coding.codingno);
-					
-					$('#q_title').attr('placeholder',response.coding.codingquestion);	
-					$('#codebox').attr('placeholder',response.coding.codingtemplet);	
-					$('#answerbox').attr('placeholder',response.coding.codinganswer);	
-					$('#codeno').attr('value',codingn);	
+					var codingno =  parseInt(response.coding.codingno);
+					$('#q_title').val(response.coding.codingquestion);	
+					$('#codebox').val(response.coding.codingtemplet);	
+					$('#answerbox').val(response.coding.codinganswer);	
+					$('#codeno').attr('value',codingno);	
 				
 				},
 				error:function(){
@@ -197,23 +187,32 @@
 		});
 
 		
-		$('#submit_btn').click(function(){
-			
-		
-		var q_title = document.getElementById("q_title").value;
-		var codebox = document.getElementById("codebox").value;
-		var answerbox = document.getElementById("answerbox").value;
-		
-		if(q_title == ""){
+		$('#submit_btn').on('click', function(){
+		var q_title = $("#q_title").val();
+		var codebox = $("#codebox").val();
+		var answerbox = $("#answerbox").val();
+		var codingno = $('#codeno').attr('value');
+		if(q_title.trim() == ""){
 			alert("질문을 입력해주세요");
-		}else if(codebox == ""){
+		}else if(codebox.trim() == ""){
 			alert("코드를 입력해주세요");
-		}else if(answerbox = ""){
+		}else if(answerbox.trim() == ""){
 			alert("정답을 입력해주세요");
-		}else{
-			 document.getElementById('form1').submit();
 		}
-	
+			$.ajax({
+				url : 'updateCodingfromMain'
+				,data : 'coding.codingquestion='+q_title+'&coding.codingtemplet='+
+				codebox+'&coding.codinganswer='+answerbox+'&coding.codingno='+codingno
+				,dataType : 'json'
+				,success : function(response){
+					$('#q_title').val('');	
+					$('#codebox').val('');	
+					$('#answerbox').val('');	
+				},
+				error:function(){
+					console.log('에러');
+				}
+			});
 		}); 
 		
 	});

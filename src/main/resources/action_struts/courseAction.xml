@@ -205,16 +205,16 @@
         </action>
         <!--액션 teachMian 에서 누른 문제보관함 폼(codingMain)에 코딩 UPDATE하기   -->
         <action name="updateCodingfromMain" class="org.javatree.www.Action.CourseAction" method="updateCodingfromMain">
-        	<result type="redirect">updateCodingfromMainView.action</result>	
+        	<result type="json"></result>
         </action>
          <!--뷰 insertLecture- questionBox 내 update -->
         <action name="updateCodingfromInsertLectureView" class="org.javatree.www.Action.CourseAction" method="updateCodingfromInsertLectureView">
         	<result>/WEB-INF/views/course/updateCodingForLecture.jsp</result>	
         </action>
         <!--액션 insertLecture 에서 누른 문제보관함 폼(codingMain)에 코딩 UPDATE하기   -->
-        <action name="updateCodingfromMain" class="org.javatree.www.Action.CourseAction" method="updateCodingfromMain">
+        <!-- <action name="updateCodingfromMain" class="org.javatree.www.Action.CourseAction" method="updateCodingfromMain">
         	<result type="redirect">updateCodingfromInsertLectureView.action</result>	
-        </action>
+        </action> -->
         
         <!--삭제하기-->
         <action name="deleteCodingfromMain" class="org.javatree.www.Action.CourseAction" method="deleteCodingfromMain">

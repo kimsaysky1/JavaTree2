@@ -56,8 +56,6 @@
 											<h6>INSERT</h6>
 										</a>
 									</div>
-
-
 								</li>
 
 								<li>
