@@ -105,6 +105,8 @@ public interface courseDAO {
 	
 	// 영호 추가
 	public ArrayList<Coding> selectedAllCoding(int lectureno);
+	public void deleteCodingFromLectureCoding(Map map);
+	public void insertCodingFromLectureCoding(Map map);
 	
 	
 }
