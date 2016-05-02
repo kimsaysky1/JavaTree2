@@ -102,5 +102,8 @@ public interface courseDAO {
 	public String selectFileName(int lectureno);
 	public String selectSubNoteName(int lectureno);
 	
+	// 영호 추가
+	public ArrayList<Coding> selectedAllCoding(int lectureno);
+	
 	
 }
