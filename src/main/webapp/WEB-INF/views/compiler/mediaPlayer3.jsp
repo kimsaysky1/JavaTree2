@@ -5,31 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="format-detection" content="telephone=no">
-<!-- Google font -->
-<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700'
-	rel='stylesheet' type='text/css'>
-<link
-	href='http://fonts.googleapis.com/css?family=Raleway:300,400,700,900'
-	rel='stylesheet' type='text/css'>
-<!-- Css -->
-<link rel="stylesheet" type="text/css"
-	href="../resources/javatree_view/html/css/library/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="../resources/javatree_view/html/css/library/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="../resources/javatree_view/html/css/library/owl.carousel.css">
-<link rel="stylesheet" type="text/css"
-	href="../resources/javatree_view/html/css/md-font.css">
-<link rel="stylesheet" type="text/css"
-	href="../resources/javatree_view/html/css/style.css">
-<!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-    <![endif]-->
+<meta charset="UTF-8">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../resources/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="../resources/jquery-ui.min.js"></script>
 
 <style type="text/css">
 .viewtitle {
@@ -81,7 +61,7 @@ margin-left: 6px;
 
 #vol-div {
 	float: right;
-	margin-right: 0px;
+	margin-left: 10px;
 	margin-top: 15px;
 	width: 100px;
 }
@@ -360,12 +340,13 @@ border: 1px solid #EAEAEA;
 	padding-right: 14px;
 	margin-top: 37px;
 	width: 31px;
-	font: 13px Arial;
+	font: 14px Arial;
 	line-height: normal;
 	text-align: right;
-	height: 600px;
+	height: 550px;
 	overflow: scroll;
 	overflow-y: hidden;
+	font-weight: 600;
 }
 
 div.numberedtextarea-wrapper {
@@ -477,11 +458,11 @@ div.numberedtextarea-number {
 					</select>
 				</s:if>
 				
-				<button id="keepqna">문제 보관하기</button> 
+				<button id = "goCodingbox">문제 보관하기</button> 
 			</div>
 					
 			<!-- editor 시작 -->
-			<textarea id="question" class = "question" placeholder="질문란" readonly="readonly" style="height: 170px;"></textarea>
+			<textarea id="question" class = "question" placeholder="질문란" readonly="readonly" style="height: 170px; width: 756px;"></textarea>
 			
 			<div class = "buttonpart" style="margin-left: 483px;">
 				<button id="insertClass">클래스 추가</button>
@@ -492,8 +473,7 @@ div.numberedtextarea-number {
 			<div id="codingwrapper">
 				<div class="line_number"></div>
 				<ul id="tabs">
-					<li class='current'><a class='tab' id="class1" href='#'>class1</a>
-					<a href='#' class='remove'>x</a>
+					<li class='current'><a class='tab' id="class1" href='#'>class1</a><a href='#' class='remove'>x</a>
 					</li>
 				</ul>
 				<div id="doccontent">
@@ -502,106 +482,43 @@ div.numberedtextarea-number {
 			</div>
 			
 			
-		
-
-			<!-- 지식인 연동 모달 -->
-			<input style="display: none;" type="button" id="askToUser"
-				class="mc-btn btn-style-1" data-toggle="modal"
-				data-target="#askSelections" />
-			<div class="container">
+		<!-- 지식인 연동 모달 -->
+	<input style="display:none;" type="button" id="askToUser" class="mc-btn btn-style-1" data-toggle="modal" data-target="#askSelections"/>
+           <div class="container">
 				<div class="modal fade" id="askSelections" role="dialog">
-					<div class="modal-dialog modal-lg">
-						<!-- Modal content-->
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4 class="modal-title">지식인 연동 기능</h4>
-							</div>
-							<div class="modal-body">
-								<button id="watchRelatedQuestion">관련질문보기</button>
-								<br />
-								<button id="makeQuestion">질문하기</button>
-								<br />
-								<button class="cancel">취소</button>
-							</div>
-							<div class="modal-footer"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- 지식인 연동 모달 끝 -->
+			    	<div class="modal-dialog modal-lg">
+					      <!-- Modal content-->
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <h4 class="modal-title">지식인 연동 기능</h4>
+				        </div>
+				        <div class="modal-body">
+				        		<button id = "watchRelatedQuestion">관련질문보기</button>
+					        	<br/>
+					        	<button id = "makeQuestion">질문하기</button>
+					        	<br/>
+					        	<button class ="cancel">취소</button>
+				        </div>
+				        <div class="modal-footer">
+				        </div>
+				      </div>
+			  	   </div>
+			  </div>
+         </div>	
+         <!-- 지식인 연동 모달 끝 -->
 
 			<!-- 질문 버튼 -->
-
-			<div class="form-submit-1">
-				<input type="button" style="display: none;" id="insertQuestion"
-					value="WRITE QUESTION" class="mc-btn btn-style-1"
-					data-toggle="modal" data-target="#writeQuestionModal" />
-				<div class="container">
-					<div class="modal fade" id="writeQuestionModal" role="dialog">
-						<div class="modal-dialog modal-lg">
-							<!-- Modal content-->
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">Modal Header</h4>
-								</div>
-								<div class="modal-body">
-									<table style='width: 800px;'>
-										<tr>
-											<td style='width: 100px; height: 70px; text-align: center;'><b>FIELD</b></td>
-											<td><select id="questionTypeno" style="width: 100px;">
-													<option value="1">PUREJAVA</option>
-													<option value="2">WEB</option>
-													<option value="3">MOBILE</option>
-													<option value="4">IOT</option>
-													<option value="5">SWING</option>
-													<option value="6">JDBC</option>
-													<option value="7">API</option>
-													<option value="8">SPRING</option>
-													<option value="9">STRUTS</option>
-													<option value="10">etcFramework</option>
-													<option value="11">ETC</option>
-											</select></td>
-										</tr>
-										<tr>
-											<td style='height: 20px;'></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td style='width: 100px; text-align: center;'><b>QUESTION</b></td>
-											<td><textarea id="questionTitle" style="height: 100px;"></textarea></td>
-										</tr>
-										<tr>
-											<td style='height: 20px;'></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td style='width: 100px; text-align: center;'><b>content</b></td>
-											<td><textarea id="questionContent"
-													style="height: 250px;"></textarea></td>
-										</tr>
-										<tr>
-											<td style='height: 20px;'></td>
-											<td></td>
-										</tr>
-									</table>
-								</div>
-								<div class="modal-footer">
-									<button id="insertQuestionBtn" class="mc-btn-5">등록</button>
-									&nbsp;&nbsp;
-									<button class="cancel">취소</button>
-									<!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- 질문 버튼 끝 -->
+        <div class="form-submit-1">
+			<input type="button" style="display:none;" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
+            <div class="container">
+			<div class="modal fade" id="writeQuestion" role="dialog">
+	  		</div>
+            </div>
+		</div>            
 		</div>
 	</div>
 	</div>
+	
 	<!-- popwrap END -->
 		<script type="text/javascript"
 			src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
@@ -620,43 +537,101 @@ div.numberedtextarea-number {
 
 $(function(){
 	
-	$('#watchRelatedQuestion').on('click', function(){
-		var codingno =  $(".codingList option:selected").val();
-		window.open('/javatree/qna/watchRelatedQuestion.action?codingno='+codingno);
+	 
+	$('#디브 아이디').on('click', function(){
+		alert(1);
 	});
-	
-	$('#makeQuestion').on('click', function(){
-		var codingtemplet = $('#doccontent textarea:visible').val();
-		$('#askSelections').modal('hide');
-		$('#insertQuestion').trigger('click');
-		$('#questionContent').val(codingtemplet);
-		//window.open('/javatree/qna/insertQuestionReady.action?codingtemplet='+codingtemplet);
-	});
-	
-	$('#insertQuestionBtn').on('click', function(){
-		/* window.open('/javatree/qna/insertQuestionReady.action?question.content='+content
-				+'&question.title='+title+'&question.typeno='+typeno); */
-				
-		var typeno = $("#questionTypeno option:selected").val();
-		var title = $("#questionTitle").val();
-		var content = $("#questionContent").val();
+	$('#insertQuestionModal').on('click', function(){
+		var str = '';
+		str += '<div class="modal-dialog modal-lg">'
+		str += '<div class="modal-content">';
+		str += '<div class="modal-header">';
+		str += '<button type="button" class="close" data-dismiss="modal">&times;</button>';
+		str += '<h4 class="modal-title">Modal Header</h4>';
+		str += '</div>';
+		str += '<div class="modal-body">';
+		str += '<table style=\'width: 800px;\'>';
+		str += '<tr><td style=\'width: 100px; height: 70px; text-align:center;\'><b>FIELD</b></td>';
+		str += '<td><select id="questionTypeno" style="width: 100px;">';
+		str +='<option value="1">PUREJAVA</option>';
+		str +='<option value="2">WEB</option>';
+		str +='<option value="3">MOBILE</option>';
+		str +='<option value="4">IOT</option>';
+		str +='<option value="5">SWING</option>';
+		str +='<option value="6">JDBC</option>';
+		str +='<option value="7">API</option>';
+		str +='<option value="8">SPRING</option>';
+		str +='<option value="9">STRUTS</option>';
+		str += '<option value="10">etcFramework</option>';
+		str += '<option value="11">ETC</option>';
+		str += '</select></td></tr>';
+		str += '<tr><td style=\'height: 20px;\'></td></tr>';
+		str += '<tr><td style=\'width: 100px; text-align:center;\'><b>QUESTION</b></td>';
+		str += '<td><textarea id="questionTitle" style="height: 100px;"></textarea></td></tr>';
+		str += '<tr><td style=\'height: 20px;\'></td></tr>';
+		str += '<tr><td style=\'width: 100px; text-align:center;\'><b>content</b></td>';
+		str += '<td><textarea id="questionContent" style="height: 250px;"></textarea></td></tr>';
+		str += '<tr><td style=\'height: 20px;\'></td></tr></table></div>';
+		str += '<div class="modal-footer">';
+		str += '<input type="button" value="등록" id = "insertQuestionBtn" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
+		str += '<input type="button" value="취소" class="cancel"></div></div></div>';
 		
-		$.ajax({
-			type: 'POST'
-			, url: '/javatree/qna/insertQuestionByModal.action'
-			, data: 'question.content='+content+'&question.title='+title+'&question.typeno='+typeno
-			, success : function(response){
-				$('#writeQuestionModal').modal('hide');
-			}
-			, error : function(response){
-				$('#writeQuestionModal').modal('hide');
-			}
-		})
+		$('#writeQuestion').html(str);
 	});
 	
-	$('body').on('click','.cancel',function(){
-		$('#askSelections').modal('hide');
-	});
+	 $("#goCodingbox").on("click", function(){
+	      var codingno =  $(".codingList option:selected").val();
+	      var mycode = $('#doccontent > textarea:visible').val();
+	      alert(codingno);
+	      alert(mycode);
+	      $.ajax({
+	         url : '/javatree/course/insertcodinginbox.action',
+	         data : {'codingno' : codingno , 'mycode':mycode},
+	         success : function(response){
+	         },
+	         error:function(){
+	         }
+	      });
+	   });
+	 
+		$('#watchRelatedQuestion').on('click', function(){
+			var codingno =  $(".codingList option:selected").val();
+			window.open('/javatree/qna/watchRelatedQuestion.action?codingno='+codingno);
+		});
+		
+		$('#makeQuestion').on('click', function(){
+			var codingtemplet = $('#doccontent textarea:visible').val();
+			$('#askSelections').modal('hide');
+			$('#insertQuestionModal').trigger('click');
+			$('#questionContent').val(codingtemplet);
+			//window.open('/javatree/qna/insertQuestionReady.action?codingtemplet='+codingtemplet);
+		});
+		
+		$('body').on('click', '#insertQuestionBtn', function(){
+			/* window.open('/javatree/qna/insertQuestionReady.action?question.content='+content
+					+'&question.title='+title+'&question.typeno='+typeno); */
+			var typeno = $("#questionTypeno option:selected").val();
+			var title = $("#questionTitle").val();
+			var content = $("#questionContent").val();
+			$.ajax({
+				type: 'POST'
+				, url: '/javatree/qna/insertQuestionByModal.action'
+				, data: 'question.content=<pre>'+content+'</pre>&question.title='+title+'&question.typeno='+typeno
+				, success : function(response){
+					alert('성공');
+					$('#writeQuestion').modal('hide');
+				}
+				, error : function(response){
+					alert('실패');
+					$('#writeQuestion').modal('hide');
+				}
+			})
+		});
+		
+		$('body').on('click','.cancel',function(){
+			$('#writeQuestion').modal('hide');
+		});
+		 
 	
 	$('body').on('input propertychange scroll change keyup paste','#doccontent > textarea:visible', function (key) {
         	var textarea = $(this);
@@ -686,10 +661,9 @@ $(function(){
 			, data: 'codingno='+codingno
 			, dataType : 'json'
 			, success : function(response){
-				$('#doccontent > textarea:visible').val("<pre>"+response.coding.codingtemplet+"</pre>");
+				$('#doccontent > textarea:visible').val(response.coding.codingtemplet);
 			}
 			, error : function(response){
-				alert('실패');
 			}
 		})
 	}); 
@@ -702,11 +676,10 @@ $(function(){
 			, data: 'codingno='+codingno
 			, dataType : 'json'
 			, success : function(response){
-				$('#doccontent > textarea:visible').val("<pre>"+response.coding.codingtemplet+"</pre>");
+				$('#doccontent > textarea:visible').val(response.coding.codingtemplet);
 				$("#question").val(response.coding.codingquestion);
 			}
 			, error : function(response){
-				alert('실패');
 			}
 		})
 	});	
@@ -722,28 +695,20 @@ $(function(){
 	    if ( e.ctrlKey && e.keyCode === 32 ) {
 	    	var textAreaValue = $('#doccontent textarea:visible').val();
 	    	var splitedValue = textAreaValue.split(/\t/);
-	    	alert(splitedValue);
-	    	alert(splitedValue.length);
 	    	var temp = splitedValue[splitedValue.length];
 	    	if(temp == 'sysout'){
 	    		splitedValue[splitedValue.length] = 'sysout.result'; 
 	    	}
-	    	alert(splitedValue);
 	    }
 	    
 	    
 	    if ( e.ctrlKey && ( String.fromCharCode(e.which).toLowerCase() === 'd') ) {
-	    	alert('in');
 	    	//var val = $(".editor").val();
 	    	//var a= $("#doccontent textarea").val();
 	    	
 	    	var textAreaValue = $('#doccontent textarea:visible').val();
-	    	alert(textAreaValue);
 	    	var splitedValue = textAreaValue.split('\n');
-	    	alert(splitedValue);
-	    	alert(splitedValue[0]);
 	    	var a = $('#doccontent textarea:visible').caret(position)
-	    	alert(a);
 	    	
 	    	
 	    	//alert($("#doccontent #class1_content").selectionEnd);
@@ -801,6 +766,7 @@ $(function(){
 			return;
 		};
 		
+		$("#result").val('처리중입니다.');
 		$.ajax({
 				 type: 'POST'
 				, url: 'runCode'
@@ -818,7 +784,8 @@ $(function(){
 					var error = response.error;
 					alert(error);
 					if(type == 'jsp'){
-						window.open(response.result);						
+						window.open(response.result);
+						$("#result").val('');
 					}else{
 						if(error){
 							$("#askToUser").trigger('click');
@@ -875,10 +842,12 @@ function addTab(classnum) {
     $("#tabs").append("<li class='current'><a class='tab' id='class" +
     		classnum + "' href='#'>" + ('class'+classnum) + 
         "</a><a href='#' class='remove'>x</a></li>");
-    $("#doccontent").append("<textarea id=class"+classnum+"_content"+" class="+"editor></textarea>");t
+    $("#doccontent").append("<textarea id=class"+classnum+"_content"+" class="+"editor style=\"height: 514px;\"></textarea>");t
     $("#" + $(link).attr("rel") + "_content").show();
 }
 </script>
+
+
 
 <!-- editor 마침 -->
 <script type="text/javascript">
@@ -898,8 +867,6 @@ window.onload = function() {
 	  
 	  
 	  var playSelectedFile = function (event) {
-		alert("event>> " + event);
-		alert("this>> " + this);
 		
 		var file = this.files[0]
 	    var type = file.type
@@ -913,9 +880,8 @@ window.onload = function() {
 	    /* if (isError) {
 	      return
 	    }
- */		alert("file>> " + file);
+ */		
 	    var fileURL = URL.createObjectURL(file)
-	    alert("fileURL>> " + fileURL);
 	    videoNode.src = fileURL
 	  }
 	  var inputNode = document.querySelector('input')
@@ -1542,6 +1508,7 @@ function selectChapter(selectObj)
 	 video.play();
  	
  }  
+
 </script>
 
 
