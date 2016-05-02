@@ -29,7 +29,7 @@
    <!-- PAGE WRAP -->
    <div id="page-wrap">
 
-      <div class="top-nav">
+      <div class="top-nav" style="z-index: 1;">
 
          <h4 class="sm black bold">QUESTION BOX</h4>
 
@@ -56,8 +56,6 @@
                                  <h6>INSERT</h6>
                               </a>
                            </div>
-
-
                         </li>
 
                         <li>
@@ -154,6 +152,7 @@
                            </select>
                            <!-- 강의 해당 코딩문제 리스트 끝-->
                            <input type="button" id="btnCancel" value="창닫기" style="float: right; margin-right: 28px;">
+                           <input type="button" id="btnDelete" value="삭제" style="float: right; margin-right: 28px;">
                            <input type="button" id="btnSave" value="저장" style="float: right; margin-right: 28px;">
                         </td>
                      </tr>
@@ -166,13 +165,13 @@
 
    
 <div class="container">
-  <button type="button" style="display:none;" id = "insertModal" data-toggle="modal" data-target="#myModal"></button>
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-sm">
-      <div class="modal-content">
+      <div class="modal-content" style="margin-top:100%;">
         <div class="modal-body">
-          <p>등록되었습니다.</p>
+          <p>내용이 저장되었습니다.</p>
         </div>
          <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -196,14 +195,6 @@
    
    <script type="text/javascript">
 $(document).ready(function() {
-   
-/*    function courselistget(){
-      alert("코스리스트겟들어옴");
-      $('#lstBox2 option').remove();
-       var selectcourse =  $('#courselistbox option:selected').val();
-       alert(selectcourse);
-       
-   } */
    
    $("#courselistbox").change(function(){ 
       var courseno=$(this).val()      
@@ -302,13 +293,39 @@ $(document).ready(function() {
              , data : 'StringForSaveCoding='+StringForSaveCoding+'&lectureno='+lectureno
              , dataType : 'json'
              , success : function(response){
-                $("#insertModal").trigger('click');
+                $("#modalNotification").trigger('click');
                 //$('#lstBox2 option').remove();
              }
              , error : function(response){
                 console.log('에러');
              }
           }); 
+    });
+    
+    $('#btnDelete').on('click',function(){
+    	var StringForSaveCoding = [];
+    	
+    	$('#lstBox1 option:selected').each(function(index) {
+    		StringForSaveCoding.push(Number($(this).val())) ;
+           });
+    	$.ajax({
+            url : 'deleteCoding.action'
+            , data : 'StringForSaveCoding='+StringForSaveCoding
+            , dataType : 'json'
+            , success : function(response){
+            	$('#lstBox1').empty();
+            	var list = response.codingList;
+            	list.forEach(function(coding){
+	            	$('<option value="'+coding.codingno+'">'+coding.codingquestion+'</option>').appendTo('#lstBox1');
+            	});
+               $("#modalNotification").trigger('click');
+            }
+            , error : function(response){
+               console.log('에러');
+            }
+         });
+    	
+    	
     });
     
     $("#btnCancel").on('click',function(){

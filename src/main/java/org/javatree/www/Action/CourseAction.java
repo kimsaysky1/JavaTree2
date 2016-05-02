@@ -2485,15 +2485,10 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 */
 		public String updateCodingfromMain(){
 			
-			System.out.println("문제 보관함의 문제를 수정하겠다");
-			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			
-			id = (String)session.get("loginId");
+			id = (String) session.get("loginId");
 			coding.setId(id);
-			
-			System.out.println("코딩 들어있니" +coding);
-			
 			dao.updateCodingfromMain(coding);
 			
 			return SUCCESS;
@@ -2526,7 +2521,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 	
 			coding = dao.getCodingContent(codingno);
-
+			System.out.println("update coding: "+coding);
 			return SUCCESS;	
 		}
 		
@@ -2801,16 +2796,13 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		
 		public String saveLectureCodingfromMain() throws Exception{
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			ArrayList<Integer> tempList = new ArrayList<>();
+			 ArrayList<Integer> tempList = new ArrayList<>();
 	         StringTokenizer st = new StringTokenizer(StringForSaveCoding, ",");
 	         while(st.hasMoreTokens()){
 	            tempList.add(Integer.parseInt(st.nextToken()));
 	         }
 	         
 	         codingNoList = dao.selectedAllLectureCoding(lectureno);
-	         
-	         System.out.println("tempList: "+tempList);
-	         System.out.println("codingNoList: "+codingNoList);
 	         
 	         boolean check = false;
 	         
@@ -2833,10 +2825,23 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	        		 }
 	        	 }
 	         }
-	         
 			return SUCCESS;
 		}
 		
+		public String deleteCoding() throws Exception{
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			ArrayList<Integer> tempList = new ArrayList<>();
+	         StringTokenizer st = new StringTokenizer(StringForSaveCoding, ",");
+	         while(st.hasMoreTokens()){
+	            tempList.add(Integer.parseInt(st.nextToken()));
+	         }
+	         
+	         for(int i = 0; i < tempList.size(); i++){
+	        	 dao.deleteCoding(tempList.get(i));
+	         }
+	         codingList = dao.selectAllCodingForId((String)session.get("loginId"));
+			return SUCCESS;
+		}
 		
 		
 		//getter setter
