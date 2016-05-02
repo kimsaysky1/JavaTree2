@@ -641,21 +641,21 @@
 		<!-- select codingno from codingtemp where id=#{id} -->
 		select * from codingtemp where id=#{id}
 	</select>
-	
+	<!-- 코딩박스 중복저장 방지 - 일치하는코딩객체가져오기-->
 	<select id="selectedCheck" parameterType="int" resultType="Coding">
 		select * from coding where codingno=#{codingno}
 	</select>
-	
+	<!-- 코딩박스 중복저장 방지 - 일치하는코딩객체개수가져오기-->
 	<select id="selectLectureCoding" parameterType="map" resultType="int">
 		select count(*) from lecturecoding where lectureno=#{lectureno} and codingno=#{codingno}
 	</select>
-<<<<<<< HEAD
 	
-	<!-- 하는중 -->
+	<!-- 코딩박스 왼쪽버튼 누를때 삭제하기전 비교할 전체 codingno int다치들 다같이 찾아오기 -->
 	<select id="selectedAllLectureCoding" parameterType="int" resultType="int">
 		select codingno from lecturecoding where lectureno=#{lectureno}
 	</select>
 	
+	<!-- 코딩박스 왼쪽버튼 누를때 삭제하기전 비교할 count 전체 알아오기 -->
 	<select id="selectedAllLectureCodingCount" parameterType="int" resultType="int">
 		select count(*) from lecturecoding where lectureno=#{lectureno}
 	</select>
@@ -664,8 +664,10 @@
 	<delete id="deleteLectureCodingForQuestionBox" parameterType="map">
 		delete from lecturecoding where codingno=#{codingno} and lectureno=#{lectureno}
 	</delete>
-=======
 
+
+
+	
 	<select id="selectFileName" parameterType="int" resultType="String">
 		select uploadedfilename from lecture where lectureno = #{lectureno}
 	</select>
@@ -674,7 +676,6 @@
 		select uploadedfilename from subnote where lectureno = #{lectureno}
 	</select>
 	
->>>>>>> 1adf38d0f7fbd69d0748f7beb64363623b4107b7
  
 </mapper>
 

@@ -2365,7 +2365,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}
 		
 		/*insertSelectedCodingfromMain- 문제 보관함 메인 화면에서의 등록 */
-	      public String insertSelectedCodingfromMain(){
+/*	      public String insertSelectedCodingfromMain(){
 	         
 	         System.out.println("codingListForInsert: "+codingListForInsert);// codingListForInsert: [1,3]
 	         System.out.println("size: "+codingListForInsert.size());
@@ -2385,6 +2385,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         Map<String, Object> map = new HashMap<>();
 	         Map<String, Object> mapfordele = new HashMap<>();
 	         ArrayList<Integer> codingListCheck = new ArrayList<>();//20160501추가 - codingno;; for delete (왼쪽버튼 눌렀을때)
+	         
+	         boolean delCk=false;
+	         
 	         for(int i = 0; i < tempList.size(); i++){
 	            map.put("codingno", tempList.get(i));
 	            map.put("lectureno", lectureno);
@@ -2395,21 +2398,26 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	            int sa= dao.selectedAllLectureCodingCount(lectureno);//20160501추가 - count;; for delete (왼쪽버튼 눌렀을때)
 	            System.out.println("selectAlllecturecodingCount: "+sa);
 	            
-	            /*deleteLectureCoding*/
+	            deleteLectureCoding
 	            if(sa > tempList.size()){
 		            for(int j=0; j<codingListCheck.size();j++){
 		            	if(codingno == codingListCheck.get(j)){
-		            		System.out.println("가져온 값과 db 값 비교했을때 다르다 ");
-			            	mapfordele.put("codingno", codingno);
-			            	mapfordele.put("lectureno", lectureno);
-			            	dao.deleteLectureCodingForQuestionBox(mapfordele);
-			            	System.out.println("mapfordele: "+mapfordele);
-			            	System.out.println("delete완성");
+		            		delCk=true;
 		            	}
 		            }
+		            if(!check){
+		            	System.out.println("가져온 값과 db 값 비교했을때 다르다 ");
+		            	mapfordele.put("codingno", codingno);
+		            	mapfordele.put("lectureno", lectureno);
+		            	dao.deleteLectureCodingForQuestionBox(mapfordele);
+		            	System.out.println("mapfordele: "+mapfordele);
+		            	System.out.println("delete완성");
+		     		}
 	            	
 	            }
-	            /*saveLectureCoding*/
+	            
+	            
+	            saveLectureCoding
 	            int s= dao.selectLectureCoding(map);//20160501추가 - count ;;for count check (중복저장 피하기위해)
 	            System.out.println("s: "+s);
 	            if(s == 0){
@@ -2422,7 +2430,87 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         }
 	         codingFormlecturelist();
 	         return SUCCESS;
-	      }
+	      }*/
+		
+		
+	      public String insertSelectedCodingfromMain(){
+		         
+		         System.out.println("codingListForInsert: "+codingListForInsert);// codingListForInsert: [1,3]
+		         System.out.println("size: "+codingListForInsert.size());
+		         System.out.println("codingListForInsert.get(0): "+codingListForInsert.get(0));
+		         courseDAO dao = sqlSession.getMapper(courseDAO.class);
+		         
+		         ArrayList<String> tempList = new ArrayList<>();
+		         String temp = codingListForInsert.get(0);
+		         StringTokenizer st = new StringTokenizer(temp, ",");
+		         while(st.hasMoreTokens()){
+		            tempList.add(st.nextToken());
+		         }
+		            
+		         System.out.println("tempList.size(): "+tempList.size());
+		         System.out.println("tempList: "+tempList);
+		         
+		         Map<String, Object> map = new HashMap<>();
+		         Map<String, Object> mapfordele = new HashMap<>();
+		         ArrayList<Integer> codingListCheck = new ArrayList<>();//20160501추가 - codingno;; for delete (왼쪽버튼 눌렀을때)
+		         
+		         boolean delCk=false;
+		         
+		        
+		         
+		         
+		         
+		         for(int i = 0; i < tempList.size(); i++){
+		            map.put("codingno", tempList.get(i));
+		            map.put("lectureno", lectureno);
+		            codingno=Integer.parseInt(tempList.get(i));//20160501추가
+		            System.out.println("lectureno:"+lectureno);
+		            codingListCheck= dao.selectedAllLectureCoding(lectureno);  //20160501추가 - codingno;; for delete (왼쪽버튼 눌렀을때)
+		            System.out.println("codingListCheck: "+codingListCheck);
+		            int sa= dao.selectedAllLectureCodingCount(lectureno);//20160501추가 - count;; for delete (왼쪽버튼 눌렀을때) //db의 lecturecoding
+		            System.out.println("selectAlllecturecodingCount: "+sa);
+		            
+		            
+		            
+		            
+		            /*deleteLectureCoding*/
+		            if(sa > tempList.size()){
+			            for(int j=0; j<codingListCheck.size();j++){
+			            	if(codingno == codingListCheck.get(j)){ //뷰에서 가져온거랑 db비교
+			            		delCk=true;
+			            	}
+			            }
+		            }
+		            if(check){
+		            	System.out.println("가져온 값과 db 값 비교했을때 다르다 ");
+		            	mapfordele.put("codingno", codingno);
+		            	mapfordele.put("lectureno", lectureno);
+		            	dao.deleteLectureCodingForQuestionBox(mapfordele);
+		            	System.out.println("mapfordele: "+mapfordele);
+		            	System.out.println("delete완성");
+		     		}
+		          
+		            else{
+		            	 /*saveLectureCoding*/
+			            int s= dao.selectLectureCoding(map);//20160501추가 - count ;;for count check (중복저장 피하기위해)
+			            System.out.println("s: "+s);
+			            if(s == 0){
+			            	dao.insertLectureCoding(map);
+			            	System.out.println(i+"번째값 등록 완료");
+			            }
+			            else{
+			            	System.out.println("같은것 있음. 등록 불가 ");
+			            }
+		            }
+		            
+		           
+		         }
+		         codingFormlecturelist();
+		         return SUCCESS;
+		      }
+		
+		
+		
 
 		/*insertSelectedCodingfromMain- 인서트렉쳐 할때의 메인화면에서 등록 */
 		public String insertSelectedCodingfromInsertLecture(){

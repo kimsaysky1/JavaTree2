@@ -96,14 +96,11 @@ public interface courseDAO {
 	public ArrayList<Lecture> selectWatchingLecture(Map<String, Object> kong);
 	public ArrayList<Lecture> selectWatchingLecture1(Map<String, Object> kong);
 	public int selectLectureCoding(Map<String, Object> map);
-<<<<<<< HEAD
 	public ArrayList<Integer> selectedAllLectureCoding(int lectureno);
 	public int selectedAllLectureCodingCount(int lectureno);
 	public void deleteLectureCodingForQuestionBox(Map<String, Object> mapfordele);
-=======
 	public String selectFileName(int lectureno);
 	public String selectSubNoteName(int lectureno);
 	
->>>>>>> 1adf38d0f7fbd69d0748f7beb64363623b4107b7
 	
 }

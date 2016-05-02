@@ -103,6 +103,13 @@ CREATE sequence coding_seq start with 1 increment by 1;--20160424 박수지 수�
 CREATE sequence question_seq start with 1 increment by 1;--20160425 박수지 수정
 ALTER TABLE studylecture
    ADD UNIQUE (lectureno)--20160425 창우 수정 ~ 재수강신청 방지
+   
+alter table lecture modify (lecturename varchar2(100));
+alter table course modify (coursename varchar2(100));--20160502 박수지 추가
+alter table studycourse modify (coursename varchar2(100));--20160502 박수지 추가
+alter table teachcourse modify (coursename varchar2(100));--20160502 박수지 추가
+
+
 /* Drop Tables */
 drop table lecturecoding cascade constraints;
 
