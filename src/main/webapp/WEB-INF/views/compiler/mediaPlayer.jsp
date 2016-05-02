@@ -700,6 +700,7 @@ $(function(){
    });
    
    $('body').on('click', '#tabs a.remove', function() {
+	  
         var tabid = $(this).parent().find(".tab").attr("id");
         if(tabid == 'class1'){
         	alert('기본 클래스는 삭제할 수 없습니다.');

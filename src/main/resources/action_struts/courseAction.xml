@@ -34,6 +34,13 @@
         	<result>/WEB-INF/views/course/courseDefaultMain.jsp</result>
         </action>
         
+<<<<<<< HEAD
+     	<action name="plusStudyMain" class="org.javatree.www.Action.CourseAction" method="plusStudyMain">
+        	<result>/WEB-INF/views/course/studyMain2.jsp</result>
+        </action>
+        
+=======
+>>>>>>> d2e1a6a8ae94fed878595a3150b4e82026d6dc8b
         <action name="plusStudyMain2" class="org.javatree.www.Action.CourseAction" method="plusStudyMain2">
         	<result>/WEB-INF/views/course/studyMain2.jsp</result>
         </action>
@@ -42,6 +49,15 @@
         	<result>/WEB-INF/views/course/teachMain.jsp</result>
         </action>
         
+<<<<<<< HEAD
+       
+        <action name="studyMainView" class="org.javatree.www.Action.CourseAction" method="studyMainView">
+        	<interceptor-ref name="LoginCheckForMember" />
+        	<result>/WEB-INF/views/course/studyMain2.jsp</result>
+        </action>
+        
+=======
+>>>>>>> d2e1a6a8ae94fed878595a3150b4e82026d6dc8b
         <action name="selectCourseDetailForStudy" class="org.javatree.www.Action.CourseAction" method="selectCourseDetailForStudy">
         	<interceptor-ref name="LoginCheckForMember" />
         	<result>/WEB-INF/views/course/CourseDetailForStudy.jsp</result>
