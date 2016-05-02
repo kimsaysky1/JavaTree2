@@ -682,6 +682,15 @@
  		select * from coding
  		where codingno in (select codingno from lecturecoding where lectureno = #{lectureno})
  	</select>
+ 	
+ 	<delete id="deleteCodingFromLectureCoding" parameterType="map">
+		delete from lecturecoding where lectureno =#{lectureno} and codingno = #{codingno}
+	</delete>
+	
+	<insert id="insertCodingFromLectureCoding" parameterType="map">
+		insert into lecturecoding values(#{lectureno}, #{codingno})
+	</insert>
+ 	<!-- 영호 추가끝 -->
 </mapper>
 
 

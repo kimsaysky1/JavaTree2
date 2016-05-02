@@ -35,7 +35,21 @@
 
 		
 		 <!-- PROFILE FEATURE 프로필!!!!-->
-		    <section class="profile-feature">
+		 <section class="profile-feature">
+			<div class="awe-parallax bg-profile-feature"></div> <!-- 좀 늘리기 -->
+			<div class="awe-overlay overlay-color-3"></div>
+			<div class="container">
+					<div class="sub-banner-content">
+						<h4 class="md" style="color: #E3E3E3;">
+							<s:if test="%{#session.loginId != null}">
+								${session.loginId} &nbsp; , Welcome to the JavaTree!
+							</s:if>
+						</h4>
+					</div>	
+			</div>
+		</section>
+		 
+		    <%-- <section class="profile-feature">
 		        <div class="awe-parallax bg-profile-feature"></div>
 		        <div class="awe-overlay overlay-color-3"></div>
 		        <div class="container">
@@ -51,7 +65,7 @@
 		                </div>
 		            </div>
 		        </div>
-		    </section>
+		    </section> --%>
         <!-- END / PROFILE FEATURE -->
         
          <!-- CONTEN BAR -->
@@ -105,44 +119,7 @@
                     </div>
                 </div>
                </s:iterator>
-				
-				
-<!-- 				<div class = "form-study-course">
-				         <div class="study-course-bg mc-item3">
-		         
-                        <div class="meta-categories"><a href="#">Field</a></div>
-                        <div class="content-item">
-                            <h3><a href="course-intro.html">CourseTitle</a></h3>
-                        </div>
-                            <div class="edit-view">
-	                            <a href="#" class="edit">Edit</a>
-	                            <a href="/javatree/course/insertLectureView.action" class="view">ADD LECTURE</a>
-                        	</div>
-                    </div>
-                </div> -->
-                
-                
-                
-                
-                
-<%-- <s:iterator value="courseList" status="st"> 
-<!-- <input type="hidden" name="courseno" value="courseList.courseno">  -->
-                <div class = "form-study-course">
-				         <div class="study-course-bg mc-item3">
 
-                        <div class="meta-categories"><a href="#">Field</a></div> <!-- edit -->
-                        <div class="content-item">
-                            <h3><a href="/javatree/course/CourseDetailForTeachForm.action?courseno=<s:property value="courseno"/>"><s:property value="coursename" /><!-- CourseTitle --></a></h3>
-
-                        </div>
-                              <div class="edit-view">
-	                            <a href="#" class="edit">Edit</a>
-	                            <a href="/javatree/course/insertLectureForm.action?courseno=<s:property value="courseno"/>" class="view">ADD LECTURE</a> <!-- 여기서 courseno를 가지고들어옴 -->
-                        	
-                        	</div>
-                    </div>
-                </div>
-</s:iterator>               --%>
  			<div class = "paging" align="center">
 	<ul class="pager">
 		<s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
@@ -219,20 +196,13 @@
 <%@include file="/resources/footer.jsp" %>
 	
 	<!-- Load jQuery -->
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/jquery.owl.carousel.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/jquery.appear.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/perfect-scrollbar.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/jquery.easing.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/scripts.js"></script>
+	<script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="../resources/javatree_view/html/js/library/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery.owl.carousel.js"></script>
+	<script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery.appear.min.js"></script>
+	<script type="text/javascript" src="../resources/javatree_view/html/js/library/perfect-scrollbar.min.js"></script>
+	<script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="../resources/javatree_view/html/js/scripts.js"></script>
 
 <script type="text/javascript">
 	

@@ -1,3 +1,5 @@
+alter table lecture modify (lecturename varchar2(100));
+
 create table codingtemp
 (
    id varchar2(20) NOT NULL,
