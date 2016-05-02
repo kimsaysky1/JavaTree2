@@ -2070,9 +2070,10 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				for(int i=0; i<codingList.size();i++){
 					coding= codingList.get(i);
 					map.put("codingno", coding.getCodingno());
+					dao.insertlecturecodingInInsertLecture(map);
+					dao.deleteCodingTemp(id);
 				}			
-				dao.insertlecturecodingInInsertLecture(map);
-				dao.deleteCodingTemp(id);
+				
 			return SUCCESS;
 		}
 		
