@@ -297,6 +297,13 @@
         	<result type="json"></result>	
         </action>
         
+        <action name="deleteCoding" class="org.javatree.www.Action.CourseAction" method="deleteCoding">
+        	<result type="json"></result>
+        </action>
+        <!-- <action name="deleteCodingfromMainView">
+        	<result>/WEB-INF/views/course/deleteCoding.jsp</result>
+        </action> -->
+        
         <!-- 영호 작성 문제보관함 종료 -->
     </package>
 

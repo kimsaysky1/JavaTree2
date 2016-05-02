@@ -107,6 +107,8 @@ public interface courseDAO {
 	public ArrayList<Coding> selectedAllCoding(int lectureno);
 	public void deleteCodingFromLectureCoding(Map map);
 	public void insertCodingFromLectureCoding(Map map);
+	public void deleteCoding(Integer integer);
+	public ArrayList<Coding> selectAllCodingForId(String string);
 	
 	
 }

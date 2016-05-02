@@ -678,6 +678,10 @@
  
  	<!-- 영호 추가 -->
  	
+ 	<select id="selectAllCodingForId" parameterType="String" resultType="Coding">
+ 		select * from coding where id = #{id}
+ 	</select>
+ 	
  	<select id="selectedAllCoding" parameterType="int" resultType="Coding">
  		select * from coding
  		where codingno in (select codingno from lecturecoding where lectureno = #{lectureno})
@@ -690,6 +694,10 @@
 	<insert id="insertCodingFromLectureCoding" parameterType="map">
 		insert into lecturecoding values(#{lectureno}, #{codingno})
 	</insert>
+	
+	<delete id="deleteCoding" parameterType="int">
+		delete from Coding where codingno = #{codingno}
+	</delete>
  	<!-- 영호 추가끝 -->
 </mapper>
 

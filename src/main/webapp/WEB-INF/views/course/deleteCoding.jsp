@@ -29,14 +29,14 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
-<title>updateCoding</title>
+<title>Mega Course - Learning and Courses HTML5 Template</title>
 </head>
 <body id="page-top">
 
 	<!-- PAGE WRAP -->
 	<div id="page-wrap">
 
-		<div class="top-nav" style="z-index: 1;">
+		<div class="top-nav">
 
 			<h4 class="sm black bold">QUESTION BOX</h4>
 
@@ -53,14 +53,20 @@
 											<h6>MAIN</h6>
 										</a>
 									</div>
+
+
 								</li>
+
 								<li>
 									<div class="list-body">
 										<a href="/javatree/course/insertCodingfromMainView.action">
 											<h6>INSERT</h6>
 										</a>
 									</div>
+
+
 								</li>
+
 								<li>
 									<div class="list-body">
 										<a href="/javatree/course/updateCodingfromMainView.action">
@@ -98,46 +104,14 @@
 
 						<table style='width: 1000px;'>
 							<tr>
-								<td style='width: 400px;'><b>ALL QUESTION</b><br /> 
-								<select multiple="multiple" id='codinglistbox'style='width: 400px; height: 600px;'>
+								<td style='width: 950px;'><b>ALL QUESTION</b><br /> 
+								<select multiple="multiple" id='codinglistbox'style='width: 950px; height: 300px;'>
 										<s:iterator value="codingList" status="st">   
 											<option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>
 										 </s:iterator>
 								</select>
-								</td>
-								<td style='width: 30px;'></td>
-								<td>
-									<table style='width: 550px;'>
-										<tr>
-											<td style='width: 100px; text-align: center;'><b>QUESTION</b></td>
-											<td><textarea style="height: 60px;" id="q_title" name = "coding.codingquestion" placeholder=""></textarea></td>
-										</tr>
-										<tr>
-											<td style='height: 20px;'></td>
-											<td></td>
-										</tr> 
-										<tr>
-											<td style='width: 100px; text-align: center;'><b>CODE</b></td>
-											<td><textarea style="height: 220px;" id = "codebox" name = "coding.codingtemplet"  placeholder=""></textarea></td>
-										</tr>
-										<tr>
-											<td style='height: 20px;'></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td style='width: 100px; text-align: center;'><b>ANSWER</b></td>
-											<td><textarea style="height: 220px;" id = "answerbox" name ="coding.codinganswer" placeholder=""></textarea></td>
-										
-										</tr>
-										<tr>
-											<td style='height: 20px;'></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td><input type="hidden" id = "codeno" name ="coding.codingno" value ="" ></td>
-											<td><input type="button" id = "submit_btn"  value="수정" style="float: right;"></td>
-										</tr>
-									</table>
+								<br><br>
+								<input type="button" id = "submit_btn" value="삭제" style="float: right; margin-right: 47px;">
 								</td>
 							</tr>
 						</table>
@@ -145,25 +119,12 @@
 				</div>
 			</div>
 		</section>
+
+
+
 	</div>
 	<!-- END / PAGE WRAP -->
-	
-<div class="container">
-  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content" style="margin-top:100%;">
-        <div class="modal-body">
-          <p>내용이 저장되었습니다.</p>
-        </div>
-         <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-         </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 	<!-- Load jQuery -->
 	<script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="../resources/javatree_view/html/js/library/bootstrap.min.js"></script>
@@ -178,58 +139,39 @@
 	$(function(){
 		
 		$("#codinglistbox").change(function(){
+			
 			var codingno= parseInt($(this).val());		
 			
-			$.ajax({
-				url : 'showcodingcontent.action',
-				data : {'codingno' : codingno},
-				dataType: 'json',
-				success : function(response){
-					var codingno =  parseInt(response.coding.codingno);
-					$('#q_title').val(response.coding.codingquestion);	
-					$('#codebox').val(response.coding.codingtemplet);	
-					$('#answerbox').val(response.coding.codinganswer);	
-					$('#codeno').attr('value',codingno);	
+			alert(codingno);
+			
+			$('#submit_btn').on('click', function() {
 				
-				},
-				error:function(){
-					alert('에러');
-				}
+				alert("버튼이 눌렸고");
+				alert("여기 아직 넘버 있다"+codingno);
+			
+				$.ajax({
+					url : 'deleteCodingfromMain.action',
+					data : {'codingno' : codingno},
+					success : function(response){
+						alert('성공');
+						location.href = "deleteCodingfromMainView.action";
+						/* $('#codinglistbox').append('');
+						$(response.codingList).each(function(index, item) {
+							alert("도냐?");
+							$('#codinglistbox').append( '<option value='+item.codingno+' class="lstBox2_1">'+item.codingquestion+'</option>');
+						});	 */
+					
+					},
+					error:function(){
+						alert('에러');
+					}
+				});
 			});
 			
 		});
 
+	});		
 		
-		$('#submit_btn').on('click', function(){
-		var q_title = $("#q_title").val();
-		var codebox = $("#codebox").val();
-		var answerbox = $("#answerbox").val();
-		var codingno = $('#codeno').attr('value');
-		if(q_title.trim() == ""){
-			alert("질문을 입력해주세요");
-		}else if(codebox.trim() == ""){
-			alert("코드를 입력해주세요");
-		}else if(answerbox.trim() == ""){
-			alert("정답을 입력해주세요");
-		}
-			$.ajax({
-				url : 'updateCodingfromMain'
-				,data : 'coding.codingquestion='+q_title+'&coding.codingtemplet='+
-				codebox+'&coding.codinganswer='+answerbox+'&coding.codingno='+codingno
-				,dataType : 'json'
-				,success : function(response){
-					$("#modalNotification").trigger('click');
-					$('#q_title').val('');	
-					$('#codebox').val('');	
-					$('#answerbox').val('');
-				},
-				error:function(){
-					console.log('에러');
-				}
-			});
-		}); 
-		
-	});
 	
 	</script>
 
