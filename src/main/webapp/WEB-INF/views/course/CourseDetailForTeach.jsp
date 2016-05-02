@@ -119,7 +119,7 @@
 		</td>
 		<td style="width: 60%">
 			<s:iterator value="course" status="st">							
-				<div class="create-course-5"><!-- <div class="create-course-2"> --><!-- <div class="create-course-3"> -->
+				<div class="create-course-5"><!-- <div class="create-course-2"> --><!-- <div class="create-course-3"> --><!-- 잘보기 -->
 					<div class="form-item" style="border: 1px solid #E3E3E3; ">
 						<input type="text" placeholder="title" value='<s:property value="coursename"/>' name="coursename">
 					</div>
@@ -142,7 +142,7 @@
 	
 		<td style="width: 60%">
 			<s:iterator value="course" status="st">								
-				<div class="create-course-2">
+				<div class="create-course-5"><!-- <div class="create-course-2"> -->
 					<div class="description-editor text-form-editor">
 						<textarea name="introdution" placeholder="Discription"><s:property value="introdution" /></textarea>
 					</div>
