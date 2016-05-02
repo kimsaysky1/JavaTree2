@@ -96,5 +96,8 @@ public interface courseDAO {
 	public ArrayList<Lecture> selectWatchingLecture1(Map<String, Object> kong);
 	public Coding selectedCheck(int codingno);
 	public int selectLectureCoding(Map<String, Object> map);
+	public ArrayList<Integer> selectedAllLectureCoding(int lectureno);
+	public int selectedAllLectureCodingCount(int lectureno);
+	public void deleteLectureCodingForQuestionBox(Map<String, Object> mapfordele);
 	
 }

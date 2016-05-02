@@ -36,8 +36,6 @@
       <collection property="courseTypeList" javaType="java.util.ArrayList" column="courseno" ofType="int" select="selectTypeno"/>
    </resultMap>
    
-   
-	
 	<resultMap type="Lecture" id="sLectureMap">
        	<result property="coursename" column="coursename"/>
       	<result property="lecturename" column="lecturename"/>
@@ -51,6 +49,11 @@
       <result property="codinganswer"  column="codinganswer"  jdbcType="CLOB" javaType="java.lang.String" typeHandler="org.apache.ibatis.type.ClobTypeHandler"/>
       <result property="id" column="id"/>
    </resultMap>
+	
+	<!-- <resultMap type="Coding" id="lectureCodingMap">
+		<result property="codingno" column=""/>
+		<result property="lectureno" column=""/>
+	</resultMap> -->
 	
 	<select id="selectCoursename" resultType="String">
 		select coursename from course where courseno = #{courseno}
@@ -646,6 +649,20 @@
 	<select id="selectLectureCoding" parameterType="map" resultType="int">
 		select count(*) from lecturecoding where lectureno=#{lectureno} and codingno=#{codingno}
 	</select>
+	
+	<!-- 하는중 -->
+	<select id="selectedAllLectureCoding" parameterType="int" resultType="int">
+		select codingno from lecturecoding where lectureno=#{lectureno}
+	</select>
+	
+	<select id="selectedAllLectureCodingCount" parameterType="int" resultType="int">
+		select count(*) from lecturecoding where lectureno=#{lectureno}
+	</select>
+	
+	<!-- 코딩박스 왼쪽버튼 누를때 삭제하기 -->
+	<delete id="deleteLectureCodingForQuestionBox" parameterType="map">
+		delete from lecturecoding where codingno=#{codingno} and lectureno=#{lectureno}
+	</delete>
  
 </mapper>
 
