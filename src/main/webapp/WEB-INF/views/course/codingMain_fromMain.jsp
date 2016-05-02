@@ -24,13 +24,12 @@
 <title>문제보관함</title>
 
 
-
 <body id="page-top">
 
    <!-- PAGE WRAP -->
    <div id="page-wrap">
 
-      <div class="top-nav" style="z-index: 1;">
+      <div class="top-nav">
 
          <h4 class="sm black bold">QUESTION BOX</h4>
 
@@ -171,7 +170,7 @@
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-sm">
-      <div class="modal-content" style="margin-top:100%;">
+      <div class="modal-content">
         <div class="modal-body">
           <p>등록되었습니다.</p>
         </div>
@@ -256,8 +255,6 @@ $(document).ready(function() {
    
 
     $('#btnRight').click(function(e) { //오른쪽 화살표
-<<<<<<< HEAD
-       //var selectedOpts = $('#lstBox1 option:selected');
        var lectureno = $("#lecturelistbox option:selected").val();
        var beforeCodingArray = [];
        $('#lstBox1 :selected').each(function(i, selected) {
@@ -281,31 +278,6 @@ $(document).ready(function() {
              $('<option value="'+item.codingno+'">'+item.codingquestion+'</option>').appendTo('#lstBox2');
           }
       });
-=======
-    	var lectureno = $("#lecturelistbox option:selected").val();
-    	var beforeCodingArray = [];
-    	$('#lstBox1 :selected').each(function(i, selected) {
-    		
-    		var temp = {
-    			codingno: Number($(selected).val())
-    			,codingquestion: $(selected).html()
-    		}
-    		beforeCodingArray.push(temp);
-    	});
-    	
-    	var rightCodingArray = [];
-    	
-    	$('#lstBox2 option').each(function(i, coding){
-    		rightCodingArray.push(Number($(coding).val()));
-    	});
-    	
-    	beforeCodingArray.forEach(function(item){
-   		 var check = $.inArray(item.codingno, rightCodingArray);
-		 if(check < 0){
-    			$('<option value="'+item.codingno+'">'+item.codingquestion+'</option>').appendTo('#lstBox2');
-    		}
-		});
->>>>>>> 0877f3931368abdeea1ccd0ba07984c61ef35de8
     });
 
     $('#btnLeft').click(function(e) { //왼쪽 화살표
@@ -319,51 +291,30 @@ $(document).ready(function() {
     
  
     $('#btnSave').on( "click", function(){ 
-<<<<<<< HEAD
-       var rightCodingArray = [];
-       $('#lstBox2 option').each(function(index) {
-          rightCodingArray.push( $(this).val()) ;
-=======
        var StringForSaveCoding = [];
        $('#lstBox2 option').each(function(index) {
-    	   StringForSaveCoding.push(Number($(this).val())) ;
->>>>>>> 0877f3931368abdeea1ccd0ba07984c61ef35de8
+          StringForSaveCoding.push(Number($(this).val())) ;
          });
        
        var lectureno = $("#lecturelistbox option:selected").val();
          $.ajax({
-<<<<<<< HEAD
-             url : 'insertSelectedCodingfromMain.action',
-             data : 'codingListForInsert='+rightCodingArray+'&lectureno='+lectureno,
-             success : function(response){
-                
-                $("#insertModal").trigger('click');
-              	$('#lstBox2 option').remove();
-=======
              url : 'saveLectureCodingfromMain.action'
              , data : 'StringForSaveCoding='+StringForSaveCoding+'&lectureno='+lectureno
              , dataType : 'json'
              , success : function(response){
-            	 $("#insertModal").trigger('click');
+                $("#insertModal").trigger('click');
                 //$('#lstBox2 option').remove();
->>>>>>> 0877f3931368abdeea1ccd0ba07984c61ef35de8
              }
-         	 , error : function(response){
-         		 console.log('에러');
-         	 }
+             , error : function(response){
+                console.log('에러');
+             }
           }); 
     });
     
     $("#btnCancel").on('click',function(){
-<<<<<<< HEAD
        window.close();
-=======
-    	window.close();
->>>>>>> 0877f3931368abdeea1ccd0ba07984c61ef35de8
     });
 });
-
-
 </script>
    
 
