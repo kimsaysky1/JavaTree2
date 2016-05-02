@@ -92,20 +92,35 @@
 							<tr class="new">
 								<td class="submissions"><s:property value="#counter.index + 1" />.&nbsp;&nbsp;&nbsp;<s:property value="lecturename" /></td>
 								<td class="author"></td>
-								<td class="score"></td>
-								<td class="submit-date"></td>
-								<td class="submit-date"><s:property value="regdate" /></td>
+								<td class="score"><s:property value="regdate" /></td>
 								
-								<s:if test="studying != null">
-									<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>'>Watch</a></td>
-								</s:if>
-								<s:else>
-									<td class="submit-date"><a href='insertLectureForStudy.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno" />&coursename=<s:property value="coursename" />&teacherid=<s:property value="teacherid" />'>Apply</a></td>
-								</s:else>
+								
+								
+					<s:if test="studying != null">
+									<s:url id ="download" action = "DownLoadFile">
+						<s:param name ="uploadedfilename">
+							${subnoteName}
+						</s:param>
+						<s:param name = "lectureno">
+							${lectureno}
+						</s:param>
+						</s:url>
+							<td class="submit-date"></td>
+							<td class="submit-date">
+								<s:a href="%{download}" method="post">${subnoteName}</s:a>
+							</td>
+							<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>'>Watch</a></td>
+					</s:if>
+								
+					<s:else>
+								<td class="submit-date"></td>
+								<td class="submit-date"></td>
+								<td class="submit-date"><a href='insertLectureForStudy.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno" />&coursename=<s:property value="coursename" />&teacherid=<s:property value="teacherid" />'>Apply</a></td>
+					</s:else>
 							</tr>
 						</s:iterator>
 							
-							<s:if test="lectureList == null">
+				<s:if test="lectureList == null">
 							<tr class="new">
 								<td class="submissions"></td>
 								<td class="author">&nbsp;&nbsp;&nbsp;&nbsp;정&nbsp;&nbsp;보&nbsp;&nbsp;없&nbsp;&nbsp;음</td>
@@ -114,7 +129,7 @@
 								<td class="submit-date"></td>
 								<td class="submit-date"></td>
 							</tr>
-							</s:if>
+				</s:if>
 
 						</tbody>
 					</table>

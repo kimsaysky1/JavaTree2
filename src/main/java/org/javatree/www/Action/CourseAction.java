@@ -324,14 +324,16 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	public String DownLoadFile() throws Exception {
 		System.out.println("lectureno: "+getLectureno());
 		courseDAO dao = sqlSession.getMapper(courseDAO.class);
-		String filename = dao.selectUploadedFileName(lectureno);
-		System.out.println("filename: " + filename);
-		String inputPath = UploadPath + filename;
+		String uploadid = dao.selectUploadedFileName(lectureno);
+		System.out.println("lecture: >> " + uploadid);
+		
+		String inputPath = UploadPath2 + uploadid+ "/"+uploadedfilename;
 		File file = new File(inputPath);
+		System.out.println("inputPath>> " + inputPath + "~~ " + "filename>> " + uploadedfilename);
 		setContentLength(file.length());
 		
 		//contentDisposition 다운로드 창을 띄우는 부분
-		setContentDisposition("attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
+		setContentDisposition("attachment; filename=" + URLEncoder.encode(uploadedfilename, "UTF-8"));
 		
 		setInputStream(new FileInputStream(inputPath));
 
@@ -1191,6 +1193,18 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			tempList = dao.selectCourseDetailForStudy(kong);
 			System.out.println("templist>> " + tempList);
 			
+			ArrayList<Lecture> tempList2 = new ArrayList<>();
+			tempList2 = dao.selectWatchingLecture1(kong);
+			System.out.println("templist2>> " + tempList2);
+			for (int i = 0; i < tempList.size(); i++) {
+				for (int j = 0; j < tempList2.size(); j++) {
+					if(tempList.get(i).getLectureno() == tempList2.get(j).getLectureno()){
+						tempList.get(i).setSubnoteName(tempList2.get(j).getUploadedfilename());
+						//subnote 붙이기
+					}
+				}
+			}
+			
 			lectureList = new ArrayList<>();
 			
 			if(end > tempList.size()){
@@ -1203,7 +1217,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			System.out.println("리스트>>" + lectureList);
 			coursename = lectureList.get(0).getCoursename();
 			introdution = lectureList.get(0).getIntrodution();
-		
+			
 		}else{
 		
 			if(endPageGroup == 0) endPageGroup = 1;
@@ -1217,7 +1231,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		session.put("endPageGroup", endPageGroup);
 		System.out.println("endpage>> " + endPageGroup);
 		System.out.println("curpage>> " + currentPage);
-		System.out.println("courselist>> " + courseList);
+		System.out.println("스터디 디테일 courselist>> " + courseList);
 		
 		return SUCCESS;
 	}
@@ -1320,6 +1334,19 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			ArrayList<Lecture> tempList = new ArrayList<>();
 			tempList = dao.selectCourseDefaultDetail(kong);
+			
+			ArrayList<Lecture> tempList2 = new ArrayList<>();
+			tempList2 = dao.selectWatchingLecture1(kong);
+			System.out.println("templist2>> " + tempList2);
+			for (int i = 0; i < tempList.size(); i++) {
+				for (int j = 0; j < tempList2.size(); j++) {
+					if(tempList.get(i).getLectureno() == tempList2.get(j).getLectureno()){
+						tempList.get(i).setSubnoteName(tempList2.get(j).getUploadedfilename());
+						//subnote 붙이기
+					}
+				}
+			}
+			
 			lectureList = new ArrayList<>();
 			
 			if(end > tempList.size()){
@@ -1384,6 +1411,19 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		
 		ArrayList<Lecture> tempList = new ArrayList<>();
 		tempList = dao.selectCourseDefaultDetail(kong);
+		
+		ArrayList<Lecture> tempList2 = new ArrayList<>();
+		tempList2 = dao.selectWatchingLecture1(kong);
+		System.out.println("templist2>> " + tempList2);
+		for (int i = 0; i < tempList.size(); i++) {
+			for (int j = 0; j < tempList2.size(); j++) {
+				if(tempList.get(i).getLectureno() == tempList2.get(j).getLectureno()){
+					tempList.get(i).setSubnoteName(tempList2.get(j).getUploadedfilename());
+					//subnote 붙이기
+				}
+			}
+		}
+		
 		lectureList = new ArrayList<>();
 		
 		if(end > tempList.size()){
@@ -1451,6 +1491,53 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 	
+	public String insertLectureForStudy1() {
+		
+		courseDAO dao = sqlSession.getMapper(courseDAO.class);
+		Map<String, Object> kong = new HashMap<>();
+		
+		System.out.println("loginId>> " + session.get("loginId"));
+		
+		if(session.get("loginId") != null){
+			kong.put("id", (String)session.get("loginId"));
+		}else{
+			message = "수강 신청 실패!";
+			return ERROR;
+		}
+		
+		System.out.println("lecno> " + lectureno + " / courseno> " + courseno
+				+ " / coursename> " + coursename + "teacherid> " + teacherid);
+		
+		kong.put("lectureno", lectureno);
+		kong.put("courseno", courseno);
+		kong.put("coursename", coursename);
+		kong.put("teacherid", teacherid);
+		int confirm = dao.updateMemberPoint(kong);
+		
+		System.out.println("confirm>> " + confirm);
+		
+		if(confirm == 1){
+			
+			try {
+				int k = dao.checkStudyCourse(kong);
+				System.out.println("k> " + k);
+				if (k == 0) {
+					dao.insertLectureForStudy(kong);
+				}
+				dao.insertLectureForStudy1(kong);
+				dao.updateStudentCount(lectureno);
+			} catch (Exception e) {
+				return ERROR;
+			}
+			message = "수강 신청 완료!";
+		}else {
+			return ERROR;
+		}
+		
+		selectCourseDefaultDetail(kong);
+		
+		return SUCCESS;
+	}
 	
 	/**
 	 * CourseDefaultDetail - 강좌 쪽 상세보기 페이지 (수강 신청 후 다시 리스트 뿌리면서 들어오기)
@@ -1479,10 +1566,22 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			session.put("currentPage", currentPage);
 			session.put("CountPerPage", countPerPage);
 			session.put("endPageGroup", endPageGroup);
-			
 		
 			ArrayList<Lecture> tempList = new ArrayList<>();
 			tempList = dao.selectCourseDefaultDetail(kong2);
+			
+			ArrayList<Lecture> tempList2 = new ArrayList<>();
+			tempList2 = dao.selectWatchingLecture1(kong2);
+			System.out.println("templist2>> " + tempList2);
+			for (int i = 0; i < tempList.size(); i++) {
+				for (int j = 0; j < tempList2.size(); j++) {
+					if(tempList.get(i).getLectureno() == tempList2.get(j).getLectureno()){
+						tempList.get(i).setSubnoteName(tempList2.get(j).getUploadedfilename());
+						//subnote 붙이기
+					}
+				}
+			}
+			
 			lectureList = new ArrayList<>();
 			
 			if(end > tempList.size()){

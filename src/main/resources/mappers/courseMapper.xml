@@ -126,6 +126,7 @@
 		JOIN course c ON ( l.courseno = c.courseno and c.courseno = #{courseno} )
 		LEFT OUTER JOIN studylecture s ON (  s.lectureno = l.lectureno and s.courseno = #{courseno} and s.id = #{id}
 		)
+		order by lectureno asc
 		</if>
 	</select>
 	
@@ -150,7 +151,7 @@
 		</if>
 	</select>
 	
-		<select id="selectWatchingLecture2" parameterType="map" resultType="Lecture">
+	<!-- 	<select id="selectWatchingLecture2" parameterType="map" resultType="Lecture">
 		<if test="id != null">
 		SELECT 
 		lectureno
@@ -158,7 +159,7 @@
 		where courseno = #{courseno} and id = #{id}
 		order by lectureno desc
 		</if>
-	</select>
+	</select> -->
 	
 	<!-- CourseDefaultDetail 강좌상세보기 -->
 	<select id="selectCourseDefaultDetail" parameterType="map" resultType="Lecture">
@@ -168,8 +169,7 @@
 		c.coursename as coursename, c.introdution as introdution, c.courseno as courseno, c.id as teacherid
 		FROM lecture l 
 		JOIN course c ON ( l.courseno = c.courseno and c.courseno = #{courseno} )
-		LEFT OUTER JOIN studylecture s ON (  s.lectureno = l.lectureno and s.courseno = #{courseno} and s.id = #{id}
-		)
+		LEFT OUTER JOIN studylecture s ON (  s.lectureno = l.lectureno and s.courseno = #{courseno} and s.id = #{id})
 		order by lectureno asc
 		</if>
 		<if test="id == null">
@@ -387,7 +387,7 @@
      
      <!-- 다운로드를 위한 서브노트 네임 찾기  -->
      <select id="selectUploadedFileName" parameterType="int" resultType="String">
-   		select uploadedfilename from subnote where lectureno = #{lectureno}  
+   		select id from subnote where lectureno = #{lectureno}  
      </select>
      
      

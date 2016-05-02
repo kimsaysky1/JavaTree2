@@ -89,6 +89,12 @@
         	<result name="error" type="redirect">index.action</result>
         </action>
         
+        <action name="insertLectureForStudy1" class="org.javatree.www.Action.CourseAction" method="insertLectureForStudy1">
+			<interceptor-ref name="LoginCheckForMember" />
+        	<result>/WEB-INF/views/course/CourseDetailForStudy.jsp</result>
+        	<result name="error" type="redirect">index.action</result>
+        </action>
+        
         <action name="teachMainView">
         	<result>/WEB-INF/views/course/teachMain.jsp</result>
         </action>

@@ -15,6 +15,7 @@ public class Lecture {
 	private String introdution; //강좌의 소개를 받아오는 변수
 	private String studying; //수강신청한 강의 인지 체크하는 변수
 	private String teacherid; //수강신청시 사용한 강사 아이디 변수
+	private String subnoteName;
 	/*private ArrayList<Lecture> lectureList;*/
 
 	public Lecture() {
@@ -26,11 +27,10 @@ public class Lecture {
 		this.coursename = coursename;
 	}
 
-	
 
 	public Lecture(int courseno, int lectureno, String lecturename, String regdate, String originalfilename,
 			String uploadedfilename, String startdate, String enddate, String coursename, String introdution,
-			String studying, String teacherid) {
+			String studying, String teacherid, String subnoteName) {
 		super();
 		this.courseno = courseno;
 		this.lectureno = lectureno;
@@ -44,6 +44,7 @@ public class Lecture {
 		this.introdution = introdution;
 		this.studying = studying;
 		this.teacherid = teacherid;
+		this.subnoteName = subnoteName;
 	}
 
 	public int getCourseno() {
@@ -151,13 +152,21 @@ public class Lecture {
 		this.teacherid = teacherid;
 	}
 
+	public String getSubnoteName() {
+		return subnoteName;
+	}
+
+	public void setSubnoteName(String subnoteName) {
+		this.subnoteName = subnoteName;
+	}
+
 	@Override
 	public String toString() {
 		return "Lecture [courseno=" + courseno + ", lectureno=" + lectureno + ", lecturename=" + lecturename
 				+ ", regdate=" + regdate + ", originalfilename=" + originalfilename + ", uploadedfilename="
 				+ uploadedfilename + ", startdate=" + startdate + ", enddate=" + enddate + ", coursename=" + coursename
-				+ ", introdution=" + introdution + ", studying=" + studying + ", teacherid=" + teacherid + "]";
+				+ ", introdution=" + introdution + ", studying=" + studying + ", teacherid=" + teacherid
+				+ ", subnoteName=" + subnoteName + "]";
 	}
 
-	
 }

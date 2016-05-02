@@ -303,11 +303,8 @@
             	    	break;
             	    }
             	}
-              
-      		
             
       		/* alert(list.get(0)); */
-      		
       		
              if(approve == 'approve'){
             	list.add(id);
@@ -326,7 +323,7 @@
 				        	 list.forEach(function(lec){
 				 				
 				        	 	var divTag = $('<div class="tbody"></div>');
-				 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="../compiler/Compiler.action?lectureno='+lec.lectureno+'"><i class="fa fa-play-circle-o"></i></a></div></div>')
+				 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="../compiler/Compiler.action?lectureno='+lec.lectureno+'" onclick="window.open(this.href, "KongPlayer");return false;"><i class="fa fa-play-circle-o"></i></a></div></div>')
 				 				.insertAfter(sel); 	  
 				        		 
 				        		 /* var divTag = $('<div class="post"><div class="post-body"></div></div>');
@@ -334,7 +331,6 @@
 				 				+course.coursename+'</a></h3></div><div class="post-meta">by'
 				 				+course.username+' on '+course.regdate+'</div><div class="post-link"><a href="blog-single.jsp?courseno='+course.courseno
 				 				+'"><i class="fa fa-play-circle-o"></i>Lecture List</a></div>').appendTo(".blog-list-content"); */
-				 			
 				 			});
 				        	 
 				        	/*  var curPage = Number(response.currentPage);
@@ -356,7 +352,6 @@
 				        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 				        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
 				        	 } */
-				        	
 				        }
                
 				 });
@@ -371,7 +366,6 @@
                 	
                 	$('.table-item')
                     .find('.thead').children().children().children().html('');
-                    
                 }
                 	$(this)
                     .toggleClass('active')
@@ -379,12 +373,9 @@
                         .slideToggle(200);
                 	//slide effect 종료
                
-               
                 	/*  var divTag = $('<div class="tbody"></div>');
 		 				divTag.html('<div class="item"><div class="submissions">Title</div><div class="total-subm">Submited</div><div class="replied">Replied</div><div class="latest-reply">11. Jul , 2014</div><div class="link tb-icon"><a href="#"><i class="fa fa-play-circle-o"></i></a></div></div>')
 		 				.insertAfter($(this));     */        
-                
-           				
                    
         });
     });
