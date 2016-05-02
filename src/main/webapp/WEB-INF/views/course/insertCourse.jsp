@@ -594,7 +594,7 @@
                         <!-- END / CATEGORIES -->
 
                         <div class="form-action">
-                            <input type="submit" value="Save and Next" onclick="javascript:insertCourForm()" class="submit mc-btn-3 btn-style-1">
+                            <input type="submit" value="Save" onclick="javascript:insertCourForm()" class="submit mc-btn-3 btn-style-1">
                         </div>
                         
                     </div>

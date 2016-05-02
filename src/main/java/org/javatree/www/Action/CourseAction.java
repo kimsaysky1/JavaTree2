@@ -147,6 +147,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	//영호 새로 추가
 	
 	private ArrayList<Integer> codingNoList;
+	private String StringForSaveCoding;
+	
 	//영호 새로 추가 끝
 	ArrayList<Coding> checkCoding= new ArrayList<>();
 	
@@ -2547,12 +2549,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         return SUCCESS;
 	      }*/
 		
-		
+		/*- 문제 보관함 메인 화면에서의 등록 */
 	      public String insertSelectedCodingfromMain(){
 		         
-		         System.out.println("codingListForInsert: "+codingListForInsert);// codingListForInsert: [1,3]
-		         System.out.println("size: "+codingListForInsert.size());
-		         System.out.println("codingListForInsert.get(0): "+codingListForInsert.get(0));
 		         courseDAO dao = sqlSession.getMapper(courseDAO.class);
 		         
 		         ArrayList<String> tempList = new ArrayList<>();
@@ -2562,18 +2561,11 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		            tempList.add(st.nextToken());
 		         }
 		            
-		         System.out.println("tempList.size(): "+tempList.size());
-		         System.out.println("tempList: "+tempList);
-		         
 		         Map<String, Object> map = new HashMap<>();
 		         Map<String, Object> mapfordele = new HashMap<>();
 		         ArrayList<Integer> codingListCheck = new ArrayList<>();//20160501추가 - codingno;; for delete (왼쪽버튼 눌렀을때)
 		         
 		         boolean delCk=false;
-		         
-		        
-		         
-		         
 		         
 		         for(int i = 0; i < tempList.size(); i++){
 		            map.put("codingno", tempList.get(i));
@@ -2584,7 +2576,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		            System.out.println("codingListCheck: "+codingListCheck);
 		            int sa= dao.selectedAllLectureCodingCount(lectureno);//20160501추가 - count;; for delete (왼쪽버튼 눌렀을때) //db의 lecturecoding
 		            System.out.println("selectAlllecturecodingCount: "+sa);
-		            
 		            
 		            /*deleteLectureCoding*/
 		            if(sa > tempList.size()){
@@ -3037,12 +3028,47 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		//영호 문제보관함 시작
 		
 		public String DuplicateCheck() throws Exception{
-			System.out.println("lectureno: "+lectureno);
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			codingList = dao.selectedAllCoding(lectureno);
 			codingNoList = dao.selectedAllLectureCoding(lectureno);
-			System.out.println("codingList:" +codingList);
-			System.out.println("codingNoList: "+codingNoList);
+			return SUCCESS;
+		}
+		
+		public String saveLectureCodingfromMain() throws Exception{
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			ArrayList<Integer> tempList = new ArrayList<>();
+	         StringTokenizer st = new StringTokenizer(StringForSaveCoding, ",");
+	         while(st.hasMoreTokens()){
+	            tempList.add(Integer.parseInt(st.nextToken()));
+	         }
+	         
+	         codingNoList = dao.selectedAllLectureCoding(lectureno);
+	         
+	         System.out.println("tempList: "+tempList);
+	         System.out.println("codingNoList: "+codingNoList);
+	         
+	         boolean check = false;
+	         
+	         if(codingNoList.size() > tempList.size()){
+	        	 for(int i = 0; i < codingNoList.size(); i++){
+	        		 if(!(tempList.contains(codingNoList.get(i)))){
+	        			 Map map = new HashMap();
+	        			 map.put("lectureno", lectureno);
+	        			 map.put("codingno", codingNoList.get(i));
+	        			 dao.deleteCodingFromLectureCoding(map);
+	        		 }
+	        	 }
+	         }else if(codingNoList.size() < tempList.size()){
+	        	 for(int i = 0; i < tempList.size(); i++){
+	        		 if(!(codingNoList.contains(tempList.get(i)))){
+	        			 Map map = new HashMap();
+	        			 map.put("lectureno", lectureno);
+	        			 map.put("codingno", tempList.get(i));
+	        			 dao.insertCodingFromLectureCoding(map);
+	        		 }
+	        	 }
+	         }
+	         
 			return SUCCESS;
 		}
 		
@@ -3051,10 +3077,16 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		//getter setter
 
 		
-		
-		
 		public ArrayList<Integer> getCodingNoList() {
 			return codingNoList;
+		}
+		
+		public String getStringForSaveCoding() {
+			return StringForSaveCoding;
+		}
+
+		public void setStringForSaveCoding(String stringForSaveCoding) {
+			StringForSaveCoding = stringForSaveCoding;
 		}
 
 		public void setCodingNoList(ArrayList<Integer> codingNoList) {

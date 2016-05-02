@@ -77,20 +77,26 @@
 
 	<!-- PROFILE FEATURE 프로필!!!!-->
 	<section class="profile-feature">
-		<div class="awe-parallax bg-profile-feature"></div>
+		<div class="awe-parallax bg-profile-feature"></div> <!-- 좀 늘리기 -->
 		<div class="awe-overlay overlay-color-3"></div>
 		<div class="container">
-			<div class="info-author">
-				<div class="name-author">
-					<h2 class="big">USER NAME</h2>
-				</div>
-			</div>
-			<div class="info-follow">
+			<!-- <div class="info-author">
+				<div class="name-author"> -->
+				<div class="sub-banner-content">
+					<h4 class="md" style="color: #E3E3E3;">
+						<s:if test="%{#session.loginId != null}">
+							${session.loginId} &nbsp; , Welcome to the JavaTree!
+						</s:if>
+					</h4>
+				</div>	
+				<!-- </div>
+			</div> -->
+			<%-- <div class="info-follow">
 				<div class="trophies">
 					<span>JAVA KONG</span>
 					<p>5000P</p>
 				</div>
-			</div>
+			</div> --%>
 		</div>
 	</section>
 	<!-- END / PROFILE FEATURE -->
@@ -102,15 +108,65 @@
 
 		<div class="mid-detail-course">
 			<div class="container">
-				<div class="create-course-content2">
+				<div class="create-course-content2"> <!-- zz -->
 
+<table dir="ltr" style="width: 100%">
+	<tr >
+		<td style="width: 20%">
+			<div class="create-course-1">
+				<h4>Title</h4>
+			</div>
+		</td>
+		<td style="width: 60%">
+			<s:iterator value="course" status="st">							
+				<div class="create-course-5"><!-- <div class="create-course-2"> --><!-- <div class="create-course-3"> --><!-- 잘보기 -->
+					<div class="form-item" style="border: 1px solid #E3E3E3; ">
+						<input type="text" placeholder="title" value='<s:property value="coursename"/>' name="coursename">
+					</div>
+				</div>
+			</s:iterator>	
+		
+		</td>
+		<td style="width: 20%">
+			<div class="form-action"><!-- <div class="form-action2"> -->
+					<input type="submit" value="Edit" class="submit mc-btn-3 btn-style-1" />
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td style="width: 20%">
+			<div class="create-course-1">
+				<h4>Description</h4>
+			</div>				
+		</td>
+	
+		<td style="width: 60%">
+			<s:iterator value="course" status="st">								
+				<div class="create-course-5"><!-- <div class="create-course-2"> -->
+					<div class="description-editor text-form-editor">
+						<textarea name="introdution" placeholder="Discription"><s:property value="introdution" /></textarea>
+					</div>
+				</div>
+			</s:iterator>	
+		</td>
+		<td style="width: 20%">
+			<div class="form-action">
+				<input type="submit" value="Edit" class="submit mc-btn-3 btn-style-1" />
+			</div>
+		</td>
+	</tr>
+</table>
+
+
+
+
+<%-- 
 					<!-- PROMO VIDEO -->
 					<div class="promo-video create-item">
 						
 							<div class="create-course-1">
 								<h4>Title</h4>
 							</div>
-<!-- <form action="updateCourseName" method="post" id="updateCourseName"> 	 -->						
 <s:iterator value="course" status="st">							
 							<div class="create-course-3">
 								<div class="form-item">
@@ -122,7 +178,6 @@
 							<div class="form-action2">
 								<input type="submit" value="Edit" class="submit mc-btn-3 btn-style-1" />
 							</div>
-<!-- </form>		 -->				
 					</div>
 					<!-- END / PROMO VIDEO -->
 
@@ -132,7 +187,6 @@
 							<div class="create-course-1">
 								<h4>Description</h4>
 							</div>
-<!-- <form action="updateCourseIntrodution" method="post" id="updateCourseIntrodution"> --> 							
 <s:iterator value="course" status="st">								
 							<div class="create-course-2">
 								<div class="description-editor text-form-editor">
@@ -144,13 +198,20 @@
 							<div class="form-action">
 								<input type="submit" value="Edit" class="submit mc-btn-3 btn-style-1" />
 							</div>
-<!-- </form>	 -->							
 
 						</div>
 					</div>
 					<!-- END / DESCRIPTION -->
 
-				</div>
+				</div> <!-- 처리 -->
+				
+				
+				
+				 --%>
+				
+				
+				
+				
 			</div>
 		</div>
 		

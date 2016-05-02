@@ -2132,6 +2132,8 @@ table.mc-table tbody .new .submissions a:before {
 	float: left;
 }
 
+
+
 .create-course-2{
 	width:75%;
 	float: right;
@@ -2149,6 +2151,13 @@ table.mc-table tbody .new .submissions a:before {
 	float:right;
 	margin-right: 40px;
 }
+/* 수지수정 - .create-course-2에서바꿈*/
+.create-course-5{
+	width:100%;
+	float: left;
+	margin-right: 15px;
+} 
+
 
 .qna-list label{
   font-family: 'Lato', sans-serif;
@@ -3882,7 +3891,7 @@ footer#footer.footer-style-2 {
 }
 .sub-banner .sub-banner-content {
   max-width: 500px;
-}
+}/* detailForTeach에서씀*/
 .sub-banner h2 {
   color:  #fff;
 }
