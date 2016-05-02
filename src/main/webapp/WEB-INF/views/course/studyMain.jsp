@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/javatree/course/teachMainView.action">
+                    <a href="/javatree/course/selectAllCourseListForTeach.action">
                         <i class="icon md-people"></i>
                         Teaching
                     </a>

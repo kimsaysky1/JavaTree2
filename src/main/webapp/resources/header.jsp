@@ -112,7 +112,7 @@
 							
 								<ul class="sub-menu">
 									<li><a href="/javatree/course/selectAllCourseListForTeach.action">Teach MYPAGE</a></li>
-									<li><a href="/javatree/course/studyMainView.action">Study MYPAGE</a></li>
+									<li><a href="/javatree/course/studyMainView2.action">Study MYPAGE</a></li>
 								</ul>
 							
 						</li>
