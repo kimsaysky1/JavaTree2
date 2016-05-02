@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<%@taglib prefix="s" uri="/struts-tags" %>
+   pageEncoding="UTF-8"%>
+   <%@taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,30 +26,31 @@
 
 <body id="page-top">
 
-	<!-- PAGE WRAP -->
-	<div id="page-wrap">
+   <!-- PAGE WRAP -->
+   <div id="page-wrap">
 
-		<div class="top-nav">
+      <div class="top-nav">
 
-			<h4 class="sm black bold">QUESTION BOX</h4>
+         <h4 class="sm black bold">QUESTION BOX</h4>
 
-			<ul class="top-nav-list">
-				<li class="outline-learn"><a href="#"><i
-						class="icon md-list"></i></a>
-					<div class="list-item-body outline-learn-body">
-						<div class="section-learn-outline">
-							<h5 class="section-title">MENU</h5>
-							<ul class="section-list">
-								<li>
-									<div class="o-view">
-										<a href="/javatree/course/codingFormfromMain.action">
-											<h6>MAIN</h6>
-										</a>
-									</div>
+         <ul class="top-nav-list">
+            <li class="outline-learn"><a href="#"><i
+                  class="icon md-list"></i></a>
+               <div class="list-item-body outline-learn-body">
+                  <div class="section-learn-outline">
+                     <h5 class="section-title">MENU</h5>
+                     <ul class="section-list">
+                        <li>
+                           <div class="o-view">
+                              <a href="/javatree/course/codingFormfromMain.action">
+                                 <h6>MAIN</h6>
+                              </a>
+                           </div>
 
 
-								</li>
+                        </li>
 
+<<<<<<< HEAD
 								<li>
 									<div class="list-body">
 										<a href="/javatree/course/insertCodingfromMainView.action">
@@ -57,57 +58,68 @@
 										</a>
 									</div>
 								</li>
-
-								<li>
-									<div class="list-body">
-										<a href="/javatree/course/updateCodingfromMainView.action">
-											<h6>UPDATE</h6>
-										</a>
-									</div>
-
-								</li>
-								
-									<li>
-									<div class="list-body">
-										<a href="/javatree/course/deleteCodingfromMainView.action">
-											<h6>DELETE</h6>
-										</a>
-									</div>
-
-								</li>
-
-							</ul>
-						</div>
+=======
+                        <li>
+                           <div class="list-body">
+                              <a href="/javatree/course/insertCodingfromMainView.action">
+                                 <h6>INSERT</h6>
+                              </a>
+                           </div>
 
 
-					</div></li>
-				<!-- 페이지 종료 -->
-				<li class="backpage"><a href="#"><i
-						class="icon md-close-1" onclick="self.close();"></i></a></li>
-			</ul>
+                        </li>
+>>>>>>> b27e855ce63831fb849303a929c8d605191971d9
 
-		</div>
-		<section id="quizz-intro-section"
-			class="quizz-intro-section learn-section">
-			<div class="container">
+                        <li>
+                           <div class="list-body">
+                              <a href="/javatree/course/updateCodingfromMainView.action">
+                                 <h6>UPDATE</h6>
+                              </a>
+                           </div>
 
-				<div class="title-ct">
-					<h3>
-						<strong></strong>
-					</h3>
-					<div class="tt-right">
-						<a href="#" class="skip"><i class="icon md-arrow-right"></i>Skip
-							quizz</a>
-					</div>
-				</div>
-				<div class="question-content-wrap">
-					<div class="question-content">
-						<h4 class="sm">QUESTION BOX</h4>
+                        </li>
+                        
+                           <li>
+                           <div class="list-body">
+                              <a href="/javatree/course/deleteCodingfromMainView.action">
+                                 <h6>DELETE</h6>
+                              </a>
+                           </div>
 
-						<table style='width: 900px;'>
-							<tr>
-								<td style='width: 400px;'><b>ALL QUESTION</b><br /> 
-						<!-- 보유 코딩 문제 리스트 -->
+                        </li>
+
+                     </ul>
+                  </div>
+
+
+               </div></li>
+            <!-- 페이지 종료 -->
+            <li class="backpage"><a href="#"><i
+                  class="icon md-close-1" onclick="self.close();"></i></a></li>
+         </ul>
+
+      </div>
+      <section id="quizz-intro-section"
+         class="quizz-intro-section learn-section">
+         <div class="container">
+
+            <div class="title-ct">
+               <h3>
+                  <strong></strong>
+               </h3>
+               <div class="tt-right">
+                  <a href="#" class="skip"><i class="icon md-arrow-right"></i>Skip
+                     quizz</a>
+               </div>
+            </div>
+            <div class="question-content-wrap">
+               <div class="question-content">
+                  <h4 class="sm">QUESTION BOX</h4>
+
+                  <table style='width: 900px;'>
+                     <tr>
+                        <td style='width: 400px;'><b>ALL QUESTION</b><br /> 
+                  <!-- 보유 코딩 문제 리스트 -->
                            <select multiple="multiple" id='lstBox1' style='width: 400px; height: 600px;' >
                                <s:iterator value="codingList" status="st">   
                                  <option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>
@@ -125,9 +137,9 @@
                           <!-- 강좌 목록 -->
                            <select class="courselistbox" id ="courselistbox" style='width: 400px; height:30px;'>
                                     <option>강좌 목록</option>
-							<s:iterator value="courseList" status="st">   
+                     <s:iterator value="courseList" status="st">   
                                    <option value="<s:property value="courseno"/>"><s:property value="courseno"/>.<s:property value="coursename"/></option>                
-							</s:iterator>
+                     </s:iterator>
                                     <!-- <s:property value="lectureno"/> -->
                            </select>
                            <!-- 강좌 목록 끝-->
@@ -137,18 +149,18 @@
                            <!-- 강의 목록 -->
                             <select class="lecturlistbox" id ="lecturelistbox" style='width: 400px; height:30px;'>
                             <option>강의 목록</option>
-							<s:iterator  value="lectureList" status="st">   
-                          		<option value="<s:property value="lectureno"/>"><s:property value="lecturename"/></option>                
-							</s:iterator>                
+                     <s:iterator  value="lectureList" status="st">   
+                                <option value="<s:property value="lectureno"/>"><s:property value="lecturename"/></option>                
+                     </s:iterator>                
                            </select> 
                            <!-- 강의 목록 끝--> 
                            
                            <br><br>
                            <!-- 강의 해당 코딩문제 리스트 -->
                            <select multiple="multiple" id='lstBox2' style='width: 400px; height: 480px;'>                          
- 							<s:iterator value="codingList" status="st">  
+                      <s:iterator value="codingList" status="st">  
                                  <%-- <option value="<s:property value="codingquestion"/>"><s:property value="codingquestion"/></option> --%>
-							</s:iterator>
+                     </s:iterator>
                            </select>
                            <!-- 강의 해당 코딩문제 리스트 끝-->
                            <input type="button" id="btnCancel" value="창닫기" style="float: right; margin-right: 28px;">
@@ -160,9 +172,9 @@
             </div>
          </div>
       </section>
-	
+   
 
-	
+   
 <div class="container">
   <button type="button" style="display:none;" id = "insertModal" data-toggle="modal" data-target="#myModal"></button>
   <!-- Modal -->
@@ -174,7 +186,7 @@
         </div>
          <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-      	</div>
+         </div>
       </div>
     </div>
   </div>
@@ -209,13 +221,13 @@ $(document).ready(function() {
       $.ajax({
          url : 'golecturelist.action'
          , data : {'courseno' : courseno}
-      	 ,success : function(response){
+          ,success : function(response){
             $(response.lectureList).each(function(index, item) {
                $('#lecturelistbox').append( '<option value='+item.lectureno+' class="lecturelistbox1">'+item.lecturename+'</option>');
             });      
          },
          error:function(){
-        	 console.log('에러');
+            console.log('에러');
          }
       });
       
@@ -228,13 +240,13 @@ $(document).ready(function() {
       $.ajax({
          url:'gocodinglist.action'
          ,data: {'lectureno' : lectureno}
-      	 ,success: function(response){
+          ,success: function(response){
             $(response.codingList).each(function(index, item) {
                $('#lstBox2').append( '<option value='+item.codingno+' class="lstBox2_1">'+item.codingquestion+'</option>');
             });      
          }
-      	 ,error:function(){
-      		 console.log('에러');
+          ,error:function(){
+             console.log('에러');
          }
       });
    });
@@ -253,29 +265,29 @@ $(document).ready(function() {
    
 
     $('#btnRight').click(function(e) { //오른쪽 화살표
-    	var lectureno = $("#lecturelistbox option:selected").val();
-    	var beforeCodingArray = [];
-    	$('#lstBox1 :selected').each(function(i, selected) {
-    		
-    		var temp = {
-    			codingno: Number($(selected).val())
-    			,codingquestion: $(selected).html()
-    		}
-    		beforeCodingArray.push(temp);
-    	});
-    	
-    	var rightCodingArray = [];
-    	
-    	$('#lstBox2 option').each(function(i, coding){
-    		rightCodingArray.push(Number($(coding).val()));
-    	});
-    	
-    	beforeCodingArray.forEach(function(item){
-   		 var check = $.inArray(item.codingno, rightCodingArray);
-		 if(check < 0){
-    			$('<option value="'+item.codingno+'">'+item.codingquestion+'</option>').appendTo('#lstBox2');
-    		}
-		});
+       var lectureno = $("#lecturelistbox option:selected").val();
+       var beforeCodingArray = [];
+       $('#lstBox1 :selected').each(function(i, selected) {
+          
+          var temp = {
+             codingno: Number($(selected).val())
+             ,codingquestion: $(selected).html()
+          }
+          beforeCodingArray.push(temp);
+       });
+       
+       var rightCodingArray = [];
+       
+       $('#lstBox2 option').each(function(i, coding){
+          rightCodingArray.push(Number($(coding).val()));
+       });
+       
+       beforeCodingArray.forEach(function(item){
+          var check = $.inArray(item.codingno, rightCodingArray);
+       if(check < 0){
+             $('<option value="'+item.codingno+'">'+item.codingquestion+'</option>').appendTo('#lstBox2');
+          }
+      });
     });
 
     $('#btnLeft').click(function(e) { //왼쪽 화살표
@@ -291,7 +303,7 @@ $(document).ready(function() {
     $('#btnSave').on( "click", function(){ 
        var StringForSaveCoding = [];
        $('#lstBox2 option').each(function(index) {
-    	   StringForSaveCoding.push(Number($(this).val())) ;
+          StringForSaveCoding.push(Number($(this).val())) ;
          });
        
        var lectureno = $("#lecturelistbox option:selected").val();
@@ -300,17 +312,17 @@ $(document).ready(function() {
              , data : 'StringForSaveCoding='+StringForSaveCoding+'&lectureno='+lectureno
              , dataType : 'json'
              , success : function(response){
-            	 $("#insertModal").trigger('click');
+                $("#insertModal").trigger('click');
                 //$('#lstBox2 option').remove();
              }
-         	 , error : function(response){
-         		 console.log('에러');
-         	 }
+             , error : function(response){
+                console.log('에러');
+             }
           }); 
     });
     
     $("#btnCancel").on('click',function(){
-    	window.close();
+       window.close();
     });
 });
 </script>
