@@ -649,12 +649,8 @@
 	<select id="selectLectureCoding" parameterType="map" resultType="int">
 		select count(*) from lecturecoding where lectureno=#{lectureno} and codingno=#{codingno}
 	</select>
-<<<<<<< HEAD
 	
 	<!-- 코딩박스 왼쪽버튼 누를때 삭제하기전 비교할 전체 codingno int다치들 다같이 찾아오기 -->
-=======
-	<!-- 하는중 -->
->>>>>>> dc09945ebdcb01fde54096b1fa5ea645d72a89ee
 	<select id="selectedAllLectureCoding" parameterType="int" resultType="int">
 		select codingno from lecturecoding where lectureno=#{lectureno}
 	</select>
