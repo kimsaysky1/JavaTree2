@@ -113,7 +113,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	private List<File> upload = new ArrayList<File>();
 	private List<String> uploadFileName = new ArrayList<String>();
 	private List<String> uploadContentType = new ArrayList<String>();
-	private ArrayList<Lecture> recentlyCompletedLectureList;
+	private ArrayList<Course> recentlyCompletedLectureList;
 	private ArrayList<Lecture> latelyPurchasedLectureList;
 	Map<String, Object> session;
 	
@@ -224,7 +224,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 		}
 		
-		ArrayList<String> tempList1 = new ArrayList<>();
+		ArrayList<Lecture> tempList1 = new ArrayList<>();
 		tempList1 =  dao.selectLatelyPurchasedLectureList1(gong);
 		ArrayList<String> tempList2 = new ArrayList<>();
 		tempList2 =  dao.selectLatelyPurchasedLectureList2(gong);
@@ -232,20 +232,20 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		latelyPurchasedLectureList = new ArrayList<>();
 		
 		for (int i = 0; i < tempList1.size(); i++) {
-			Lecture l = new Lecture(tempList1.get(i), tempList2.get(i));
+			Lecture l = new Lecture(tempList1.get(i).getLectureno(), tempList1.get(i).getLecturename(), tempList2.get(i));
 			latelyPurchasedLectureList.add(l);
 		}
 		
 		ArrayList<String> tempList3 = new ArrayList<>();
 		tempList3 =  dao.recentlyCompletedLectureList1(gong);
-		ArrayList<String> tempList4 = new ArrayList<>();
+		ArrayList<Course> tempList4 = new ArrayList<>();
 		tempList4 =  dao.recentlyCompletedLectureList2(gong);
 		
 		recentlyCompletedLectureList = new ArrayList<>();
 		
 		for (int i = 0; i < tempList3.size(); i++) {
-			Lecture l = new Lecture(tempList3.get(i), tempList4.get(i));
-			recentlyCompletedLectureList.add(l);
+			Course c = new Course(tempList4.get(i).getCourseno(), tempList4.get(i).getCoursename(), tempList3.get(i));
+			recentlyCompletedLectureList.add(c);
 		}
 		
 		session.put("currentPage", currentPage);
@@ -526,6 +526,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				session.put("endPageGroup", endPageGroup);
 				}else{
 					currentPage = 0;
+					session.put("currentPage", currentPage);
 				}
 				
 				//backAction을 위한 세션값
@@ -768,7 +769,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				
 			}*/
 			
-			ArrayList<String> tempList1 = new ArrayList<>();
+			ArrayList<Lecture> tempList1 = new ArrayList<>();
 			tempList1 =  dao.selectLatelyPurchasedLectureList1(gong);
 			ArrayList<String> tempList2 = new ArrayList<>();
 			tempList2 =  dao.selectLatelyPurchasedLectureList2(gong);
@@ -776,20 +777,20 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			latelyPurchasedLectureList = new ArrayList<>();
 			
 			for (int i = 0; i < tempList1.size(); i++) {
-				Lecture l = new Lecture(tempList1.get(i), tempList2.get(i));
+				Lecture l = new Lecture(tempList1.get(i).getLectureno(), tempList1.get(i).getLecturename(), tempList2.get(i));
 				latelyPurchasedLectureList.add(l);
 			}
 			
 			ArrayList<String> tempList3 = new ArrayList<>();
 			tempList3 =  dao.recentlyCompletedLectureList1(gong);
-			ArrayList<String> tempList4 = new ArrayList<>();
+			ArrayList<Course> tempList4 = new ArrayList<>();
 			tempList4 =  dao.recentlyCompletedLectureList2(gong);
 			
 			recentlyCompletedLectureList = new ArrayList<>();
 			
 			for (int i = 0; i < tempList3.size(); i++) {
-				Lecture l = new Lecture(tempList3.get(i), tempList4.get(i));
-				recentlyCompletedLectureList.add(l);
+				Course c = new Course(tempList4.get(i).getCourseno(), tempList4.get(i).getCoursename(), tempList3.get(i));
+				recentlyCompletedLectureList.add(c);
 			}
 			
 			session.put("currentPage", currentPage);
@@ -934,241 +935,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		session.put("pcurrentPage", currentPage);
 		session.put("pCountPerPage", countPerPage);
 		session.put("pendPageGroup", ((int)session.get("endPageGroup")));
-		
-		return SUCCESS;
-	}
-	
-	
-	/**
-	 * studytMain - 메인페이지
-	 * **/
-	public String studyMainView(){
-		
-		courseDAO dao = sqlSession.getMapper(courseDAO.class);
-		
-		//페이지 시작 값, 마지막 값, 현재 페이지 = 1
-		start = 1;
-		end = 7;
-		currentPage = 1;
-		int countPerPage = 7;		//페이지당 글목록 수
-		
-		Map<String, Object> kong = new HashMap<>();
-		
-		if(((String) session.get("loginId")) != null){
-			kong.put("id", (String)session.get("loginId"));
-		}
-		
-		kong.put("start", start);
-		kong.put("end", end);
-		int totalRecordsCount = dao.selectTotal(kong);
-		
-		if(totalRecordsCount != 0){
-		
-		ArrayList<String> tempList1 = new ArrayList<>();
-		tempList1 =  dao.selectLatelyPurchasedLectureList1(kong);
-		ArrayList<String> tempList2 = new ArrayList<>();
-		tempList2 =  dao.selectLatelyPurchasedLectureList2(kong);
-		
-		latelyPurchasedLectureList = new ArrayList<>();
-		
-		for (int i = 0; i < tempList1.size(); i++) {
-			Lecture l = new Lecture(tempList1.get(i), tempList2.get(i));
-			latelyPurchasedLectureList.add(l);
-		}
-		
-		ArrayList<String> tempList3 = new ArrayList<>();
-		tempList3 =  dao.recentlyCompletedLectureList1(kong);
-		ArrayList<String> tempList4 = new ArrayList<>();
-		tempList4 =  dao.recentlyCompletedLectureList2(kong);
-		
-		recentlyCompletedLectureList = new ArrayList<>();
-		
-		for (int i = 0; i < tempList3.size(); i++) {
-			Lecture l = new Lecture(tempList3.get(i), tempList4.get(i));
-			recentlyCompletedLectureList.add(l);
-		}
-	
-		courseList = dao.pagingStudyCourse(kong);
-		
-		for (int i = 0; i < courseList.size(); i++) {
-			
-			for (int j = 0; j < courseList.get(i).getCourseTypeList().size(); j++) {
-				
-				String key = courseList.get(i).getCourseTypeList().get(j);
-				
-				switch (key) {
-				case "1":
-					courseList.get(i).getCourseTypeList().set(j, "Purejava");
-					break;
-				case "2":
-					courseList.get(i).getCourseTypeList().set(j, "Web");
-					break;
-				case "3":
-					courseList.get(i).getCourseTypeList().set(j, "Mobile");
-					break;
-				case "4":
-					courseList.get(i).getCourseTypeList().set(j, "IOT");
-					break;
-				case "5":
-					courseList.get(i).getCourseTypeList().set(j, "Swing");
-					break;
-				case "6":
-					courseList.get(i).getCourseTypeList().set(j, "JDBC");
-					break;
-				case "7":
-					courseList.get(i).getCourseTypeList().set(j, "API");
-					break;
-				case "8":
-					courseList.get(i).getCourseTypeList().set(j, "Spring");
-					break;
-				case "9":
-					courseList.get(i).getCourseTypeList().set(j, "Struts");
-					break;
-				case "10":
-					courseList.get(i).getCourseTypeList().set(j, "etcFramework");
-					break;
-				case "11":
-					courseList.get(i).getCourseTypeList().set(j, "etc");
-					break;
-				default:
-					break;
-				}
-				
-			}
-			
-		}
-		
-		if(session.get("searchText") == null) searchText = null;
-		
-		if(totalRecordsCount % countPerPage == 0 ){
-			endPageGroup = (int)(totalRecordsCount/countPerPage);		//총 (페이지)그룹 수
-		}else{
-			endPageGroup = (int)(totalRecordsCount/countPerPage)+1;		//총 (페이지)그룹 수
-		}
-		if(currentPage == 0){
-			currentPage = 1;
-		}
-				
-		session.put("currentPage", currentPage);
-		session.put("CountPerPage", countPerPage);
-		session.put("endPageGroup", endPageGroup);
-		
-		}else{
-			session.put("currentPage", 0);
-		}
-		
-	/*	session.put("pend", end);
-		session.put("pstart", start);
-		session.put("operation", "plusSearchCourse");
-		session.put("pcurrentPage", currentPage);
-		session.put("pCountPerPage", countPerPage);
-		session.put("pendPageGroup", endPageGroup);
-		session.put("psearchText", (String)session.get("searchText"));*/
-		
-		return SUCCESS;
-		
-	}
-	
-	/**
-	 * studytMain - 메인페이지(페이지 이동시)
-	 * **/
-	public String plusStudyMain() {
-		
-		courseDAO dao = sqlSession.getMapper(courseDAO.class);
-		
-		session.put("currentPage", currentPage);
-		if(currentPage == 0){
-			currentPage = 1;
-		}
-		
-		Map <String,Object> gong = new HashMap();
-		if(session.get("loginId") != null){
-			gong.put("id", (String)session.get("loginId"));
-		}
-		
-		if(session.get("searchText") == null) searchText = null;
-		int countPerPage = (int) session.get("CountPerPage");		//페이지당 글목록 수
-		
-		start = countPerPage*currentPage-(countPerPage-1);
-		end = countPerPage*currentPage;
-		gong.put("start", start);
-		gong.put("end", end);
-		
-		session.put("currentPage", currentPage);
-		courseList = dao.pagingStudyCourse(gong);
-		
-		for (int i = 0; i < courseList.size(); i++) {
-			
-			for (int j = 0; j < courseList.get(i).getCourseTypeList().size(); j++) {
-				
-				String key = courseList.get(i).getCourseTypeList().get(j);
-				
-				switch (key) {
-				case "1":
-					courseList.get(i).getCourseTypeList().set(j, "Purejava");
-					break;
-				case "2":
-					courseList.get(i).getCourseTypeList().set(j, "Web");
-					break;
-				case "3":
-					courseList.get(i).getCourseTypeList().set(j, "Mobile");
-					break;
-				case "4":
-					courseList.get(i).getCourseTypeList().set(j, "IOT");
-					break;
-				case "5":
-					courseList.get(i).getCourseTypeList().set(j, "Swing");
-					break;
-				case "6":
-					courseList.get(i).getCourseTypeList().set(j, "JDBC");
-					break;
-				case "7":
-					courseList.get(i).getCourseTypeList().set(j, "API");
-					break;
-				case "8":
-					courseList.get(i).getCourseTypeList().set(j, "Spring");
-					break;
-				case "9":
-					courseList.get(i).getCourseTypeList().set(j, "Struts");
-					break;
-				case "10":
-					courseList.get(i).getCourseTypeList().set(j, "etcFramework");
-					break;
-				case "11":
-					courseList.get(i).getCourseTypeList().set(j, "etc");
-					break;
-				default:
-					break;
-				}
-				
-			}
-			
-		}
-		
-		ArrayList<String> tempList1 = new ArrayList<>();
-		tempList1 =  dao.selectLatelyPurchasedLectureList1(gong);
-		ArrayList<String> tempList2 = new ArrayList<>();
-		tempList2 =  dao.selectLatelyPurchasedLectureList2(gong);
-		
-		latelyPurchasedLectureList = new ArrayList<>();
-		
-		for (int i = 0; i < tempList1.size(); i++) {
-			Lecture l = new Lecture(tempList1.get(i), tempList2.get(i));
-			latelyPurchasedLectureList.add(l);
-		}
-		
-		
-		ArrayList<String> tempList3 = new ArrayList<>();
-		tempList3 =  dao.recentlyCompletedLectureList1(gong);
-		ArrayList<String> tempList4 = new ArrayList<>();
-		tempList4 =  dao.recentlyCompletedLectureList2(gong);
-		
-		recentlyCompletedLectureList = new ArrayList<>();
-		
-		for (int i = 0; i < tempList3.size(); i++) {
-			Lecture l = new Lecture(tempList3.get(i), tempList4.get(i));
-			recentlyCompletedLectureList.add(l);
-		}
 		
 		return SUCCESS;
 	}
@@ -1458,12 +1224,10 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	public String insertLectureForStudy() {
 		
 		courseDAO dao = sqlSession.getMapper(courseDAO.class);
-		
+		Map<String, Object> kong = new HashMap<>();
 		//자신의 강의 여부 체크
 		String teacher = dao.checkMyLecture(lectureno);
 		if(!teacher.equals((String)session.get("loginId"))){
-		
-		Map<String, Object> kong = new HashMap<>();
 		
 		System.out.println("loginId>> " + session.get("loginId"));
 		
@@ -1501,9 +1265,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}else {
 			return ERROR;
 		}
-		selectCourseDefaultDetail(kong);
-		} // 내 강의가 아닐 경우
 		
+		} // 내 강의가 아닐 경우
+		selectCourseDefaultDetail(kong);
 		return SUCCESS;
 	}
 	
@@ -1640,29 +1404,29 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			if(totalRecordsCount != 0){
 			
-			ArrayList<String> tempList1 = new ArrayList<>();
-			tempList1 =  dao.selectLatelyPurchasedLectureList1(kong);
-			ArrayList<String> tempList2 = new ArrayList<>();
-			tempList2 =  dao.selectLatelyPurchasedLectureList2(kong);
-			
-			latelyPurchasedLectureList = new ArrayList<>();
-			
-			for (int i = 0; i < tempList1.size(); i++) {
-				Lecture l = new Lecture(tempList1.get(i), tempList2.get(i));
-				latelyPurchasedLectureList.add(l);
-			}
-			
-			ArrayList<String> tempList3 = new ArrayList<>();
-			tempList3 =  dao.recentlyCompletedLectureList1(kong);
-			ArrayList<String> tempList4 = new ArrayList<>();
-			tempList4 =  dao.recentlyCompletedLectureList2(kong);
-			
-			recentlyCompletedLectureList = new ArrayList<>();
-			
-			for (int i = 0; i < tempList3.size(); i++) {
-				Lecture l = new Lecture(tempList3.get(i), tempList4.get(i));
-				recentlyCompletedLectureList.add(l);
-			}
+				ArrayList<Lecture> tempList1 = new ArrayList<>();
+				tempList1 =  dao.selectLatelyPurchasedLectureList1(kong);
+				ArrayList<String> tempList2 = new ArrayList<>();
+				tempList2 =  dao.selectLatelyPurchasedLectureList2(kong);
+				
+				latelyPurchasedLectureList = new ArrayList<>();
+				
+				for (int i = 0; i < tempList1.size(); i++) {
+					Lecture l = new Lecture(tempList1.get(i).getLectureno(), tempList1.get(i).getLecturename(), tempList2.get(i));
+					latelyPurchasedLectureList.add(l);
+				}
+				
+				ArrayList<String> tempList3 = new ArrayList<>();
+				tempList3 =  dao.recentlyCompletedLectureList1(kong);
+				ArrayList<Course> tempList4 = new ArrayList<>();
+				tempList4 =  dao.recentlyCompletedLectureList2(kong);
+				
+				recentlyCompletedLectureList = new ArrayList<>();
+				
+				for (int i = 0; i < tempList3.size(); i++) {
+					Course c = new Course(tempList4.get(i).getCourseno(), tempList4.get(i).getCoursename(), tempList3.get(i));
+					recentlyCompletedLectureList.add(c);
+				}
 		
 			//courseList = dao.pagingStudyCourse(kong);
 			courseList = dao.pagingTeachCourse(kong);
@@ -1765,29 +1529,29 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			if(totalRecordsCount != 0){
 			
-			ArrayList<String> tempList1 = new ArrayList<>();
-			tempList1 =  dao.selectLatelyPurchasedLectureList1(kong);
-			ArrayList<String> tempList2 = new ArrayList<>();
-			tempList2 =  dao.selectLatelyPurchasedLectureList2(kong);
-			
-			latelyPurchasedLectureList = new ArrayList<>();
-			
-			for (int i = 0; i < tempList1.size(); i++) {
-				Lecture l = new Lecture(tempList1.get(i), tempList2.get(i));
-				latelyPurchasedLectureList.add(l);
-			}
-			
-			ArrayList<String> tempList3 = new ArrayList<>();
-			tempList3 =  dao.recentlyCompletedLectureList1(kong);
-			ArrayList<String> tempList4 = new ArrayList<>();
-			tempList4 =  dao.recentlyCompletedLectureList2(kong);
-			
-			recentlyCompletedLectureList = new ArrayList<>();
-			
-			for (int i = 0; i < tempList3.size(); i++) {
-				Lecture l = new Lecture(tempList3.get(i), tempList4.get(i));
-				recentlyCompletedLectureList.add(l);
-			}
+				ArrayList<Lecture> tempList1 = new ArrayList<>();
+				tempList1 =  dao.selectLatelyPurchasedLectureList1(kong);
+				ArrayList<String> tempList2 = new ArrayList<>();
+				tempList2 =  dao.selectLatelyPurchasedLectureList2(kong);
+				
+				latelyPurchasedLectureList = new ArrayList<>();
+				
+				for (int i = 0; i < tempList1.size(); i++) {
+					Lecture l = new Lecture(tempList1.get(i).getLectureno(), tempList1.get(i).getLecturename(), tempList2.get(i));
+					latelyPurchasedLectureList.add(l);
+				}
+				
+				ArrayList<String> tempList3 = new ArrayList<>();
+				tempList3 =  dao.recentlyCompletedLectureList1(kong);
+				ArrayList<Course> tempList4 = new ArrayList<>();
+				tempList4 =  dao.recentlyCompletedLectureList2(kong);
+				
+				recentlyCompletedLectureList = new ArrayList<>();
+				
+				for (int i = 0; i < tempList3.size(); i++) {
+					Course c = new Course(tempList4.get(i).getCourseno(), tempList4.get(i).getCoursename(), tempList3.get(i));
+					recentlyCompletedLectureList.add(c);
+				}
 		
 			courseList = dao.pagingTeachCourse(kong);
 			System.out.println("kong>> " + kong);
@@ -2914,7 +2678,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			if(totalRecordsCount != 0){
 			
-			ArrayList<String> tempList1 = new ArrayList<>();
+			ArrayList<Lecture> tempList1 = new ArrayList<>();
 			tempList1 =  dao.selectLatelyPurchasedLectureList1(kong);
 			ArrayList<String> tempList2 = new ArrayList<>();
 			tempList2 =  dao.selectLatelyPurchasedLectureList2(kong);
@@ -2922,22 +2686,23 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			latelyPurchasedLectureList = new ArrayList<>();
 			
 			for (int i = 0; i < tempList1.size(); i++) {
-				Lecture l = new Lecture(tempList1.get(i), tempList2.get(i));
+				Lecture l = new Lecture(tempList1.get(i).getLectureno(), tempList1.get(i).getLecturename(), tempList2.get(i));
 				latelyPurchasedLectureList.add(l);
 			}
 			
 			ArrayList<String> tempList3 = new ArrayList<>();
 			tempList3 =  dao.recentlyCompletedLectureList1(kong);
-			ArrayList<String> tempList4 = new ArrayList<>();
+			ArrayList<Course> tempList4 = new ArrayList<>();
 			tempList4 =  dao.recentlyCompletedLectureList2(kong);
 			
 			recentlyCompletedLectureList = new ArrayList<>();
 			
 			for (int i = 0; i < tempList3.size(); i++) {
-				Lecture l = new Lecture(tempList3.get(i), tempList4.get(i));
-				recentlyCompletedLectureList.add(l);
+				Course c = new Course(tempList4.get(i).getCourseno(), tempList4.get(i).getCoursename(), tempList3.get(i));
+				recentlyCompletedLectureList.add(c);
 			}
-			 		
+			System.out.println("lately>> "+ latelyPurchasedLectureList);
+			System.out.println("recently>> " + recentlyCompletedLectureList);
 			courseList = dao.pagingStudyCourse(kong);
 			
 			for (int i = 0; i < courseList.size(); i++) {
@@ -3501,11 +3266,12 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public void setUploadContentType(List<String> uploadContentType) {
 			this.uploadContentType = uploadContentType;
 		}
-		public ArrayList<Lecture> getRecentlyCompletedLectureList() {
+		
+		public ArrayList<Course> getRecentlyCompletedLectureList() {
 			return recentlyCompletedLectureList;
 		}
 
-		public void setRecentlyCompletedLectureList(ArrayList<Lecture> recentlyCompletedLectureList) {
+		public void setRecentlyCompletedLectureList(ArrayList<Course> recentlyCompletedLectureList) {
 			this.recentlyCompletedLectureList = recentlyCompletedLectureList;
 		}
 
