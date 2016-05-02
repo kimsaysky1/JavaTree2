@@ -58,7 +58,7 @@ SELECT s.lectureno as studying, l.lectureno as lectureno, c.courseno as courseno
 		where l.courseno = 30
 		order by lectureno asc
 		
-
+alter table studycourse modify(coursename varchar2(100))
 
 SELECT LEVEL 
 FROM   dual

@@ -1489,7 +1489,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			try {
 				int k = dao.checkStudyCourse(kong);
-				System.out.println("k> " + k);
 				if (k == 0) {
 					dao.insertLectureForStudy(kong);
 				}
@@ -1502,7 +1501,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}else {
 			return ERROR;
 		}
-		
 		selectCourseDefaultDetail(kong);
 		} // 내 강의가 아닐 경우
 		
