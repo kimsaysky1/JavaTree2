@@ -153,7 +153,8 @@
 							</s:iterator>
                            </select>
                            <!-- 강의 해당 코딩문제 리스트 끝-->
-                           <input type="button" id="btninsert" value="저장" style="float: right; margin-right: 28px;">
+                           <input type="button" id="btnCancel" value="창닫기" style="float: right; margin-right: 28px;">
+                           <input type="button" id="btnSave" value="저장" style="float: right; margin-right: 28px;">
                         </td>
                      </tr>
                   </table>
@@ -238,8 +239,6 @@ $(document).ready(function() {
       		 console.log('에러');
          }
       });
-      
-      
    });
    
    
@@ -256,7 +255,6 @@ $(document).ready(function() {
    
 
     $('#btnRight').click(function(e) { //오른쪽 화살표
-    	//var selectedOpts = $('#lstBox1 option:selected');
     	var lectureno = $("#lecturelistbox option:selected").val();
     	var beforeCodingArray = [];
     	$('#lstBox1 :selected').each(function(i, selected) {
@@ -292,21 +290,29 @@ $(document).ready(function() {
     });
     
  
-    $('#btninsert').on( "click", function(){ 
-       var rightCodingArray = [];
+    $('#btnSave').on( "click", function(){ 
+       var StringForSaveCoding = [];
        $('#lstBox2 option').each(function(index) {
-    	   rightCodingArray.push( $(this).val()) ;
+    	   StringForSaveCoding.push(Number($(this).val())) ;
          });
        
        var lectureno = $("#lecturelistbox option:selected").val();
          $.ajax({
-             url : 'insertSelectedCodingfromMain.action',
-             data : 'codingListForInsert='+rightCodingArray+'&lectureno='+lectureno,
-             success : function(response){
+             url : 'saveLectureCodingfromMain.action'
+             , data : 'StringForSaveCoding='+StringForSaveCoding+'&lectureno='+lectureno
+             , dataType : 'json'
+             , success : function(response){
             	 $("#insertModal").trigger('click');
                 //$('#lstBox2 option').remove();
              }
+         	 , error : function(response){
+         		 console.log('에러');
+         	 }
           }); 
+    });
+    
+    $("#btnCancel").on('click',function(){
+    	window.close();
     });
 });
 </script>

@@ -293,6 +293,10 @@
         	<result type="json"></result>
         </action>
         
+        <action name="saveLectureCodingfromMain" class="org.javatree.www.Action.CourseAction" method="saveLectureCodingfromMain">
+        	<result type="json"></result>	
+        </action>
+        
         <!-- 영호 작성 문제보관함 종료 -->
     </package>
 
