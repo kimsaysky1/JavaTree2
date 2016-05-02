@@ -246,10 +246,10 @@ $(document).ready(function() {
 	        	 var list = response.checkCoding;
 	        	 var codingquestionList=[];
 	        	 list.forEach(function(coding){
-	        		 alert(coding.codingquestion);
+	        		 //alert(coding.codingquestion);
 	        		 codingquestionList.push(coding.codingno);
 	        	 });
-	        	 alert("codingquestionList: "+codingquestionList);
+	        	// alert("codingquestionList: "+codingquestionList);
 	        	 
 	        	 /* listbox2 값 모두받아오기  */
 	             var codingListForInsert = [];
@@ -257,31 +257,34 @@ $(document).ready(function() {
 	                codingListForInsert.push( $(this).val()) ;
 	             });
 		     		//alert("codingListForInsert[0]: "+codingListForInsert[0]);
-		     		alert("codingquestionList: "+codingquestionList);
+		     		//alert("codingquestionList: "+codingquestionList);
 		     		
 		     		var check =false;
-		     		alert("codingquestionList.length: "+codingquestionList.length);
-	 				alert("codingListForInsert.length: "+codingListForInsert.length);
+		     		//alert("codingquestionList.length: "+codingquestionList.length);
+	 				//alert("codingListForInsert.length: "+codingListForInsert.length);
 	 				
 	 				for(var i=0; i<codingquestionList.length; i++){
 			     		for(var j=0; j<codingListForInsert.length; j++){
 			     			var lstbox1val= codingquestionList[i];
-			     			alert("lstbox1val: "+lstbox1val);
+			     			//alert("lstbox1val: "+lstbox1val);
 			     			var lstbox2val = codingListForInsert[j];
-			     			alert("lstbox2val: "+lstbox2val);
+			     			//alert("lstbox2val: "+lstbox2val);
 			     				
 			     			if(lstbox2val == lstbox1val){
-			     				alert("같다");
+			     				//alert("같다");
 			     				check=true;
 			     					//return false;
 			     			}
 			     		}
 			     		if(!check){
-			     			alert("다르다");
+			     			//alert("다르다");
 			     		    $('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');
 	
 			     		}
 			     	}
+	 				
+	 				
+	 				
 	 				/* 
 	 				if(codingListForInsert.length==0){
 	 					$('<option value="'+selectedOpts.val()+'">'+selectedOpts.html()+'</option>').appendTo('#lstBox2');

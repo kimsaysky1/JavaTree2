@@ -28,7 +28,21 @@
 
 		
 		 <!-- PROFILE FEATURE 프로필!!!!-->
-		    <section class="profile-feature">
+		 <section class="profile-feature">
+			<div class="awe-parallax bg-profile-feature"></div> <!-- 좀 늘리기 -->
+			<div class="awe-overlay overlay-color-3"></div>
+			<div class="container">
+					<div class="sub-banner-content">
+						<h4 class="md" style="color: #E3E3E3;">
+							<s:if test="%{#session.loginId != null}">
+								${session.loginId} &nbsp; , Welcome to the JavaTree!
+							</s:if>
+						</h4>
+					</div>	
+			</div>
+		</section>
+		 
+		    <%-- <section class="profile-feature">
 		        <div class="awe-parallax bg-profile-feature"></div>
 		        <div class="awe-overlay overlay-color-3"></div>
 		        <div class="container">
@@ -44,7 +58,7 @@
 		                </div>
 		            </div>
 		        </div>
-		    </section>
+		    </section> --%>
         <!-- END / PROFILE FEATURE -->
         
          <!-- CONTEN BAR -->
