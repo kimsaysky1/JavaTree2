@@ -2471,8 +2471,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		            System.out.println("selectAlllecturecodingCount: "+sa);
 		            
 		            
-		            
-		            
 		            /*deleteLectureCoding*/
 		            if(sa > tempList.size()){
 			            for(int j=0; j<codingListCheck.size();j++){
