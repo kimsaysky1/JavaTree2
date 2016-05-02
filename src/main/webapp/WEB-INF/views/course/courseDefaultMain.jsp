@@ -132,8 +132,6 @@
 <!-- 강좌 리스트 뿌리기 시작 -->			
 <div class="blog-list-content">
      
-     <h3>정 보 없 음</h3>
-     
      <s:iterator value="courseList" status="incr">
      	
 		<!-- start post -->
@@ -334,8 +332,7 @@ function clickNext(page) {
 	 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 	 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
 	 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-	 				+course.username+' on '+course.regdate+'</div><div class="post-link"><a href="blog-single.jsp?courseno='+course.courseno
-	 				+'"><i class="fa fa-play-circle-o"></i>Lecture List</a></div>').appendTo(".blog-list-content");
+	 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
 	 			
 	 			});
 	        	 
@@ -396,8 +393,7 @@ function clickNextField(page) {
 	 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 	 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
 	 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-	 				+course.username+' on '+course.regdate+'</div><div class="post-link"><a href="blog-single.jsp?courseno='+course.courseno
-	 				+'"><i class="fa fa-play-circle-o"></i>Lecture List</a></div>').appendTo(".blog-list-content");
+	 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
 	 			
 	 			});
 	        	 
@@ -469,8 +465,7 @@ function selectByField(asd) {
 	 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 	 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
 	 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-	 				+course.username+' on '+course.regdate+'</div><div class="post-link"><a href="blog-single.jsp?courseno='+course.courseno
-	 				+'"><i class="fa fa-play-circle-o"></i>Lecture List</a></div>').appendTo(".blog-list-content");
+	 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
 	 			});
 	        	 
 	        	 var curPage = Number(response.currentPage);
@@ -533,8 +528,7 @@ function searchCourse() {
 		 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 		 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
 		 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-		 				+course.username+' on '+course.regdate+'</div><div class="post-link"><a href="blog-single.jsp?courseno='+course.courseno
-		 				+'"><i class="fa fa-play-circle-o"></i>Lecture List</a></div>').appendTo(".blog-list-content");
+		 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
 		 			
 		 			});
 		        	 
@@ -601,8 +595,7 @@ function searchCourse() {
 				 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 				 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
 				 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-				 				+course.username+' on '+course.regdate+'</div><div class="post-link"><a href="blog-single.jsp?courseno='+course.courseno
-				 				+'"><i class="fa fa-play-circle-o"></i>Lecture List</a></div>').appendTo(".blog-list-content");
+				 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
 				 			
 				 			});
 				        	 

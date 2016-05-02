@@ -187,10 +187,12 @@ public class QnaAction extends ActionSupport implements SessionAware {
 			endPageGroup = (int)(total/countPerPage)+1;		//총 (페이지)그룹 수
 		}
 		
-		if(currentPage == 0){
-			currentPage = 1;
+		if(total == 0){
+			endPageGroup = 1;
+			currentPage = 0;
 		}
-		
+		System.out.println("totalsize>> " + total);
+		System.out.println("curpage>> " + currentPage);
 		session.put("currentPage", currentPage);
 		session.put("endPageGroup", endPageGroup);
 		
@@ -263,10 +265,12 @@ public class QnaAction extends ActionSupport implements SessionAware {
 			endPageGroup = (int)(total/countPerPage)+1;		//총 (페이지)그룹 수
 		}
 		
-		if(currentPage == 0){
-			currentPage = 1;
+		if(total == 0){
+			currentPage = 0;
+			endPageGroup = 1;
 		}
-		
+		System.out.println("totalsize>> " + total);
+		System.out.println("curpage>> " + currentPage);
 		session.put("currentPage", currentPage);
 		session.put("endPageGroup", endPageGroup);
 		

@@ -216,7 +216,7 @@
                                      <s:iterator value="latelyPurchasedLectureList" status="counter" >
                                         <tr>
                                          <td class="count"> <s:property value="#counter.index + 1" /> </td>
-                                            <td><a href="../compiler/Compiler.action?lectureno=<s:property value="lectureno" />" target="popup" onclick="window.open('../compiler/Compiler.action?lectureno=<s:property value="lectureno" />','name')"><s:property value="lecturename" /> &nbsp;[ &nbsp;강좌명: &nbsp; <s:property value="coursename" /> &nbsp; ]</a></td>                                          
+                                            <td><a href="../compiler/Compiler.action?lectureno=<s:property value="lectureno" />" target="popup" onclick="window.open('../compiler/Compiler.action?lectureno=<s:property value="lectureno" />','KongPlayer','width=1800,height=1000')"><s:property value="lecturename" /> &nbsp;[ &nbsp;강좌명: &nbsp; <s:property value="coursename" /> &nbsp; ]</a></td>                                          
                                         </tr>
 										</s:iterator>
                                        
@@ -297,13 +297,13 @@
 	            	evt.preventDefault();
 	            	
 	            	var id = $(this).attr('id');
-	                alert("id> " + id);
+	                //alert("id> " + id);
 	                
 	              if(prev == 0){
 	            	  prev = id;
 	              }
 	               
-	             alert("list길이> " + list.length);
+	            // alert("list길이> " + list.length);
 	             
 	             approve = 'approve';
 	             
@@ -314,7 +314,6 @@
 	            	    }
 	            	}
 	              
-	            
 	      		
 	      		
 	             if(approve == 'approve'){
@@ -335,44 +334,16 @@
 					 				
 					        		 if(lec.uploadedfilename != null){
 					        			 var divTag = $('<div class="tbody"></div>');
-							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="../compiler/Compiler.action?lectureno='+lec.lectureno+'" target="_blank"><i class="fa fa-play-circle-o"></i></a></div></div>')
+							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="javascript:newPopup('+lec.lectureno+')"><i class="fa fa-play-circle-o"></i></a></div></div>')
 							 				.insertAfter(sel); 
 					        		 }else{
 					        			 var divTag = $('<div class="tbody"></div>');
-							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"></div><div class="link tb-icon"><a href="../compiler/Compiler.action?lectureno='+lec.lectureno+'"><i class="fa fa-play-circle-o"></i></a></div></div>')
+							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"></div><div class="link tb-icon"><a href="javascript:newPopup('+lec.lectureno+')"><i class="fa fa-play-circle-o"></i></a></div></div>')
 							 				.insertAfter(sel); 
 					        		 }
-					        		 
-					        	 		  
-					        		 
-					        		 /* var divTag = $('<div class="post"><div class="post-body"></div></div>');
-					 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
-					 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-					 				+course.username+' on '+course.regdate+'</div><div class="post-link"><a href="blog-single.jsp?courseno='+course.courseno
-					 				+'"><i class="fa fa-play-circle-o"></i>Lecture List</a></div>').appendTo(".blog-list-content"); */
 					 			
 					 			});
 					        	 
-					        	/*  var curPage = Number(response.currentPage);
-					        	 var curPagePlus = Number(response.currentPage+1);
-					        	 var curPageMinus = Number(response.currentPage-1);
-					        	 var endPage =  Number(response.endPageGroup);
-					        	 			        	 
-					        	 var paging = $('<ul class="pager"></ul>');
-					        	 if(curPage == 1 & endPage == 1){
-					        		 var paging0 = '<li><a href="#">'+ curPage+'</a></li>';
-					        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
-					        	 }else if(curPage == 1 & endPage != 1){
-					        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage+ +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
-					        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
-					        	 }else if(curPage == endPage & endPage != 1){
-					        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li>';	
-					        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
-					        	 }else{
-					        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
-					        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
-					        	 } */
-					        	
 					        }
 	               
 					 });
@@ -410,11 +381,11 @@
 
 <script>
 //Popup window code
-function newPopup(url) {
+function newPopup(lectureno) {
 	/* popupWindow = window.open(
 		url,'popUpWindow','height=300,width=400,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes') */
 	popupWindow = window.open(
-			url,'kongPlayer','resizable=no,scrollbars=no,menubar=no')
+			'../compiler/Compiler.action?lectureno='+lectureno ,'kongPlayer','height=1000, width=1800, resizable=no,scrollbars=no,menubar=no');
 }
 </script>
 
