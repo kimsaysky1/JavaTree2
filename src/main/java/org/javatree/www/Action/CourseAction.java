@@ -1265,11 +1265,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}else {
 			return ERROR;
 		}
-<<<<<<< HEAD
 		
-=======
-		selectCourseDefaultDetail(kong);
->>>>>>> b27e855ce63831fb849303a929c8d605191971d9
 		} // 내 강의가 아닐 경우
 		selectCourseDefaultDetail(kong);
 		return SUCCESS;
