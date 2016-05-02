@@ -326,7 +326,7 @@
 					        success : function(response){
 					        	
 					        	var divTag = $('<div class="tbody"></div>');
-				 				divTag.html('<div class="item"><div class="submissions"></div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"><a href="selectCourseDetailForStudy.action?courseno='+id+'">>>강좌상세정보</div><div class="link tb-icon"></div></div>')
+				 				divTag.html('<div class="item" style = "height:60px;"><div class="submissions"></div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply" style="margin-left:45px;"><a href="selectCourseDetailForStudy.action?courseno='+id+'">>>강좌상세정보</div></div>')
 				 				.insertAfter(sel); 	  
 					        	
 					        	 var list = response.lectureList;
@@ -338,7 +338,7 @@
 							 				.insertAfter(sel); 
 					        		 }else{
 					        			 var divTag = $('<div class="tbody"></div>');
-							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"></div><div class="link tb-icon"><a href="../compiler/Compiler.action?lectureno='+lec.lectureno+'"><i class="fa fa-play-circle-o"></i></a></div></div>')
+							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"></div><div class="link tb-icon"><a href="#" onclick = "javascript:popup(lec.lectureno)"><i class="fa fa-play-circle-o"></i></a></div></div>')
 							 				.insertAfter(sel); 
 					        		 }
 					        		 
@@ -376,6 +376,14 @@
 	               
 					 });
 	             }
+	      		
+	             function popup(lectureno){
+	            		
+	            	var lectureno = lectureno;
+	            	window.open('../compiler/Compiler.action?lectureno='+lectureno,'pop','resizable=no scrollbars=yes top=50 left=200 width=1800 height=800'); 
+	            		
+	            }
+	      		
 	                //slide effect 시작
 	                if ($(this).hasClass('active')==false) {
 	                	$('.table-item')

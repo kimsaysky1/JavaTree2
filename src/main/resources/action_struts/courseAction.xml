@@ -35,7 +35,7 @@
         </action>
         
      	<action name="plusStudyMain" class="org.javatree.www.Action.CourseAction" method="plusStudyMain">
-        	<result>/WEB-INF/views/course/studyMain.jsp</result>
+        	<result>/WEB-INF/views/course/studyMain2.jsp</result>
         </action>
         
         <action name="plusStudyMain2" class="org.javatree.www.Action.CourseAction" method="plusStudyMain2">
@@ -49,7 +49,7 @@
        
         <action name="studyMainView" class="org.javatree.www.Action.CourseAction" method="studyMainView">
         	<interceptor-ref name="LoginCheckForMember" />
-        	<result>/WEB-INF/views/course/studyMain.jsp</result>
+        	<result>/WEB-INF/views/course/studyMain2.jsp</result>
         </action>
         
         <action name="selectCourseDetailForStudy" class="org.javatree.www.Action.CourseAction" method="selectCourseDetailForStudy">
