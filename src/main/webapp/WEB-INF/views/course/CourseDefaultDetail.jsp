@@ -115,7 +115,7 @@
 							<td class="submit-date">
 								<s:a href="%{download}" method="post">${subnoteName}</s:a>
 							</td>
-							<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>'>Watch</a></td>
+							<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>' target="_blank">Watch</a></td>
 					</s:if>
 								
 					<s:else>

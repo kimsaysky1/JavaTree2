@@ -195,7 +195,7 @@
                                       <s:iterator value="recentlyCompletedLectureList" status="counter" >
                                         <tr>
                                          <td class="count"> <s:property value="#counter.index + 1" /> </td>
-                                            <td><s:property value="lecturename" /> &nbsp;[ &nbsp;강좌명: &nbsp; <s:property value="coursename" /> &nbsp; ]</td>                                          
+                                            <td><a href="selectCourseDetailForStudy.action?courseno="<s:property value="courseno" /> target="_blank"><s:property value="lecturename" /> &nbsp;[ &nbsp;강좌명: &nbsp; <s:property value="coursename" /> &nbsp; ]</a></td>                                          
                                         </tr>
 										</s:iterator>
                                        
@@ -213,7 +213,7 @@
                                      <s:iterator value="latelyPurchasedLectureList" status="counter" >
                                         <tr>
                                          <td class="count"> <s:property value="#counter.index + 1" /> </td>
-                                            <td><s:property value="lecturename" /> &nbsp;[ &nbsp;강좌명: &nbsp; <s:property value="coursename" /> &nbsp; ]</td>                                          
+                                            <td><a href="../compiler/Compiler.action?lectureno="<s:property value="lectureno" /> target="popup" onclick="window.open('../compiler/Compiler.action?lectureno=<s:property value="lectureno" />','name')"><s:property value="lecturename" /> &nbsp;[ &nbsp;강좌명: &nbsp; <s:property value="coursename" /> &nbsp; ]</a></td>                                          
                                         </tr>
 										</s:iterator>
                                        
@@ -311,9 +311,7 @@
 	            	    }
 	            	}
 	              
-	      		
 	            
-	      		/* alert(list.get(0)); */
 	      		
 	      		
 	             if(approve == 'approve'){
@@ -334,7 +332,7 @@
 					 				
 					        		 if(lec.uploadedfilename != null){
 					        			 var divTag = $('<div class="tbody"></div>');
-							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="../compiler/Compiler.action?lectureno='+lec.lectureno+'"><i class="fa fa-play-circle-o"></i></a></div></div>')
+							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="../compiler/Compiler.action?lectureno='+lec.lectureno+'" target="_blank"><i class="fa fa-play-circle-o"></i></a></div></div>')
 							 				.insertAfter(sel); 
 					        		 }else{
 					        			 var divTag = $('<div class="tbody"></div>');
@@ -405,6 +403,16 @@
 	    });
 	});
 
+</script>
+
+<script>
+//Popup window code
+function newPopup(url) {
+	/* popupWindow = window.open(
+		url,'popUpWindow','height=300,width=400,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes') */
+	popupWindow = window.open(
+			url,'kongPlayer','resizable=no,scrollbars=no,menubar=no')
+}
 </script>
 
 </body>

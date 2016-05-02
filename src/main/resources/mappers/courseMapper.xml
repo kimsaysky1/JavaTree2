@@ -350,7 +350,7 @@
      
      <!-- 완료된 강의 coursename -->
      <select resultType="String" id="recentlyCompletedLectureList2" parameterType="map">
-     	select c.coursename
+     	select c.coursename, c.courseno
      	from course c, studylecture sl
      	where c.courseno = sl.courseno and sl.id = #{id} and sl.enddate &lt; sysdate and rownum &lt; 4
      	order by sl.enddate desc
@@ -358,7 +358,7 @@
      
      <!-- 최근 구입한 강의(lecturename) -->
 	<select resultType="String" id="selectLatelyPurchasedLectureList1" parameterType="map">
-     	select l.lecturename
+     	select l.lecturename, l.lectureno
      	from lecture l, studylecture sl
      	where l.lectureno = sl.lectureno and sl.id = #{id} and sl.startdate &lt; sysdate and rownum &lt; 4 
      	order by sl.startdate desc
