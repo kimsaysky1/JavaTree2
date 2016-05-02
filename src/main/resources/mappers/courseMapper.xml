@@ -672,9 +672,9 @@
 	<select id="selectSubNoteName" parameterType="int" resultType="String">
 		select uploadedfilename from subnote where lectureno = #{lectureno}
 	</select>
-	
-<<<<<<< HEAD
- 
+	<select id="checkMyLecture" parameterType="int" resultType="String">
+		select id from teachlecture where lectureno = #{lectureno}
+	</select>
  
  	<!-- 영호 추가 -->
  	
@@ -682,14 +682,6 @@
  		select * from coding
  		where codingno in (select codingno from lecturecoding where lectureno = #{lectureno})
  	</select>
-=======
-	<select id="checkMyLecture" parameterType="int" resultType="String">
-		select id from teachlecture where lectureno = #{lectureno}
-	</select>
- 	
- 	 	
- 	
->>>>>>> 59f99e620b4f8622ddd5e93ec5cf1e001d34e8fa
 </mapper>
 
 
