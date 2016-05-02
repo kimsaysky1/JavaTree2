@@ -291,6 +291,7 @@ body {
 <div id="player">
 	<!-- <input type="file" accept="video/*"/>	 --> 
 	<video width="960" height="540" id="video" autoplay="autoplay" src='../resources/upload/<s:property value="id"/>/<s:property value="uploadedfilename"/>'>
+		<source src='../resources/upload/<s:property value="id"/>/<s:property value="uploadedfilename"/>' type="video/mp4" />
 		<%-- <source src="" type="video/mp4" /> --%><!-- src="../resources/upload/a.mp4" -->
 		<!-- '../resources/upload/<s:property value="uploadedfilename"/>' -->
 		<!-- ...../upload/ -->

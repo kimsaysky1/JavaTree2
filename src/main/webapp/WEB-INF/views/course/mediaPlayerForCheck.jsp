@@ -232,9 +232,10 @@ body {
 
 <div id="player">
 <s:iterator value="lecture" status="st">
-	<video width="960" height="540" preload="auto" id="video" autoplay="autoplay">
+	<video width="960" height="540" preload="auto" id="video" autoplay="autoplay" >
+		<source src='../resources/upload/<s:property value="id"/>/<s:property value="uploadedfilename"/>' />
 		<%-- <source src="C:/coding/Wildlife.wmv" type="video/wmv" /> --%>
-		<source src='<s:property value="uploadedfilename"/>' type="video/wmv" />
+		<%-- <source src='<s:property value="uploadedfilename"/>' type="video/wmv" /> --%>
 	</video>
 </s:iterator>	
 <div id="seek">

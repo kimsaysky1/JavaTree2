@@ -9,5 +9,6 @@ public interface CompilerDAO {
 	List<Coding> selectCodingList(int lectureno);
 	Coding callSpecificCoding(int codingno);
 	String selectPath(int lectureno);
+	String selectTeacher(int lectureno);
 
 }

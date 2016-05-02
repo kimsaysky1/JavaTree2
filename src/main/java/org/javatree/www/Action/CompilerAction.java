@@ -60,7 +60,7 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 	public String watchLecture() throws Exception {
 		CompilerDAO dao = sqlsession.getMapper(CompilerDAO.class);
 	      uploadedfilename = dao.selectPath(lectureno);
-	      id = (String)session.get("loginId");
+	      id = dao.selectTeacher(lectureno);
 	      codingList = dao.selectCodingList(lectureno);
 	      return SUCCESS;
 	}
@@ -479,6 +479,14 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 
 	public void setUploadedfilename(String uploadedfilename) {
 		this.uploadedfilename = uploadedfilename;
+	}
+
+	public File getDirectoryPath() {
+		return directoryPath;
+	}
+
+	public void setDirectoryPath(File directoryPath) {
+		this.directoryPath = directoryPath;
 	}
 	
 	
