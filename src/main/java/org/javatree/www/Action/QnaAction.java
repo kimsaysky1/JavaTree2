@@ -175,6 +175,105 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		gunggumRecentQuestionList = dao.gunggumRecentQuestionList();
 		bestAllQuestionList = dao.bestAllQuestionList();
 		bestRecentQuestionList = dao.bestRecentQuestionList();
+		
+		int total = questionList.size();
+		
+		int countPerPage = 5;
+		
+		//페이지당 글목록 수
+		if(total % countPerPage == 0 ){
+			endPageGroup = (int)(total/countPerPage);		//총 (페이지)그룹 수
+		}else{
+			endPageGroup = (int)(total/countPerPage)+1;		//총 (페이지)그룹 수
+		}
+		
+		if(total == 0){
+			endPageGroup = 1;
+			currentPage = 0;
+		}
+		System.out.println("totalsize>> " + total);
+		System.out.println("curpage>> " + currentPage);
+		session.put("currentPage", currentPage);
+		session.put("endPageGroup", endPageGroup);
+		
+	}
+	
+	public void plusQnaDefaultMain(String loginId) {
+		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
+		if(loginId != null){
+			Member_jt member = dao.selectOneMember(loginId);
+			typenoList = new ArrayList<>();
+			int questionnum = member.getCountquestion();
+			int responsenum = member.getCountresponse();
+			int recommendnum = member.getCountrecommend();
+			ArrayList<Interest> interestList = member.getInterestList();
+			ArrayList<Ability> abilityList = member.getAbilityList();
+			for (int i = 0; i < abilityList.size(); i++) {
+				if (abilityList.get(i).getValue() == 3) {
+					if (!(typenoList.contains(abilityList.get(i).getTypeno()))) {
+						typenoList.add(abilityList.get(i).getTypeno());
+					}
+				}
+			}
+			for (int i = 0; i < interestList.size(); i++) {
+				if (interestList.get(i).getValue() == 3) {
+					if (!(typenoList.contains(interestList.get(i).getTypeno()))) {
+						typenoList.add(interestList.get(i).getTypeno());
+					}
+				}
+			}
+			if (questionnum >= responsenum) {
+				for (int i = 0; i < abilityList.size(); i++) {
+					if (abilityList.get(i).getValue() == 2) {
+						if (!(typenoList.contains(abilityList.get(i).getTypeno()))) {
+							typenoList.add(abilityList.get(i).getTypeno());
+						}
+					}
+				}
+			} else if (questionnum < responsenum) {
+				for (int i = 0; i < interestList.size(); i++) {
+					if (interestList.get(i).getValue() == 2) {
+						if (!(typenoList.contains(interestList.get(i).getTypeno()))) {
+							typenoList.add(interestList.get(i).getTypeno());
+						}
+					}
+				}
+			}
+		}
+		Map map = new HashMap();
+		
+		int countPerPage = 5;		//페이지당 글목록 수
+		start = countPerPage*currentPage-(countPerPage-1);
+		end = countPerPage*currentPage;
+		
+		map.put("start", start);
+		map.put("end", end);
+		map.put("typenoList", typenoList);
+		
+		questionList = dao.selectAllQuestion(map);
+		gunggumAllQuestionList = dao.gunggumAllQuestionList();
+		gunggumRecentQuestionList = dao.gunggumRecentQuestionList();
+		bestAllQuestionList = dao.bestAllQuestionList();
+		bestRecentQuestionList = dao.bestRecentQuestionList();
+		
+		int total = questionList.size();
+		
+		//페이지당 글목록 수
+		if(total % countPerPage == 0 ){
+			endPageGroup = (int)(total/countPerPage);		//총 (페이지)그룹 수
+		}else{
+			endPageGroup = (int)(total/countPerPage)+1;		//총 (페이지)그룹 수
+		}
+		
+		if(total == 0){
+			currentPage = 0;
+			endPageGroup = 1;
+		}
+		System.out.println("totalsize>> " + total);
+		System.out.println("curpage>> " + currentPage);
+		session.put("currentPage", currentPage);
+		session.put("endPageGroup", endPageGroup);
+		
 	}
 
 	public String watchRelatedQuestion() throws Exception {
@@ -309,8 +408,8 @@ public class QnaAction extends ActionSupport implements SessionAware {
 			endPageGroup = (int)(totalRecordsCount/countPerPage)+1;		//총 (페이지)그룹 수
 		}
 		
-		if(currentPage == 0){
-			currentPage = 1;
+		if(totalRecordsCount == 0){
+			currentPage = 0;
 		}
 		
 		session.put("currentPage", currentPage);

@@ -20,6 +20,13 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
+<style type="text/css">
+	.noneList{
+		background: white;
+	}
+</style>
+        
+  
 <title>teachMain</title>
 
 </head>
@@ -90,6 +97,10 @@
 				 <h2>MY COURSE - teach </h2>
 				<br>
 				<div class = "form-study">
+					
+				<s:if test="courseList == null">
+								<h3>정 보 없 음 </h3>
+				</s:if>
 				
 				<s:iterator value="courseList" status="incr">	
 				<input type="hidden" name="courseno" value="courseList.courseno">	
@@ -126,7 +137,7 @@
             </s:elseif>
             
 			<s:elseif test="#session.currentPage == 0">
-             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             <li></li>
              </s:elseif>
              
 			<s:else>

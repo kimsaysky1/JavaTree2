@@ -11,10 +11,23 @@ public class Course {
 	private String regdate;
 	private ArrayList<String> courseTypeList;
 	private String teacherid;
+	private String lecturename;
 	
 	public Course() {
 	}
 	
+	public Course(int courseno, String coursename) {
+		this.courseno = courseno;
+		this.coursename = coursename;
+	}
+	
+	public Course(int courseno, String coursename, String lecturename) {
+		super();
+		this.courseno = courseno;
+		this.coursename = coursename;
+		this.lecturename = lecturename;
+	}
+
 	public int getCourseno() {
 		return courseno;
 	}
@@ -66,8 +79,16 @@ public class Course {
 		this.teacherid = teacherid;
 	}
 
+	public String getLecturename() {
+		return lecturename;
+	}
+
+	public void setLecturename(String lecturename) {
+		this.lecturename = lecturename;
+	}
+
 	public Course(int courseno, String coursename, String id, String username, String introdution, String regdate,
-			ArrayList<String> courseTypeList, String teacherid) {
+			ArrayList<String> courseTypeList, String teacherid, String lecturename) {
 		super();
 		this.courseno = courseno;
 		this.coursename = coursename;
@@ -77,13 +98,14 @@ public class Course {
 		this.regdate = regdate;
 		this.courseTypeList = courseTypeList;
 		this.teacherid = teacherid;
+		this.lecturename = lecturename;
 	}
 
 	@Override
 	public String toString() {
 		return "Course [courseno=" + courseno + ", coursename=" + coursename + ", id=" + id + ", username=" + username
 				+ ", introdution=" + introdution + ", regdate=" + regdate + ", courseTypeList=" + courseTypeList
-				+ ", teacherid=" + teacherid + "]";
+				+ ", teacherid=" + teacherid + ", lecturename=" + lecturename + "]";
 	}
 
 	

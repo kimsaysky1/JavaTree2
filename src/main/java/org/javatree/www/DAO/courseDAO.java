@@ -32,10 +32,10 @@ public interface courseDAO {
 	public void insertSubnote(Subnote subnote);
 	
 	public ArrayList<Course> studyMainView(Map<String, Object> kong);
-	public ArrayList<String> selectLatelyPurchasedLectureList1(Map<String, Object> kong);
+	public ArrayList<Lecture> selectLatelyPurchasedLectureList1(Map<String, Object> kong);
 	public ArrayList<String> selectLatelyPurchasedLectureList2(Map<String, Object> kong);
 	public ArrayList<String> recentlyCompletedLectureList1(Map<String, Object> kong);
-	public ArrayList<String> recentlyCompletedLectureList2(Map<String, Object> kong);
+	public ArrayList<Course> recentlyCompletedLectureList2(Map<String, Object> kong);
 	public ArrayList<Course> pagingCourse(Map<String, Object> kong);
 	public ArrayList<Course> pagingStudyCourse(Map<String, Object> kong);
 	public int selectTotal(Map<String, Object> kong);
@@ -107,6 +107,8 @@ public interface courseDAO {
 	public ArrayList<Coding> selectedAllCoding(int lectureno);
 	public void deleteCodingFromLectureCoding(Map map);
 	public void insertCodingFromLectureCoding(Map map);
+	public void deleteCoding(Integer integer);
+	public ArrayList<Coding> selectAllCodingForId(String string);
 	
 	
 }
