@@ -303,7 +303,7 @@ $(document).ready(function() {
         }
 
    /*      $('#lstBox1').append($(selectedOpts).clone()); */
-        $(selectedOpts).remove();
+        $(selectedOpts).empty();
         e.preventDefault();
     });
     

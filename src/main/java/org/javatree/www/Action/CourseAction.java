@@ -20,6 +20,7 @@ import java.util.StringTokenizer;
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.type.IntegerTypeHandler;
 import org.apache.struts2.interceptor.SessionAware;
 import org.javatree.www.DAO.QnaDAO;
 import org.javatree.www.DAO.courseDAO;
@@ -2481,15 +2482,38 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         System.out.println("tempList: "+tempList);
 	         
 	         Map<String, Object> map = new HashMap<>();
-	         
+	         Map<String, Object> mapfordele = new HashMap<>();
+	         ArrayList<Integer> codingListCheck = new ArrayList<>();//20160501추가 - codingno;; for delete (왼쪽버튼 눌렀을때)
 	         for(int i = 0; i < tempList.size(); i++){
 	            map.put("codingno", tempList.get(i));
 	            map.put("lectureno", lectureno);
-	            int s= dao.selectLectureCoding(map);
+	            codingno=Integer.parseInt(tempList.get(i));//20160501추가
+	            System.out.println("lectureno:"+lectureno);
+	            codingListCheck= dao.selectedAllLectureCoding(lectureno);  //20160501추가 - codingno;; for delete (왼쪽버튼 눌렀을때)
+	            System.out.println("codingListCheck: "+codingListCheck);
+	            int sa= dao.selectedAllLectureCodingCount(lectureno);//20160501추가 - count;; for delete (왼쪽버튼 눌렀을때)
+	            System.out.println("selectAlllecturecodingCount: "+sa);
+	            
+	            /*deleteLectureCoding*/
+	            if(sa > tempList.size()){
+		            for(int j=0; j<codingListCheck.size();j++){
+		            	if(codingno == codingListCheck.get(j)){
+		            		System.out.println("가져온 값과 db 값 비교했을때 다르다 ");
+			            	mapfordele.put("codingno", codingno);
+			            	mapfordele.put("lectureno", lectureno);
+			            	dao.deleteLectureCodingForQuestionBox(mapfordele);
+			            	System.out.println("mapfordele: "+mapfordele);
+			            	System.out.println("delete완성");
+		            	}
+		            }
+	            	
+	            }
+	            /*saveLectureCoding*/
+	            int s= dao.selectLectureCoding(map);//20160501추가 - count ;;for count check (중복저장 피하기위해)
 	            System.out.println("s: "+s);
 	            if(s == 0){
 	            	dao.insertLectureCoding(map);
-	            	System.out.println(i+"번 완료");
+	            	System.out.println(i+"번째값 등록 완료");
 	            }
 	            else{
 	            	System.out.println("같은것 있음. 등록 불가 ");
