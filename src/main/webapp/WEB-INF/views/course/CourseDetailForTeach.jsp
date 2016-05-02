@@ -29,6 +29,12 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
+    
+<style type="text/css">
+	.noneList{
+		background: white;
+	}
+</style>
 <title>DetailCourse-teach</title>
 <script type="text/javascript">
 /* function deleteLecture(){
@@ -208,8 +214,16 @@
 				
 			</div>
 		</div>
+		
+		
+	
+
 		<div id="courseDetail" class="courseDetail learn-section">
+			
+		
+		
 			<div class="container">
+	
 
 				<div class="table-student-submission">
 					<table class="mc-table">
@@ -225,6 +239,7 @@
 
 
 						<tbody>
+
 <s:iterator value="lectureList" status="st">	
 					
 							<tr class="new">
@@ -237,11 +252,26 @@
 							</tr>
 
 </s:iterator>
-						</tbody>
-					</table>
-				</div>
 
-				<div class="paging" align="center">
+						</tbody>
+	
+		
+					</table>
+				
+	
+		<s:if test="lectureList.size == 0">
+			
+		<div class="noneList">
+			<div class="container">
+				<h3>정 보 없 음 </h3>
+			</div>
+		</div>
+	</s:if>
+					
+
+				
+	</div>
+<div class="paging" align="center">
 					<ul class="pager">
 						
 						<s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
@@ -259,7 +289,7 @@
             </s:elseif>
             
 			<s:elseif test="#session.currentPage == 0">
-             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             <li></li>
              </s:elseif>
              
 			<s:else>
@@ -275,11 +305,11 @@
 						<li><a href="#">next ›</a></li>
 						<li><a href="#">last »</a></li> -->
 					</ul>
-				</div>
-
 			</div>
-		</div>
-
+	
+	</div>
+		
+</div>
 	</section>
 
 

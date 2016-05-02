@@ -28,6 +28,7 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
+    
 <title>DetailCourse-study</title>
 </head>
 <body>
@@ -158,16 +159,14 @@
 								<td class="submit-date"><a href="">PlayView</a></td>
 								<td class="submit-date"><a href="">Download SubNote</a></td>
 							</tr> -->
-							<s:if test="lectureList == null">
-							<tr class="new">
+						<!-- 	<tr class="new">
 								<td class="submissions"></td>
 								<td class="author">&nbsp;&nbsp;&nbsp;&nbsp;정&nbsp;&nbsp;보&nbsp;&nbsp;없&nbsp;&nbsp;음</td>
 								<td class="score"></td>
 								<td class="submit-date"></td>
 								<td class="submit-date"></td>
 								<td class="submit-date"></td>
-							</tr>
-							</s:if>
+							</tr> -->
 						</tbody>
 					</table>
 				</div>
@@ -243,7 +242,7 @@
 		
 		//backspace 제어
 		 try{
-             /*
+			 /*
              * [페이지 자동 이벤트 처리기]
              * 기능 : 검색어 입력 후 BackSpace를 눌렀을때, 404에러나는 것 방지 처리
              * 처리 : Backspace Code 입력시 '목록' 버튼을 누르게 하고, 실제 backSapce Code를 막는다

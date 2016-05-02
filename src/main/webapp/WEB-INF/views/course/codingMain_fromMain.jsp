@@ -20,6 +20,7 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
+    
 <title>문제보관함</title>
 
 
@@ -108,38 +109,50 @@
 						<table style='width: 900px;'>
 							<tr>
 								<td style='width: 400px;'><b>ALL QUESTION</b><br /> 
+						<!-- 보유 코딩 문제 리스트 -->
                            <select multiple="multiple" id='lstBox1' style='width: 400px; height: 600px;' >
                                <s:iterator value="codingList" status="st">   
                                  <option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>
                                </s:iterator>
                            </select>
+                        <!-- 보유 코딩 문제 리스트 끝 -->   
+                           
                         </td>
                         <td style='width: 50px; text-align: center; vertical-align: middle;'>
                            <input type='button' id='btnRight' value='  >  ' /> <br />
                            <input type='button' id='btnLeft' value='  <  ' />
                         </td>
                         <td style='width: 400px;'><b>SELECTED QUESTION </b><br /> 
+                          
+                          <!-- 강좌 목록 -->
                            <select class="courselistbox" id ="courselistbox" style='width: 400px; height:30px;'>
                                     <option>강좌 목록</option>
-<s:iterator value="courseList" status="st">   
-                                          <option value="<s:property value="courseno"/>"><s:property value="courseno"/>.<s:property value="coursename"/></option>                
-</s:iterator>
+							<s:iterator value="courseList" status="st">   
+                                   <option value="<s:property value="courseno"/>"><s:property value="courseno"/>.<s:property value="coursename"/></option>                
+							</s:iterator>
                                     <!-- <s:property value="lectureno"/> -->
                            </select>
+                           <!-- 강좌 목록 끝-->
+                           
                            <br><br>
+                           
+                           <!-- 강의 목록 -->
                             <select class="lecturlistbox" id ="lecturelistbox" style='width: 400px; height:30px;'>
                             <option>강의 목록</option>
-<s:iterator  value="lectureList" status="st">   
-                                             <option value="<s:property value="lectureno"/>"><s:property value="lecturename"/></option>                
-</s:iterator>                
-                           </select>  
-                           <br><br>
-                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 480px;'>
+							<s:iterator  value="lectureList" status="st">   
+                          		<option value="<s:property value="lectureno"/>"><s:property value="lecturename"/></option>                
+							</s:iterator>                
+                           </select> 
+                           <!-- 강의 목록 끝--> 
                            
- <s:iterator value="codingList" status="st"> 
+                           <br><br>
+                           <!-- 강의 해당 코딩문제 리스트 -->
+                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 480px;'>                          
+ 							<s:iterator value="codingList" status="st">  
                                  <%-- <option value="<s:property value="codingquestion"/>"><s:property value="codingquestion"/></option> --%>
-</s:iterator>
+							</s:iterator>
                            </select>
+                           <!-- 강의 해당 코딩문제 리스트 끝-->
                            <input type="button" id="btninsert" value="저장" style="float: right; margin-right: 28px;">
                         </td>
                      </tr>
@@ -148,9 +161,25 @@
             </div>
          </div>
       </section>
+	
 
-
-
+	
+<div class="container">
+  <button type="button" style="display:none;" id = "insertModal" data-toggle="modal" data-target="#myModal"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>등록되었습니다.</p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
    </div>
    <!-- END / PAGE WRAP -->
 
@@ -175,18 +204,19 @@ $(document).ready(function() {
        
    } */
    
-   $("#courselistbox").change(function(){
+   $("#courselistbox").change(function(){ 
       var courseno=$(this).val()      
       $('#lstBox2 option').remove();
       $.ajax({
-         url : 'golecturelist.action',
-         data : {'courseno' : courseno},
-         success : function(response){
+         url : 'golecturelist.action'
+         , data : {'courseno' : courseno}
+      	 ,success : function(response){
             $(response.lectureList).each(function(index, item) {
                $('#lecturelistbox').append( '<option value='+item.lectureno+' class="lecturelistbox1">'+item.lecturename+'</option>');
             });      
          },
          error:function(){
+        	 console.log('에러');
          }
       });
       
@@ -197,16 +227,15 @@ $(document).ready(function() {
       var lectureno = $(this).val();
       $('#lstBox2 option').remove();
       $.ajax({
-         url:'gocodinglist.action',
-         data: {'lectureno' : lectureno},
-         success: function(response){
+         url:'gocodinglist.action'
+         ,data: {'lectureno' : lectureno}
+      	 ,success: function(response){
             $(response.codingList).each(function(index, item) {
                $('#lstBox2').append( '<option value='+item.codingno+' class="lstBox2_1">'+item.codingquestion+'</option>');
             });      
-            
-            
-         },
-         error:function(){
+         }
+      	 ,error:function(){
+      		 console.log('에러');
          }
       });
       
@@ -226,9 +255,10 @@ $(document).ready(function() {
    }); */
    
 
-    $('#btnRight').click(function(e) {
-    	var selectedOpts = $('#lstBox1 option:selected');
+    $('#btnRight').click(function(e) { //오른쪽 화살표
+    	//var selectedOpts = $('#lstBox1 option:selected');
     	var lectureno = $("#lecturelistbox option:selected").val();
+<<<<<<< HEAD
     	var simp = ',';
         var codingnoListforCheck = '';
         $('#lstBox1 :selected').each(function(i, selected) {
@@ -297,54 +327,58 @@ $(document).ready(function() {
 	         }
 	      });
       
+=======
+    	var beforeCodingArray = [];
+    	$('#lstBox1 :selected').each(function(i, selected) {
+    		
+    		var temp = {
+    			codingno: Number($(selected).val())
+    			,codingquestion: $(selected).html()
+    		}
+    		beforeCodingArray.push(temp);
+    	});
+    	
+    	var rightCodingArray = [];
+    	
+    	$('#lstBox2 option').each(function(i, coding){
+    		rightCodingArray.push(Number($(coding).val()));
+    	});
+    	
+    	beforeCodingArray.forEach(function(item){
+   		 var check = $.inArray(item.codingno, rightCodingArray);
+		 if(check < 0){
+    			$('<option value="'+item.codingno+'">'+item.codingquestion+'</option>').appendTo('#lstBox2');
+    		}
+		});
+>>>>>>> f96567531c8e94532a040642727282ade2fc287b
     });
 
-    $('#btnLeft').click(function(e) {
+    $('#btnLeft').click(function(e) { //왼쪽 화살표
         var selectedOpts = $('#lstBox2 option:selected');
         if (selectedOpts.length == 0) {
             e.preventDefault();
         }
-
-   /*      $('#lstBox1').append($(selectedOpts).clone()); */
         $(selectedOpts).remove();
         e.preventDefault();
     });
     
  
-    $('#btninsert').on( "click", function(){
-
-       var codingListForInsert = [];
+    $('#btninsert').on( "click", function(){ 
+       var rightCodingArray = [];
        $('#lstBox2 option').each(function(index) {
-          codingListForInsert.push( $(this).val()) ;
+    	   rightCodingArray.push( $(this).val()) ;
          });
        
        var lectureno = $("#lecturelistbox option:selected").val();
-       
-       //var data = "codingListForInsert"+codingListForInsert; 
-       //alert(data);
-      //var data = escape(encodeURIComponent("codingListForInsert"+codingListForInsert));
-      
          $.ajax({
              url : 'insertSelectedCodingfromMain.action',
-             data : 'codingListForInsert='+codingListForInsert+'&lectureno='+lectureno,
+             data : 'codingListForInsert='+rightCodingArray+'&lectureno='+lectureno,
              success : function(response){
-               
-                $('#lstBox2 option').remove();
-               /*  $('#lecturelistbox option').location.reload(); */
-                /*  $('#courselistbox option').location.reload(); */
+            	 $("#insertModal").trigger('click');
+                //$('#lstBox2 option').remove();
              }
           }); 
     });
-    
-  /*  	function insertST(){
-   		var btninsert= document.getElementById("btninsert");
-   		
-   	} */
-    
-   
-
-    
-    
 });
 </script>
    

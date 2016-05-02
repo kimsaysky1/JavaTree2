@@ -281,15 +281,19 @@
         	<result>/WEB-INF/views/course/CourseDetailForTeach.jsp</result>
         </action>
         
-        
-        
-        
-        
-        
         <action name="selectedCheck" class="org.javatree.www.Action.CourseAction" method="selectedCheck">
         	<result type="json"></result>
         </action>
         
+        
+        
+        <!-- 영호 작성 문제보관함 시작 -->
+        
+        <action name="DuplicateCheck" class="org.javatree.www.Action.CourseAction" method="DuplicateCheck">
+        	<result type="json"></result>
+        </action>
+        
+        <!-- 영호 작성 문제보관함 종료 -->
     </package>
 
     <!-- Add packages here -->

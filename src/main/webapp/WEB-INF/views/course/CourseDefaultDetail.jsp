@@ -36,6 +36,12 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
+
+<style type="text/css">
+	.noneList{
+		background: white;
+	}
+</style>
     
 <title>CourseDefaultDetail</title>
 </head>
@@ -121,14 +127,19 @@
 						</s:iterator>
 							
 				<s:if test="lectureList == null">
-							<tr class="new">
+						<div class="noneList">
+							<div class="container">
+								<h3>정 보 없 음 </h3>
+							</div>
+						</div>
+						<!-- 	<tr class="new">
 								<td class="submissions"></td>
-								<td class="author">&nbsp;&nbsp;&nbsp;&nbsp;정&nbsp;&nbsp;보&nbsp;&nbsp;없&nbsp;&nbsp;음</td>
-								<td class="score"></td>
+								<td class="author">정</td>
+								<td class="score">보</td>
+								<td class="submit-date">&nbsp;&nbsp;없</td>
+								<td class="submit-date">&nbsp;&nbsp;음</td>
 								<td class="submit-date"></td>
-								<td class="submit-date"></td>
-								<td class="submit-date"></td>
-							</tr>
+							</tr> -->
 				</s:if>
 
 						</tbody>
@@ -154,7 +165,6 @@
             </s:elseif>
 			
 			<s:elseif test="#session.currentPage == 0">
-             <li><a> <s:property value="#session.currentPage"/> </a></li>
              </s:elseif>
 			
 			<s:else>
