@@ -24,13 +24,22 @@ public class Lecture {
 	}
 	
 	public Lecture(String lecturename, String coursename) {
-		super();
 		this.lecturename = lecturename;
 		this.coursename = coursename;
 	}
 
-
+	public Lecture(int lectureno, String lecturename) {
+		this.lectureno = lectureno;
+		this.lecturename = lecturename;
+	}
 	
+	public Lecture(int lectureno, String lecturename, String coursename) {
+		super();
+		this.lectureno = lectureno;
+		this.lecturename = lecturename;
+		this.coursename = coursename;
+	}
+
 	public Lecture(int courseno, int lectureno, String lecturename, String regdate, String originalfilename,
 			String uploadedfilename, String startdate, String enddate, String coursename, String introdution,
 			String studying, String teacherid, String subnoteName, ArrayList<Coding> codingList) {

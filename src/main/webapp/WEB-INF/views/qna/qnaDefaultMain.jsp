@@ -96,6 +96,30 @@
 					</s:iterator>
                         <ul class="pager">
                             
+             <s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:if>
+            
+            <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
+             <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "plusQnaMain.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1">
+             <li><a href = "plusQnaMain.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
+            <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.currentPage == 0">
+             <li></li>
+             </s:elseif>
+			
+			<s:else>
+             <li><a href = "plusQnaMain.action?currentPage=<s:property value="#session.currentPage - 1"/>">&lt prev</a></li>
+             <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "plusQnaMain.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
+            </s:else>
+                            
                            <!-- <li><a href="#" id= "watchMore">더보기</a></li> -->
                         </ul>
                     </div>
@@ -455,6 +479,13 @@
 		        	 }else if(curPage == endPage & endPage != 1){
 		        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
 		        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
+		        	 }else if(curPage == 0){
+		        		 var none = $('<h3></dh3>');
+		        		 none.html('정보없음').appendTo(".blog-list-content > div:first");
+		        		 
+		        		 var paging4 = '<li></li>';	
+		        		 paging.html(paging4).insertAfter(".blog-list-content > div:last");
+		        		 
 		        	 }else{
 		        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 		        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");

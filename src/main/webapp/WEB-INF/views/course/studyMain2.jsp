@@ -75,11 +75,11 @@
                         <div class="table-wrap">
                             <!-- TABLE HEAD -->
                             <div class="table-head">
-                                <div class="submissions">Title</div>
+                                <div class="submissions">Coursename(Lecturename)</div>
                                 <div class="total-subm"></div>
-                                <div class="replied"></div>
-                                <div class="latest-reply">ID(SUBNOTE)</div>
-                                <div class="tb-icon"></div>
+                                <div class="replied">Subnote</div>
+                                <div class="latest-reply">Teacher</div>
+                                <div class="tb-icon">Play</div>
                             </div>
                             <!-- END / TABLE HEAD -->
 
@@ -89,6 +89,9 @@
                          
                                 <!-- TABLE ITEM -->
                                 
+                                <s:if test="courseList == null">
+								<h3>정 보 없 음 </h3>
+								</s:if>
                                     
                                <s:iterator value="courseList">
                                <div class="table-item" >
@@ -138,7 +141,7 @@
             </s:elseif>
 			
 			<s:elseif test="#session.currentPage == 0">
-             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             <li></li>
              </s:elseif>
 			
 			<s:else>
@@ -195,7 +198,7 @@
                                       <s:iterator value="recentlyCompletedLectureList" status="counter" >
                                         <tr>
                                          <td class="count"> <s:property value="#counter.index + 1" /> </td>
-                                            <td><a href="selectCourseDetailForStudy.action?courseno="<s:property value="courseno" /> target="_blank"><s:property value="lecturename" /> &nbsp;[ &nbsp;강좌명: &nbsp; <s:property value="coursename" /> &nbsp; ]</a></td>                                          
+                                            <td><a href="selectCourseDetailForStudy.action?courseno=<s:property value="courseno" />"><s:property value="lecturename" /> &nbsp;[ &nbsp;강좌명: &nbsp; <s:property value="coursename" /> &nbsp; ]</a></td>                                          
                                         </tr>
 										</s:iterator>
                                        
@@ -213,7 +216,7 @@
                                      <s:iterator value="latelyPurchasedLectureList" status="counter" >
                                         <tr>
                                          <td class="count"> <s:property value="#counter.index + 1" /> </td>
-                                            <td><a href="../compiler/Compiler.action?lectureno="<s:property value="lectureno" /> target="popup" onclick="window.open('../compiler/Compiler.action?lectureno=<s:property value="lectureno" />','name')"><s:property value="lecturename" /> &nbsp;[ &nbsp;강좌명: &nbsp; <s:property value="coursename" /> &nbsp; ]</a></td>                                          
+                                            <td><a href="../compiler/Compiler.action?lectureno=<s:property value="lectureno" />" target="popup" onclick="window.open('../compiler/Compiler.action?lectureno=<s:property value="lectureno" />','name')"><s:property value="lecturename" /> &nbsp;[ &nbsp;강좌명: &nbsp; <s:property value="coursename" /> &nbsp; ]</a></td>                                          
                                         </tr>
 										</s:iterator>
                                        
@@ -324,7 +327,7 @@
 					        success : function(response){
 					        	
 					        	var divTag = $('<div class="tbody"></div>');
-				 				divTag.html('<div class="item"><div class="submissions"></div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"><a href="selectCourseDetailForStudy.action?courseno='+id+'">>>강좌상세정보</div><div class="link tb-icon"></div></div>')
+				 				divTag.html('<div class="item"><div class="submissions"></div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"><a href="selectCourseDetailForStudy.action?courseno='+id+'">>>강좌상세정보</a></div><div class="link tb-icon"></div></div>')
 				 				.insertAfter(sel); 	  
 					        	
 					        	 var list = response.lectureList;
