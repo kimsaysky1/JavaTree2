@@ -101,6 +101,7 @@ public interface courseDAO {
 	public void deleteLectureCodingForQuestionBox(Map<String, Object> mapfordele);
 	public String selectFileName(int lectureno);
 	public String selectSubNoteName(int lectureno);
+	public String checkMyLecture(int lectureno);
 	
 	// 영호 추가
 	public ArrayList<Coding> selectedAllCoding(int lectureno);

@@ -448,7 +448,7 @@
         		 select max(lectureno) from lecture 
         	</selectKey>
         	insert into teachlecture (id, courseno, lectureno, point, studentcount)
-		values (#{id}, #{courseno} ,#{lectureno}, #{point}, (select count(*) from studylecture where lectureno=#{lectureno}))
+		values (#{id}, #{courseno} ,#{lectureno}, #{point}, #{studentcount})
    	</insert>
      	
    
@@ -673,6 +673,7 @@
 		select uploadedfilename from subnote where lectureno = #{lectureno}
 	</select>
 	
+<<<<<<< HEAD
  
  
  	<!-- 영호 추가 -->
@@ -681,6 +682,14 @@
  		select * from coding
  		where codingno in (select codingno from lecturecoding where lectureno = #{lectureno})
  	</select>
+=======
+	<select id="checkMyLecture" parameterType="int" resultType="String">
+		select id from teachlecture where lectureno = #{lectureno}
+	</select>
+ 	
+ 	 	
+ 	
+>>>>>>> 59f99e620b4f8622ddd5e93ec5cf1e001d34e8fa
 </mapper>
 
 

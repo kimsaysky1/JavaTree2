@@ -300,7 +300,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				}
 			}
 			
-			
+			System.out.println("slide>> " + tempList);
+
 			if(end > tempList.size()){
 				end = tempList.size();			
 			}
@@ -327,21 +328,24 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	
 	
 	public String DownLoadFile() throws Exception {
-		System.out.println("lectureno: "+getLectureno());
-		courseDAO dao = sqlSession.getMapper(courseDAO.class);
-		String uploadid = dao.selectUploadedFileName(lectureno);
-		System.out.println("lecture: >> " + uploadid);
 		
-		String inputPath = UploadPath2 + uploadid+ "/"+uploadedfilename;
-		File file = new File(inputPath);
-		System.out.println("inputPath>> " + inputPath + "~~ " + "filename>> " + uploadedfilename);
-		setContentLength(file.length());
+			System.out.println("lectureno: "+getLectureno());
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			String uploadid = dao.selectUploadedFileName(lectureno);
+			
+			System.out.println("lecture: >> " + uploadid);
+			
+			String inputPath = UploadPath2 + uploadid+ "/"+uploadedfilename;
+			File file = new File(inputPath);
+			System.out.println("inputPath>> " + inputPath + "~~ " + "filename>> " + uploadedfilename);
+			setContentLength(file.length());
+			
+			//contentDisposition 다운로드 창을 띄우는 부분
+			setContentDisposition("attachment; filename=" + URLEncoder.encode(uploadedfilename, "UTF-8"));
+			
+			setInputStream(new FileInputStream(inputPath));
 		
-		//contentDisposition 다운로드 창을 띄우는 부분
-		setContentDisposition("attachment; filename=" + URLEncoder.encode(uploadedfilename, "UTF-8"));
 		
-		setInputStream(new FileInputStream(inputPath));
-
 		return SUCCESS;
 	}
 	/**
@@ -1369,6 +1373,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			lecture = dao.selectCourseForDetail(courseno);
 			coursename = lecture.getCoursename();
 			introdution = lecture.getIntrodution();
+			currentPage = 0;
 		}
 		
 		session.put("currentPage", currentPage);
@@ -1451,6 +1456,11 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	public String insertLectureForStudy() {
 		
 		courseDAO dao = sqlSession.getMapper(courseDAO.class);
+		
+		//자신의 강의 여부 체크
+		String teacher = dao.checkMyLecture(lectureno);
+		if(!teacher.equals((String)session.get("loginId"))){
+		
 		Map<String, Object> kong = new HashMap<>();
 		
 		System.out.println("loginId>> " + session.get("loginId"));
@@ -1492,6 +1502,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}
 		
 		selectCourseDefaultDetail(kong);
+		} // 내 강의가 아닐 경우
 		
 		return SUCCESS;
 	}
@@ -1499,6 +1510,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	public String insertLectureForStudy1() {
 		
 		courseDAO dao = sqlSession.getMapper(courseDAO.class);
+		String teacher = dao.checkMyLecture(lectureno);
+		if(!teacher.equals((String)session.get("loginId"))){
 		Map<String, Object> kong = new HashMap<>();
 		
 		System.out.println("loginId>> " + session.get("loginId"));
@@ -1540,7 +1553,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}
 		
 		selectCourseDefaultDetail(kong);
-		
+		}
 		return SUCCESS;
 	}
 	
@@ -1921,14 +1934,14 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			//System.out.println(uploadFileName+"파일네임");
 			//System.out.println(getUpload()+"실제파일");
 			
-			String a= uploadFileName.get(0);
+			/*String a= uploadFileName.get(0);
 			String b= uploadFileName.get(1);
 			
 			String [] video_chk = a.split("\\.");
 			String [] note_chk = b.split("\\.");
 			
 			String check_point1= video_chk[1];
-			String check_point2= note_chk[1];
+			String check_point2= note_chk[1];*/
 			
 			//System.out.println("check_point1 : "+check_point1);
 			//System.out.println("check_point2 : "+check_point2);	   
@@ -2030,7 +2043,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
             
             //여기까지 내꺼
 				/*서브노트파일*/
-    			  
+    		
+    		if(!uploadFileName.get(1).isEmpty()){
+    		
     			directoryPath = new File(UploadPath2 +loginId+"/");
     				if (!directoryPath.exists()) {
     					directoryPath.mkdirs();
@@ -2054,16 +2069,16 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				System.out.println("subnote3: "+subnote);
 				System.out.println(subnote+"서브노트객체");
 				dao.insertSubnote(subnote);
-	/*struts.properties src 파일사이즈 속성. 값. byte값단위로 */
+    		}
+				
+				/*struts.properties src 파일사이즈 속성. 값. byte값단위로 */
 				
 				/*insert Teachlecture*/
 				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("id", id);
-				//System.out.println(courseno+"티치렉쳐");
+				map.put("id", (String)session.get("loginId"));
 				map.put("courseno", courseno);
 				map.put("point", 0);
 				map.put("studentcount", 0);
-				//System.out.println(map+"티치렉쳐맵");
 				dao.insertTeachLecture(map);
 			
 			
@@ -2089,7 +2104,10 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			id=(String) session.get("loginId");
 			
 			lectureList = dao.selectAllLectureListForTeach(courseno);
-			
+			System.out.println("lecturelist>> " + lectureList + " / length>> " + lectureList.size());
+			if(lectureList.size() == 0){
+				currentPage = 0;
+			}
 			course=dao.selectCourse(courseno);     
 			return SUCCESS;
 		}
@@ -2100,6 +2118,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public String mediaPlayerForm(){
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			System.out.println("미디어플레이어폼 lectureno: "+lectureno);
+			id = dao.checkMyLecture(lectureno);
 			lecture = dao.selectLecture(lectureno);
 			
 			return SUCCESS;

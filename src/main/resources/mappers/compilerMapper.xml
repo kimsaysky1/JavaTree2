@@ -25,4 +25,9 @@
 	<select id="selectPath" parameterType="int" resultType="String">
       select uploadedfilename from lecture where lectureno = #{lectureno}
    </select>
+   
+   <select id="selectTeacher" parameterType="int" resultType="String">
+   		select id from teachlecture where lectureno = #{lectureno}
+   </select>
+   
 </mapper>
