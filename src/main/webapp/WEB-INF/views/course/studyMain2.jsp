@@ -332,15 +332,19 @@
 					        	 var list = response.lectureList;
 					        	 list.forEach(function(lec){
 					 				
-					        		 if(lec.uploadedfilename != null){
-					        			 var divTag = $('<div class="tbody"></div>');
-							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="javascript:newPopup('+lec.lectureno+')"><i class="fa fa-play-circle-o"></i></a></div></div>')
-							 				.insertAfter(sel); 
-					        		 }else{
-					        			 var divTag = $('<div class="tbody"></div>');
-							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"></div><div class="link tb-icon"><a href="javascript:newPopup('+lec.lectureno+')"><i class="fa fa-play-circle-o"></i></a></div></div>')
-							 				.insertAfter(sel); 
+					        		 if(lec.studying != null){
+					        			 if(lec.uploadedfilename != null){
+						        			 var divTag = $('<div class="tbody"></div>');
+								 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="javascript:newPopup('+lec.lectureno+')"><i class="fa fa-play-circle-o"></i></a></div></div>')
+								 				.insertAfter(sel); 
+						        		 }else{
+						        			 var divTag = $('<div class="tbody"></div>');
+								 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"></div><div class="link tb-icon"><a href="javascript:newPopup('+lec.lectureno+')"><i class="fa fa-play-circle-o"></i></a></div></div>')
+								 				.insertAfter(sel); 
+						        		 }
 					        		 }
+					        		 
+					        		 
 					 			
 					 			});
 					        	 

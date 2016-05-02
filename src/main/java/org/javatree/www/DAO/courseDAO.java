@@ -109,6 +109,10 @@ public interface courseDAO {
 	public void insertCodingFromLectureCoding(Map map);
 	public void deleteCoding(Integer integer);
 	public ArrayList<Coding> selectAllCodingForId(String string);
+	public String selectPath(int lectureno);
+	public String selectTeacher(int lectureno);
+	public int selectCheckSubnote(int lectureno);
+	public ArrayList<Lecture> selectWatchingLecture2(Map<String, Object> kong);
 	
 	
 }

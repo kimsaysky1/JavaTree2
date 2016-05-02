@@ -154,15 +154,17 @@
 		</if>
 	</select>
 	
-	<!-- 	<select id="selectWatchingLecture2" parameterType="map" resultType="Lecture">
-		<if test="id != null">
+	<select id="selectWatchingLecture2" parameterType="map" resultType="Lecture">
 		SELECT 
 		lectureno
 		FROM studylecture 
 		where courseno = #{courseno} and id = #{id}
 		order by lectureno desc
-		</if>
-	</select> -->
+	</select>
+	
+	<select id="selectCheckSubnote" parameterType="int" resultType="int">
+		select count(*) from subnote where lectureno = #{lectureno}
+	</select>
 	
 	<!-- CourseDefaultDetail 강좌상세보기 -->
 	<select id="selectCourseDefaultDetail" parameterType="map" resultType="Lecture">
@@ -195,6 +197,15 @@
 		select coursename, introdution from course where courseno = #{courseno}
 	</select>
 	
+	<!-- video 파일명가져오기 -->
+	<select id="selectPath" parameterType="int" resultType="String">
+      select uploadedfilename from lecture where lectureno = #{lectureno}
+   </select>
+   
+   <!-- 선생 아이디가져와 폴더만들기 -->
+   <select id="selectTeacher" parameterType="int" resultType="String">
+   		select id from teachlecture where lectureno = #{lectureno}
+   </select>
 	
 	<!-- checkStudyCourse 강좌 수강 신청 여부 판별 -->
 	<select id="checkStudyCourse" parameterType="map" resultType="int">
