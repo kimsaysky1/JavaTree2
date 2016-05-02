@@ -141,9 +141,13 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	private ArrayList<String> interestList;
 	private String codingquestion;
 	
-	private ArrayList<String> codingnoListforCheck;
+	private String codingnoListforCheck;
 	private String filename;
 	
+	//영호 새로 추가
+	
+	private ArrayList<Integer> codingNoList;
+	//영호 새로 추가 끝
 	ArrayList<Coding> checkCoding= new ArrayList<>();
 	
 	
@@ -2443,18 +2447,12 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public String codingFormlecturelist(){
 			
 			try{
-				
 				courseDAO dao = sqlSession.getMapper(courseDAO.class);
-				
 				lectureList = dao.getAllLectureListForCodingBox(courseno);
-				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-	
-			
 			return SUCCESS;
-			
 		}
 		
 		/**
@@ -2669,7 +2667,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			System.out.println("lectureno : "+lectureno);
 			ArrayList<Integer> codingnoList= new ArrayList<>();
-			
 			codingnoList = dao.getCodingno(lectureno);
 			
 			System.out.println("codingnoList1 : "+codingnoList);
@@ -2869,11 +2866,10 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			return SUCCESS;
 		}
-	
+		
 
 		/*문제보관함- lstbox1, 2 중복값 체크위함 */
 		public String selectedCheck(){
-			System.out.println("체크");
 			System.out.println("lectureno: "+lectureno);
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			System.out.println("codingnoListforCheck: "+codingnoListforCheck);
@@ -2888,34 +2884,25 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			}*/
 			
 			ArrayList<String> tempList = new ArrayList<>();
-			String temp = codingnoListforCheck.get(0).toString();
-			StringTokenizer st = new StringTokenizer(temp, ",");
+			StringTokenizer st = new StringTokenizer(codingnoListforCheck, ",");
 			while(st.hasMoreTokens()){
 				tempList.add(st.nextToken());
 			}
 				
 			System.out.println("tempList.size(): "+tempList.size());
 			System.out.println("tempList: "+tempList);
-			//id=(String) session.get("loginId");
-			//Map<String, Object> map = new HashMap<>();
-			//ArrayList<Coding> checkCoding= new ArrayList<>();
 			
 			for(int i = 0; i < tempList.size(); i++){
 				System.out.println(tempList.get(i));
 				codingno= Integer.parseInt(tempList.get(i)) ;
-				//map.put("codingno", tempList.get(i));
-				//map.put("id", id);
-				//System.out.println("map: "+map);
-				coding=dao.selectedCheck(codingno);
-				//dao.insertLectureCoding(map);
-				//System.out.println(i+"번 완료");
-				System.out.println(coding);
+				coding= dao.selectedCheck(codingno);
+				System.out.println("coding: "+coding);
 				checkCoding.add(coding);
 				System.out.println("checkCoding: "+checkCoding);
 			}
-			
-			codingFormlecturelist();
-			showCodinglist();
+			lectureList = dao.getAllLectureListForCodingBox(courseno);
+			//codingFormlecturelist();
+			//showCodinglist();
 			return SUCCESS;
 		}
 		
@@ -3049,13 +3036,37 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		}
 		
 		
+		//영호 문제보관함 시작
+		
+		public String DuplicateCheck() throws Exception{
+			System.out.println("lectureno: "+lectureno);
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			codingList = dao.selectedAllCoding(lectureno);
+			codingNoList = dao.selectedAllLectureCoding(lectureno);
+			System.out.println("codingList:" +codingList);
+			System.out.println("codingNoList: "+codingNoList);
+			return SUCCESS;
+		}
+		
+		
+		
 		//getter setter
 
-	
+		
+		
+		
+		public ArrayList<Integer> getCodingNoList() {
+			return codingNoList;
+		}
+
+		public void setCodingNoList(ArrayList<Integer> codingNoList) {
+			this.codingNoList = codingNoList;
+		}
+
 		public Coding getCoding() {
 			return coding;
 		}
-	
+
 		public void setCoding(Coding coding) {
 			this.coding = coding;
 		}
@@ -3564,12 +3575,15 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public void setContentLength(long contentLength) {
 			this.contentLength = contentLength;
 		}
-		public ArrayList<String> getCodingnoListforCheck() {
+		
+		public String getCodingnoListforCheck() {
 			return codingnoListforCheck;
 		}
-		public void setCodingnoListforCheck(ArrayList<String> codingnoListforCheck) {
+
+		public void setCodingnoListforCheck(String codingnoListforCheck) {
 			this.codingnoListforCheck = codingnoListforCheck;
 		}
+
 		public ArrayList<Coding> getCheckCoding() {
 			return checkCoding;
 		}

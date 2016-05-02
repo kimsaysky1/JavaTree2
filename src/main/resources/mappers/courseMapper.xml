@@ -665,9 +665,6 @@
 		delete from lecturecoding where codingno=#{codingno} and lectureno=#{lectureno}
 	</delete>
 
-
-
-	
 	<select id="selectFileName" parameterType="int" resultType="String">
 		select uploadedfilename from lecture where lectureno = #{lectureno}
 	</select>
@@ -675,13 +672,16 @@
 	<select id="selectSubNoteName" parameterType="int" resultType="String">
 		select uploadedfilename from subnote where lectureno = #{lectureno}
 	</select>
-	
 	<select id="checkMyLecture" parameterType="int" resultType="String">
 		select id from teachlecture where lectureno = #{lectureno}
 	</select>
+ 
+ 	<!-- 영호 추가 -->
  	
- 	 	
- 	
+ 	<select id="selectedAllCoding" parameterType="int" resultType="Coding">
+ 		select * from coding
+ 		where codingno in (select codingno from lecturecoding where lectureno = #{lectureno})
+ 	</select>
 </mapper>
 
 
