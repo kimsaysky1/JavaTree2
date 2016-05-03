@@ -409,7 +409,7 @@ div.numberedtextarea-number {
 					<button title="restart" class="re">■</button>
 					<button title="CodingMode" class="cod">코딩</button>
 					<button title="WatchingMode" class="wat">강의</button>
-
+					<button title="setBookmark" class="gtime">setB</button>
 
 					<select id='speed' name="sel" onchange="javascript:selectEvent(this)">
 						<option value='1.0' selected>1.0</option>
@@ -562,9 +562,9 @@ window.onload = function() {
  */		
 	    var fileURL = URL.createObjectURL(file)
 	    videoNode.src = fileURL
-	  }
-	  var inputNode = document.querySelector('input')
-	  inputNode.addEventListener('change', playSelectedFile, false)
+	  };
+	  var inputNode = document.querySelector('input');
+	  inputNode.addEventListener('change', playSelectedFile, false);
 	})()
 	
 	var video = document.querySelector('#player video');
@@ -1116,16 +1116,35 @@ function getTime(video) {
 	 
 	try {
 	    	var curTime = 0; 
-	    	curTime = video.currentTime;
-	        video.pause(); 
+	    	curTime = parseInt(video.currentTime);
+	    	
+	    	video.pause(); 
 	        
-	        alert("curtime>> " + curTime);
+	        $.ajax({
+		        type : 'get', 
+		        url : 'insertBookMark',
+		        data : "searchText="+text,
+		        success : function(response){
+		        	
+		        	 $(".chap").html(' '); 
+		        		
+		        	 var list = response.courseList;
+		        	 list.forEach(function(course){
+		 				var selTag = $('<select class="chap" name="sel" onchange="javascript:selectChapter(this)"></div>');
+		        		 /* var divTag = $('<div class="post"><div class="post-body"></div></div>');
+		 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
+		 				+course.coursename+'</a></h3></div><div class="post-meta">by'
+		 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content"); */
+		 			
+		 			});
 	        
-	  } catch (err) {
+	  				}
+	        });        
+	} catch (err) {
 	    // errMessage(err) // show exception
 	    errMessage("Video content might not be loaded");
 	  }
-	}
+}
 
 
 
