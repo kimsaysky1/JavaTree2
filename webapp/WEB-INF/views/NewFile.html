@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<SCRIPT FOR="NSPlay" EVENT="Buffering(bStart)" LANGUAGE="JavaScript">
+ <!--
+  if(bStart == true) 
+     {// layer1.style.visibility= "hidden";
+         layer2.style.visibility = "visible";
+     }
+  else 
+     {          layer2.style.visibility = "hidden";
+      // layer1.style.visibility = "visible";
+     }
+ //-->
+</SCRIPT>
+</head>
+<body>
+
+
+<DIV ID="layer1" style="width:320px; height:337px; position:absolute; left:0px; top:0px; z-index:1; visibility:visible;">
+ <OBJECT ID=NSPlay Name=NSPlay classid="clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95"
+ codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701"    
+ standby="Loading Microsoft Windows Media Player components..."  type="application/x-oleobject "
+ bgcolor="DarkBlue" width=320 Height=240>
+            
+            <PARAM NAME="AutoStart" VALUE="1">  
+            <PARAM NAME="AutoSize" VALUE="1">            
+            <PARAM NAME="AnimationAtStart" VALUE="0">           
+            <PARAM NAME="DisplayMode" VALUE="4">           
+            <PARAM NAME="Enabled" VALUE="1">             
+            <PARAM NAME="Filename" VALUE="mms://webcaster/welcome2.asf">      
+            <PARAM NAME="ShowControls" VALUE="0">
+            <PARAM NAME="ShowAudioControls" VALUE="0">       
+            <PARAM NAME="ShowDisplay" VALUE="0"> 
+            <PARAM NAME="ShowGotoBar" VALUE="0"> 
+            <PARAM NAME="ShowPositionControls" VALUE="0"> 
+            <PARAM NAME="ShowStatusBar" VALUE="0"> 
+            <PARAM NAME="Volume" VALUE="0">
+ <PARAM NAME="ShowCaptioning" VALUE="0">
+     <PARAM NAME="TransparentAtStart" value="1">
+ <EMBED type="application/x-mplayer2" pluginspage="http://www.microsoft.com/Windows/Downloads/Contents/Products/MediaPlayer/" 
+ id="NSPlay" Name="NSPlay" DisplaySize="4" AutoSize="1"  ShowControls="0" 
+ ShowDisplay="0" ShowStatusBar="1"  width=320   Height=240
+ src="mms://xxx.xxx.xxx.xxx"
+ autostart="1"> 
+ </EMBED> 
+ </OBJECT>
+</Div> 
+
+<Div ID="layer2" STYLE="width:320px; height:240px; position:absolute; left:0px; top:0px; z-index:1; visibility:visible;">
+
+ <OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width=320 height=240  codebase="http://active.macromedia.com/flash2/cabs/swflash.cab#version=4,0,0,0" id=ShockwaveFlash1>
+  <PARAM NAME=movie VALUE="smt.swf"> //explore용
+  <PARAM NAME=quality VALUE=high>
+  <PARAM NAME=bgcolor VALUE=#000000>
+ <EMBED src="smt.swf" quality="high" bgcolor="#000000"  WIDTH="320" HEIGHT="240" TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">
+ </EMBED>  //Netscape용
+ </OBJECT>
+</Div>
+
+
+
+</body>
+</html>

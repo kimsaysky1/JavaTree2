@@ -1732,6 +1732,10 @@ table.mc-table tbody .new .submissions a:before {
 .bg-sub-banner-course {
   background-image: url('../images/bg/mainimg_2.jpg');
 }
+.bg-sub-banner-course2 {
+  background-image: url('../images/bg/forest2.jpg');
+}/* 수지추가 */
+
 .bg-login-content {
   background-image: url('../images/homeslider/mainimg_2.jpg');
 }
