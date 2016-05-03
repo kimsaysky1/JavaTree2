@@ -48,12 +48,19 @@
 							<h5 class="section-title">MENU</h5>
 							<ul class="section-list">
 								<li>
+									<%if(request.getAttribute("checkMain").equals("main")){%>
 									<div class="o-view">
 										<a href="/javatree/course/codingFormfromMain.action">
 											<h6>MAIN</h6>
 										</a>
 									</div>
-
+									<%}else{ %>
+									<div class="o-view">
+										<a href="/javatree/course/codingMainInsertLectureView.action">
+											<h6>MAIN</h6>
+										</a>
+									</div>
+									<%}%>
 
 								</li>
 

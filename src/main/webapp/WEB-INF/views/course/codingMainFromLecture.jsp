@@ -42,40 +42,24 @@
                      <ul class="section-list">
                         <li>
                            <div class="o-view">
-                              <a href="/javatree/course/codingFormfromMain.action">
+                               <a href="/javatree/course/codingMainInsertLectureView.action">
                                  <h6>MAIN</h6>
                               </a>
                            </div>
-
-
                         </li>
-
                         <li>
                            <div class="list-body">
-                              <a href="/javatree/course/insertCodingfromMainView.action">
+                              <a href="/javatree/course/insertCodingfromMainView.action?from=lecture">
                                  <h6>INSERT</h6>
                               </a>
                            </div>
                         </li>
-
                         <li>
                            <div class="list-body">
-                              <a href="/javatree/course/updateCodingfromMainView.action">
+                              <a href="/javatree/course/updateCodingfromMainView.action?from=lecture">
                                  <h6>UPDATE</h6>
                               </a>
                            </div>
-
-                        </li>
-                        
-                           <li>
-                           <div class="list-body">
-                              <a href="/javatree/course/deleteCodingfromMainView.action">
-                                 <h6>DELETE</h6>
-                              </a>
-                           </div>
-
-                        </li>
-
                      </ul>
                   </div>
 

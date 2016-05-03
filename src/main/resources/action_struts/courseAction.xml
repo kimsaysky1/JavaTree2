@@ -137,12 +137,12 @@
         
         <!-- 문제보관함 폼(codingMain) teach메인페이지에서 클릭 시 -->
          <action name="codingFormfromMain" class="org.javatree.www.Action.CourseAction" method="codingFormfromMain">
-        	<result>/WEB-INF/views/course/codingMain_fromMain.jsp</result>     	
+        	<result>/WEB-INF/views/course/codingMainfromMain.jsp</result>     	
         </action>
         
         <!-- 뷰 (인서트렉쳐안의 코딩박스 클릭시 메인뷰) -->
         <action name="codingMainInsertLectureView" class="org.javatree.www.Action.CourseAction" method="codingMainInsertLectureView">
-        	<result>/WEB-INF/views/course/codingMain2.jsp</result>
+        	<result>/WEB-INF/views/course/codingMainFromLecture.jsp</result>
         </action>
         
         <!-- teachMian 에서 누른 문제보관함 폼(codingMain) 코스리스트 중 하나 선택 후 강의 리스트 뽑기  -->
@@ -215,14 +215,6 @@
         <action name="updateCodingfromMain" class="org.javatree.www.Action.CourseAction" method="updateCodingfromMain">
         	<result type="json"></result>
         </action>
-         <!--뷰 insertLecture- questionBox 내 update -->
-        <action name="updateCodingfromInsertLectureView" class="org.javatree.www.Action.CourseAction" method="updateCodingfromInsertLectureView">
-        	<result>/WEB-INF/views/course/updateCodingForLecture.jsp</result>	
-        </action>
-        <!--액션 insertLecture 에서 누른 문제보관함 폼(codingMain)에 코딩 UPDATE하기   -->
-        <!-- <action name="updateCodingfromMain" class="org.javatree.www.Action.CourseAction" method="updateCodingfromMain">
-        	<result type="redirect">updateCodingfromInsertLectureView.action</result>	
-        </action> -->
         
         <!--삭제하기-->
         <action name="deleteCodingfromMain" class="org.javatree.www.Action.CourseAction" method="deleteCodingfromMain">
@@ -266,7 +258,7 @@
         
          <!--  courseDetailForteach - 강의 코딩문제보관함 뷰 -->
         <action name="updateCodingForm" class="org.javatree.www.Action.CourseAction" method="codingFormfromMain" >
-        	<result>/WEB-INF/views/course/codingMain_fromMain.jsp</result>     	
+        	<result>/WEB-INF/views/course/codingMainfromMain.jsp</result>     	
         </action>
                 
        

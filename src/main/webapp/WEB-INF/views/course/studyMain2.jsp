@@ -409,6 +409,6 @@ function newPopup(lectureno) {
 			'../compiler/Compiler.action?lectureno='+lectureno ,'kongPlayer','height=950, width=1737, resizable=no,scrollbars=no,menubar=no');
 }
 </script>
-
+<script src="../resources/checkMessage.js"></script>
 </body>
 </html>

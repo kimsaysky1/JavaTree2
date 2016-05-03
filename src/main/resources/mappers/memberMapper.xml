@@ -31,8 +31,6 @@
    		select senderid, receiverid, message, to_char(regdate, 'yyyy/mm/dd') as regdate,
    		questionno, notificationno from notification where receiverid = #{id}
    </select>
-   
-  
 	
 	
 	<!-- <insert id="insert" parametertype="Member_jt">

@@ -72,8 +72,7 @@
 
 </head>
 <body>
-<%@include file="/resources/header.jsp" %>
-	
+<%@include file="/resources/header2.jsp" %>
 
 	<!-- PROFILE FEATURE 프로필!!!!-->
 	<section class="profile-feature">
