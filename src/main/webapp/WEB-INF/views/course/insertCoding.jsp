@@ -148,10 +148,10 @@
 											<td></td>
 										</tr>
 										<tr>
-											<td></td>
+											<td ></td>
 											<td>
-											 <div class="form-action"><!-- <div class="form-action2"> -->
-													<input type="submit" id = "submit_btn"  value="등록" class="submit mc-btn-3 btn-style-1"">
+											 <div class="form-action" ><!-- <div class="form-action2"> -->
+													<input type="submit" id = "submit_btn"  value="등록" class="submit mc-btn-3 btn-style-1" >
 											</div>
 											</td>
 											<!-- <td><input type="submit" id = "submit_btn"  value="등록" style="float: right;"></td> -->

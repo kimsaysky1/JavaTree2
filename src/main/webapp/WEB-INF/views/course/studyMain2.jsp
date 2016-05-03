@@ -103,7 +103,7 @@
 								<div class="nonelist">
 								 <div class="table-item" >
                                     <div class="thead" align="center">
-								<h3>정 보 없 음 </h3>
+								<h5 class="sm"> Course Does Not Exist </h5>
 								</div>
 								</div>
 								</div>
