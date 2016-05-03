@@ -391,8 +391,8 @@ div.numberedtextarea-number {
 		<div class="playerpart">
 			<div id="player">
 
-				<video width="900" height="500" id="video" autoplay="autoplay"
-					src="../resources/upload/a.mp4">
+				<video width="900" height="500" id="video" autoplay="autoplay">
+					<source src='../resources/upload/<s:property value="id"/>/<s:property value="uploadedfilename"/>' type="video/mp4" />
 				</video>
 
 				<div id="seek">
