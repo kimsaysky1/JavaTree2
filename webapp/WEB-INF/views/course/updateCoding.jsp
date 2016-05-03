@@ -41,7 +41,7 @@
 			<h4 class="sm black bold">QUESTION BOX</h4>
 
 			<ul class="top-nav-list">
-				<li class="outline-learn"><a href="#"><i
+				<li class="outline-learn active"><a href="#"><i
 						class="icon md-list"></i></a>
 					<div class="list-item-body outline-learn-body">
 					<div class="section-learn-outline">

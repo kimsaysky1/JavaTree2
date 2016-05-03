@@ -41,7 +41,7 @@
 			<h4 class="sm black bold">QUESTION BOX</h4>
 
 			<ul class="top-nav-list">
-				<li class="outline-learn"><a href="#"><i
+				<li class="outline-learn active"><a href="#"><i
 						class="icon md-list"></i></a>
 					<div class="list-item-body outline-learn-body">
 						<div class="section-learn-outline">
@@ -113,7 +113,7 @@
 						<table style='width: 1000px;'>
 							<tr>
 								<td style='width: 400px;'><b>ALL QUESTION</b><br /> 
-								<select multiple="multiple" id='lstBox1'style='width: 400px; height: 600px;'>
+								<select multiple="multiple" id='lstBox1'style='width: 400px; height: 630px;'>
 										<s:iterator value="codingList" status="st">   
 											<option value="<s:property value="codingquestion"/>"><s:property value="codingquestion"/></option>
 										 </s:iterator>
@@ -124,7 +124,7 @@
 									<table style='width: 550px;'>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>QUESTION</b></td>
-											<td><textarea style="height: 60px;" id="q_title"name = "coding.codingquestion"></textarea></td>
+											<td><textarea style="height: 60px; width: 400px;" id="q_title"name = "coding.codingquestion"></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
@@ -132,7 +132,7 @@
 										</tr>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>CODE</b></td>
-											<td><textarea style="height: 220px;" id = "codebox" name = "coding.codingtemplet"></textarea></td>
+											<td><textarea style="height: 210px; width: 400px;" id = "codebox" name = "coding.codingtemplet"></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
@@ -140,7 +140,7 @@
 										</tr>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>ANSWER</b></td>
-											<td><textarea style="height: 220px;" id = "answerbox" name ="coding.codinganswer"></textarea></td>
+											<td><textarea style="height: 220px; width: 400px;" id = "answerbox" name ="coding.codinganswer"></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
@@ -148,9 +148,18 @@
 										</tr>
 										<tr>
 											<td></td>
+<<<<<<< HEAD:webapp/WEB-INF/views/course/insertCoding.jsp
 											<!-- 등록 버튼 -->
 											<td><input type="button" id = "submit_btn"  value="등록" style="float: right;"></td>
 											<!-- 등록 버튼 -->
+=======
+											<td>
+											 <div class="form-action"><!-- <div class="form-action2"> -->
+													<input type="submit" id = "submit_btn"  value="등록" class="submit mc-btn-3 btn-style-1"">
+											</div>
+											</td>
+											<!-- <td><input type="submit" id = "submit_btn"  value="등록" style="float: right;"></td> -->
+>>>>>>> 7b77ee93f2a76d09981559a835ba9727f4e59137:src/main/webapp/WEB-INF/views/course/insertCoding.jsp
 										</tr>
 									</table>
 								</td>
