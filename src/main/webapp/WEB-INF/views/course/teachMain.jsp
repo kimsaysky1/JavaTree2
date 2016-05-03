@@ -98,9 +98,12 @@
 				<br>
 				<div class = "form-study">
 					
-				<s:if test="courseList == null">
+								  <s:if test="courseList == null">
+								
+								<div class="nonelist" align="center">
 								<h3>정 보 없 음 </h3>
-				</s:if>
+								</div>
+								</s:if>
 				
 				<s:iterator value="courseList" status="incr">	
 				<input type="hidden" name="courseno" value="courseList.courseno">	
@@ -213,5 +216,6 @@ function popup(){
 	
 }
 </script>
+<script src="../resources/checkMessage.js"></script>
 </body>
 </html>

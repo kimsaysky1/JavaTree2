@@ -47,7 +47,8 @@ function idCheck() {
 		id.setAttribute("placeholder", "아이디를 입력해주세요!");
 		return false;
 	} else if(id.value.length < 3 || id.value.length > 15) {
-		alert("아이디는 3~15자리 입니다.");
+		$("#modalNotification").trigger('click');
+			$('.modal-body > p').html('아이디는 3~15자리 입니다.');
 		return false;
 	} else {
 		idck=1;
@@ -78,20 +79,16 @@ $(function(){
 	
 	$('#submit_btn').click(function(){
 		
-		alert("조인 폼 시작 ! ");
-		
 		var form = document.getElementById("join");
 		var id= document.getElementById("id");
 		var password= document.getElementById("password");
 		var username= document.getElementById("username");
 		var email= document.getElementById("email");
 		
-		alert(id+password+username+email);
-		
 		if(idck == 0){
-				custid.value="";
-				//custid.setAttribute("placeholder", "아이디 중복확인 필수!");
-				alert("아이디 중복확인 필수!");
+			id.value="";
+			$("#modalNotification").trigger('click');
+			$('.modal-body > p').html('아이디 중복확인 필수!');
 				return false;
 			
 		}
@@ -100,7 +97,8 @@ $(function(){
 			password.setAttribute('placeholder', '비밀번호를 입력하세요!');
 			return false;
 		} else if(password.value.length <3 || password.value.length > 15) {
-			alert("비밀번호는 3~15자리 입니다.");
+			$("#modalNotification").trigger('click');
+			$('.modal-body > p').html('비밀번호는 3~15자리 입니다.');
 			return false;
 		} else if (username.value == ""){
 			username.setAttribute('placeholder', '이름을 입력하세요!');
@@ -112,7 +110,8 @@ $(function(){
 		var regex=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;   
 		  
 		if(regex.test(email.value) === false) {  
-		    alert("잘못된 이메일 형식입니다.");  
+		    $("#modalNotification").trigger('click');
+			$('.modal-body > p').html("잘못된 이메일 형식입니다.");
 		    return false;  
 		} 
 		 
@@ -500,6 +499,24 @@ $(function(){
 	</div> <!-- container -->
 
 	</section>
+
+<div class="container">
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body">
+          <p></p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <%@include file="/resources/footer.jsp" %>
 	

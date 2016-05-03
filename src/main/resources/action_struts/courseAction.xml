@@ -312,6 +312,10 @@
         	<result>/WEB-INF/views/course/deleteCoding.jsp</result>
         </action> -->
         
+        <action name="tempLectureCodingforLecture" class="org.javatree.www.Action.CourseAction" method="tempLectureCodingforLecture">
+        	<result type="json"></result>
+        </action>
+        
         <!-- 영호 작성 문제보관함 종료 -->
     </package>
 
