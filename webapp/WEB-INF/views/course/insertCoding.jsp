@@ -29,14 +29,14 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
-<title>updateCoding</title>
+<title>코딩문제 등록</title>
 </head>
 <body id="page-top">
 
 	<!-- PAGE WRAP -->
 	<div id="page-wrap">
 
-		<div class="top-nav" style="z-index: 1;">
+		<div class="top-nav">
 
 			<h4 class="sm black bold">QUESTION BOX</h4>
 
@@ -44,7 +44,7 @@
 				<li class="outline-learn active"><a href="#"><i
 						class="icon md-list"></i></a>
 					<div class="list-item-body outline-learn-body">
-					<div class="section-learn-outline">
+						<div class="section-learn-outline">
 							<h5 class="section-title">MENU</h5>
 							<ul class="section-list">
 								<li>
@@ -61,17 +61,22 @@
 										</a>
 									</div>
 									<%}%>
+
 								</li>
+
 								<li>
 									<div class="list-body">
-										<a href="/javatree/course/insertCodingfromMainView.action">
+										<a href="/javatree/course/insertCodingfromMainView.action?from=${from}"">
 											<h6>INSERT</h6>
 										</a>
 									</div>
+
+
 								</li>
+
 								<li>
 									<div class="list-body">
-										<a href="/javatree/course/updateCodingfromMainView.action">
+										<a href="/javatree/course/updateCodingfromMainView.action?from=${from}"">
 											<h6>UPDATE</h6>
 										</a>
 									</div>
@@ -80,6 +85,7 @@
 
 							</ul>
 						</div>
+						
 					</div>
 				</li>
 				<!-- 페이지 종료 -->
@@ -107,9 +113,9 @@
 						<table style='width: 1000px;'>
 							<tr>
 								<td style='width: 400px;'><b>ALL QUESTION</b><br /> 
-								<select multiple="multiple" id='codinglistbox'style='width: 400px; height: 600px;'>
+								<select multiple="multiple" id='lstBox1'style='width: 400px; height: 630px;'>
 										<s:iterator value="codingList" status="st">   
-											<option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>
+											<option value="<s:property value="codingquestion"/>"><s:property value="codingquestion"/></option>
 										 </s:iterator>
 								</select>
 								</td>
@@ -118,15 +124,15 @@
 									<table style='width: 550px;'>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>QUESTION</b></td>
-											<td><textarea style="height: 60px;" id="q_title" name = "coding.codingquestion" placeholder=""></textarea></td>
+											<td><textarea style="height: 60px; width: 400px;" id="q_title"name = "coding.codingquestion"></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
 											<td></td>
-										</tr> 
+										</tr>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>CODE</b></td>
-											<td><textarea style="height: 220px;" id = "codebox" name = "coding.codingtemplet"  placeholder=""></textarea></td>
+											<td><textarea style="height: 210px; width: 400px;" id = "codebox" name = "coding.codingtemplet"></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
@@ -134,16 +140,20 @@
 										</tr>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>ANSWER</b></td>
-											<td><textarea style="height: 220px;" id = "answerbox" name ="coding.codinganswer" placeholder=""></textarea></td>
-										
+											<td><textarea style="height: 220px; width: 400px;" id = "answerbox" name ="coding.codinganswer"></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
 											<td></td>
 										</tr>
 										<tr>
-											<td><input type="hidden" id = "codeno" name ="coding.codingno" value ="" ></td>
-											<td><input type="button" id = "submit_btn"  value="수정" style="float: right;"></td>
+											<td ></td>
+											<td>
+											 <div class="form-action" ><!-- <div class="form-action2"> -->
+													<input type="submit" id = "submit_btn"  value="등록" class="submit mc-btn-3 btn-style-1" >
+											</div>
+											</td>
+											<!-- <td><input type="submit" id = "submit_btn"  value="등록" style="float: right;"></td> -->
 										</tr>
 									</table>
 								</td>
@@ -155,7 +165,7 @@
 		</section>
 	</div>
 	<!-- END / PAGE WRAP -->
-	
+		
 <div class="container">
   <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
   <!-- Modal -->
@@ -172,6 +182,8 @@
     </div>
   </div>
 </div>
+	
+
 	<!-- Load jQuery -->
 	<script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="../resources/javatree_view/html/js/library/bootstrap.min.js"></script>
@@ -185,60 +197,48 @@
 	
 	$(function(){
 		
-		$("#codinglistbox").change(function(){
-			var codingno= parseInt($(this).val());		
-			
-			$.ajax({
-				url : 'showcodingcontent.action',
-				data : {'codingno' : codingno},
-				dataType: 'json',
-				success : function(response){
-					var codingno =  parseInt(response.coding.codingno);
-					$('#q_title').val(response.coding.codingquestion);	
-					$('#codebox').val(response.coding.codingtemplet);	
-					$('#answerbox').val(response.coding.codinganswer);	
-					$('#codeno').attr('value',codingno);	
-				
-				},
-				error:function(){
-					alert('에러');
-				}
-			});
-			
-		});
-
-		
 		$('#submit_btn').on('click', function(){
-		var q_title = $("#q_title").val();
-		var codebox = $("#codebox").val();
-		var answerbox = $("#answerbox").val();
-		var codingno = $('#codeno').attr('value');
-		if(q_title.trim() == ""){
-			alert("질문을 입력해주세요");
-			return false;
-		}else if(codebox.trim() == ""){
-			alert("코드를 입력해주세요");
-			return false;
-		}else if(answerbox.trim() == ""){
-			alert("정답을 입력해주세요");
-			return false;
-		}
-			$.ajax({
-				url : 'updateCodingfromMain'
-				,data : 'coding.codingquestion='+q_title+'&coding.codingtemplet='+
-				codebox+'&coding.codinganswer='+answerbox+'&coding.codingno='+codingno
-				,dataType : 'json'
-				,success : function(response){
-					$("#modalNotification").trigger('click');
-					$('#q_title').val('');	
-					$('#codebox').val('');	
-					$('#answerbox').val('');
-				},
-				error:function(){
-					console.log('에러');
-				}
-			});
-		}); 
+			
+			var q_title = $("#q_title").val();
+			var codebox = $("#codebox").val();
+			var answerbox = $("#answerbox").val();
+			var from = "${requestScope.checkMain}";
+			
+			alert(from);
+			if(q_title.trim() == ""){
+				alert("질문을 입력해주세요");
+				return false;
+			}else if(codebox.trim() == ""){
+				alert("코드를 입력해주세요");
+				return false;
+			}else if(answerbox.trim() == ""){
+				alert("정답을 입력해주세요");
+				return false;
+			}
+				$.ajax({
+					url : 'insertCodingfromMain'
+					,data : 'coding.codingquestion='+q_title+'&coding.codingtemplet='+
+					codebox+'&coding.codinganswer='+answerbox+'&from='+from
+					,dataType : 'json'
+					,success : function(response){
+						$('#lstBox1').empty();
+		            	var list = response.codingList;
+		            	list.forEach(function(coding){
+			            	$('<option value="'+coding.codingno+'">'+coding.codingquestion+'</option>').appendTo('#lstBox1');
+		            	});
+		            	$("#submit_btn").blur();
+						$("#modalNotification").trigger('click');
+						$('#q_title').val('');	
+						$('#codebox').val('');	
+						$('#answerbox').val('');
+						 
+					},
+					error:function(){
+						console.log('에러');
+					}
+				});
+		
+		});
 		
 	});
 	

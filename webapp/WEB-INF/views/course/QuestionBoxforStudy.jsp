@@ -29,75 +29,26 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
-<title>코딩문제 등록</title>
+<title>Mega Course - Learning and Courses HTML5 Template</title>
 </head>
 <body id="page-top">
-
 	<!-- PAGE WRAP -->
 	<div id="page-wrap">
-
 		<div class="top-nav">
-
 			<h4 class="sm black bold">QUESTION BOX</h4>
-
 			<ul class="top-nav-list">
-				<li class="outline-learn active"><a href="#"><i
-						class="icon md-list"></i></a>
+				<li class="outline-learn">
 					<div class="list-item-body outline-learn-body">
-						<div class="section-learn-outline">
-							<h5 class="section-title">MENU</h5>
-							<ul class="section-list">
-								<li>
-									<%if(request.getAttribute("checkMain").equals("main")){%>
-									<div class="o-view">
-										<a href="/javatree/course/codingFormfromMain.action">
-											<h6>MAIN</h6>
-										</a>
-									</div>
-									<%}else{ %>
-									<div class="o-view">
-										<a href="/javatree/course/codingMainInsertLectureView.action">
-											<h6>MAIN</h6>
-										</a>
-									</div>
-									<%}%>
-
-								</li>
-
-								<li>
-									<div class="list-body">
-										<a href="/javatree/course/insertCodingfromMainView.action">
-											<h6>INSERT</h6>
-										</a>
-									</div>
-
-
-								</li>
-
-								<li>
-									<div class="list-body">
-										<a href="/javatree/course/updateCodingfromMainView.action">
-											<h6>UPDATE</h6>
-										</a>
-									</div>
-
-								</li>
-
-							</ul>
-						</div>
-						
 					</div>
 				</li>
 				<!-- 페이지 종료 -->
 				<li class="backpage"><a href="index.html"><i
 						class="icon md-close-1"></i></a></li>
 			</ul>
-
 		</div>
 		<section id="quizz-intro-section"
 			class="quizz-intro-section learn-section">
 			<div class="container">
-
 				<div class="title-ct">
 					<h3>
 						<strong></strong>
@@ -109,15 +60,14 @@
 				<div class="question-content-wrap">
 					<div class="question-content">
 						<h4 class="sm">QUESTION BOX</h4>
-
 						<table style='width: 1000px;'>
 							<tr>
-								<td style='width: 400px;'><b>ALL QUESTION</b><br /> 
-								<select multiple="multiple" id='lstBox1'style='width: 400px; height: 630px;'>
-										<s:iterator value="codingList" status="st">   
-											<option value="<s:property value="codingquestion"/>"><s:property value="codingquestion"/></option>
-										 </s:iterator>
-								</select>
+								<td style='width: 400px;'><b>내가 저장한 문제</b><br /> 
+									<select multiple="multiple" id='lstBox1'style='width: 400px; height: 600px;'>
+											<s:iterator value="codingList" status="st">   
+												<option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>
+											 </s:iterator>
+									</select>
 								</td>
 								<td style='width: 30px;'></td>
 								<td>
@@ -125,7 +75,7 @@
 									<table style='width: 550px;'>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>QUESTION</b></td>
-											<td><textarea style="height: 60px; width: 400px;" id="q_title"name = "coding.codingquestion"></textarea></td>
+											<td><textarea style="height: 60px;" id="q_title"name = "coding.codingquestion" READONLY></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
@@ -133,28 +83,23 @@
 										</tr>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>CODE</b></td>
-											<td><textarea style="height: 210px; width: 400px;" id = "codebox" name = "coding.codingtemplet"></textarea></td>
+											<td><textarea style="height: 220px;" id = "codebox" name = "coding.codingtemplet" READONLY></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
 											<td></td>
 										</tr>
 										<tr>
-											<td style='width: 100px; text-align: center;'><b>ANSWER</b></td>
-											<td><textarea style="height: 220px; width: 400px;" id = "answerbox" name ="coding.codinganswer"></textarea></td>
+											<td style='width: 100px; text-align: center;'><b>MY CODE</b></td>
+											<td ><textarea id = "mycodebox" style="height: 220px;" ></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
 											<td></td>
 										</tr>
 										<tr>
-											<td ></td>
-											<td>
-											 <div class="form-action" ><!-- <div class="form-action2"> -->
-													<input type="submit" id = "submit_btn"  value="등록" class="submit mc-btn-3 btn-style-1" >
-											</div>
-											</td>
-											<!-- <td><input type="submit" id = "submit_btn"  value="등록" style="float: right;"></td> -->
+											<td><input type="button" id = "delete_btn"  value="삭제" style="float: right;"></td>
+											<td><input type="button" id = "submit_btn"  value="정답보기" style="float: right;"></td>
 										</tr>
 									</table>
 									</form>
@@ -165,9 +110,6 @@
 				</div>
 			</div>
 		</section>
-
-
-
 	</div>
 	<!-- END / PAGE WRAP -->
 
@@ -184,26 +126,45 @@
 	
 	$(function(){
 		
-		
-		$('#submit_btn').click(function(){
+		$("#lstBox1").change(function(){
+			var codingno= parseInt($(this).val());		
+			$.ajax({
+				url : 'showcodinglistinstudy.action',
+				data : {'codingno' : codingno},
+				success : function(response){
+					alert('성공');
+					alert(response);
+					alert(response.mycode);
+					var codingn =  parseInt(response.coding.codingno);
+					$('#q_title').attr('placeholder',response.coding.codingquestion);	
+					$('#codebox').attr('placeholder',response.coding.codingtemplet);	
+					$('#mycodebox').html(response.mycode);	
+					$('#codeno').attr('value',codingn);	
+				
+				},
+				error:function(){
+					alert('에러');
+				}
+			});
 			
-		var q_title = document.getElementById("q_title").value;
-		var codebox = document.getElementById("codebox").value;
-		var answerbox = document.getElementById("answerbox").value;
-		
-		
-		if(q_title == ""){
-			alert("질문을 입력해주세요");
-		}else if(codebox == ""){
-			alert("코드를 입력해주세요");
-		}else if(answerbox = ""){
-			alert("정답을 입력해주세요");
-		}else{
-			 document.getElementById('form1').submit();
-		}
-		
+			$('#delete_btn').click(function(){
+				$.ajax({
+					url : 'deletefromcodingbox.action',
+					data : {'codingno' : codingno},
+					success : function(response){
+						alert('성공');
+					},
+					error:function(){
+						alert('에러');
+					}
+				});
+			});
+			
+			$('#submit_btn').click(function(){				
+				window.open('showcodinganswer.action?codingno='+codingno,'pop','resizable=no scrollbars=yes top=50 left=200 width=500 height=400'); 
+				
+			});
 		});
-		
 	});
 	
 	</script>
