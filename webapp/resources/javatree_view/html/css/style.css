@@ -1734,14 +1734,8 @@ table.mc-table tbody .new .submissions a:before {
 }
 
 .bg-sub-banner-course2 {
-  background-image: url('../images/bg/subimg2.png');
-}
-<<<<<<< HEAD
-.bg-sub-banner-course2 {
   background-image: url('../images/bg/forest2.jpg');
 }/* 수지추가 */
-=======
->>>>>>> 4cc179cfbaa736952a65741348b53909cd6c0512
 
 .bg-login-content {
   background-image: url('../images/homeslider/mainimg_2.jpg');
