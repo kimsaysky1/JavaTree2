@@ -21,6 +21,7 @@
 		<result property="regdate"  column="regdate"/>
 	</resultMap> -->
 	
+	<!-- teachmain을 위한 resultmap -->
 		<resultMap type="Course" id="tCourseMap">
        <result property="id" column="id"/>
       <result property="courseno" column="courseno"/>
@@ -28,6 +29,7 @@
       <collection property="courseTypeList" javaType="java.util.ArrayList" column="courseno" ofType="int" select="selectTypeno"/>
    </resultMap>
    
+   <!-- studymain을 위한 resultmap -->
 	 <resultMap type="Course" id="sCourseMap">
        <result property="id" column="id"/>
       <result property="courseno" column="courseno"/>
@@ -50,20 +52,11 @@
       <result property="id" column="id"/>
    </resultMap>
 	
-	<!-- <resultMap type="Coding" id="lectureCodingMap">
-		<result property="codingno" column=""/>
-		<result property="lectureno" column=""/>
-	</resultMap> -->
-	
+	<!-- courseno로 coursename 찾기 -->
 	<select id="selectCoursename" resultType="String">
 		select coursename from course where courseno = #{courseno}
 	</select> 
 	
-	<!-- <select parameterType="String" resultType="Course" id="getAllCourseListForStudy">
-		select * from course where courseno = ((select courseno from studycourse where id = #{id}) courseno)
-	</select> -->
-	
-
 	<!-- 전체 강좌 리스트 - CourseDefualtMain (로그인 X,O 분기처리) INTRODUCTION 스펠링 틀림!!! INTRODUTION -->
      <select resultType="Course" id="selectAllCourseList" parameterType="map">
      select courseno, coursename, id, username, INTRODUTION, to_char(regdate, 'yyyy/mm/dd') as regdate from course
@@ -90,6 +83,7 @@
 		and coursename like #{searchText}
 		</if>
 	</select>
+	
 	
 	<select id="selectDefaultTotal" resultType="int" parameterType="map">
 		SELECT count(*)

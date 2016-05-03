@@ -332,6 +332,6 @@
 		src="../resources/javatree_view/html/js/library/jquery.easing.min.js"></script>
 	<script type="text/javascript"
 		src="../resources/javatree_view/html/js/scripts.js"></script>
-
+	<script src="../resources/checkMessage.js"></script>
 </body>
 </html>

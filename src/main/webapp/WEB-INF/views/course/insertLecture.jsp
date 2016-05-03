@@ -317,7 +317,7 @@ function stgoback(){
                         
                        
   						<div class="form-action">
-                            <input type="submit" value="Save and Next" onclick="javascript:insertLectureForm()" class="submit mc-btn-3 btn-style-1">
+                            <input type="submit" value="Save" onclick="javascript:insertLectureForm()" class="submit mc-btn-3 btn-style-1">
                              <input type="submit" value="Cancel" onclick="javascript:stgoback()" class="submit mc-btn-3 btn-style-1">
                         </div>
 
@@ -352,19 +352,11 @@ function stgoback(){
 	
 	<script type="text/javascript">
 	$('#popup_test').on('click', function(){
-		alert("팝업");
 		var courseno=document.getElementById("courseno");
 		var lectureno=document.getElementById("lectureno");
-		/* "/javatree/course/codingMain.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/> */
-		/*  window.open('codingMain.action?courseno'+courseno.value,'pop','resizable=no scrollbars=yes top=50 left=200 width=1200 height=870');   */
 		 window.open('codingMainInsertLectureView.action','pop','resizable=no scrollbars=yes top=50 left=200 width=1200 height=870');  
 	});
 	</script>
-
-
-		
+	<script src="../resources/checkMessage.js"></script>
 </body>
-
-
-
 </html>

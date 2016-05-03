@@ -213,5 +213,6 @@ function popup(){
 	
 }
 </script>
+<script src="../resources/checkMessage.js"></script>
 </body>
 </html>
