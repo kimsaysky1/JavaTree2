@@ -129,7 +129,7 @@
 				<s:if test="lectureList == null">
 						<div class="noneList">
 							<div class="container">
-								<h3>정 보 없 음 </h3>
+								<h5 class="sm">정 보 없 음 </h5>
 							</div>
 						</div>
 						<!-- 	<tr class="new">

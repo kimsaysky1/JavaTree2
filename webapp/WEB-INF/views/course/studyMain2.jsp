@@ -25,6 +25,12 @@
 	.noneList{
 		background: white;
 	}
+	/* body .modal {
+		width:700px;
+	} */
+	.modal.large {
+     width: 80%;
+}
 </style>
 
 <title>studyMain2</title>
@@ -103,7 +109,7 @@
 								<div class="nonelist">
 								 <div class="table-item" >
                                     <div class="thead" align="center">
-								<h3>정 보 없 음 </h3>
+								<h5 class="sm"> Course Does Not Exist </h5>
 								</div>
 								</div>
 								</div>
@@ -186,7 +192,7 @@
                     <!-- 질문 보관함 -->
                     	
                     	<div class="form-submit-1">
-							<a href="/javatree/course/QuestionBoxforStudy.action"><input type="button" id="questionBox" value="QUESTION BOX" class="mc-btn btn-style-1"></a>
+							<input type="button" id="questionBox" value="QUESTION BOX" class="mc-btn btn-style-1">
 						</div>
                     	
                         <!-- 보관함 끝-->
@@ -227,7 +233,6 @@
                             <!-- DESIGN ASSIGNMENT -->
                             <!-- 구입강의 -->
                             <div class="tab-pane fade" id="design-assignment">
-                                
                                 <table class="table-assignment">
                                     <tbody>
                                      <s:iterator value="latelyPurchasedLectureList" status="counter" >
@@ -236,7 +241,6 @@
                                             <td><a href="../compiler/Compiler.action?lectureno=<s:property value="lectureno" />" target="popup" onclick="window.open('../compiler/Compiler.action?lectureno=<s:property value="lectureno" />','KongPlayer','width=1800,height=1000')"><s:property value="lecturename" /> &nbsp;[ &nbsp;강좌명: &nbsp; <s:property value="coursename" /> &nbsp; ]</a></td>                                          
                                         </tr>
 										</s:iterator>
-                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -253,7 +257,16 @@
 				  </div>
 				  </section>
 				  
+	<div class="form-submit-1">
+		<input type="button" style="display:none;" id="questionBoxModal" class="mc-btn btn-style-1" data-toggle="modal" data-target="#myModal"/>
+       		<div class="container">
+				<div class="modal fade" id="myModal" role="dialog">
+		  		</div>
+        	</div>
+	</div>
 				  <%@include file="/resources/footer.jsp" %>
+				  
+	
 	
 	<!-- Load jQuery -->
 	<script type="text/javascript"
@@ -276,10 +289,43 @@
 	
     
 	$(function(){
-		$("#questionBox").on('click',function(){
-			
-		});
 		
+		$("#questionBox").on('click',function(){
+			//QuestionBoxforStudy
+			
+			var str = '';
+			str += '<div id="page-wrap"><div class="top-nav" style="z-index: 1;">';
+			str += '<h4 class="sm black bold">QUESTION BOX</h4>';
+			str += '<ul class="top-nav-list"><li class="outline-learn">';
+			str += '<div class="list-item-body outline-learn-body"></div></li>';
+			str += '<li class="backpage"><a href="index.html"><i class="icon md-close-1"></i></a></li></ul></div>';
+			str += '<section id="quizz-intro-section" class="quizz-intro-section learn-section">';
+			str += '<div class="container"><div class="title-ct"><h3><strong></strong></h3>';
+			str += '<div class="tt-right"><a href="#" class="skip"><i class="icon md-arrow-right"></i></a></div></div>';
+			str += '<div class="question-content-wrap"><div class="question-content"><h4 class="sm">QUESTION BOX</h4>';
+			str += '<table style=\'width: 1000px;\'><tr><td style=\'width: 400px;\'><b>내가 저장한 문제</b><br />';
+			str += '<select multiple="multiple" id=\'lstBox1\'style=\'width: 400px; height: 600px;\'>';
+			str += '<s:iterator value="codingList" status="st">';
+			str += '<option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>';
+			str += '</s:iterator></select></td>';
+			str += '<td style=\'width: 30px;\'></td><td><form id = "form1" action="insertCodingfromMain">';
+			str += '<table style=\'width: 550px;\'><tr><td style=\'width: 100px; text-align: center;\'><b>QUESTION</b></td>';
+			str += '<td><textarea style="height: 60px;" id="q_title"name = "coding.codingquestion" READONLY></textarea></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td><td></td></tr>';
+			str += '<tr><td style=\'width: 100px; text-align: center;\'><b>CODE</b></td>';
+			str += '<td><textarea style="height: 220px;" id = "codebox" name = "coding.codingtemplet" READONLY></textarea></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td><td></td></tr>';
+			str += '<tr><td style=\'width: 100px; text-align: center;\'><b>MY CODE</b></td>';
+			str += '<td ><textarea id = "mycodebox" style="height: 220px;" ></textarea></td></tr>';
+			str += '<tr><td style=\'height: 20px;\'></td><td></td></tr>';
+			str += '<tr><td><input type="button" id = "delete_btn"  value="삭제" style="float: right;"></td>';
+			str += '<td><input type="button" id = "submit_btn"  value="정답보기" style="float: right;"></td></tr>';
+			str += '</table></td></tr></table>';
+			str += '</div></div></div></section></div>';
+
+			$("#myModal").html(str);
+			$("#questionBoxModal").trigger('click');
+		});
 		
 		function List() {
 			   this.elements = {};

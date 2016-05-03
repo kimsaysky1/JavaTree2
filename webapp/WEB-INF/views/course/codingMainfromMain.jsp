@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="format-detection" content="telephone=no">
 <!-- Google font -->
@@ -34,7 +34,7 @@
          <h4 class="sm black bold">QUESTION BOX</h4>
 
          <ul class="top-nav-list">
-            <li class="outline-learn"><a href="#"><i
+            <li class="outline-learn active"><a href="#"><i
                   class="icon md-list"></i></a>
                <div class="list-item-body outline-learn-body">
                   <div class="section-learn-outline">
@@ -42,24 +42,36 @@
                      <ul class="section-list">
                         <li>
                            <div class="o-view">
-                               <a href="/javatree/course/codingMainInsertLectureView.action">
+                              <a href="/javatree/course/codingFormfromMain.action">
                                  <h6>MAIN</h6>
                               </a>
                            </div>
                         </li>
                         <li>
                            <div class="list-body">
-                              <a href="/javatree/course/insertCodingfromMainView.action?from=lecture">
+                              <a href="/javatree/course/insertCodingfromMainView.action?from=main">
                                  <h6>INSERT</h6>
                               </a>
                            </div>
                         </li>
                         <li>
                            <div class="list-body">
-                              <a href="/javatree/course/updateCodingfromMainView.action?from=lecture">
+                              <a href="/javatree/course/updateCodingfromMainView.action?from=main">
                                  <h6>UPDATE</h6>
                               </a>
                            </div>
+<!-- <<<<<<< HEAD:src/main/webapp/WEB-INF/views/course/codingMain_fromMain.jsp -->
+
+                        </li>
+                        
+                           <!-- <li>
+                           <div class="list-body">
+                              <a href="/javatree/course/deleteCodingfromMainView.action">
+                                 <h6>DELETE</h6>
+                              </a>
+                           </div>
+
+                        </li> -->
                      </ul>
                   </div>
 
@@ -101,22 +113,72 @@
                            
                         </td>
                         <td style='width: 50px; text-align: center; vertical-align: middle;'>
-                           <input type='button' id='btnRight' value='  >  ' /> <br />
-                           <input type='button' id='btnLeft' value='  <  ' />
+                           	<input type='button' id='btnRight' value='  >  ' /> 
+                            <input type='button' id='btnLeft' value='  <  ' />
+                          <!--  <td class="author"><a href="" id='btnRight'>>></a></td><br />
+                           <td class="author"><a href="" id='btnLeft'>Delete</a></td> -->
                         </td>
                         <td style='width: 400px;'><b>SELECTED QUESTION </b><br /> 
                           
+                          <!-- 강좌 목록 -->
+                           <select class="courselistbox" id ="courselistbox" style='width: 400px; height:30px;'>
+                                    <option>강좌 목록</option>
+                     <s:iterator value="courseList" status="st">   
+                                   <option value="<s:property value="courseno"/>"><s:property value="courseno"/>.<s:property value="coursename"/></option>                
+                     </s:iterator>
+                                    <!-- <s:property value="lectureno"/> -->
+                           </select>
+                           <!-- 강좌 목록 끝-->
+                           
+                           <br><br>
+                           
+                           <!-- 강의 목록 -->
+                            <select class="lecturlistbox" id ="lecturelistbox" style='width: 400px; height:30px;'>
+                            <option>강의 목록</option>
+                     <s:iterator  value="lectureList" status="st">   
+                                <option value="<s:property value="lectureno"/>"><s:property value="lecturename"/></option>                
+                     </s:iterator>                
+                           </select> 
+                           <!-- 강의 목록 끝--> 
+                           
                            <br><br>
                            <!-- 강의 해당 코딩문제 리스트 -->
-                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 600px;'>                          
+                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 440px;'>                          
                       <s:iterator value="codingList" status="st">  
                                  <%-- <option value="<s:property value="codingquestion"/>"><s:property value="codingquestion"/></option> --%>
                      </s:iterator>
                            </select>
                            <!-- 강의 해당 코딩문제 리스트 끝-->
-                           <input type="button" id="btnCancel" value="창닫기" style="float: right; margin-right: 28px;">
+                           <!-- <input type="button" id="btnCancel" value="창닫기" style="float: right; margin-right: 28px;">
                            <input type="button" id="btnDelete" value="삭제" style="float: right; margin-right: 28px;">
-                           <input type="button" id="btnSave" value="저장" style="float: right; margin-right: 28px;">
+                           <input type="button" id="btnSave" value="저장" style="float: right; margin-right: 28px;"> -->
+                           
+                           
+                           <div class="form-action"><!-- <div class="form-action2"> -->
+								<input type="button" value="저장" class="submit mc-btn-3 btn-style-1" id="btnSave" />
+								<input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
+								<input type="button" id="btnCancel" value="창닫기" class="submit mc-btn-3 btn-style-1">
+							</div>
+							
+							
+                           
+                           <!-- <div id="courseDetail" class="courseDetail learn-section">
+								<div class="container">
+									<div class="table-student-submission">
+										<table class="mc-table">
+                           						<tbody>
+                           							<tr class="new">
+                           								<td class="author" id="btnSave">저장</td>
+	                           							<td class="author" id="btnCancel" >창닫기</td>
+	                           							<td class="author" id="btnDelete" >삭제</td>
+	                           							
+	                           						</tr>
+                           						</tbody>
+                           				</table>
+                           			</div>
+                           		</div>
+                           	</div>		 -->
+                           
                         </td>
                      </tr>
                   </table>
@@ -159,6 +221,40 @@
    <script type="text/javascript">
 $(document).ready(function() {
    
+   $("#courselistbox").change(function(){ 
+      var courseno=$(this).val()      
+      $('#lstBox2 option').remove();
+      $.ajax({
+         url : 'golecturelist.action'
+         , data : {'courseno' : courseno}
+          ,success : function(response){
+            $(response.lectureList).each(function(index, item) {
+               $('#lecturelistbox').append( '<option value='+item.lectureno+' class="lecturelistbox1">'+item.lecturename+'</option>');
+            });      
+         },
+         error:function(){
+            console.log('에러');
+         }
+      });
+   });
+   
+   
+   $("#lecturelistbox").change(function(){
+      var lectureno = $(this).val();
+      $('#lstBox2 option').remove();
+      $.ajax({
+         url:'gocodinglist.action'
+         ,data: {'lectureno' : lectureno}
+          ,success: function(response){
+            $(response.codingList).each(function(index, item) {
+               $('#lstBox2').append( '<option value='+item.codingno+' class="lstBox2_1">'+item.codingquestion+'</option>');
+            });      
+         }
+          ,error:function(){
+             console.log('에러');
+         }
+      });
+   });
    
     $('#btnRight').click(function(e) { //오른쪽 화살표
        var lectureno = $("#lecturelistbox option:selected").val();
@@ -199,18 +295,18 @@ $(document).ready(function() {
     $('#btnSave').on( "click", function(){ 
        var StringForSaveCoding = [];
        $('#lstBox2 option').each(function(index) {
-          StringForSaveCoding.push(Number($(this).val()));
+          StringForSaveCoding.push(Number($(this).val())) ;
          });
+       
+       var lectureno = $("#lecturelistbox option:selected").val();
          $.ajax({
-        	 method : 'get'
-             , url : 'tempLectureCodingforLecture.action'
-             , data : 'StringForSaveCoding='+StringForSaveCoding
+             url : 'saveLectureCodingfromMain.action'
+             , data : 'StringForSaveCoding='+StringForSaveCoding+'&lectureno='+lectureno
              , dataType : 'json'
              , success : function(response){
                 $("#modalNotification").trigger('click');
                 $("#btnSave").blur();
                 //$('#lstBox2 option').remove();
-                //window.close();
              }
              , error : function(response){
                 console.log('에러');

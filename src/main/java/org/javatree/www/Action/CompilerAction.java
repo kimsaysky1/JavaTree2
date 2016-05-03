@@ -106,11 +106,12 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 		
 		for (int i = 0; i < contentList.size(); i++) { //jsp 파일인지 판단
 			if (contentList.get(i).contains("page language=\"java\" contentType=\"text/html; charset=UTF-8\"")) {
-				file_parent = "C:/Program Files/Apache Software Foundation/Tomcat 8.0/webapps/test/guest/" + id;
+				file_parent = "C:/apache-tomcat-8.0.33/webapps/test/guest/" + id;
+				System.out.println("file_parent: "+file_parent);
 				file_name = "a" + i + ".jsp";
 				makeJspFile(file_parent, file_name, contentList.get(i));
 				resultType = "jsp";
-				result = "http://203.233.196.88:8585/test/guest/" + id + "/" + file_name;
+				result = "http://203.233.196.88:8090/test/guest/" + id + "/" + file_name;
 				return SUCCESS;
 			}
 		}
@@ -252,6 +253,7 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 	private void makeJspFile(String file_parent, String file_name, String content) {
 		directoryPath = new File(file_parent);
 		File file = new File(file_parent, file_name);
+		System.out.println("path: "+file.getPath());
 		if (!directoryPath.exists()) {
 			directoryPath.mkdirs();
 		}
