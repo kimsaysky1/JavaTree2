@@ -703,6 +703,7 @@
 	<delete id="deleteCoding" parameterType="int">
 		delete from Coding where codingno = #{codingno}
 	</delete>
+	
  	<!-- 영호 추가끝 -->
 </mapper>
 

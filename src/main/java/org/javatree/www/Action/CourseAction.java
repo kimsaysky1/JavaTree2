@@ -1682,7 +1682,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 * @return
 		 * @throws IOException 
 		 */
-		public String insertLecture() throws IOException{
+		public synchronized String insertLecture() throws IOException{
 			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			
@@ -1691,37 +1691,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			lecture.setLecturename(lecture.getLecturename());
 			lecture.setRegdate(lecture.getRegdate());
 			
-			//System.out.println(uploadContentType+"컨텐트타입");
-			//System.out.println(uploadFileName+"파일네임");
-			//System.out.println(getUpload()+"실제파일");
-			
-			/*String a= uploadFileName.get(0);
-			String b= uploadFileName.get(1);
-			
-			String [] video_chk = a.split("\\.");
-			String [] note_chk = b.split("\\.");
-			
-			String check_point1= video_chk[1];
-			String check_point2= note_chk[1];*/
-			
-			//System.out.println("check_point1 : "+check_point1);
-			//System.out.println("check_point2 : "+check_point2);	   
-			
-			//여기서부터 내꺼
-            
-    		/*insert Lecture*/
-    		//System.out.println(uploadContentType+"컨텐트타입");
-    		//System.out.println(uploadFileName+"파일네임");
-    		//System.out.println(getUpload()+"실제파일");
-    		//System.out.println(ServletActionContext.getRequest().getRequestURL());
-    		
-			/*file_parent = file_parent + "/" + packagePath;
-			directoryPath = new File(file_parent + "/");
-			File file = new File(file_parent, file_name);*/
-			
 			String loginId = (String)session.get("loginId");
     		/*강의video*/
-    		//System.out.println(UploadPath+uploadFileName.get(0));
     		
 			directoryPath = new File(UploadPath +loginId+"/");
 			if (!directoryPath.exists()) {
@@ -1731,15 +1702,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			File video=new File(directoryPath, uploadFileName.get(0)); /*파일네임*/
     		
     		FileUtils.copyFile(upload.get(0), video); /*실제파일저장*/
-    		//System.out.println(video+"video");
     		
-    		/*originalfilename="lecture,"+UploadPath+video+","+System.currentTimeMillis();실제파일이름
-    		uploadedfilename=uploadFileName.get(0); 실제파일경로*/
     		originalfilename=video+","+System.currentTimeMillis(); //실제파일이름
     		uploadedfilename=uploadFileName.get(0); //실제파일경로*/
-    		
-    		//System.out.println("경로1: "+uploadedfilename);
-    		 //입력받은 파일 이름을 가지고 File 객체를 생성
     		
 			lecture.setUploadedfilename(uploadedfilename);
 			lecture.setOriginalfilename(originalfilename);
@@ -1747,7 +1712,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
     		
     		 try {
     			   Class.forName("oracle.jdbc.driver.OracleDriver");
-    			  // System.out.println("드라이버 검색 성공");
     			  }catch(ClassNotFoundException e) {
     			   System.err.println("error = " + e);
     			   System.exit(1);
@@ -1764,12 +1728,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
     			   System.err.println("sql error = " + e);
     			   System.exit(1); // 비정상 종료시 사용되는 함수이다.
     			  }
-    			  
-    			  /*Scanner sc = new Scanner(System.in);
-    			  System.out.print("업로드 할 파일 = ");
-    			  String filename = sc.next();*/
     			 
-    			  //File f = new File(filename);
     			  if(!video.exists()) {
     			   System.out.println("파일이 존재 하지 않습니다.");
     			   System.exit(1);
@@ -1787,7 +1746,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
     			  ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
     			  
     			  int lecNo = dao.selectMaxLectureno();
-    			  System.out.println("lecNo>> " + lecNo);
     			  
     			  query = "update lecture set filedata = ? where lectureno = ? ";
     			  try {
@@ -1795,7 +1753,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
     			   pstmt.setBinaryStream(1, bis, bos.size());
     			   pstmt.setInt(2, lecNo);
     			   int row =  pstmt.executeUpdate();
-    			   System.out.println("업로드 성공!" + row);
     			   pstmt.close();
     			   conn.close();
     			  }catch(SQLException e) {
@@ -1814,26 +1771,20 @@ public class CourseAction extends ActionSupport implements SessionAware {
     			  
 				File note=new File(directoryPath, uploadFileName.get(1));
 				FileUtils.copyFile(upload.get(1), note); /*실제파일저장*/
-				System.out.println(note+"subnote");
 				
 				originalfilename="subnote,"+note+","+System.currentTimeMillis();
 				uploadedfilename=uploadFileName.get(1);
-				System.out.println("경로2: "+uploadedfilename);
 				
 				subnote = new Subnote();
 				id=(String) session.get("loginId");
 				subnote.setId(id);
 				subnote.setCourseno(courseno);
-				System.out.println("subnote2: "+subnote);
 				subnote.setOriginalfilename(originalfilename);
 				subnote.setUploadedfilename(uploadedfilename);
-				System.out.println("subnote3: "+subnote);
-				System.out.println(subnote+"서브노트객체");
 				dao.insertSubnote(subnote);
     		}
 				
 				/*struts.properties src 파일사이즈 속성. 값. byte값단위로 */
-				
 				/*insert Teachlecture*/
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("id", (String)session.get("loginId"));
@@ -1845,7 +1796,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 				/*insert Coding-coding 갔다가 옴..*/
 				codingList = dao.selectForCodingTemp(id); //id와 코딩넘버알기위해서 문제등록되었는지잠깐등록
-				//System.out.println("codingtemp codingno: " +codingList);
 				
 				for(int i=0; i<codingList.size();i++){
 					coding= codingList.get(i);
@@ -2227,9 +2177,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public String codingMainInsertLectureView(){
 		
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			
 			id = (String)session.get("loginId");
-			
 			codingList =  dao.getAllCodingList(id);
 			return SUCCESS;
 		}
@@ -2872,7 +2820,27 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			return SUCCESS;
 		}
 		
-		
+		public String tempLectureCodingforLecture() throws Exception{
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			ArrayList<Integer> tempList = new ArrayList<>();
+	        StringTokenizer st = new StringTokenizer(StringForSaveCoding, ",");
+	        while(st.hasMoreTokens()){
+	           tempList.add(Integer.parseInt(st.nextToken()));
+	        }
+	        
+	        System.out.println("tempList: "+tempList);
+	        System.out.println("tempList.size: "+tempList.size());
+			Map map = new HashMap();
+			id = (String) session.get("loginId");
+			map.put("id", id);
+			for(int i = 0; i < tempList.size(); i++){
+				map.put("codingno", tempList.get(i));
+				System.out.println("map: "+map);
+				dao.insertCodingTemp(map);
+			}
+			
+			return SUCCESS;
+		}
 		//getter setter
 
 		

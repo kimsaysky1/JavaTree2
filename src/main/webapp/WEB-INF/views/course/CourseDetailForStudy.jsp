@@ -35,7 +35,36 @@
 <%@include file="/resources/header2.jsp" %>
 
 	<!-- PROFILE FEATURE 프로필!!!!-->
-	<section class="profile-feature">
+			    <section class="profile-feature">
+		        <div class="awe-parallax bg-profile-feature"></div>
+		        <div class="awe-overlay overlay-color-3"></div>
+		        <div class="container">
+		            <div class="info-author">  
+		                <div class="name-author">
+		                 <h3 class="big2">About Course</h3>
+		                 <table>
+		                 <tr>
+		                 <td style="width:170px;">  <h4>  Title  </h4> </td>
+		                 <td> <h3 class="big"><s:property value="coursename" /></h3> </td>
+		                 </tr>
+		                 <tr>
+		                 <td style="width:170px;"> <h4>  Introduction  </h4> </td>
+		                 <td> <h5><s:property value="introdution" /></h5></td>
+		                 </tr>
+		                 </table>
+
+		                </div>     
+		            </div>
+		       <%--      <div class="info-follow">
+		                <div class="trophies">
+		                    <span>JAVA KONG</span>
+		                    <p>POINT</p>
+		                </div>
+		            </div> --%>
+		        </div>
+		    </section>
+	
+	<!-- <section class="profile-feature">
 		<div class="awe-parallax bg-profile-feature"></div>
 		<div class="awe-overlay overlay-color-3"></div>
 		<div class="container">
@@ -51,15 +80,20 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<!-- END / PROFILE FEATURE -->
 
 	<!-- 가운데 영역 -->
 	<section class="blog2">
-
-		<div class="mid-detail-course">
+<div class="mid-detail-course">
 			<div class="container">
-			 <h3>About Course</h3>
+			 <h3>Lecture List</h3><!-- <h3>About Course</h3> -->
+			 </div>
+			 </div>
+	
+		<%-- <div class="mid-detail-course">
+			<div class="container">
+			 <h3>About Lecture</h3><!-- <h3>About Course</h3> -->
 			<div class="coursedetail-bg">
 				<div class="create-course-content2">
 
@@ -101,20 +135,20 @@
 				</div>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 		<div id="courseDetail" class="courseDetail learn-section">
 			<div class="container">
 
 				<div class="table-student-submission">
 					<table class="mc-table">
 						<thead>
-							<tr>
+							<!-- <tr>
 								<th class="submissions2">Lecture List</th>
 								<th class="author"></th>
 								<th class="score"></th>
 								<th class="submit-date"></th>
 								<th class=""></th>
-							</tr>
+							</tr> -->
 						</thead>
 
 						<tbody>
@@ -297,5 +331,6 @@
 	});
 	
 	</script>
+	<script src="../resources/checkMessage.js"></script>
 </body>
 </html>

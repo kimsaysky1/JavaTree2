@@ -280,6 +280,7 @@ $(document).ready(function() {
              , dataType : 'json'
              , success : function(response){
                 $("#modalNotification").trigger('click');
+                $("#btnSave").blur();
                 //$('#lstBox2 option').remove();
              }
              , error : function(response){
