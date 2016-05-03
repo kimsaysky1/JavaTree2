@@ -94,7 +94,7 @@ margin-left: 6px;
 
 #seek-bar {
 	/*required for proper track sizing in FF*/
-	width: 750px; ! important;
+	width: 725px; ! important;
 	display: inline-block;
 	margin: 0px;
 	padding: 0px;
