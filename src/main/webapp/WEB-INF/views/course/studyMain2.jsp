@@ -75,9 +75,9 @@
                         <div class="table-wrap">
                             <!-- TABLE HEAD -->
                             <div class="table-head">
-                                <div class="submissions">Coursename(Lecturename)</div>
+                                <div class="submissions">Title</div>
                                 <div class="total-subm"></div>
-                                <div class="replied">Subnote</div>
+                                <div class="replied"></div>
                                 <div class="latest-reply">Teacher</div>
                                 <div class="tb-icon">Play</div>
                             </div>
@@ -169,7 +169,7 @@
                     <!-- 질문 보관함 -->
                     	
                     	<div class="form-submit-1">
-							<input type="button" id="questionBox" value="QUESTION BOX" class="mc-btn btn-style-1">
+							<a href="/javatree/course/QuestionBoxforStudy.action"><input type="button" id="questionBox" value="QUESTION BOX" class="mc-btn btn-style-1"></a>
 						</div>
                     	
                         <!-- 보관함 끝-->
@@ -326,17 +326,12 @@
 					        success : function(response){
 					        	
 					        	var divTag = $('<div class="tbody"></div>');
-<<<<<<< HEAD
-				 				divTag.html('<div class="item" style = "height:60px;"><div class="submissions"></div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply" style="margin-left:45px;"><a href="selectCourseDetailForStudy.action?courseno='+id+'">>>강좌상세정보</div></div>')
-=======
 				 				divTag.html('<div class="item"><div class="submissions"></div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"><a href="selectCourseDetailForStudy.action?courseno='+id+'">>>강좌상세정보</a></div><div class="link tb-icon"></div></div>')
->>>>>>> d2e1a6a8ae94fed878595a3150b4e82026d6dc8b
 				 				.insertAfter(sel); 	  
 					        	
 					        	 var list = response.lectureList;
 					        	 list.forEach(function(lec){
 					 				
-<<<<<<< HEAD
 					        		 if(lec.studying != null){
 					        			 if(lec.uploadedfilename != null){
 						        			 var divTag = $('<div class="tbody"></div>');
@@ -347,20 +342,6 @@
 								 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"></div><div class="link tb-icon"><a href="javascript:newPopup('+lec.lectureno+')"><i class="fa fa-play-circle-o"></i></a></div></div>')
 								 				.insertAfter(sel); 
 						        		 }
-=======
-					        		 if(lec.uploadedfilename != null){
-					        			 var divTag = $('<div class="tbody"></div>');
-							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"><a href="DownLoadFile.action?uploadedfilename='+lec.uploadedfilename+'&lectureno='+lec.lectureno+'">'+lec.uploadedfilename +'</a></div><div class="latest-reply"></div><div class="link tb-icon"><a href="javascript:newPopup('+lec.lectureno+')"><i class="fa fa-play-circle-o"></i></a></div></div>')
-							 				.insertAfter(sel); 
-					        		 }else{
-					        			 var divTag = $('<div class="tbody"></div>');
-<<<<<<< HEAD
-							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"></div><div class="link tb-icon"><a href="#" onclick = "javascript:popup(lec.lectureno)"><i class="fa fa-play-circle-o"></i></a></div></div>')
-=======
-							 				divTag.html('<div class="item"><div class="submissions">'+ '&nbsp;&nbsp;' + lec.lecturename+'</div><div class="total-subm"></div><div class="replied"></div><div class="latest-reply"></div><div class="link tb-icon"><a href="javascript:newPopup('+lec.lectureno+')"><i class="fa fa-play-circle-o"></i></a></div></div>')
->>>>>>> d2e1a6a8ae94fed878595a3150b4e82026d6dc8b
-							 				.insertAfter(sel); 
->>>>>>> 4fda9df41baea8d8924510d41362c15e73105fac
 					        		 }
 					        		 
 					        		 
@@ -371,14 +352,6 @@
 	               
 					 });
 	             }
-	      		
-	             function popup(lectureno){
-	            		
-	            	var lectureno = lectureno;
-	            	window.open('../compiler/Compiler.action?lectureno='+lectureno,'pop','resizable=no scrollbars=yes top=50 left=200 width=1800 height=800'); 
-	            		
-	            }
-	      		
 	                //slide effect 시작
 	                if ($(this).hasClass('active')==false) {
 	                	$('.table-item')
@@ -416,7 +389,7 @@ function newPopup(lectureno) {
 	/* popupWindow = window.open(
 		url,'popUpWindow','height=300,width=400,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes') */
 	popupWindow = window.open(
-			'../compiler/Compiler.action?lectureno='+lectureno ,'kongPlayer','height=1000, width=1800, resizable=no,scrollbars=no,menubar=no');
+			'../compiler/Compiler.action?lectureno='+lectureno ,'kongPlayer','height=950, width=1737, resizable=no,scrollbars=no,menubar=no');
 }
 </script>
 

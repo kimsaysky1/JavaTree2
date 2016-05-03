@@ -604,6 +604,18 @@
 		select * from Coding where codingno = #{codingno}
 	</select>
 	
+	<select id="getSelectedCoding" parameterType="String" resultMap="CodingMap"> 
+	select * from coding where codingno in (select codingno from studycodingbox where id=#{id}) 
+	</select>
+	
+	<select id="getCodefromStudy" resultType="String" parameterType="int"> 
+	select coding from studycodingbox where codingno = #{codingno} 
+	</select>
+	
+	<delete id="deletefromcodingbox" parameterType="int">
+	delete from studycodingbox where codingno = #{codingno} 
+	</delete>
+	
 	<update id="updateCodingfromMain" parameterType="Coding">
 	update coding set codingquestion = #{codingquestion}, codingtemplet = #{codingtemplet:VARCHAR}, codinganswer = #{codinganswer:VARCHAR}
 	where codingno = #{codingno} 

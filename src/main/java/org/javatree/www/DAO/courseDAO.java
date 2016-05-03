@@ -113,6 +113,7 @@ public interface courseDAO {
 	public String selectTeacher(int lectureno);
 	public int selectCheckSubnote(int lectureno);
 	public ArrayList<Lecture> selectWatchingLecture2(Map<String, Object> kong);
+	public void deleteinstudycodingbox(int codingno);
 	
 	
 }

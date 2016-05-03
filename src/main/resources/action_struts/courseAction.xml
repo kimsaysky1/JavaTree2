@@ -170,7 +170,25 @@
         </action>
         
         
-        
+        <!-- study 문제보관함  -->
+        <action name="QuestionBoxforStudy" method="QuestionBoxforStudy" class="org.javatree.www.Action.CourseAction">
+			<result>/WEB-INF/views/course/QuestionBoxforStudy.jsp</result>
+		</action>
+		
+		
+		<action name="showcodinglistinstudy" method="showcodinglistinstudy" class="org.javatree.www.Action.CourseAction">
+			<result type="json"/>
+		</action>
+		
+		<action name="deletefromcodingbox" method="deletefromcodingbox" class="org.javatree.www.Action.CourseAction">
+			<result type="json"></result>
+		</action>
+		
+		
+		<action name="showcodinganswer" method="showcodinganswer" class="org.javatree.www.Action.CourseAction">
+			<result>/WEB-INF/views/course/showAnswer.jsp</result>
+		</action>
+		        
         <!-- 뷰 (인서트렉쳐안의 코딩박스 클릭시 인서트뷰, 코딩다케) -->
         <action name="insertSelectedCodingfromInsertLectureView" class="org.javatree.www.Action.CourseAction" method="insertSelectedCodingfromInsertLectureView">
         	<result>/WEB-INF/views/course/insertCodingForLecture.jsp</result>

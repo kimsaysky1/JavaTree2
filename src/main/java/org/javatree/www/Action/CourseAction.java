@@ -2592,9 +2592,27 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			
 			id = (String)session.get("loginId");
-			codingList = dao.getSelectedCoding(id);
+			codingList = dao.getSelectedCoding(id); 
+			
+			System.out.println("리스트!! : "+codingList);
 			
 			return SUCCESS;
+			
+		}
+		
+		public String deletefromcodingbox(){
+			
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			
+			System.out.println(codingno);
+			dao.deleteinstudycodingbox(codingno);
+			
+			id = (String)session.get("loginId");
+			codingList = dao.getSelectedCoding(id);
+
+			
+			return SUCCESS;
+			
 			
 		}
 		
@@ -2607,6 +2625,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			mycode = dao.getCodefromStudy(codingno);			
 			coding = dao.getCodingContent(codingno);
+			
+			System.out.println("mycode : "+mycode);
+			System.out.println("coding : "+coding);
 		
 			return SUCCESS;
 		}
