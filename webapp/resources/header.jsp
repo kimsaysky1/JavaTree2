@@ -65,6 +65,14 @@
 								<img src="resources/javatree_view/html/images/account_kong.png"
 									alt="">
 							</div>
+							<div class="toggle-account toggle-list">
+								<ul class="list-account">
+									<li><a href="login.html"><i class="icon md-arrow-right"></i>Check Point</a></li>
+									<li><a href="login.html"><i class="icon md-arrow-right"></i>Edit Member</a></li>
+									<li><a href="login.html"><i class="icon md-arrow-right"></i>Log Out</a></li>
+									
+								</ul>
+							</div>
 						</li>
 
 						<!-- NOTIFICATION -->
