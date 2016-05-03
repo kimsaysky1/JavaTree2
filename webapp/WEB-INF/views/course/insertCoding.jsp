@@ -35,11 +35,8 @@
 
 	<!-- PAGE WRAP -->
 	<div id="page-wrap">
-
 		<div class="top-nav">
-
 			<h4 class="sm black bold">QUESTION BOX</h4>
-
 			<ul class="top-nav-list">
 				<li class="outline-learn active"><a href="#"><i
 						class="icon md-list"></i></a>
@@ -61,31 +58,23 @@
 										</a>
 									</div>
 									<%}%>
-
 								</li>
-
 								<li>
 									<div class="list-body">
 										<a href="/javatree/course/insertCodingfromMainView.action?from=${from}"">
 											<h6>INSERT</h6>
 										</a>
 									</div>
-
-
 								</li>
-
 								<li>
 									<div class="list-body">
 										<a href="/javatree/course/updateCodingfromMainView.action?from=${from}"">
 											<h6>UPDATE</h6>
 										</a>
 									</div>
-
 								</li>
-
 							</ul>
 						</div>
-						
 					</div>
 				</li>
 				<!-- 페이지 종료 -->
@@ -109,7 +98,6 @@
 				<div class="question-content-wrap">
 					<div class="question-content">
 						<h4 class="sm">QUESTION BOX</h4>
-
 						<table style='width: 1000px;'>
 							<tr>
 								<td style='width: 400px;'><b>ALL QUESTION</b><br /> 
@@ -165,7 +153,7 @@
 		</section>
 	</div>
 	<!-- END / PAGE WRAP -->
-		
+	
 <div class="container">
   <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
   <!-- Modal -->
