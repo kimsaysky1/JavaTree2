@@ -717,6 +717,19 @@
 	</delete>
 	
  	<!-- 영호 추가끝 -->
+ 	
+ 	<insert id="insertBookMark" parameterType="map">
+ 		insert into bookmark values (#{chaptername}, #{chaptertime}, #{lectureno})
+ 	</insert>
+ 	
+ 	<select id="selectBookMarks" parameterType="int" resultType="Bookmark">
+ 		select * from bookmark where lectureno = #{lectureno}
+ 	</select>
+ 	
+ 	<delete id="deleteBookMark" parameterType="map">
+ 		delete from bookmark where chaptername = #{chaptername} and lectureno = #{lectureno}
+ 	</delete>
+ 	
 </mapper>
 
 

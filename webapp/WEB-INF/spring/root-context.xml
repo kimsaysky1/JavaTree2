@@ -23,6 +23,7 @@
 	<bean id="PageNavigator" class="org.javatree.www.Util.PageNavigator"></bean>
 	<bean id="Subnote" class="org.javatree.www.VO.Subnote"></bean>
 	<bean id="Notification" class="org.javatree.www.VO.Notification"></bean>
+	<bean id="Bookmark" class="org.javatree.www.VO.Bookmark"></bean>
 	
 	<!--  Interceptors --> 
   <bean name="logger"    

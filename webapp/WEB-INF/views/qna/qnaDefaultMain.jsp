@@ -29,13 +29,9 @@
 		<%@include file="/resources/header2.jsp" %>
 		
 		 <section class="sub-banner sub-banner-course">
-<<<<<<< HEAD
 		 <div class="awe-overlay overlay-color-3"></div>
         <div class="awe-static bg-sub-banner-course2"></div><!-- <div class="awe-static bg-sub-banner-course"></div> -->
-=======
-		   <div class="awe-overlay overlay-color-3"></div> 
-        <div class="awe-static bg-sub-banner-course2"></div>
->>>>>>> 4cc179cfbaa736952a65741348b53909cd6c0512
+
         <div class="container">
             <div class="sub-banner-content">
                 <h2 class="text-center">JAVATree</h2>

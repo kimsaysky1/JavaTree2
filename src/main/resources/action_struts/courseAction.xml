@@ -261,11 +261,15 @@
         	<result>/WEB-INF/views/course/codingMainfromMain.jsp</result>     	
         </action>
                 
-       
+       	<!-- bookmark insert -->
+        <action name="insertBookMark" class="org.javatree.www.Action.CourseAction" method="insertBookMark"> 
+        	<result type="json"></result>
+        </action>
         
-        
-        
-        
+        <!-- bookmark delete -->
+        <action name="deleteBookMark" class="org.javatree.www.Action.CourseAction" method="deleteBookMark"> 
+        	<result type="json"></result>
+        </action>
         
        <!--  강좌 이름, Description 수정 - courseDetailForTeach --> <!-- 강좌수정은 나중에 디버깅시 ㄱㄱ --> 
        <action name="updateCourseName" class="org.javatree.www.Action.CourseAction" method="updateCourseName" >

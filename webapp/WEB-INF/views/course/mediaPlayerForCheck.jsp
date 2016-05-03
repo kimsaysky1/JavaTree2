@@ -1,30 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="s" uri="/struts-tags" %>
-    
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <link rel="stylesheet" type="text/css" href="css/vol-bar.css"> -->
+<meta charset="UTF-8">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../resources/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="../resources/jquery-ui.min.js"></script>
+
 <style type="text/css">
-	   
-video {pointer-events: none;
-	   margin:5px;
+.viewtitle {
+	width: 100%;
+	height: 70px;
+	background: #14548E;
 }
 
-#vol-div{
+.viewpart{
+
+	background-color: #eee;
+}
+
+.popwrap h3 {
+	margin-bottom: 25px;
+	padding-top: 20px;
+}
+
+.playerpart {
+	width: 920px;
+	float: left;
+	padding: 20px;
+	background-color: #eee;
+}
+
+.codingpart {
+	width: 800px;
 	float: right;
-	margin-right: 0px;
-	margin-top: 15px;
-	margin-left: 270px;
+	padding: 20px;
+	background-color: #eee;
 }
 
-.slider-width100
-{	
-    /* transform: rotate(270deg); //수직 bar */
-    width: 80px; !important;
-    float: right;
-    display: inline-block;
+.showresult {
+	margin-top: 20px;
+	border: 1px solid #EAEAEA;
+}
+
+video {
+	pointer-events: none;
+	margin: 5px;
+}
+
+.tab{
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, AppleGothic;
+font-size: 14px;
+font-weight: 600;
+margin-left: 6px; 
+}
+
+#vol-div {
+	float: right;
+	margin-left: 10px;
+	margin-top: 15px;
+	width: 100px;
+}
+
+.slider-width100 {
+	/* transform: rotate(270deg); //수직 bar */
+	width: 80px; ! important;
+	float: right;
+	display: inline-block;
 	margin-right: 0px;
 	padding: 0px;
 	top: 0px;
@@ -36,10 +82,10 @@ video {pointer-events: none;
 	white-space: nowrap;
 	cursor: pointer;
 	white-space: nowrap;
-    /* background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%); */
+	/* background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%); */
 }
 
-#now{
+#now {
 	/* float: left; */
 	margin: 12px;
 	margin-top: -12px;
@@ -47,9 +93,9 @@ video {pointer-events: none;
 }
 
 #seek-bar {
-/*required for proper track sizing in FF*/
-	width: 770px; !important;
-    display: inline-block;
+	/*required for proper track sizing in FF*/
+	width: 750px; ! important;
+	display: inline-block;
 	margin: 0px;
 	padding: 0px;
 	box-sizing: content-box;
@@ -61,50 +107,48 @@ video {pointer-events: none;
 	cursor: pointer;
 	white-space: nowrap;
 	position: relative;
+	margin-left: 52px;
 	border: 0;
 	bottom: 0;
 	float: left;
 	/*removes default webkit styles*/
-    -webkit-appearance: none;
-    
-    /*fix for FF unable to apply focus style bug */
-    border: 2px solid white;
-    margin: 8px;
-    
+	-webkit-appearance: none;
+	/*fix for FF unable to apply focus style bug */
+	border: 2px solid white;
+	/*  margin: 8px; */
 }
 
 #seek-bar::-webkit-slider-runnable-track {
-    width: 800px;
-    height: 11px;
-    background: #ddd;
-    border: none;
-    border-radius: 8px;
-    
+	width: 800px;
+	height: 11px;
+	background: #ddd;
+	border: none;
+	border-radius: 8px;
 }
 
 #seek-bar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: none;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background-color: #f6f6f6;
-    background: goldenrod; 
-    margin-top: -6px;
-    cursor: pointer;
+	-webkit-appearance: none;
+	border: none;
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	background-color: #f6f6f6;
+	background: goldenrod;
+	margin-top: -6px;
+	cursor: pointer;
 }
 
 #player {
-   /*  background: #fff; */
-	background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%);
-    /* background-color: #000; */
-    overflow:hidden;
-    position:relative;
-    display:inline-block;
-    width: 960px;
-    height: 660px;
-    float: left;
-    outline: 0;
+	/*  background: #fff;  linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%); */
+	background: linear-gradient(to bottom, #EAEAEA 40%, #f6f6f6 100%);
+	/* background-color: #000; */
+	overflow: hidden;
+	position: relative;
+	display: inline-block;
+	width: 900px;
+	height: 620px;
+	float: left;
+	outline: 0;
 }
 
 #video-controls {
@@ -117,18 +161,19 @@ video {pointer-events: none;
 	margin: 0px;
 	border: 0;
 	/* background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%); */
-	display:inline-block;
+	display: inline-block;
 	white-space: nowrap;
 	margin-top: -25px;
+	margin-left: 52px;
 }
 
 #editor {
 	margin: 5px;
-	float: left; 
+	float: left;
 }
 
 button {
-    display: inline-block;
+	display: inline-block;
 	margin: 5px 0;
 	border-radius: .25em;
 	box-sizing: content-box;
@@ -136,47 +181,53 @@ button {
 	background: transparent;
 	outline: 0;
 	vertical-align: middle;
-	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif,AppleGothic;
-	font-size: 18px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, AppleGothic;
+	font-size: 16px;
 	text-decoration: none;
 	white-space: nowrap;
 	cursor: pointer;
-	height: 46px;
+	height: 35px;
 	padding: 0 1em;
-	font-size: 18px;
 	font-weight: 600;
-	line-height: 46px;
+	line-height: 20px;
 	top: 0px;
 	position: relative;
 }
 
-button { font-family: 돋움, dotum, 굴림, gulim, sans-serif; }
-button { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
-.re { font-family: 돋움, dotum, 굴림, gulim, sans-serif; font-weight: bolder; }
-/* 일반적인 버튼의 상황 */
-button,
-button:link,
-button:visited {
-	color: #666;
-	border: 1px solid #ebebeb;
-	border-bottom-color: #c6c6c6;
-	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04);
-	background: #fff;
-	background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%);
- filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0 );/*IE*/
+button {
+	font-family: 돋움, dotum, 굴림, gulim, sans-serif;
 }
- 
+
+button {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.re {
+	font-family: 돋움, dotum, 굴림, gulim, sans-serif;
+	font-weight: bolder;
+}
+/* 일반적인 버튼의 상황 */
+button, button:link, button:visited {
+	/* color: #666; */
+	border: 1px solid #ebebeb;
+/* 	border-bottom-color: #c6c6c6;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04); */
+	background: #fff;
+	/* background: linear-gradient(to bottom, #ffffff 40%, #f6f6f6 100%); */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff',
+		endColorstr='#f6f6f6', GradientType=0); /*IE*/
+}
+
 /* 마우스오버 */
-button:focus,
-button:hover {
+button:focus, button:hover {
 	background: #f4f4f4;
 	background: linear-gradient(to bottom, #fafafa 0%, #fff 100%);
- filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', endColorstr='#ffffff', GradientType=0 );/*IE*/
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa',
+		endColorstr='#ffffff', GradientType=0); /*IE*/
 }
- 
+
 /* 눌려졌거나 선택 된 상황 */
-button:active,
-button.active {
+button:active, button.active {
 	text-shadow: 0 1px 0px #fff;
 	border-color: #ebebeb;
 	border-top-color: #ddd;
@@ -194,103 +245,270 @@ select {
 	background: transparent;
 	outline: 0;
 	vertical-align: middle;
-	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif,AppleGothic;
-	font-size: 18px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, AppleGothic;
+	font-size: 16px;
 	text-decoration: none;
 	white-space: nowrap;
 	cursor: pointer;
-	height: 46px;
+	height: 35px;
 	padding: 0 1em;
-	font-size: 18px;
 	font-weight: 600;
-	line-height: 46px;
+	line-height: 20px;
+	background: #fff;
+	border: 1px solid #ebebeb;
 	/* border:gray; border-right:0.5px; border-top:0.5px; boder-left:0.5px; boder-bottom:0.5px; */
 }
 
-@font-face{
-    font-family:ng;
-    src:url(NanumGothic.eot);
-    src:local(※), url(NanumGothic.woff) format(‘woff’)
+@font-face {
+	font-family: ng;
+	src: url(NanumGothic.eot);
+	src: local(※), url(NanumGothic.woff) format(‘woff’)
 }
 
 body {
-    font-family: 나눔고딕, NanumGothic, ng;
-  }
+	font-family: 나눔고딕, NanumGothic, ng;
 
-.pl{
+}
+
+.pl {
 	font-weight: bold;
-	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif,AppleGothic;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, AppleGothic;
+}
+
+#tabs {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	overflow: hidden;
+}
+
+#tabs li {
+	float: left;
+	display: block;
+	padding: 5px;
+	background-color: #bbb;
+	margin-right: 5px;
+}
+
+#tabs li a {
+	color: #fff;
+	text-decoration: none;
+}
+
+#tabs li.current {
+	background-color: #14548E;
+}
+
+#tabs li.current a {
+	color: #fff;
+	text-decoration: none;
+}
+
+#tabs li a.remove {
+	color: #f00;
+	margin-left: 10px;
+}
+
+#codingwrapper {
+	float: left;
+	margin: 0 20px 0 0;
+}
+
+#documents {
+	margin: 0;
+	padding: 0;
+}
+
+#codingwrapper {
+	width: 800px;
+	height: 600px;
+	margin-top: 5px;
+}
+
+.editor {
+	float: left;
+	width: 725px;
+	overflow: scroll;
+}
+
+#question{
+border: 1px solid #EAEAEA;
+}
+
+.line_number {
+	float: left;
+	padding-right: 14px;
+	margin-top: 37px;
+	width: 31px;
+	font: 14px Arial;
+	line-height: normal;
+	text-align: right;
+	height: 550px;
+	overflow: scroll;
+	overflow-y: hidden;
+	font-weight: 600;
+}
+
+div.numberedtextarea-wrapper {
+	position: relative;
+}
+
+div.numberedtextarea-wrapper textarea {
+	display: block;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+div.numberedtextarea-line-numbers {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 50px;
+	border-right: 1px solid rgba(0, 0, 0, 0.15);
+	color: rgba(0, 0, 0, 0.15);
+	overflow: hidden;
+}
+
+div.numberedtextarea-number {
+	padding-right: 6px;
+	text-align: right;
+}
 }
 </style>
-<script src="script/jquery-2.2.3.min.js"></script>
-<script src="script/jquery-ui.min.js"></script>
 
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<title>플레이어</title>
 </head>
 <body>
 
-<div id="player">
-<s:iterator value="lecture" status="st">
-	<video width="960" height="540" preload="auto" id="video" autoplay="autoplay" >
-		<source src='../resources/upload/<s:property value="id"/>/<s:property value="uploadedfilename"/>' />
-		<%-- <source src="C:/coding/Wildlife.wmv" type="video/wmv" /> --%>
-		<%-- <source src='<s:property value="uploadedfilename"/>' type="video/wmv" /> --%>
-	</video>
-</s:iterator>	
-<div id="seek">
-<input type="range" class="time-slider" id="seek-bar" value="0" step="any" max="100" min="0" step="any" />
-<span id="now"></span>
+	<div class="popwrap">
+		<div class="viewtitle">
+			<img src="../resources/javatree_view/html/images/logo.png" alt="" width="180px;" style="margin-left: 20px;" />
+		</div>
+		<div class="viewpart" >
+		<div class="playerpart">
+			<div id="player">
+
+				<video width="900" height="500" id="video" autoplay="autoplay">
+					<source src='../resources/upload/<s:property value="id"/>/<s:property value="uploadedfilename"/>' type="video/mp4" />
+				</video>
+
+				<div id="seek">
+					<input type="range" class="time-slider" id="seek-bar" value="0"
+						step="any" max="100" min="0" step="any" /> <span id="now"></span>
+				</div>
+				<br />
+				<div id="video-controls">
+
+					<br />
+					<button title="Stop" class="pl">＝</button>
+					<button title="Rewind button" class="rew">&lt;&lt;</button>
+					<button title="Forward button" class="fwd">&gt;&gt;</button>
+					<button title="restart" class="re">■</button>
+					<button title="CodingMode" class="cod">코딩</button>
+					<button title="WatchingMode" class="wat">강의</button>
+					<input type="text" class="gtimename" required="required"/>
+					<button title="setBookmark" class="gtime">B추가</button>
+					
+						<select class='chap' name="sel" onchange="javascript:selectChapter(this)" id="sel">
+						<option selected>B</option>
+						<s:if test="chapterList.size != 0">
+							<s:iterator value="chapterList">
+							<option value='<s:property value="chaptertime"/>'><s:property value="chaptername"/></option>
+							</s:iterator>
+						</s:if>
+					</select>
+					<button title="delBookmark" class="delgtime">B삭제</button>
+					<select id='speed' name="sel" onchange="javascript:selectEvent(this)">
+						<option value='1.0' selected>1.0</option>
+						<option value='1.2'>1.2</option>
+						<option value='1.4'>1.4</option>
+						<option value='1.6'>1.6</option>
+						<option value='1.8'>1.8</option>
+						<option value='2.0'>2.0</option>
+					</select> 
+					
+
+					<div id="vol-div">
+						<input id="vol-control" class="slider-width100" type="range"
+							max="100" min="0" step="any" oninput="SetVolume(this.value)"
+							onchange="SetVolume(this.value)"></input>
+					</div>
+				</div>
+			</div>
+			<!-- video END  -->
+	
+		<script type="text/javascript"
+			src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript"
+			src="../resources/javatree_view/html/js/library/bootstrap.min.js"></script>
+		<script type="text/javascript"
+			src="../resources/javatree_view/html/js/library/jquery.owl.carousel.js"></script>
+		<script type="text/javascript"
+			src="../resources/javatree_view/html/js/library/jquery.appear.min.js"></script>
+		<script type="text/javascript"
+			src="../resources/javatree_view/html/js/library/perfect-scrollbar.min.js"></script>
+		<script type="text/javascript"
+			src="../resources/javatree_view/html/js/library/jquery.easing.min.js"></script>
+
+
+<div class="container">
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body">
+          <p></p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+         </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<br />
-	<div id="video-controls">	
-
-<br />
-<button title="Stop" class="pl" >＝</button>
-<button title="Rewind button" class="rew" >&lt;&lt;</button>
-<button title="Forward button" class="fwd" >&gt;&gt;</button>
-<button title="restart" class="re">■</button>
-<button title="CodingMode" class="cod">코딩</button>
-<button title="WatchingMode" class="wat">강의</button>
-
-
-
- <select id='speed' name="sel" onchange="javascript:selectEvent(this)">
-    	<option value='1.0' selected>1.0</option>
-        <option value='1.2'>1.2</option>
-        <option value='1.4'>1.4</option>
-        <option value='1.6'>1.6</option>
-        <option value='1.8'>1.8</option>
-        <option value='2.0'>2.0</option>
- </select>
- 
- <select class='chap' name="sel" onchange="javascript:selectChapter(this)">
-    	<option value='0' selected>B</option>
-        <option value='10'>1Q</option>
-        <option value='150'>2Q</option>
-        <option value='300'>3Q</option>
-        <option value='400'>4Q</option>
- </select>
- 
-<div id="vol-div">
-
-<input id="vol-control" class="slider-width100" type="range" max="100" min="0" step="any" oninput="SetVolume(this.value)" onchange="SetVolume(this.value)"></input>
-
-</div>
-</div>
-</div>
-
-
-
-<!-- editor 시작 -->
-
-<!-- editor 마침 -->
 <script type="text/javascript">
 
 //time slider click 버전 시작
-
+//and load 시작
 window.onload = function() {
+	
+	(function localFileVideoPlayer() {
+		'use strict'
+	  var URL = window.URL || window.webkitURL
+	 /*  var displayMessage = function (message, isError) {
+	    var element = document.querySelector('#message')
+	    element.innerHTML = message
+	    element.className = isError ? 'error' : 'info'
+	  } */
+	  
+	  
+	  var playSelectedFile = function (event) {
+		
+		var file = this.files[0]
+	    var type = file.type
+	    var videoNode = document.querySelector('#player video');
+	    var canPlay = videoNode.canPlayType(type);
+	  /*   if (canPlay === '') canPlay = 'no'
+	    var message = 'Can play type "' + type + '": ' + canPlay
+	    var isError = canPlay === 'no'
+	    displayMessage(message, isError) */
+
+	    /* if (isError) {
+	      return
+	    }
+ */		
+	    var fileURL = URL.createObjectURL(file)
+	    videoNode.src = fileURL
+	  };
+	  var inputNode = document.querySelector('input');
+	  inputNode.addEventListener('change', playSelectedFile, false);
+	})()
+	
 	var video = document.querySelector('#player video');
 	var seekBar = $("#seek-bar");
 	var seekBarWrapper = $("#seek");
@@ -433,7 +651,7 @@ window.onload = function() {
 // time-slier 마침
 
 //우클릭방지
-document.onmousedown=disableclick;
+/* document.onmousedown=disableclick;
 status="Right Click Disabled";
 function disableclick(event)
 {
@@ -442,7 +660,7 @@ function disableclick(event)
      alert(status);
      return false;    
    }
-}
+} */
 
 //volume
  // change volume based on incoming value 
@@ -799,6 +1017,17 @@ document.addEventListener("DOMContentLoaded", function() {
 		watchingSize();
 	}, false);
 	  
+	  //getTime
+	  var gtime = document.querySelector('#video-controls button.gtime');
+	  gtime.addEventListener("click", function(event) {
+		getTimeShot(event, video);
+	}, false);
+	  
+	  var delgtime = document.querySelector('#video-controls button.delgtime');
+	  delgtime.addEventListener("click", function(event) {
+		delBookmark(event, video);
+	}, false);
+	  
 }, false); //domcontentloaded	!!!!!
 
 
@@ -824,6 +1053,100 @@ function click_play_button(event, video) {
 	}
 }
 
+//시간 가져와서 수정
+function getTime(event, video) {
+	  //  if no video is loaded, this throws an exception 
+	
+	  var pl = document.querySelector('#video-controls button.pl');
+		
+	    	var curTime = 0; 
+	    	curTime = parseInt(video.currentTime);
+	    	
+	    	video.pause(); 
+	    	pl.innerHTML = "▶";
+			pl.title = "재생";
+			
+	    	var lectureno = "${lectureno}";
+	    	
+	   		var name = $('.gtimename').val();
+	   		
+	   		if(name.trim().length > 8){
+	   			$("#modalNotification").trigger('click');
+	    		$('.modal-body > p').html("글자수가 깁니다.");
+			}else{
+				
+	        $.ajax({
+		        type : 'get', 
+		        url : 'insertBookMark',
+		        data : "lectureno="+lectureno+'&currentTime='+curTime+'&chaptername='+name,
+		        success : function(response){
+		        	var result = '';
+		        	if(response.message != null){
+		        		result = response.message;
+		        		$("#modalNotification").trigger('click');
+			    		$('.modal-body > p').html(result);
+		        	}
+		        	
+		        	 $(".chap").html(' ');
+		        	 $(".chap").append('<option selected="selected">B</option>');
+		        	 
+		        	 var list = response.chapterList;
+		 			
+		        	 
+		 			list.forEach(function(chapter){
+		 				var selTag = $('<option selected="selected">B</option>');
+		        		selTag.html('<option value = "'+chapter.chaptertime +'">'+chapter.chaptername+'</option>').appendTo(".chap"); 
+		 			
+		 			});
+	        
+	  				}
+	        
+	        	}); 
+			}
+
+	
+}
+
+function delTime(event, video) {
+	var pl = document.querySelector('#video-controls button.pl');
+	video.pause(); 
+	pl.innerHTML = "▶";
+	pl.title = "재생";
+ 
+ try {
+		var lectureno = "${lectureno}";
+		
+		var target = document.getElementById("sel");
+		var name = target.options[target.selectedIndex].text;
+   		
+        $.ajax({
+	        type : 'get', 
+	        url : 'deleteBookMark',
+	        data : "lectureno="+lectureno+'&chaptername='+name,
+	        success : function(response){
+	        	var result = '';
+	        	if(response.message != null){
+	        		result = response.message;
+	        		$("#modalNotification").trigger('click');
+		    		$('.modal-body > p').html(result);
+	        	}
+	        	 $(".chap").html(' ');
+	        	 $(".chap").append('<option selected="selected">B</option>');
+	        	 
+	        	 var list = response.chapterList;
+	        	 
+	 			list.forEach(function(chapter){
+	 				var selTag = $('<option selected="selected">B</option>');
+	        		selTag.html('<option value = "'+chapter.chaptertime +'">'+chapter.chaptername+'</option>').appendTo(".chap"); 
+	 			
+	 			});
+        
+  				}
+        });        
+} catch (err) {
+  }
+	
+}
 
 //skip forward, backward, or restart
 function setTime(tValue, video) {
@@ -881,6 +1204,21 @@ function click_fwd_button(event, video) {
 	setTime(5, video);
 }
 
+//gtime
+function getTimeShot(event, video) {
+	//눌린 button 요소
+	var gtime = event.currentTarget;
+	
+	getTime(event, video);
+}
+
+//delgtime
+function delBookmark(event, video) {
+	//눌린 button 요소
+	var gtime = event.currentTarget;
+	
+	delTime(event, video);
+}
 // 썸네일 coding완료
 
 			
@@ -911,5 +1249,7 @@ function selectChapter(selectObj)
  }  
 
 </script>
+
+
 </body>
 </html>

@@ -16,7 +16,7 @@
   	<typeAlias type="org.javatree.www.VO.Rereply" alias="Rereply"/>
   	<typeAlias type="org.javatree.www.VO.Subnote" alias="Subnote"/>
   	<typeAlias type="org.javatree.www.VO.Notification" alias="Notification"/>
-  	
+  	<typeAlias type="org.javatree.www.VO.Bookmark" alias="Bookmark"/>
   </typeAliases>
   
   <typeHandlers>
