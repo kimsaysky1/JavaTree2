@@ -3,6 +3,8 @@ alter table course modify (coursename varchar2(100));--20160502 박수지 추가
 alter table studycourse modify (coursename varchar2(100));--20160502 박수지 추가
 alter table teachcourse modify (coursename varchar2(100));--20160502 박수지 추가
 
+alter table coding drop column lectureno
+
 SELECT questionno, typeno, codingno, id, username, title,
 		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
 		 (select rownum as rnum, T1.* from (select * from question

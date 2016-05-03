@@ -2106,44 +2106,77 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 * teachMain - 강좌 상세 페이지 - 교안 수정 폼
 		 */
 		public String updateSubnote() throws IOException{
-			System.out.println("updatesubnote 들어옴");
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			directoryPath = new File(UploadPath2 + (String)session.get("loginId"));
-	        String path = UploadPath2+ (String)session.get("loginId");
 			
-	        /*서브노트파일*/
+			String checkFile = dao.selectUploadedFileName(lectureno);
+			
+			if(checkFile != null){
+				directoryPath = new File(UploadPath2 + (String)session.get("loginId"));
+		        String path = UploadPath2+ (String)session.get("loginId");
+				
+		        /*서브노트파일*/
+				File note=new File(directoryPath, uploadFileName.get(0));
+				FileUtils.copyFile(upload.get(0), note);
+				
+				originalfilename="subnote,"+note+","+System.currentTimeMillis();
+				uploadedfilename=uploadFileName.get(0);
+				
+				System.out.println("lectureno>> " + lectureno);
+				filename = dao.selectSubNoteName(lectureno); //삭제용 파일 네임
+				System.out.println("filename은 뭘까? >> " + filename);
+				
+				subnote = new Subnote();
+				id=(String) session.get("loginId");
+				subnote.setId(id);
+				subnote.setOriginalfilename(originalfilename);
+				subnote.setUploadedfilename(uploadedfilename);
+				subnote.setLectureno(lectureno);
+				
+				dao.updateSubnote(subnote);
+			         
+			         if (directoryPath.isDirectory()) {
+			 			String[] childFiles = directoryPath.list();
+			 			
+			 				for (String childFilePath : childFiles) {
+			 						if(childFilePath.equals(filename)){
+									
+			 						File file2 = new File(directoryPath, childFilePath);
+									file2.delete();
+								}
+			 			}
+			 		} 
+				
+			     message = "업데이트 성공";
+			
+			}else{
+				id=(String) session.get("loginId");
+				directoryPath = new File(UploadPath2 +id+"/");
+				if (!directoryPath.exists()) {
+					directoryPath.mkdirs();
+				}  
+			  
 			File note=new File(directoryPath, uploadFileName.get(0));
-			FileUtils.copyFile(upload.get(0), note);
+			FileUtils.copyFile(upload.get(0), note); /*실제파일저장*/
+			System.out.println(note+"subnote");
 			
 			originalfilename="subnote,"+note+","+System.currentTimeMillis();
 			uploadedfilename=uploadFileName.get(0);
-			
-			System.out.println("lectureno>> " + lectureno);
-			filename = dao.selectSubNoteName(lectureno); //삭제용 파일 네임
-			System.out.println("filename은 뭘까? >> " + filename);
+			System.out.println("경로2: "+uploadedfilename);
 			
 			subnote = new Subnote();
-			id=(String) session.get("loginId");
 			subnote.setId(id);
+			subnote.setCourseno(courseno);
+			System.out.println("subnote2: "+subnote);
 			subnote.setOriginalfilename(originalfilename);
 			subnote.setUploadedfilename(uploadedfilename);
-			subnote.setLectureno(lectureno);
+			System.out.println("subnote3: "+subnote);
+			System.out.println(subnote+"서브노트객체");
+			dao.insertSubnote(subnote);
+			message = "업데이트 성공";
 			
-			dao.updateSubnote(subnote);
-		         
-		         if (directoryPath.isDirectory()) {
-		 			String[] childFiles = directoryPath.list();
-		 			
-		 				for (String childFilePath : childFiles) {
-		 						if(childFilePath.equals(filename)){
-								
-		 						File file2 = new File(directoryPath, childFilePath);
-								file2.delete();
-							}
-		 			}
-		 		} 
+			}
 			
-		     message = "업데이트 성공";
+			
 			return SUCCESS;
 		}
 		/**
