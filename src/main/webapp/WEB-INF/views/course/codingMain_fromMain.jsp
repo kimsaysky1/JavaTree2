@@ -34,7 +34,7 @@
          <h4 class="sm black bold">QUESTION BOX</h4>
 
          <ul class="top-nav-list">
-            <li class="outline-learn"><a href="#"><i
+            <li class="outline-learn active"><a href="#"><i
                   class="icon md-list"></i></a>
                <div class="list-item-body outline-learn-body">
                   <div class="section-learn-outline">
@@ -67,14 +67,14 @@
 
                         </li>
                         
-                           <li>
+                           <!-- <li>
                            <div class="list-body">
                               <a href="/javatree/course/deleteCodingfromMainView.action">
                                  <h6>DELETE</h6>
                               </a>
                            </div>
 
-                        </li>
+                        </li> -->
 
                      </ul>
                   </div>
@@ -117,8 +117,10 @@
                            
                         </td>
                         <td style='width: 50px; text-align: center; vertical-align: middle;'>
-                           <input type='button' id='btnRight' value='  >  ' /> <br />
-                           <input type='button' id='btnLeft' value='  <  ' />
+                           	<input type='button' id='btnRight' value='  >  ' /> 
+                            <input type='button' id='btnLeft' value='  <  ' />
+                          <!--  <td class="author"><a href="" id='btnRight'>>></a></td><br />
+                           <td class="author"><a href="" id='btnLeft'>Delete</a></td> -->
                         </td>
                         <td style='width: 400px;'><b>SELECTED QUESTION </b><br /> 
                           
@@ -145,15 +147,42 @@
                            
                            <br><br>
                            <!-- 강의 해당 코딩문제 리스트 -->
-                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 480px;'>                          
+                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 440px;'>                          
                       <s:iterator value="codingList" status="st">  
                                  <%-- <option value="<s:property value="codingquestion"/>"><s:property value="codingquestion"/></option> --%>
                      </s:iterator>
                            </select>
                            <!-- 강의 해당 코딩문제 리스트 끝-->
-                           <input type="button" id="btnCancel" value="창닫기" style="float: right; margin-right: 28px;">
+                           <!-- <input type="button" id="btnCancel" value="창닫기" style="float: right; margin-right: 28px;">
                            <input type="button" id="btnDelete" value="삭제" style="float: right; margin-right: 28px;">
-                           <input type="button" id="btnSave" value="저장" style="float: right; margin-right: 28px;">
+                           <input type="button" id="btnSave" value="저장" style="float: right; margin-right: 28px;"> -->
+                           
+                           
+                           <div class="form-action"><!-- <div class="form-action2"> -->
+								<input type="button" value="저장" class="submit mc-btn-3 btn-style-1" id="btnSave" />
+								<input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
+								<input type="button" id="btnCancel" value="창닫기" class="submit mc-btn-3 btn-style-1">
+							</div>
+							
+							
+                           
+                           <!-- <div id="courseDetail" class="courseDetail learn-section">
+								<div class="container">
+									<div class="table-student-submission">
+										<table class="mc-table">
+                           						<tbody>
+                           							<tr class="new">
+                           								<td class="author" id="btnSave">저장</td>
+	                           							<td class="author" id="btnCancel" >창닫기</td>
+	                           							<td class="author" id="btnDelete" >삭제</td>
+	                           							
+	                           						</tr>
+                           						</tbody>
+                           				</table>
+                           			</div>
+                           		</div>
+                           	</div>		 -->
+                           
                         </td>
                      </tr>
                   </table>
