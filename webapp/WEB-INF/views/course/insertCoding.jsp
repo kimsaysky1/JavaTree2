@@ -148,18 +148,12 @@
 										</tr>
 										<tr>
 											<td></td>
-<<<<<<< HEAD:webapp/WEB-INF/views/course/insertCoding.jsp
-											<!-- 등록 버튼 -->
-											<td><input type="button" id = "submit_btn"  value="등록" style="float: right;"></td>
-											<!-- 등록 버튼 -->
-=======
 											<td>
 											 <div class="form-action"><!-- <div class="form-action2"> -->
 													<input type="submit" id = "submit_btn"  value="등록" class="submit mc-btn-3 btn-style-1"">
 											</div>
 											</td>
 											<!-- <td><input type="submit" id = "submit_btn"  value="등록" style="float: right;"></td> -->
->>>>>>> 7b77ee93f2a76d09981559a835ba9727f4e59137:src/main/webapp/WEB-INF/views/course/insertCoding.jsp
 										</tr>
 									</table>
 								</td>
