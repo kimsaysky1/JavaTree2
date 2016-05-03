@@ -62,12 +62,12 @@
 					<!-- account 사진 및 로그아웃 -->
 					<li class="list-item account">
 							<div class="account-info item-click">
-								<img src="../resources/javatree_view/html/images/team-13.jpg"
+								<img src="../resources/javatree_view/html/images/account_kong.png"
 									alt="">
 							</div>
 							<div class="toggle-account toggle-list">
 								<ul class="list-account">
-									<li><a href="login.html"><i
+									<li><a href="/javatree/member/logout.action"><i
 											class="icon md-arrow-right"></i>Log Out</a></li>
 								</ul>
 							</div>

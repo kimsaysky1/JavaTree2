@@ -311,6 +311,30 @@ h6,
   transition: all 0.3s linear 0s;
 }
 
+.mc-btn53 {
+  display: inline-block;
+  border: 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  height: 60px;
+  width:220px;
+  line-height: 52px !important;
+  padding: 0 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  text-transform: capitalize;
+  -webkit-transition: all 0.3s linear 0s;
+  -moz-transition: all 0.3s linear 0s;
+  -ms-transition: all 0.3s linear 0s;
+  -o-transition: all 0.3s linear 0s;
+  transition: all 0.3s linear 0s;
+}
+
 .mc-btn-5{
   display: inline-block;
   border: 0;
@@ -334,7 +358,7 @@ h6,
   -ms-transition: all 0.3s linear 0s;
   -o-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
-   background-color: #37ABF2;
+   background-color: #008000;
   color: #fff;
 }
 
@@ -385,7 +409,7 @@ h6,
   -ms-transition: all 0.3s linear 0s;
   -o-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
-   background-color: #5fbe3f;
+   background-color: #008000;
   color: #fff;
 }
 
@@ -410,8 +434,12 @@ h6,
   -ms-transition: all 0.3s linear 0s;
   -o-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
-   background-color: #5fbe3f;
+   background-color: #008000;
   color: #fff;
+}
+
+.buttonpart{
+	margin-right: 30px;
 }
 
 .mc-btn-9 {
@@ -435,7 +463,7 @@ h6,
   -ms-transition: all 0.3s linear 0s;
   -o-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
-   background-color: #5fbe3f;
+   background-color: #008000;
   color: #fff;
 }
 
@@ -529,6 +557,12 @@ h6,
 .btn-style-1,
 .btn-style-1:focus {
   background-color: #00264d; 
+  color: #fff;
+}
+
+.btn-style-53,
+.btn-style-53:focus {
+  background-color: #008000; 
   color: #fff;
 }
 .btn-style-2,
@@ -777,7 +811,7 @@ h6,
 }
 .study-course-bg{
 	height: 100px;
-	width: 700px;
+	width: 765px;
 	 position: relative;
   background-color: #fff;
   min-height: 100px;
@@ -1010,6 +1044,8 @@ h6,
   -ms-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  margin-top:13px;
+  margin-left: 40px;
 }
 
 .mc-teaching-item .edit-view a:hover {
@@ -3342,7 +3378,7 @@ footer#footer.footer-style-2 {
 
 .mid-join{
 	width:100%;
-	height:700px;
+	height:800px;
 }
 
 .mid-qna{
