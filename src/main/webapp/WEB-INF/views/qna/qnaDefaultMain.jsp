@@ -110,7 +110,7 @@
             <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
             </s:elseif>
 			
-			<s:elseif test="#session.currentPage == 0">
+			<s:elseif test="#session.endPageGroup == 1 & #session.currentPage == 0">
              <li></li>
              </s:elseif>
 			
@@ -479,10 +479,7 @@
 		        	 }else if(curPage == endPage & endPage != 1){
 		        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
 		        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
-		        	 }else if(curPage == 0){
-		        		 var none = $('<h3></dh3>');
-		        		 none.html('정보없음').appendTo(".blog-list-content > div:first");
-		        		 
+		        	 }else if(curPage == 0 & endPage == 1){
 		        		 var paging4 = '<li></li>';	
 		        		 paging.html(paging4).insertAfter(".blog-list-content > div:last");
 		        		 

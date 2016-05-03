@@ -61,8 +61,8 @@
 		    window.open('/javatree/course/codingMainInsertLectureView.action?lectureno='+lectureno+'&courseno='+courseno,'pop','resizable=no scrollbars=yes top=50 left=200 width=1200 height=870');
 		 }
 		 
-	function checkVideo(lectureno,courseno){
-		      window.open('/javatree/course/mediaPlayerForm.action?lectureno='+lectureno+'&codingno='+codingno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
+	function checkVideo(lectureno){
+		      window.open('/javatree/course/mediaPlayerForm.action?lectureno='+lectureno,'pop','resizable=no scrollbars=yes top=300 left=500 width=960 height=640'); 
 		 }
 
  

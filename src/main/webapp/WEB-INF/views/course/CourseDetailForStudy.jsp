@@ -127,21 +127,22 @@
 								
 								<s:if test="studying != null">
 									<s:url id ="download" action = "DownLoadFile">
-						<s:param name ="uploadedfilename">
-							${subnoteName}
-						</s:param>
-						<s:param name = "lectureno">
-							${lectureno}
-						</s:param>
-					</s:url>
+									<s:param name ="uploadedfilename">
+									${subnoteName}
+									</s:param>
+									<s:param name = "lectureno">
+									${lectureno}
+									</s:param>
+									</s:url>
 								
 					<td class="submit-date"></td>
 								
 					<td class="submit-date">
 						<s:a href="%{download}" method="post">${subnoteName}</s:a>
 					</td>
-									<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>' target="popup" onclick="window.open('../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>','kongPlayer','width=1800,height=1000')">Watch</a>Watch</a></td>
+									<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>' target="popup" onclick="window.open('../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>','kongPlayer','width=1800,height=1000')">Watch</a></td>
 								</s:if>
+								
 								<s:else>
 								<td class="submit-date"></td>
 								<td class="submit-date"></td>
