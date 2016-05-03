@@ -211,7 +211,6 @@ $(document).ready(function() {
             console.log('에러');
          }
       });
-      
    });
    
    
@@ -232,19 +231,6 @@ $(document).ready(function() {
       });
    });
    
-   
-  /*  $('#lstBox1').change(function(){
-      
-      $.ajax({
-         url : 'deleteCodingfromMain.action',
-         data : {'codingno' : codingno},
-         success : function(response){
-         }
-      });
-      
-   }); */
-   
-
     $('#btnRight').click(function(e) { //오른쪽 화살표
        var lectureno = $("#lecturelistbox option:selected").val();
        var beforeCodingArray = [];
@@ -324,8 +310,6 @@ $(document).ready(function() {
                console.log('에러');
             }
          });
-    	
-    	
     });
     
     $("#btnCancel").on('click',function(){
