@@ -5732,7 +5732,7 @@ margin-left:490px;
 /*-- PROFILE FEATURE --*/
 .profile-feature {
   position: relative;
-  padding-top:15px;
+  padding-top:43px; /* 원래15px수지수정 */
   padding-bottom: 30px;
   /* padding: 45px 0; */
   z-index: 9;

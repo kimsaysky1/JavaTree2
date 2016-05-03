@@ -149,257 +149,26 @@
 </head>
 <body>
 <!-- HEADER -->
-		<header id="header" class="header">
-			<div class="container">
-
-				<!-- LOGO -->
-				<div class="logo">
-					<a href="index.html"><img
-						src="resources/javatree_view/html/images/logo.png" alt=""></a>
-				</div>
-				<!-- END / LOGO -->
-
-				<!-- NAVIGATION -->
-				<nav class="navigation">
-
-					<div class="open-menu">
-						<span class="item item-1"></span> <span class="item item-2"></span>
-						<span class="item item-3"></span>
-					</div>
-
-					<!-- MENU -->
-					<ul class="menu">
-						<li class="current-menu-item"><a href="index.html">HOME</a></li>
-						<li class="menu-item-has-children megamenu col-4"><a href="#">COURSE</a>
-							<ul class="sub-menu">
-								<li class="menu-item-has-children"><a href="#">Account
-										1</a>
-									<ul class="sub-menu">
-										<li><a href="account-assignment.html">Account
-												Assignment</a></li>
-										<li><a href="account-inbox.html">Account Inbox</a></li>
-										<li><a href="account-learning.html">Account Learning</a></li>
-										<li><a href="account-profile-owner-view.html">Account
-												Profile Owner</a></li>
-										<li><a href="account-profile-guest-view.html">Account
-												Profile Guest</a></li>
-										<li><a href="account-teaching.html">Account Teaching</a></li>
-										<li><a href="setting.html">Setting</a></li>
-									</ul></li>
-
-								<li class="menu-item-has-children"><a href="#">Asignment
-										2</a>
-									<ul class="sub-menu">
-										<li><a href="asignment-after-submit.html">Asignment
-												After Submit</a></li>
-										<li><a href="asignment-list.html">Asignment List</a></li>
-										<li><a href="asignment-marking.html">Asignment
-												Marking</a></li>
-										<li><a href="asignment-received.html">Asignment
-												Received</a></li>
-										<li><a href="asignment-submit.html">Asignment Submit</a></li>
-										<li><a href="become-teacher.html">Become Teacher</a></li>
-										<li><a href="categories.html">Categories</a></li>
-									</ul></li>
-								<li class="menu-item-has-children"><a href="#">Course 3</a>
-									<ul class="sub-menu">
-										<li><a href="course-intro.html">Course Intro</a></li>
-										<li><a href="course-learn.html">Course Learn</a></li>
-										<li><a href="create-basic-information.html">Create
-												Basic Information</a></li>
-										<li><a href="create-design-course.html">Create Design
-												Course</a></li>
-										<li><a href="create-publish-course.html">Create
-												Publish Course</a></li>
-										<li><a href="request-teacher.html">Request Teacher</a></li>
-										<li><a href="search-result-found.html">Search Result
-												Found</a></li>
-										<li><a href="search-result-not-found.html">Search
-												Result Found</a></li>
-									</ul></li>
-								<li class="menu-item-has-children"><a href="#">Learn 3</a>
-									<ul class="sub-menu">
-										<li><a href="learning.html">Learning</a></li>
-										<li><a href="quizz-1.html">Quizz 1</a></li>
-										<li><a href="quizz-2.html">Quizz 2</a></li>
-										<li><a href="quizz-3.html">Quizz 3</a></li>
-										<li><a href="quizz-5.html">Quizz 5</a></li>
-										<li><a href="quizz-20.html">Quizz 20</a></li>
-										<li><a href="quizz-finish.html">Quizz Finish</a></li>
-										<li><a href="quizz-intro.html">Quizz Intro</a></li>
-									</ul></li>
-							</ul></li>
-						<li class="menu-item-has-children"><a href="blog-list.html"
-							id="jt">JAVATree</a>
-							<ul class="sub-menu">
-								<li><a href="blog-list.html">Blog list</a></li>
-								<li><a href="blog-single.html">Blog single</a></li>
-							</ul></li>
-						<li class="menu-item-has-children"><a href="WEB-INF/views/login.jsp">LOGIN</a>
-						</li>
-						<li><a href="register.html">JOIN IN</a></li>
-					</ul>
-					<!-- END / MENU -->
-
-					<!-- SEARCH BOX -->
-					<div class="search-box">
-						<i class="icon md-search"></i>
-						<div class="search-inner">
-							<form>
-								<input type="text" placeholder="key words">
-							</form>
-						</div>
-					</div>
-					<!-- END / SEARCH BOX -->
-
-					<!-- LIST ACCOUNT INFO -->
-					<ul class="list-account-info">
-					
-					<!-- accout 사진 및 로그아웃 -->
-					<li class="list-item account">
-							<div class="account-info item-click">
-								<img src="../resources/javatree_view/html/images/team-13.jpg"
-									alt="">
-							</div>
-							<div class="toggle-account toggle-list">
-								<ul class="list-account">
-									<li><a href="login.html"><i
-											class="icon md-arrow-right"></i>Log Out</a></li>
-								</ul>
-							</div>
-						</li>
-
-						<!-- NOTIFICATION -->
-						<li class="list-item notification">
-							<div class="notification-info item-click">
-								<i class="icon md-bell"></i> <span class="itemnew"></span>
-							</div>
-							<div class="toggle-notification toggle-list">
-								<div class="list-profile-title">
-									<h4>Notification</h4>
-									<span class="count-value">2</span>
-								</div>
-
-								<ul class="list-notification">
-
-									<!-- LIST ITEM -->
-									<li class="ac-new"><a href="#">
-											<div class="list-body">
-												<div class="author">
-													<span>Megacourse</span>
-													<div class="div-x"></div>
-												</div>
-												<p>attend Salary for newbie course</p>
-											
-												<div class="time">
-													<span>5 minutes ago</span>
-												</div>
-											</div>
-									</a></li>
-									<!-- END / LIST ITEM -->
-
-									<!-- LIST ITEM -->
-									<li class="ac-new"><a href="#">
-											<div class="list-body">
-												<div class="author">
-													<span>Megacourse</span>
-													<div class="div-x"></div>
-												</div>
-												<p>attend Salary for newbie course</p>
-												
-												<div class="time">
-													<span>5 minutes ago</span>
-												</div>
-											</div>
-									</a></li>
-									<!-- END / LIST ITEM -->
-
-									<!-- LIST ITEM -->
-									<li><a href="#">
-											<div class="list-body">
-												<div class="author">
-													<span>Megacourse</span>
-													<div class="div-x"></div>
-												</div>
-												<p>attend Salary for newbie course</p>
-												
-												<div class="time">
-													<span>5 minutes ago</span>
-												</div>
-											</div>
-									</a></li>
-									<!-- END / LIST ITEM -->
-
-									<!-- LIST ITEM -->
-									<li><a href="#">
-											<div class="list-body">
-												<div class="author">
-													<span>Megacourse</span>
-													<div class="div-x"></div>
-												</div>
-												<p>attend Salary for newbie course</p>
-												
-												<div class="time">
-													<span>5 minutes ago</span>
-												</div>
-											</div>
-									</a></li>
-									<!-- END / LIST ITEM -->
-
-									<!-- LIST ITEM -->
-									<li><a href="#">
-											<div class="list-body">
-												<div class="author">
-													<span>Megacourse</span>
-													<div class="div-x"></div>
-												</div>
-												<p>attend Salary for newbie course</p>
-												
-												<div class="time">
-													<span>5 minutes ago</span>
-												</div>
-											</div>
-									</a></li>
-									<!-- END / LIST ITEM -->
-
-									<!-- LIST ITEM -->
-									<li><a href="#">
-											<div class="list-body">
-												<div class="author">
-													<span>Megacourse</span>
-													<div class="div-x"></div>
-												</div>
-												<p>attend Salary for newbie course</p>
-											
-												<div class="time">
-													<span>5 minutes ago</span>
-												</div>
-											</div>
-									</a></li>
-									<!-- END / LIST ITEM -->
-
-								</ul>
-							</div>
-						</li>
-						<!-- END / NOTIFICATION -->
-					</ul>
-					<!-- END / LIST ACCOUNT INFO -->
-					<ul class="menu">
-						<li class="menu-item-has-children"><a href="blog-list.html" id="jt">MY PAGE</a>
-							<ul class="sub-menu">
-								<li><a href="/javatree/course/teachMainView.action">Course MYPAGE</a></li>
-								<li><a href="/javatree/course/studyMainView.action">Course MYPAGE2</a></li>
-							</ul>
-						</li>
-					</ul>
-				</nav>
-				<!-- END / NAVIGATION -->
-			</div>
-		</header>
-		<!-- END / HEADER -->
+<%@include file="/resources/header2.jsp" %>
+		
+<!-- END / HEADER -->
 		
 		<!-- PROFILE FEATURE 프로필!!!!-->
-		    <section class="profile-feature">
+		<section class="profile-feature">
+			<div class="awe-parallax bg-profile-feature"></div> <!-- 좀 늘리기 -->
+			<!-- <div class="awe-overlay overlay-color-3"></div> -->
+			<div class="container">
+					<div class="sub-banner-content">
+						<h4 class="md" style="color: #E3E3E3; text-align: center;">
+							<s:if test="%{#session.loginId != null}">
+								${session.loginId} &nbsp; , Welcome to the JavaTree!
+							</s:if>
+						</h4>
+					</div>	
+			</div>
+		</section>
+		
+		   <%--  <section class="profile-feature">
 		        <div class="awe-parallax bg-profile-feature"></div>
 		        <div class="awe-overlay overlay-color-3"></div>
 		        <div class="container">
@@ -415,7 +184,7 @@
 		                </div>
 		            </div>
 		        </div>
-		    </section>
+		    </section> --%>
         <!-- END / PROFILE FEATURE -->
         
       <section id="create-course-section" class="create-course-section">
