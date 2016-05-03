@@ -84,9 +84,9 @@
                             <!-- TABLE HEAD -->
                                                        
                             <div class="table-head">
-                                <div class="submissions">Coursename(Lecturename)</div>
+                                <div class="submissions">Title</div>
                                 <div class="total-subm"></div>
-                                <div class="replied">Subnote</div>
+                                <div class="replied"></div>
                                 <div class="latest-reply">Teacher</div>
                                 <div class="tb-icon">Play</div>
                             </div>
@@ -186,7 +186,7 @@
                     <!-- 질문 보관함 -->
                     	
                     	<div class="form-submit-1">
-							<input type="button" id="questionBox" value="QUESTION BOX" class="mc-btn btn-style-1">
+							<a href="/javatree/course/QuestionBoxforStudy.action"><input type="button" id="questionBox" value="QUESTION BOX" class="mc-btn btn-style-1"></a>
 						</div>
                     	
                         <!-- 보관함 끝-->
@@ -406,7 +406,7 @@ function newPopup(lectureno) {
 	/* popupWindow = window.open(
 		url,'popUpWindow','height=300,width=400,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes') */
 	popupWindow = window.open(
-			'../compiler/Compiler.action?lectureno='+lectureno ,'kongPlayer','height=1000, width=1800, resizable=no,scrollbars=no,menubar=no');
+			'../compiler/Compiler.action?lectureno='+lectureno ,'kongPlayer','height=950, width=1737, resizable=no,scrollbars=no,menubar=no');
 }
 </script>
 

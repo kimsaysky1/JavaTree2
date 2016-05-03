@@ -321,7 +321,7 @@ body {
 
 #codingwrapper {
 	width: 800px;
-	height: 600px;
+	height: 550px;
 	margin-top: 5px;
 }
 
@@ -343,7 +343,7 @@ border: 1px solid #EAEAEA;
 	font: 14px Arial;
 	line-height: normal;
 	text-align: right;
-	height: 550px;
+	height: 514px;
 	overflow: scroll;
 	overflow-y: hidden;
 	font-weight: 600;
