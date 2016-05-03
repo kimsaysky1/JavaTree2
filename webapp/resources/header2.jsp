@@ -62,7 +62,7 @@
 					<!-- account 사진 및 로그아웃 -->
 					<li class="list-item account">
 							<div class="account-info item-click">
-								<img src="../resources/javatree_view/html/images/team-13.jpg"
+								<img src="../resources/javatree_view/html/images/account_kong.png"
 									alt="">
 							</div>
 							<div class="toggle-account toggle-list">
