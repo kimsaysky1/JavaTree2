@@ -28,6 +28,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.javatree.www.DAO.QnaDAO;
 import org.javatree.www.DAO.courseDAO;
 import org.javatree.www.Util.PageNavigator;
+import org.javatree.www.VO.Bookmark;
 import org.javatree.www.VO.Coding;
 import org.javatree.www.VO.Error;
 
@@ -156,8 +157,37 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	//영호 새로 추가 끝
 	ArrayList<Coding> checkCoding= new ArrayList<>();
 	
+	private ArrayList<Bookmark> chapterList;
+	private int currentTime;
+	private String chaptername;
 	
 	private static final Logger logger = LoggerFactory.getLogger(CourseAction.class);
+	
+	public String insertBookMark() {
+		
+		courseDAO dao = sqlSession.getMapper(courseDAO.class);
+		Map <String,Object> kong = new HashMap();
+		kong.put("lectureno", lectureno);
+		kong.put("chaptertime", currentTime);
+		kong.put("chaptername", chaptername);
+		dao.insertBookMark(kong);
+		chapterList = dao.selectBookMarks(lectureno);
+		System.out.println("chaplist>> " + chapterList);
+		return SUCCESS;
+	}
+	
+	public String deleteBookMark() {
+		
+		courseDAO dao = sqlSession.getMapper(courseDAO.class);
+		
+		Map <String,Object> kong = new HashMap();
+		kong.put("lectureno", lectureno);
+		kong.put("chaptertime", currentTime);
+		dao.deleteBookMark(kong);
+		chapterList = dao.selectBookMarks(lectureno);
+		
+		return SUCCESS;
+	}
 	
 	public String plusStudyMain2() {
 		
@@ -1835,6 +1865,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			System.out.println("미디어플레이어폼 lectureno: "+lectureno);
 			uploadedfilename = dao.selectPath(lectureno);
 		    id = dao.selectTeacher(lectureno);
+		    chapterList = dao.selectBookMarks(lectureno);
 			return SUCCESS;
 		}
 		
@@ -3444,6 +3475,30 @@ public class CourseAction extends ActionSupport implements SessionAware {
 
 		public void setFilename(String filename) {
 			this.filename = filename;
+		}
+
+		public ArrayList<Bookmark> getChapterList() {
+			return chapterList;
+		}
+
+		public void setChapterList(ArrayList<Bookmark> chapterList) {
+			this.chapterList = chapterList;
+		}
+
+		public int getCurrentTime() {
+			return currentTime;
+		}
+
+		public void setCurrentTime(int currentTime) {
+			this.currentTime = currentTime;
+		}
+
+		public String getChaptername() {
+			return chaptername;
+		}
+
+		public void setChaptername(String chaptername) {
+			this.chaptername = chaptername;
 		}
 		
 }

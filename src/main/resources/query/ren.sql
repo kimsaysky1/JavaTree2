@@ -1,3 +1,11 @@
+create table bookmark (
+   chaptername varchar2(10) NOT NULL,
+   chaptertime number(6,0) NOT NULL,
+   lectureno number(6,0) NOT NULL
+) 
+
+select * from bookmark where lectureno = 127
+
 alter table lecture modify (lecturename varchar2(100));
 alter table course modify (coursename varchar2(100));--20160502 박수지 추가
 alter table studycourse modify (coursename varchar2(100));--20160502 박수지 추가

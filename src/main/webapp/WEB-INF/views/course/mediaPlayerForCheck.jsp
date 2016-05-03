@@ -409,8 +409,15 @@ div.numberedtextarea-number {
 					<button title="restart" class="re">■</button>
 					<button title="CodingMode" class="cod">코딩</button>
 					<button title="WatchingMode" class="wat">강의</button>
-					<button title="setBookmark" class="gtime">setB</button>
-
+					<input type="text" class="gtimename" />
+					<button title="setBookmark" class="gtime">B추가</button>
+					<button title="setBookmark" class="delgtime">B삭제</button>
+						<select class='chap' name="sel" onchange="javascript:selectChapter(this)">
+						<option selected>B</option>
+						<s:if test="chapterList.size != 0">
+							<option value='<s:property value="chaptertime"/>'><s:property value="chaptername"/></option>
+						</s:if>
+					</select>
 					<select id='speed' name="sel" onchange="javascript:selectEvent(this)">
 						<option value='1.0' selected>1.0</option>
 						<option value='1.2'>1.2</option>
@@ -419,9 +426,7 @@ div.numberedtextarea-number {
 						<option value='1.8'>1.8</option>
 						<option value='2.0'>2.0</option>
 					</select> 
-					<select class='chap' name="sel" onchange="javascript:selectChapter(this)">
-						<option selected>B</option>
-					</select>
+					
 
 					<div id="vol-div">
 						<input id="vol-control" class="slider-width100" type="range"
@@ -1080,8 +1085,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	  //getTime
 	  var gtime = document.querySelector('#video-controls button.gtime');
 	  gtime.addEventListener("click", function(event) {
-		//앞으로가기 버튼 눌렀을 때의 처리
 		getTimeShot(event, video);
+	}, false);
+	  
+	  var delgtime = document.querySelector('#video-controls button.delgtime');
+	  delgtime.addEventListener("click", function(event) {
+		delBookmark(event, video);
 	}, false);
 	  
 }, false); //domcontentloaded	!!!!!
@@ -1110,31 +1119,39 @@ function click_play_button(event, video) {
 }
 
 //시간 가져와서 수정
-function getTime(video) {
+function getTime(event, video) {
 	  //  if no video is loaded, this throws an exception 
 	  var pl = event.currentTarget;
-	 
+	  
 	try {
 	    	var curTime = 0; 
 	    	curTime = parseInt(video.currentTime);
 	    	
 	    	video.pause(); 
-	        
+	    	pl.innerHTML = "▶";
+			pl.title = "재생";
+			
+	    	var lectureno = "${lectureno}";
+	   		alert(lectureno);
+	    	
+	   		var name = $('.gtimename').val();
+	   		alert(name);
+	   		
 	        $.ajax({
 		        type : 'get', 
 		        url : 'insertBookMark',
-		        data : "searchText="+text,
+		        data : "lectureno="+lectureno+'&currentTime='+curTime+'&chaptername='+name,
 		        success : function(response){
 		        	
-		        	 $(".chap").html(' '); 
-		        		
-		        	 var list = response.courseList;
-		        	 list.forEach(function(course){
-		 				var selTag = $('<select class="chap" name="sel" onchange="javascript:selectChapter(this)"></div>');
-		        		 /* var divTag = $('<div class="post"><div class="post-body"></div></div>');
-		 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
-		 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-		 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content"); */
+		        	 $(".chap").html(' ');
+		        	 $(".chap").append('<option selected="selected">B</option>');
+		        	 
+		        	 var list = response.chapterList;
+		 			
+		        	 
+		 			list.forEach(function(chapter){
+		 				var selTag = $('<option selected="selected">B</option>');
+		        		selTag.html('<option value = "'+chapter.chaptertime +'">'+chapter.chaptername+'</option>').appendTo(".chap"); 
 		 			
 		 			});
 	        
@@ -1146,7 +1163,17 @@ function getTime(video) {
 	  }
 }
 
+function delTime(video) {
+	var pl = event.currentTarget;
+	video.pause(); 
+	pl.innerHTML = "▶";
+	pl.title = "재생";
+	
+	var lectureno = "${lectureno}";
+		alert(lectureno);
 
+	
+}
 
 //skip forward, backward, or restart
 function setTime(tValue, video) {
@@ -1209,9 +1236,16 @@ function getTimeShot(event, video) {
 	//눌린 button 요소
 	var gtime = event.currentTarget;
 	
-	getTime(video);
+	getTime(event, video);
 }
 
+//delgtime
+function delBookmark(event, video) {
+	//눌린 button 요소
+	var gtime = event.currentTarget;
+	
+	delTime(event, video);
+}
 // 썸네일 coding완료
 
 			
