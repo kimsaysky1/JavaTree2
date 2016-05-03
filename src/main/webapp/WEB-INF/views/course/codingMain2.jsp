@@ -224,7 +224,9 @@ $(document).ready(function() {
              , dataType : 'json'
              , success : function(response){
                 $("#modalNotification").trigger('click');
+                $("#btnSave").blur();
                 //$('#lstBox2 option').remove();
+                //window.close();
              }
              , error : function(response){
                 console.log('에러');

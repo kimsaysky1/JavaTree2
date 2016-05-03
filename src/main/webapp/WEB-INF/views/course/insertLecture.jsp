@@ -27,7 +27,6 @@
 	
 
 function insertLectureForm(){
-	alert("강의등록폼옴>>");
 	var form = document.getElementById("insertLectureForm");
 	var upload= document.getElementsByName("upload");
 	alert(upload);
@@ -318,7 +317,7 @@ function stgoback(){
                        
   						<div class="form-action">
                             <input type="submit" value="Save" onclick="javascript:insertLectureForm()" class="submit mc-btn-3 btn-style-1">
-                             <input type="submit" value="Cancel" onclick="javascript:stgoback()" class="submit mc-btn-3 btn-style-1">
+                            <input type="button" value="Cancel" onclick="javascript:stgoback()" class="submit mc-btn-3 btn-style-1">
                         </div>
 
                      
