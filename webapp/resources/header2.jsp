@@ -67,7 +67,7 @@
 							</div>
 							<div class="toggle-account toggle-list">
 								<ul class="list-account">
-									<li><a href="login.html"><i
+									<li><a href="/javatree/member/logout.action"><i
 											class="icon md-arrow-right"></i>Log Out</a></li>
 								</ul>
 							</div>
