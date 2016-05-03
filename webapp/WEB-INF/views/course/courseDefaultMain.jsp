@@ -131,7 +131,19 @@
 			
 <!-- 강좌 리스트 뿌리기 시작 -->			
 <div class="blog-list-content">
-     
+<%--      <div class="post" id = "<s:property value="%{#incr.index+1}"/>"> 
+                <div class="post-body">
+                        <div class="post-title">
+                          <h3 class="md" style="text-align: center;">상위 클릭해주세요,하트하트</h3>
+                           </div>
+                            <div class="post-meta">
+                             by <a href="#"><s:property value="username" /></a> on <s:property value="regdate" />
+                         </div>  
+                        <div class="post-link">
+                              
+                   </div>                           
+            </div>
+    </div> --%> 
      <s:iterator value="courseList" status="incr">
      	
 		<!-- start post -->
