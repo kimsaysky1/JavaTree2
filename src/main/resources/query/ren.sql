@@ -1,8 +1,11 @@
 create table bookmark (
-   chaptername varchar2(10) NOT NULL,
+   chaptername varchar2(20) NOT NULL,
    chaptertime number(6,0) NOT NULL,
    lectureno number(6,0) NOT NULL
 ) 
+
+alter table bookmark modify (chaptername varchar2(20))
+delete from bookmark where chaptername = 12 and lectureno = 125
 
 select * from bookmark where lectureno = 127
 

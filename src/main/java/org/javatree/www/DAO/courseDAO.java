@@ -115,8 +115,8 @@ public interface courseDAO {
 	public int selectCheckSubnote(int lectureno);
 	public ArrayList<Lecture> selectWatchingLecture2(Map<String, Object> kong);
 	public void deleteinstudycodingbox(int codingno);
-	public void insertBookMark(Map<String, Object> kong);
-	public void deleteBookMark(Map<String, Object> kong);
+	public int insertBookMark(Map<String, Object> kong);
+	public int deleteBookMark(Map<String, Object> kong);
 	public ArrayList<Bookmark> selectBookMarks(int lectureno);
 	
 	

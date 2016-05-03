@@ -727,7 +727,7 @@
  	</select>
  	
  	<delete id="deleteBookMark" parameterType="map">
- 		delete * from bookmark where chaptertime = #{chaptertime} and lectureno = #{lectureno}
+ 		delete from bookmark where chaptername = #{chaptername} and lectureno = #{lectureno}
  	</delete>
  	
 </mapper>

@@ -170,7 +170,12 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		kong.put("lectureno", lectureno);
 		kong.put("chaptertime", currentTime);
 		kong.put("chaptername", chaptername);
-		dao.insertBookMark(kong);
+		int confirm = dao.insertBookMark(kong);
+		if(confirm > 0){
+			message = "등록 성공";
+		}else {
+			message = "등록 실패";
+		}
 		chapterList = dao.selectBookMarks(lectureno);
 		System.out.println("chaplist>> " + chapterList);
 		return SUCCESS;
@@ -179,13 +184,19 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	public String deleteBookMark() {
 		
 		courseDAO dao = sqlSession.getMapper(courseDAO.class);
-		
-		Map <String,Object> kong = new HashMap();
-		kong.put("lectureno", lectureno);
-		kong.put("chaptertime", currentTime);
-		dao.deleteBookMark(kong);
-		chapterList = dao.selectBookMarks(lectureno);
-		
+		System.out.println("lecno>> " + lectureno + " / chapt>> " + chaptername);
+		Map <String,Object> gong = new HashMap();
+		gong.put("lectureno", lectureno);
+		gong.put("chaptername", chaptername);
+		int confirm = dao.deleteBookMark(gong);
+		chapterList = new ArrayList<>();
+		if(confirm > 0){
+			chapterList = dao.selectBookMarks(lectureno);
+			message = "삭제 성공";
+		}else {
+			message = "삭제 실패";
+		}
+		System.out.println("chaplist>> " + chapterList);
 		return SUCCESS;
 	}
 	

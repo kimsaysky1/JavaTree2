@@ -47,7 +47,7 @@
  
  function updateLecture(lectureno, courseno){
 		
-		window.open('/javatree/course/updateLectureForm.action?lectureno='+lectureno+'&courseno='+courseno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
+		window.open('/javatree/course/updateLectureForm.action?lectureno='+lectureno+'&courseno='+courseno,'pop','resizable=no scrollbars=yes top=300 left=500 width=1000 height=900'); 
 		/*  window.open('updateLecture.action?custid='+custid.value,'pop','resizable=no scrollbars=yes top=300 left=500 width=300 height=180'); */
 		 /* locatrion.href="/javatree/course/updateLecture.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>"; */
 	 }
@@ -62,7 +62,7 @@
 		 }
 		 
 	function checkVideo(lectureno){
-		      window.open('/javatree/course/mediaPlayerForm.action?lectureno='+lectureno,'pop','resizable=no scrollbars=yes top=300 left=500 width=960 height=640'); 
+		      window.open('/javatree/course/mediaPlayerForm.action?lectureno='+lectureno,'pop','resizable=no scrollbars=yes top=300 left=500 width=1000 height=800'); 
 		 }
 
  

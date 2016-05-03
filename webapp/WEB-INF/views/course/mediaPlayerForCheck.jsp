@@ -409,15 +409,18 @@ div.numberedtextarea-number {
 					<button title="restart" class="re">■</button>
 					<button title="CodingMode" class="cod">코딩</button>
 					<button title="WatchingMode" class="wat">강의</button>
-					<input type="text" class="gtimename" />
+					<input type="text" class="gtimename" required="required"/>
 					<button title="setBookmark" class="gtime">B추가</button>
-					<button title="setBookmark" class="delgtime">B삭제</button>
-						<select class='chap' name="sel" onchange="javascript:selectChapter(this)">
+					
+						<select class='chap' name="sel" onchange="javascript:selectChapter(this)" id="sel">
 						<option selected>B</option>
 						<s:if test="chapterList.size != 0">
+							<s:iterator value="chapterList">
 							<option value='<s:property value="chaptertime"/>'><s:property value="chaptername"/></option>
+							</s:iterator>
 						</s:if>
 					</select>
+					<button title="delBookmark" class="delgtime">B삭제</button>
 					<select id='speed' name="sel" onchange="javascript:selectEvent(this)">
 						<option value='1.0' selected>1.0</option>
 						<option value='1.2'>1.2</option>
@@ -436,91 +439,7 @@ div.numberedtextarea-number {
 				</div>
 			</div>
 			<!-- video END  -->
-
-			<div class="codingresult">
-				<textarea placeholder="결과" id="result" class="showresult" readonly="readonly" style="width: 900px; height: 180px;"></textarea>
-			</div>
-
-		</div>
-		<!-- playpart end -->
-
-
-		<div class="codingpart">
-
-			<div class = "codingboxList">
-				<s:if test="codingList != null">
-					<select class="codingList">
-						<option>문제선택</option>
-						<s:iterator value="codingList" status="incr">
-							<option value="<s:property value="codingno"/>">
-								<s:property value="%{#incr.index+1}" />번 문제
-							</option>
-						</s:iterator>
-					</select>
-				</s:if>
-				
-				<button id = "goCodingbox">문제 보관하기</button> 
-			</div>
-					
-			<!-- editor 시작 -->
-			<textarea id="question" class = "question" placeholder="질문란" readonly="readonly" style="height: 170px; width: 756px;"></textarea>
-			
-			<div class = "buttonpart" style="margin-left: 483px;">
-				<button id="insertClass">클래스 추가</button>
-				<button id="initialization">초기화</button>
-				<button id="run">실행</button>
-			</div>
-			
-			<div id="codingwrapper">
-				<div class="line_number"></div>
-				<ul id="tabs">
-					<li class='current'><a class='tab' id="class1" href='#'>class1</a><a href='#' class='remove'>x</a>
-					</li>
-				</ul>
-				<div id="doccontent">
-					<textarea id="class1_content" class="editor" style="height: 514px;"></textarea>
-				</div>
-			</div>
-			
-			
-		<!-- 지식인 연동 모달 -->
-	<input style="display:none;" type="button" id="askToUser" class="mc-btn btn-style-1" data-toggle="modal" data-target="#askSelections"/>
-           <div class="container">
-				<div class="modal fade" id="askSelections" role="dialog">
-			    	<div class="modal-dialog modal-lg">
-					      <!-- Modal content-->
-				      <div class="modal-content">
-				        <div class="modal-header">
-				          <h4 class="modal-title">지식인 연동 기능</h4>
-				        </div>
-				        <div class="modal-body">
-				        		<button id = "watchRelatedQuestion">관련질문보기</button>
-					        	<br/>
-					        	<button id = "makeQuestion">질문하기</button>
-					        	<br/>
-					        	<button class ="cancel">취소</button>
-				        </div>
-				        <div class="modal-footer">
-				        </div>
-				      </div>
-			  	   </div>
-			  </div>
-         </div>	
-         <!-- 지식인 연동 모달 끝 -->
-
-			<!-- 질문 버튼 -->
-        <div class="form-submit-1">
-			<input type="button" style="display:none;" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
-            <div class="container">
-			<div class="modal fade" id="writeQuestion" role="dialog">
-	  		</div>
-            </div>
-		</div>            
-		</div>
-	</div>
-	</div>
 	
-	<!-- popwrap END -->
 		<script type="text/javascript"
 			src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript"
@@ -533,6 +452,24 @@ div.numberedtextarea-number {
 			src="../resources/javatree_view/html/js/library/perfect-scrollbar.min.js"></script>
 		<script type="text/javascript"
 			src="../resources/javatree_view/html/js/library/jquery.easing.min.js"></script>
+
+
+<div class="container">
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body">
+          <p></p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 
@@ -1036,8 +973,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 		
 	}, false)
-	
-
 	  
 	  
 	  //재생 버튼에 click 이벤트 리스너를 지정
@@ -1121,9 +1056,9 @@ function click_play_button(event, video) {
 //시간 가져와서 수정
 function getTime(event, video) {
 	  //  if no video is loaded, this throws an exception 
-	  var pl = event.currentTarget;
-	  
-	try {
+	
+	  var pl = document.querySelector('#video-controls button.pl');
+		
 	    	var curTime = 0; 
 	    	curTime = parseInt(video.currentTime);
 	    	
@@ -1132,16 +1067,25 @@ function getTime(event, video) {
 			pl.title = "재생";
 			
 	    	var lectureno = "${lectureno}";
-	   		alert(lectureno);
 	    	
 	   		var name = $('.gtimename').val();
-	   		alert(name);
 	   		
+	   		if(name.trim().length > 8){
+	   			$("#modalNotification").trigger('click');
+	    		$('.modal-body > p').html("글자수가 깁니다.");
+			}else{
+				
 	        $.ajax({
 		        type : 'get', 
 		        url : 'insertBookMark',
 		        data : "lectureno="+lectureno+'&currentTime='+curTime+'&chaptername='+name,
 		        success : function(response){
+		        	var result = '';
+		        	if(response.message != null){
+		        		result = response.message;
+		        		$("#modalNotification").trigger('click');
+			    		$('.modal-body > p').html(result);
+		        	}
 		        	
 		        	 $(".chap").html(' ');
 		        	 $(".chap").append('<option selected="selected">B</option>');
@@ -1156,22 +1100,51 @@ function getTime(event, video) {
 		 			});
 	        
 	  				}
-	        });        
-	} catch (err) {
-	    // errMessage(err) // show exception
-	    errMessage("Video content might not be loaded");
-	  }
+	        
+	        	}); 
+			}
+
+	
 }
 
-function delTime(video) {
-	var pl = event.currentTarget;
+function delTime(event, video) {
+	var pl = document.querySelector('#video-controls button.pl');
 	video.pause(); 
 	pl.innerHTML = "▶";
 	pl.title = "재생";
-	
-	var lectureno = "${lectureno}";
-		alert(lectureno);
-
+ 
+ try {
+		var lectureno = "${lectureno}";
+		
+		var target = document.getElementById("sel");
+		var name = target.options[target.selectedIndex].text;
+   		
+        $.ajax({
+	        type : 'get', 
+	        url : 'deleteBookMark',
+	        data : "lectureno="+lectureno+'&chaptername='+name,
+	        success : function(response){
+	        	var result = '';
+	        	if(response.message != null){
+	        		result = response.message;
+	        		$("#modalNotification").trigger('click');
+		    		$('.modal-body > p').html(result);
+	        	}
+	        	 $(".chap").html(' ');
+	        	 $(".chap").append('<option selected="selected">B</option>');
+	        	 
+	        	 var list = response.chapterList;
+	        	 
+	 			list.forEach(function(chapter){
+	 				var selTag = $('<option selected="selected">B</option>');
+	        		selTag.html('<option value = "'+chapter.chaptertime +'">'+chapter.chaptername+'</option>').appendTo(".chap"); 
+	 			
+	 			});
+        
+  				}
+        });        
+} catch (err) {
+  }
 	
 }
 
