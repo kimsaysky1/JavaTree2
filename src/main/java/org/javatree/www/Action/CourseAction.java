@@ -153,6 +153,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	private ArrayList<Integer> codingNoList;
 	private String StringForSaveCoding;
 	private String from;
+	private ArrayList<Coding> codingListForSpecificLecture;
 	//영호 새로 추가 끝
 	ArrayList<Coding> checkCoding= new ArrayList<>();
 	
@@ -2177,6 +2178,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			id = (String)session.get("loginId");
 			codingList =  dao.getAllCodingList(id);
+			codingListForSpecificLecture = dao.selectedAllCoding(lectureno);
+			System.out.println("codingListForSpecificLecture: "+codingListForSpecificLecture);
 			return SUCCESS;
 		}
 
@@ -2365,7 +2368,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 
 		/*insertSelectedCodingfromMain- 인서트렉쳐 할때의 메인화면에서 등록 */
 		public String insertSelectedCodingfromInsertLecture(){
-			
+			System.out.println("여기 들어오나?");
 			System.out.println("codingListForInsert: "+codingListForInsert);// codingListForInsert: [1,3]
 			System.out.println("size: "+codingListForInsert.size());
 			System.out.println("codingListForInsert.get(0): "+codingListForInsert.get(0));
@@ -2647,20 +2650,14 @@ public class CourseAction extends ActionSupport implements SessionAware {
 				tempList.add(st.nextToken());
 			}
 				
-			System.out.println("tempList.size(): "+tempList.size());
-			System.out.println("tempList: "+tempList);
 			
 			for(int i = 0; i < tempList.size(); i++){
 				System.out.println(tempList.get(i));
 				codingno= Integer.parseInt(tempList.get(i)) ;
 				coding= dao.selectedCheck(codingno);
-				System.out.println("coding: "+coding);
 				checkCoding.add(coding);
-				System.out.println("checkCoding: "+checkCoding);
 			}
 			lectureList = dao.getAllLectureListForCodingBox(courseno);
-			//codingFormlecturelist();
-			//showCodinglist();
 			return SUCCESS;
 		}
 		
@@ -2811,16 +2808,19 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         while(st.hasMoreTokens()){
 	            tempList.add(Integer.parseInt(st.nextToken()));
 	         }
-	         
 	         codingNoList = dao.selectedAllLectureCoding(lectureno);
+	         methodForDuplicate(tempList, codingNoList);
 	         
-	         boolean check = false;
-	         
-	         if(codingNoList.size() > tempList.size()){
+			return SUCCESS;
+		}
+		
+		public void methodForDuplicate(ArrayList<Integer> tempList, ArrayList<Integer> codingNoList){
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			Map map = new HashMap();;
+			map.put("lectureno", lectureno);
+			if(codingNoList.size() > tempList.size()){
 	        	 for(int i = 0; i < codingNoList.size(); i++){
 	        		 if(!(tempList.contains(codingNoList.get(i)))){
-	        			 Map map = new HashMap();
-	        			 map.put("lectureno", lectureno);
 	        			 map.put("codingno", codingNoList.get(i));
 	        			 dao.deleteCodingFromLectureCoding(map);
 	        		 }
@@ -2828,14 +2828,11 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         }else if(codingNoList.size() < tempList.size()){
 	        	 for(int i = 0; i < tempList.size(); i++){
 	        		 if(!(codingNoList.contains(tempList.get(i)))){
-	        			 Map map = new HashMap();
-	        			 map.put("lectureno", lectureno);
 	        			 map.put("codingno", tempList.get(i));
 	        			 dao.insertCodingFromLectureCoding(map);
 	        		 }
 	        	 }
 	         }
-			return SUCCESS;
 		}
 		
 		public String deleteCoding() throws Exception{
@@ -2845,7 +2842,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         while(st.hasMoreTokens()){
 	            tempList.add(Integer.parseInt(st.nextToken()));
 	         }
-	         
 	         for(int i = 0; i < tempList.size(); i++){
 	        	 dao.deleteCoding(tempList.get(i));
 	         }
@@ -2853,35 +2849,52 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			return SUCCESS;
 		}
 		
+		
 		public String tempLectureCodingforLecture() throws Exception{
+			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			ArrayList<Integer> tempList = new ArrayList<>();
 	        StringTokenizer st = new StringTokenizer(StringForSaveCoding, ",");
 	        while(st.hasMoreTokens()){
 	           tempList.add(Integer.parseInt(st.nextToken()));
 	        }
-	        
+	        Map map = new HashMap();
 	        System.out.println("tempList: "+tempList);
-	        System.out.println("tempList.size: "+tempList.size());
-			Map map = new HashMap();
-			id = (String) session.get("loginId");
-			map.put("id", id);
-			for(int i = 0; i < tempList.size(); i++){
-				map.put("codingno", tempList.get(i));
-				System.out.println("map: "+map);
-				dao.insertCodingTemp(map);
+	        if(from != null && from.equals("courseDetail")){
+	        	codingNoList = dao.selectedAllLectureCoding(lectureno);
+	        	System.out.println("codingNoList: "+codingNoList);
+	        	methodForDuplicate(tempList, codingNoList);
+	        	Map request = (Map) ActionContext.getContext().get("request");
+	        	request.put("from","courseDetail");
+	        	System.out.println("돌아왔음");
+	        }else{
+	        	id = (String) session.get("loginId");
+				map.put("id", id);
+				for(int i = 0; i < tempList.size(); i++){
+					map.put("codingno", tempList.get(i));
+					dao.insertCodingTemp(map);
+				}
 			}
-			
 			return SUCCESS;
 		}
 		//getter setter
 
 		
 		
+		
+		
 		public ArrayList<Integer> getCodingNoList() {
 			return codingNoList;
 		}
 		
+		public ArrayList<Coding> getCodingListForSpecificLecture() {
+			return codingListForSpecificLecture;
+		}
+
+		public void setCodingListForSpecificLecture(ArrayList<Coding> codingListForSpecificLecture) {
+			this.codingListForSpecificLecture = codingListForSpecificLecture;
+		}
+
 		public String getFrom() {
 			return from;
 		}
