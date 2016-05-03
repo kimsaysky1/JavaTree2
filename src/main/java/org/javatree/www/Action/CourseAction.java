@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -39,6 +42,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 
@@ -148,7 +152,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	
 	private ArrayList<Integer> codingNoList;
 	private String StringForSaveCoding;
-	
+	private String from;
 	//영호 새로 추가 끝
 	ArrayList<Coding> checkCoding= new ArrayList<>();
 	
@@ -2160,22 +2164,16 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		 * codingMain_fromMain - 문제 보관함에서 강좌 리스트 뽑기
 		 */
 		public String codingFormfromMain(){
-			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			
 			id = (String)session.get("loginId");
-			
 			codingList =  dao.getAllCodingList(id);
-			
 			courseList = dao.getAllCourseListForCodingBox(id);
-
 			return SUCCESS;
 		}
 			/**
 		 * codingMain2 - 강의등록시 문제 보관함에서 강좌 리스트 뽑기
 		 */
 		public String codingMainInsertLectureView(){
-		
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			id = (String)session.get("loginId");
 			codingList =  dao.getAllCodingList(id);
@@ -2202,11 +2200,15 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public String insertCodingfromMainView(){
 			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			
 			id = (String)session.get("loginId");
-			
 			codingList =  dao.getAllCodingList(id);
+			Map request = (Map) ActionContext.getContext().get("request");
 			
+			if(from.equals("main")){
+				request.put("checkMain","main");
+			}else{
+				request.put("checkMain","lecture");
+			}
 			return SUCCESS;
 		}
 		/**
@@ -2435,10 +2437,15 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public String updateCodingfromMainView(){
 			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			
 			id = (String)session.get("loginId");
 			codingList =  dao.getAllCodingList(id);
 			
+			Map request = (Map) ActionContext.getContext().get("request");
+			if(from.equals("main")){
+				request.put("checkMain","main");
+			}else{
+				request.put("checkMain","lecture");
+			}
 			return SUCCESS;
 			
 		}
@@ -2844,10 +2851,19 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		//getter setter
 
 		
+		
 		public ArrayList<Integer> getCodingNoList() {
 			return codingNoList;
 		}
 		
+		public String getFrom() {
+			return from;
+		}
+
+		public void setFrom(String from) {
+			this.from = from;
+		}
+
 		public String getStringForSaveCoding() {
 			return StringForSaveCoding;
 		}
