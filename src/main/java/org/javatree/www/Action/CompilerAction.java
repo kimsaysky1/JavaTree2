@@ -59,9 +59,11 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 
 	public String watchLecture() throws Exception {
 		CompilerDAO dao = sqlsession.getMapper(CompilerDAO.class);
+		  System.out.println("lectureno: "+lectureno);
 	      uploadedfilename = dao.selectPath(lectureno);
 	      id = dao.selectTeacher(lectureno);
 	      codingList = dao.selectCodingList(lectureno);
+	      System.out.println("codingList: "+codingList);
 	      return SUCCESS;
 	}
 

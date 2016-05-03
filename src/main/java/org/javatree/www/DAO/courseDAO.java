@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.javatree.www.VO.Bookmark;
 import org.javatree.www.VO.Coding;
 import org.javatree.www.VO.Course;
 import org.javatree.www.VO.Lecture;
@@ -114,6 +115,9 @@ public interface courseDAO {
 	public int selectCheckSubnote(int lectureno);
 	public ArrayList<Lecture> selectWatchingLecture2(Map<String, Object> kong);
 	public void deleteinstudycodingbox(int codingno);
+	public int insertBookMark(Map<String, Object> kong);
+	public int deleteBookMark(Map<String, Object> kong);
+	public ArrayList<Bookmark> selectBookMarks(int lectureno);
 	
 	
 }
