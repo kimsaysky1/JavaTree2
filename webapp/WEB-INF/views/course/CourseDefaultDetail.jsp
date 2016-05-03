@@ -115,7 +115,7 @@
 							<td class="submit-date">
 								<s:a href="%{download}" method="post">${subnoteName}</s:a>
 							</td>
-							<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>' target="popup" onclick="window.open('../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>','kongPlayer','width=1800,height=1000')">Watch</a></td>
+							<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>' target="popup" onclick="window.open('../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>','kongPlayer','width=1737,height=950')">Watch</a></td>
 					</s:if>
 								
 					<s:else>
@@ -129,7 +129,7 @@
 				<s:if test="lectureList == null">
 						<div class="noneList">
 							<div class="container">
-								<h3>정 보 없 음 </h3>
+								<h5 class="sm">정 보 없 음 </h5>
 							</div>
 						</div>
 						<!-- 	<tr class="new">

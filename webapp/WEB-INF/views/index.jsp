@@ -44,8 +44,8 @@
 									press Join button
 								</p>
 								<div class="group">
-									<a href="/javatree/course/selectAllCourseList.action" class="mc-btn btn-style-1">Course</a> &nbsp; &nbsp;
-									<a href="/javatree/qna/qnaDefaultMain.action" class="mc-btn btn-style-1">JAVATree</a>
+									<a href="/javatree/course/selectAllCourseList.action" class="mc-btn53 btn-style-1">Course</a> &nbsp; &nbsp;
+									<a href="/javatree/qna/qnaDefaultMain.action" class="mc-btn53 btn-style-1">JAVATree</a>
 								</div>
 							</div>
 

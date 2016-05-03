@@ -45,9 +45,9 @@ function closeWindow() {
 		 <div class="mid-insert-lecture">
 		 
 		    <h2>insert LECTURE</h2>
-<form action="updateLecture" method="post" id="updateLectureForm" enctype="multipart/form-data"> 	
-<input type="hidden" name="courseno" value='<s:property value="courseno"/>'>	
-<input type="hidden" name="lectureno" value='<s:property value="lectureno"/>'>
+		<form action="updateLecture" method="post" id="updateLectureForm" enctype="multipart/form-data"> 	
+		<input type="hidden" name="courseno" value='<s:property value="courseno"/>'>	
+		<input type="hidden" name="lectureno" value='<s:property value="lectureno"/>'>
                     <div class="create-course-content">
 
                         <!-- PROMO VIDEO -->

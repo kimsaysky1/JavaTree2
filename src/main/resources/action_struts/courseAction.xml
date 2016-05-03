@@ -161,7 +161,7 @@
         </action>
         <!-- 액션 (코딩박스 안의 인서트 , 코딩다케) -->
        	<action name="insertCodingfromMain" class="org.javatree.www.Action.CourseAction" method="insertCodingfromMain">
-       		<result type="redirect">insertCodingfromMainView.action</result>
+       		<result type="json"></result>
        	</action>
        	
        	 <!--액션 teachMian 에서 누른 문제보관함 폼(codingMain)에 코딩 insert하기     -->

@@ -131,7 +131,7 @@
                     
                     	<!-- 질문 버튼 모달-->
                     	<div class="form-submit-1">
-							<input type="button" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
+							<input type="button" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-53" data-toggle="modal" data-target="#writeQuestion"/>
                     		<div class="container">
 								<div class="modal fade" id="writeQuestion" role="dialog">
 							  	</div>

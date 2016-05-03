@@ -2235,11 +2235,15 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			codingList =  dao.getAllCodingList(id);
 			Map request = (Map) ActionContext.getContext().get("request");
 			
-			if(from.equals("main")){
-				request.put("checkMain","main");
-			}else{
-				request.put("checkMain","lecture");
+			System.out.println("from: "+from);
+			if(from != null){
+				if(from.equals("main")){
+					request.put("checkMain","main");
+				}else{
+					request.put("checkMain","lecture");
+				}
 			}
+				
 			return SUCCESS;
 		}
 		/**
@@ -2451,10 +2455,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public String insertCodingfromMain(){
 			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			
 			id = (String)session.get("loginId");
 			coding.setId(id);
-
+			System.out.println("coding: "+coding);
 			dao.insertCodingfromMain(coding);
 			
 			codingList =  dao.getAllCodingList(id);
@@ -2472,10 +2475,12 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			codingList =  dao.getAllCodingList(id);
 			
 			Map request = (Map) ActionContext.getContext().get("request");
-			if(from.equals("main")){
-				request.put("checkMain","main");
-			}else{
-				request.put("checkMain","lecture");
+			if(from != null){
+				if(from.equals("main")){
+					request.put("checkMain","main");
+				}else{
+					request.put("checkMain","lecture");
+				}
 			}
 			return SUCCESS;
 			

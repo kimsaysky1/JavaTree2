@@ -34,7 +34,7 @@
          <h4 class="sm black bold">QUESTION BOX</h4>
 
          <ul class="top-nav-list">
-            <li class="outline-learn"><a href="#"><i
+            <li class="outline-learn active"><a href="#"><i
                   class="icon md-list"></i></a>
                <div class="list-item-body outline-learn-body">
                   <div class="section-learn-outline">
@@ -92,7 +92,7 @@
                      <tr>
                         <td style='width: 400px;'><b>ALL QUESTION</b><br /> 
                   <!-- 보유 코딩 문제 리스트 -->
-                           <select multiple="multiple" id='lstBox1' style='width: 400px; height: 600px;' >
+                           <select multiple="multiple" id='lstBox1' style='width: 400px; height: 570px;' >
                                <s:iterator value="codingList" status="st">   
                                  <option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>
                                </s:iterator>
@@ -101,22 +101,28 @@
                            
                         </td>
                         <td style='width: 50px; text-align: center; vertical-align: middle;'>
-                           <input type='button' id='btnRight' value='  >  ' /> <br />
+                           <input type='button' id='btnRight' value='  >  ' /><!--  <br /> -->
                            <input type='button' id='btnLeft' value='  <  ' />
                         </td>
-                        <td style='width: 400px;'><b>SELECTED QUESTION </b><br /> 
+                        <td style='width: 300px;'><b>SELECTED QUESTION </b><br /> 
                           
-                           <br><br>
+                           <!-- <br><br> -->
                            <!-- 강의 해당 코딩문제 리스트 -->
-                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 600px;'>                          
+                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 500px;'>                          
                       <s:iterator value="codingList" status="st">  
                                  <%-- <option value="<s:property value="codingquestion"/>"><s:property value="codingquestion"/></option> --%>
                      </s:iterator>
                            </select>
                            <!-- 강의 해당 코딩문제 리스트 끝-->
-                           <input type="button" id="btnCancel" value="창닫기" style="float: right; margin-right: 28px;">
+                           <!-- <input type="button" id="btnCancel" value="창닫기" style="float: right; margin-right: 28px;">
                            <input type="button" id="btnDelete" value="삭제" style="float: right; margin-right: 28px;">
-                           <input type="button" id="btnSave" value="저장" style="float: right; margin-right: 28px;">
+                           <input type="button" id="btnSave" value="저장" style="float: right; margin-right: 28px;"> -->
+                           
+                           <div class="form-action"><!-- <div class="form-action2"> -->
+								<input type="button" value="저장" class="submit mc-btn-3 btn-style-1" id="btnSave" />
+								<input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
+								<input type="button" id="btnCancel" value="창닫기" class="submit mc-btn-3 btn-style-1">
+							</div>
                         </td>
                      </tr>
                   </table>
@@ -209,8 +215,6 @@ $(document).ready(function() {
              , success : function(response){
                 $("#modalNotification").trigger('click');
                 $("#btnSave").blur();
-                //$('#lstBox2 option').remove();
-                //window.close();
              }
              , error : function(response){
                 console.log('에러');

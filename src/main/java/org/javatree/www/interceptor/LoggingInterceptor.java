@@ -19,13 +19,13 @@ public class LoggingInterceptor extends AbstractInterceptor{
 		
 		ActionContext context = invocation.getInvocationContext();
 		Map<String, Object> session = context.getContext().getSession();
-		System.out.println("000loginInterceptor-customer!=null - invocation->execute // 로그인 아이디: " + ((String)session.get("loginId")));
+		//System.out.println("000loginInterceptor-customer!=null - invocation->execute // 로그인 아이디: " + ((String)session.get("loginId")));
 		if((String)session.get("loginId") == null){
-			System.out.println("loginInterceptor-loginId==null");
+			//System.out.println("loginInterceptor-loginId==null");
 			return Action.LOGIN;
 		}
 		//session.put("loginId", ((String)session.get("loginId")));
-		System.out.println("loginInterceptor-customer!=null - invocation->execute // 로그인 아이디: " + ((String)session.get("loginId")));
+		//System.out.println("loginInterceptor-customer!=null - invocation->execute // 로그인 아이디: " + ((String)session.get("loginId")));
 		return invocation.invoke();
 	}
 }

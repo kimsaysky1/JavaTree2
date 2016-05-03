@@ -199,7 +199,7 @@
 			str += '<button type="button" class="close" data-dismiss="modal">&times;</button>';
 			str += '<h4 class="modal-title">Reply</h4></div>';
 			str += '<div class="modal-body">';
-			str += '<table style=\'width: 800px;\'><tr>';
+			str += '<table style=\'width: 840px;\'><tr>';
 			str += '<td style=\'width: 100px; text-align: center;\'><b>FIELD</b></td>';
 			str += '<td>'+tempType+'</td></tr>';
 			str += '<tr><td style=\'height: 20px;\'></td></tr>';
@@ -213,8 +213,8 @@
 			str += '<td><textarea id = "replyContent" name="reply.content" style="height: 280px;"></textarea></td></tr>';
 			str += '<tr><td style=\'height: 20px;\'></td></tr>';
 			str += '</table></div>';
-			str += '<div class="modal-footer"><input type="button" id="executeModal" value="등록" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
-			str += '<input type="button" id="removeModal" value="취소" class="mc-btn-5"></div></div></div>';
+			str += '<div class="modal-footer"><div class="buttonpart"><input type="button" id="executeModal" value="등록" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
+			str += '<input type="button" id="removeModal" value="취소" class="mc-btn-5"></div></div></div></div>';
 			$("#insertReply").html(str);
 		});
 		
