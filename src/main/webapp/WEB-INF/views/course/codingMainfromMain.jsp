@@ -46,24 +46,21 @@
                                  <h6>MAIN</h6>
                               </a>
                            </div>
-
-
                         </li>
-
                         <li>
                            <div class="list-body">
-                              <a href="/javatree/course/insertCodingfromMainView.action">
+                              <a href="/javatree/course/insertCodingfromMainView.action?from=main">
                                  <h6>INSERT</h6>
                               </a>
                            </div>
                         </li>
-
                         <li>
                            <div class="list-body">
-                              <a href="/javatree/course/updateCodingfromMainView.action">
+                              <a href="/javatree/course/updateCodingfromMainView.action?from=main">
                                  <h6>UPDATE</h6>
                               </a>
                            </div>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/course/codingMain_fromMain.jsp
 
                         </li>
                         
@@ -76,6 +73,8 @@
 
                         </li> -->
 
+=======
+>>>>>>> edcf4f00a809178272ab97f05a0e99d5bab132a0:src/main/webapp/WEB-INF/views/course/codingMainfromMain.jsp
                      </ul>
                   </div>
 
@@ -309,6 +308,7 @@ $(document).ready(function() {
              , dataType : 'json'
              , success : function(response){
                 $("#modalNotification").trigger('click');
+                $("#btnSave").blur();
                 //$('#lstBox2 option').remove();
              }
              , error : function(response){

@@ -72,8 +72,7 @@
 
 </head>
 <body>
-<%@include file="/resources/header.jsp" %>
-	
+<%@include file="/resources/header2.jsp" %>
 
 	<!-- PROFILE FEATURE 프로필!!!!-->
 	<section class="profile-feature">
@@ -332,6 +331,6 @@
 		src="../resources/javatree_view/html/js/library/jquery.easing.min.js"></script>
 	<script type="text/javascript"
 		src="../resources/javatree_view/html/js/scripts.js"></script>
-
+	<script src="../resources/checkMessage.js"></script>
 </body>
 </html>
