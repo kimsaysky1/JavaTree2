@@ -57,8 +57,8 @@
 			window.open('/javatree/course/updateSubnoteForm.action?lectureno='+lectureno+'&courseno='+courseno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
 		 }
 	 
-	 function updateCoding(lectureno,courseno){
-		    window.open('/javatree/course/codingMainInsertLectureView.action?lectureno='+lectureno+'&courseno='+courseno,'pop','resizable=no scrollbars=yes top=50 left=200 width=1200 height=870');
+	 function updateCoding(lectureno,courseno,from){
+		    window.open('/javatree/course/codingMainInsertLectureView.action?lectureno='+lectureno+'&courseno='+courseno+'&from='+from,'pop','resizable=no scrollbars=yes top=50 left=200 width=1200 height=870');
 		 }
 		 
 	function checkVideo(lectureno){
@@ -266,7 +266,7 @@
 								<td class="author"><a href="javascript:updateLecture(<s:property value="lectureno"/>, <s:property value="courseno"/>)">Edit<%-- <s:property value="lectureno"/> --%></a></td>
 								<td class="score"><a href="/javatree/course/deleteLecture.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>">Delete</a></td><!-- javascript:deleteLecture(); -->
 								<td class="submit-date"><a href="javascript:updateSubnote(<s:property value="lectureno"/>, <s:property value="courseno"/>)">Paper</a></td>
-								<td class="submit-date"><a href="javascript:updateCoding(<s:property value="lectureno"/>, <s:property value="courseno"/>)">Question</a></td>
+								<td class="submit-date"><a href="javascript:updateCoding(<s:property value="lectureno"/>, <s:property value="courseno"/>,'courseDetail')">Question</a></td>
 								<td class="submit-date"><a href="javascript:checkVideo(<s:property value="lectureno"/>, <s:property value="courseno"/>)">PlayView</a></td>
 							</tr>
 

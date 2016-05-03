@@ -109,9 +109,9 @@
                            <!-- <br><br> -->
                            <!-- 강의 해당 코딩문제 리스트 -->
                            <select multiple="multiple" id='lstBox2' style='width: 400px; height: 500px;'>                          
-                      <s:iterator value="codingList" status="st">  
-                                 <%-- <option value="<s:property value="codingquestion"/>"><s:property value="codingquestion"/></option> --%>
-                     </s:iterator>
+                      <s:iterator value="codingListForSpecificLecture" status="st">  
+                      		<option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>	
+                      </s:iterator>
                            </select>
                            <!-- 강의 해당 코딩문제 리스트 끝-->
                            <!-- <input type="button" id="btnCancel" value="창닫기" style="float: right; margin-right: 28px;">
@@ -119,7 +119,7 @@
                            <input type="button" id="btnSave" value="저장" style="float: right; margin-right: 28px;"> -->
                            
                            <div class="form-action"><!-- <div class="form-action2"> -->
-								<input type="button" value="저장" class="submit mc-btn-3 btn-style-1" id="btnSave" />
+								<input type="button" id="btnSave"  value="저장" class="submit mc-btn-3 btn-style-1" />
 								<input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
 								<input type="button" id="btnCancel" value="창닫기" class="submit mc-btn-3 btn-style-1">
 							</div>
@@ -207,10 +207,12 @@ $(document).ready(function() {
        $('#lstBox2 option').each(function(index) {
           StringForSaveCoding.push(Number($(this).val()));
          });
+       var from = "${from}";
+       var lectureno = "${lectureno}";
          $.ajax({
         	 method : 'get'
              , url : 'tempLectureCodingforLecture.action'
-             , data : 'StringForSaveCoding='+StringForSaveCoding
+             , data : 'StringForSaveCoding='+StringForSaveCoding+'&from='+from+'&lectureno='+lectureno
              , dataType : 'json'
              , success : function(response){
                 $("#modalNotification").trigger('click');

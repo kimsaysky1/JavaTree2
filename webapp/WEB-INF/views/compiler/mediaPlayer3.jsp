@@ -94,7 +94,7 @@ margin-left: 6px;
 
 #seek-bar {
 	/*required for proper track sizing in FF*/
-	width: 750px; ! important;
+	width: 725px; ! important;
 	display: inline-block;
 	margin: 0px;
 	padding: 0px;
@@ -471,7 +471,8 @@ div.numberedtextarea-number {
 			</div>
 			
 			<div id="codingwrapper">
-				<div class="line_number"></div>
+				<div class="line_number">
+				</div>
 				<ul id="tabs">
 					<li class='current'><a class='tab' id="class1" href='#'>class1</a><a href='#' class='remove'>x</a>
 					</li>
@@ -536,11 +537,10 @@ div.numberedtextarea-number {
 <script type="text/javascript">
 
 $(function(){
-	
+	for (i = 1; i <= 40; i++) {
+		$('<div>'+i+'</div>').appendTo(".line_number");
+	}
 	 
-	$('#디브 아이디').on('click', function(){
-		alert(1);
-	});
 	$('#insertQuestionModal').on('click', function(){
 		var str = '';
 		str += '<div class="modal-dialog modal-lg">'
@@ -642,8 +642,14 @@ $(function(){
         	var splitedArray = textAreaValue.split('\n');
         	var splitedArrayLength = splitedArray.length;
         	$('.line_number').html('');
-        	for(var i = 1; i <= splitedArrayLength; i++){
-	        	$('<div>'+i+'</div>').appendTo('.line_number');
+        	if(splitedArrayLength <= 40){
+	        	for(var i = 1; i <= splitedArrayLength; i++){
+		        	$('<div>'+i+'</div>').appendTo('.line_number');
+	        	}
+        	}else{
+        		for (i = 1; i <= 40; i++) {
+        			$('<div>'+i+'</div>').appendTo(".line_number");
+        		}
         	}
         	$(".line_number").scrollTop(textarea.scrollTop());
     });
@@ -806,6 +812,30 @@ $(function(){
         $("#tabs li").removeClass("current");
         $("#" + contentname).show();
         $(this).parent().addClass("current"); 
+        
+        for (i = 1; i <= 40; i++) {
+        	$(".line_number").html('');
+    		$('<div>'+i+'</div>').appendTo(".line_number");
+    	}
+        var textarea = $('#doccontent textarea:visible');
+    	var width = parseFloat(textarea.css('width'));
+    	var height = parseFloat(textarea.css('height'));
+    	var lineHeight = parseFloat(textarea.css('line-height'));
+    	var textAreaValue = $('#doccontent textarea:visible').val();
+    	var splitedArray = textAreaValue.split('\n');
+    	var splitedArrayLength = splitedArray.length;
+    	$('.line_number').html('');
+    	if(splitedArrayLength <= 40){
+        	for(var i = 1; i <= splitedArrayLength; i++){
+	        	$('<div>'+i+'</div>').appendTo('.line_number');
+        	}
+    	}else{
+    		for (i = 1; i <= 40; i++) {
+    			$('<div>'+i+'</div>').appendTo(".line_number");
+    		}
+    	}
+    	$(".line_number").scrollTop(textarea.scrollTop());
+        
     });
 
    $('body').on('click', '#insertClass', function(){
