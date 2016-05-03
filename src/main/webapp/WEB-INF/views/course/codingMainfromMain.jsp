@@ -60,7 +60,7 @@
                                  <h6>UPDATE</h6>
                               </a>
                            </div>
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/course/codingMain_fromMain.jsp
+<!-- <<<<<<< HEAD:src/main/webapp/WEB-INF/views/course/codingMain_fromMain.jsp -->
 
                         </li>
                         
@@ -72,9 +72,6 @@
                            </div>
 
                         </li> -->
-
-=======
->>>>>>> edcf4f00a809178272ab97f05a0e99d5bab132a0:src/main/webapp/WEB-INF/views/course/codingMainfromMain.jsp
                      </ul>
                   </div>
 
