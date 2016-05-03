@@ -32,31 +32,23 @@
 <title>Mega Course - Learning and Courses HTML5 Template</title>
 </head>
 <body id="page-top">
-
 	<!-- PAGE WRAP -->
 	<div id="page-wrap">
-
 		<div class="top-nav">
-
 			<h4 class="sm black bold">QUESTION BOX</h4>
-
 			<ul class="top-nav-list">
 				<li class="outline-learn">
 					<div class="list-item-body outline-learn-body">
-					
-						
 					</div>
 				</li>
 				<!-- 페이지 종료 -->
 				<li class="backpage"><a href="index.html"><i
 						class="icon md-close-1"></i></a></li>
 			</ul>
-
 		</div>
 		<section id="quizz-intro-section"
 			class="quizz-intro-section learn-section">
 			<div class="container">
-
 				<div class="title-ct">
 					<h3>
 						<strong></strong>
@@ -68,7 +60,6 @@
 				<div class="question-content-wrap">
 					<div class="question-content">
 						<h4 class="sm">QUESTION BOX</h4>
-
 						<table style='width: 1000px;'>
 							<tr>
 								<td style='width: 400px;'><b>내가 저장한 문제</b><br /> 
@@ -119,9 +110,6 @@
 				</div>
 			</div>
 		</section>
-
-
-
 	</div>
 	<!-- END / PAGE WRAP -->
 
@@ -140,8 +128,6 @@
 		
 		$("#lstBox1").change(function(){
 			var codingno= parseInt($(this).val());		
-			
-			
 			$.ajax({
 				url : 'showcodinglistinstudy.action',
 				data : {'codingno' : codingno},
@@ -149,9 +135,7 @@
 					alert('성공');
 					alert(response);
 					alert(response.mycode);
-					
 					var codingn =  parseInt(response.coding.codingno);
-					
 					$('#q_title').attr('placeholder',response.coding.codingquestion);	
 					$('#codebox').attr('placeholder',response.coding.codingtemplet);	
 					$('#mycodebox').html(response.mycode);	
@@ -164,34 +148,23 @@
 			});
 			
 			$('#delete_btn').click(function(){
-				
 				$.ajax({
 					url : 'deletefromcodingbox.action',
 					data : {'codingno' : codingno},
 					success : function(response){
 						alert('성공');
-				
 					},
 					error:function(){
 						alert('에러');
 					}
 				});
-				
 			});
 			
-			
 			$('#submit_btn').click(function(){				
-				
 				window.open('showcodinganswer.action?codingno='+codingno,'pop','resizable=no scrollbars=yes top=50 left=200 width=500 height=400'); 
 				
 			});
-			
-
-			
 		});
-		
-		
-		
 	});
 	
 	</script>

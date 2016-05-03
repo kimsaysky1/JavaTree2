@@ -64,14 +64,14 @@
 								</li>
 								<li>
 									<div class="list-body">
-										<a href="/javatree/course/insertCodingfromMainView.action">
+										<a href="/javatree/course/insertCodingfromMainView.action?from=${from}">
 											<h6>INSERT</h6>
 										</a>
 									</div>
 								</li>
 								<li>
 									<div class="list-body">
-										<a href="/javatree/course/updateCodingfromMainView.action">
+										<a href="/javatree/course/updateCodingfromMainView.action?from=${from}"">
 											<h6>UPDATE</h6>
 										</a>
 									</div>
@@ -213,6 +213,7 @@
 		var codebox = $("#codebox").val();
 		var answerbox = $("#answerbox").val();
 		var codingno = $('#codeno').attr('value');
+		var from = "${requestScope.checkMain}";
 		if(q_title.trim() == ""){
 			alert("질문을 입력해주세요");
 			return false;
@@ -226,9 +227,11 @@
 			$.ajax({
 				url : 'updateCodingfromMain'
 				,data : 'coding.codingquestion='+q_title+'&coding.codingtemplet='+
-				codebox+'&coding.codinganswer='+answerbox+'&coding.codingno='+codingno
+				codebox+'&coding.codinganswer='+answerbox+'&coding.codingno='+codingno+
+				'&from='+from
 				,dataType : 'json'
 				,success : function(response){
+					$("#submit_btn").blur();
 					$("#modalNotification").trigger('click');
 					$('#q_title').val('');	
 					$('#codebox').val('');	

@@ -66,7 +66,7 @@
 
 								<li>
 									<div class="list-body">
-										<a href="/javatree/course/insertCodingfromMainView.action">
+										<a href="/javatree/course/insertCodingfromMainView.action?from=${from}"">
 											<h6>INSERT</h6>
 										</a>
 									</div>
@@ -76,7 +76,7 @@
 
 								<li>
 									<div class="list-body">
-										<a href="/javatree/course/updateCodingfromMainView.action">
+										<a href="/javatree/course/updateCodingfromMainView.action?from=${from}"">
 											<h6>UPDATE</h6>
 										</a>
 									</div>
@@ -121,7 +121,6 @@
 								</td>
 								<td style='width: 30px;'></td>
 								<td>
-								<form id = "form1" action="insertCodingfromMain">
 									<table style='width: 550px;'>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>QUESTION</b></td>
@@ -149,10 +148,11 @@
 										</tr>
 										<tr>
 											<td></td>
-											<td><input type="submit" id = "submit_btn"  value="등록" style="float: right;"></td>
+											<!-- 등록 버튼 -->
+											<td><input type="button" id = "submit_btn"  value="등록" style="float: right;"></td>
+											<!-- 등록 버튼 -->
 										</tr>
 									</table>
-									</form>
 								</td>
 							</tr>
 						</table>
@@ -160,11 +160,26 @@
 				</div>
 			</div>
 		</section>
-
-
-
 	</div>
 	<!-- END / PAGE WRAP -->
+		
+<div class="container">
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body">
+          <p>내용이 저장되었습니다.</p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+	
 
 	<!-- Load jQuery -->
 	<script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
@@ -179,23 +194,46 @@
 	
 	$(function(){
 		
-		
-		$('#submit_btn').click(function(){
+		$('#submit_btn').on('click', function(){
 			
-		var q_title = document.getElementById("q_title").value;
-		var codebox = document.getElementById("codebox").value;
-		var answerbox = document.getElementById("answerbox").value;
-		
-		
-		if(q_title == ""){
-			alert("질문을 입력해주세요");
-		}else if(codebox == ""){
-			alert("코드를 입력해주세요");
-		}else if(answerbox = ""){
-			alert("정답을 입력해주세요");
-		}else{
-			 document.getElementById('form1').submit();
-		}
+			var q_title = $("#q_title").val();
+			var codebox = $("#codebox").val();
+			var answerbox = $("#answerbox").val();
+			var from = "${requestScope.checkMain}";
+			
+			alert(from);
+			if(q_title.trim() == ""){
+				alert("질문을 입력해주세요");
+				return false;
+			}else if(codebox.trim() == ""){
+				alert("코드를 입력해주세요");
+				return false;
+			}else if(answerbox.trim() == ""){
+				alert("정답을 입력해주세요");
+				return false;
+			}
+				$.ajax({
+					url : 'insertCodingfromMain'
+					,data : 'coding.codingquestion='+q_title+'&coding.codingtemplet='+
+					codebox+'&coding.codinganswer='+answerbox+'&from='+from
+					,dataType : 'json'
+					,success : function(response){
+						$('#lstBox1').empty();
+		            	var list = response.codingList;
+		            	list.forEach(function(coding){
+			            	$('<option value="'+coding.codingno+'">'+coding.codingquestion+'</option>').appendTo('#lstBox1');
+		            	});
+		            	$("#submit_btn").blur();
+						$("#modalNotification").trigger('click');
+						$('#q_title').val('');	
+						$('#codebox').val('');	
+						$('#answerbox').val('');
+						 
+					},
+					error:function(){
+						console.log('에러');
+					}
+				});
 		
 		});
 		
