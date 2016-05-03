@@ -207,10 +207,13 @@
 		var codingno = $('#codeno').attr('value');
 		if(q_title.trim() == ""){
 			alert("질문을 입력해주세요");
+			return false;
 		}else if(codebox.trim() == ""){
 			alert("코드를 입력해주세요");
+			return false;
 		}else if(answerbox.trim() == ""){
 			alert("정답을 입력해주세요");
+			return false;
 		}
 			$.ajax({
 				url : 'updateCodingfromMain'
