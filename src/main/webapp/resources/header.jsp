@@ -31,7 +31,7 @@
 
 					<!-- MENU -->
 					<ul class="menu">
-						<li class="current-menu-item"><a href="../index.action">HOME</a></li>
+						<li class="current-menu-item"><a href="../javatree/index.action">HOME</a></li>
 						<li class="menu-item-has-children megamenu col-4"><a href="/javatree/course/selectAllCourseList.action">COURSE</a></li>
 						<li class="menu-item-has-children"><a href="/javatree/qna/qnaDefaultMain.action" id="jt">JAVATree</a></li>					
 					<s:if test="%{#session.loginId != null}">

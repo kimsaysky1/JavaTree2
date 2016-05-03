@@ -79,7 +79,7 @@ public class MemberAction extends ActionSupport implements SessionAware {
 	}
 
 	public String insertMember() {
-
+		System.out.println("join 들어옴");
 		memberDAO dao = sqlSession.getMapper(memberDAO.class);
 
 		Member_jt member_jt = new Member_jt();
@@ -90,7 +90,7 @@ public class MemberAction extends ActionSupport implements SessionAware {
 		member_jt.setUsername(username);
 
 		dao.insertMember(member_jt);
-
+		System.out.println("join 들어옴2");
 		interestList.add(interest_purejava);
 		interestList.add(interest_web);
 		interestList.add(interest_mobile);
@@ -109,7 +109,7 @@ public class MemberAction extends ActionSupport implements SessionAware {
 		}
 
 		dao.insertInterest(interestList);
-
+		System.out.println("join 들어옴3");
 		abilityList.add(ability_purejava);
 		abilityList.add(ability_web);
 		abilityList.add(ability_mobile);
@@ -126,9 +126,9 @@ public class MemberAction extends ActionSupport implements SessionAware {
 			abilityList.get(i).setTypeno(i + 1);
 			abilityList.get(i).setId(id);
 		}
-
+		System.out.println("join 들어옴4");
 		dao.insertAbility(abilityList);
-
+		System.out.println("join 들어옴5");
 		return SUCCESS;
 	}
 

@@ -20,6 +20,13 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
+
+<style type="text/css">
+	.noneList{
+		background: white;
+	}
+</style>
+
 <title>studyMain2</title>
 </head>
 <body>
@@ -73,7 +80,9 @@
                     <!-- MY SUBMISSIONS -->
                     <div class="tab-pane fade in active" id="mysubmissions">
                         <div class="table-wrap">
+                            
                             <!-- TABLE HEAD -->
+                                                       
                             <div class="table-head">
                                 <div class="submissions">Coursename(Lecturename)</div>
                                 <div class="total-subm"></div>
@@ -81,6 +90,7 @@
                                 <div class="latest-reply">Teacher</div>
                                 <div class="tb-icon">Play</div>
                             </div>
+                            
                             <!-- END / TABLE HEAD -->
 
                             <!-- TABLE BODY -->
@@ -90,9 +100,16 @@
                                 <!-- TABLE ITEM -->
                                 
                                 <s:if test="courseList == null">
+								<div class="nonelist">
+								 <div class="table-item" >
+                                    <div class="thead" align="center">
 								<h3>정 보 없 음 </h3>
+								</div>
+								</div>
+								</div>
 								</s:if>
-                                    
+                                                                
+                                  
                                <s:iterator value="courseList">
                                <div class="table-item" >
                                     <div class="thead" id="<s:property value="courseno" />">
