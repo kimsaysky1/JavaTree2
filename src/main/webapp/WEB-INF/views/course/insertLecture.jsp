@@ -305,7 +305,7 @@ function stgoback(){
                                 <div class="create-course-2">
                                 <input type="hidden" id = "courseno" value = "<s:property value="courseno"/>">
                                 <input type="hidden" id = "lectureno" value = "<s:property value="lectureno"/>">
-                                <input type="button" value="Qesstion BOX" class="submit mc-btn-4 btn-style-1" id="popup_test">
+                                <input type="button" value="Qesstion BOX" class="submit mc-btn-4 btn-style-1" id="questionBox">
                                    <!-- <a href="javascript:popup();"><input type="button" value="Qesstion BOX" class="submit mc-btn-4 btn-style-1"></a> -->
                                 	<!-- <a href="javascript:questionBox();"><input type="button" value="Qesstion BOX" class="submit mc-btn-4 btn-style-1"></a> -->
                                 </div>
@@ -348,9 +348,8 @@ function stgoback(){
 	<script type="text/javascript"
 		src="../resources/javatree_view/html/js/scripts.js"></script>
 		
-	
 	<script type="text/javascript">
-	$('#popup_test').on('click', function(){
+	$('#questionBox').on('click', function(){
 		var courseno=document.getElementById("courseno");
 		var lectureno=document.getElementById("lectureno");
 		 window.open('codingMainInsertLectureView.action','pop','resizable=no scrollbars=yes top=50 left=200 width=1200 height=870');  

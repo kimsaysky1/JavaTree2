@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="format-detection" content="telephone=no">
 <!-- Google font -->
@@ -46,36 +46,20 @@
                                  <h6>MAIN</h6>
                               </a>
                            </div>
-
-
                         </li>
-
                         <li>
                            <div class="list-body">
-                              <a href="/javatree/course/insertCodingfromMainView.action">
+                              <a href="/javatree/course/insertCodingfromMainView.action?from=main">
                                  <h6>INSERT</h6>
                               </a>
                            </div>
                         </li>
-
                         <li>
                            <div class="list-body">
-                              <a href="/javatree/course/updateCodingfromMainView.action">
+                              <a href="/javatree/course/updateCodingfromMainView.action?from=main">
                                  <h6>UPDATE</h6>
                               </a>
                            </div>
-
-                        </li>
-                        
-                           <li>
-                           <div class="list-body">
-                              <a href="/javatree/course/deleteCodingfromMainView.action">
-                                 <h6>DELETE</h6>
-                              </a>
-                           </div>
-
-                        </li>
-
                      </ul>
                   </div>
 
@@ -122,9 +106,30 @@
                         </td>
                         <td style='width: 400px;'><b>SELECTED QUESTION </b><br /> 
                           
+                          <!-- 강좌 목록 -->
+                           <select class="courselistbox" id ="courselistbox" style='width: 400px; height:30px;'>
+                                    <option>강좌 목록</option>
+                     <s:iterator value="courseList" status="st">   
+                                   <option value="<s:property value="courseno"/>"><s:property value="courseno"/>.<s:property value="coursename"/></option>                
+                     </s:iterator>
+                                    <!-- <s:property value="lectureno"/> -->
+                           </select>
+                           <!-- 강좌 목록 끝-->
+                           
+                           <br><br>
+                           
+                           <!-- 강의 목록 -->
+                            <select class="lecturlistbox" id ="lecturelistbox" style='width: 400px; height:30px;'>
+                            <option>강의 목록</option>
+                     <s:iterator  value="lectureList" status="st">   
+                                <option value="<s:property value="lectureno"/>"><s:property value="lecturename"/></option>                
+                     </s:iterator>                
+                           </select> 
+                           <!-- 강의 목록 끝--> 
+                           
                            <br><br>
                            <!-- 강의 해당 코딩문제 리스트 -->
-                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 600px;'>                          
+                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 480px;'>                          
                       <s:iterator value="codingList" status="st">  
                                  <%-- <option value="<s:property value="codingquestion"/>"><s:property value="codingquestion"/></option> --%>
                      </s:iterator>
@@ -175,6 +180,40 @@
    <script type="text/javascript">
 $(document).ready(function() {
    
+   $("#courselistbox").change(function(){ 
+      var courseno=$(this).val()      
+      $('#lstBox2 option').remove();
+      $.ajax({
+         url : 'golecturelist.action'
+         , data : {'courseno' : courseno}
+          ,success : function(response){
+            $(response.lectureList).each(function(index, item) {
+               $('#lecturelistbox').append( '<option value='+item.lectureno+' class="lecturelistbox1">'+item.lecturename+'</option>');
+            });      
+         },
+         error:function(){
+            console.log('에러');
+         }
+      });
+   });
+   
+   
+   $("#lecturelistbox").change(function(){
+      var lectureno = $(this).val();
+      $('#lstBox2 option').remove();
+      $.ajax({
+         url:'gocodinglist.action'
+         ,data: {'lectureno' : lectureno}
+          ,success: function(response){
+            $(response.codingList).each(function(index, item) {
+               $('#lstBox2').append( '<option value='+item.codingno+' class="lstBox2_1">'+item.codingquestion+'</option>');
+            });      
+         }
+          ,error:function(){
+             console.log('에러');
+         }
+      });
+   });
    
     $('#btnRight').click(function(e) { //오른쪽 화살표
        var lectureno = $("#lecturelistbox option:selected").val();
@@ -215,18 +254,18 @@ $(document).ready(function() {
     $('#btnSave').on( "click", function(){ 
        var StringForSaveCoding = [];
        $('#lstBox2 option').each(function(index) {
-          StringForSaveCoding.push(Number($(this).val()));
+          StringForSaveCoding.push(Number($(this).val())) ;
          });
+       
+       var lectureno = $("#lecturelistbox option:selected").val();
          $.ajax({
-        	 method : 'get'
-             , url : 'tempLectureCodingforLecture.action'
-             , data : 'StringForSaveCoding='+StringForSaveCoding
+             url : 'saveLectureCodingfromMain.action'
+             , data : 'StringForSaveCoding='+StringForSaveCoding+'&lectureno='+lectureno
              , dataType : 'json'
              , success : function(response){
                 $("#modalNotification").trigger('click');
                 $("#btnSave").blur();
                 //$('#lstBox2 option').remove();
-                //window.close();
              }
              , error : function(response){
                 console.log('에러');
