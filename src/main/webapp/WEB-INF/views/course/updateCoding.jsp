@@ -195,8 +195,8 @@
 				success : function(response){
 					var codingno =  parseInt(response.coding.codingno);
 					$('#q_title').val(response.coding.codingquestion);	
-					$('#codebox').val(response.coding.codingtemplet);	
-					$('#answerbox').val(response.coding.codinganswer);	
+					$('#codebox').html(response.coding.codingtemplet);	
+					$('#answerbox').html(response.coding.codinganswer);	
 					$('#codeno').attr('value',codingno);	
 				
 				},
@@ -210,8 +210,8 @@
 		
 		$('#submit_btn').on('click', function(){
 		var q_title = $("#q_title").val();
-		var codebox = $("#codebox").val();
-		var answerbox = $("#answerbox").val();
+		var codebox = $("#codebox").html();
+		var answerbox = $("#answerbox").html();
 		var codingno = $('#codeno').attr('value');
 		var from = "${requestScope.checkMain}";
 		if(q_title.trim() == ""){
@@ -224,8 +224,10 @@
 			alert("정답을 입력해주세요");
 			return false;
 		}
+		alert('codebox: '+codebox);
 			$.ajax({
-				url : 'updateCodingfromMain'
+				method: 'post'
+				, url : 'updateCodingfromMain'
 				,data : 'coding.codingquestion='+q_title+'&coding.codingtemplet='+
 				codebox+'&coding.codinganswer='+answerbox+'&coding.codingno='+codingno+
 				'&from='+from

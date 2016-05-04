@@ -203,10 +203,18 @@
 				alert("정답을 입력해주세요");
 				return false;
 			}
+			alert('codebox: '+codebox);
+			alert('answerbox: '+answerbox)
 				$.ajax({
-					url : 'insertCodingfromMain'
-					,data : 'coding.codingquestion='+q_title+'&coding.codingtemplet='+
-					codebox+'&coding.codinganswer='+answerbox+'&from='+from
+					method: 'post'
+					, url : 'insertCodingfromMain'
+					,data : 
+					{
+						'coding.codingquestion' : q_title, 
+						'coding.codingtemplet' : codebox,
+						'coding.codinganswer' :answerbox,
+						'from' :from
+					}
 					,dataType : 'json'
 					,success : function(response){
 						$('#lstBox1').empty();

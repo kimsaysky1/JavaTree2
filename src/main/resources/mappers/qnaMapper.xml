@@ -254,6 +254,23 @@
 	<insert id="addGunggumNotification" parameterType="map">
 		insert into gunggumnotification(id,questionno) values(#{id},#{questionno})
 	</insert>
+	
+	
+	<select id="selectIdForCoding" parameterType="int" resultType="String">
+		select id from coding where codingno = #{codingno}
+	</select>
+	
+	<!-- <select id="selectQuestionno" resultType="int">
+		select max(questionno) from question 
+	</select> -->
+	
+	<insert id="insertNotificationForCoding" parameterType="Notification">
+		<selectKey keyProperty="questionno" resultType="int" order="BEFORE">
+    		select max(questionno) from question 
+  		</selectKey>
+  			insert into notification (senderid, receiverid, message, regdate, questionno, notificationno) 
+  			values(#{senderid}, #{receiverid}, #{message}, sysdate, #{questionno}, notification_seq.nextVal)
+	</insert>
 
 	<select id="selectGunggumNotification" parameterType="int" resultType="String">
 		select id from gunggumnotification where questionno = #{questionno} and regdate <![CDATA[>]]>= sysdate-3
@@ -264,7 +281,7 @@
 		where id in (select id from gunggumnotification where questionno = #{questionno} and regdate <![CDATA[<]]> sysdate-3) 
 		and questionno = #{questionno}
 	</delete>
-	
+		
 	<update id="addRecommend" parameterType="map">
 		update reply set recommend = #{recommend} where replyno = #{replyno}
 	</update>

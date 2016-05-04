@@ -558,8 +558,6 @@
 		where courseno=#{courseno}
 	</update>
 	
-	
-	
 	<!-- 강의찾기 mediaPlayerForm -->
 	<select id="selectLecture" parameterType="int" resultType="Lecture">
 		select * from lecture where lectureno=#{lectureno}
