@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean id="MemberAction" class="org.javatree.www.Action.MemberAction" scope="prototype"></bean>
+	<bean id="CourseAction" class="org.javatree.www.Action.CourseAction" scope="prototype"></bean> 
+	<bean id="CompilerAction" class="org.javatree.www.Action.CompilerAction" scope="prototype"></bean>
+	<bean id="QnaAction" class="org.javatree.www.Action.QnaAction" scope="prototype"></bean>
+	
+	<bean id="Member_jt" class="org.javatree.www.VO.Member_jt"></bean> 
+	<bean id="Interest" class="org.javatree.www.VO.Interest"></bean> 
+	<bean id="Ability" class="org.javatree.www.VO.Ability"></bean>  
+	<bean id="Coding" class="org.javatree.www.VO.Coding"></bean>  
+	<bean id="Course" class="org.javatree.www.VO.Course"></bean>  
+	<bean id="Error" class="org.javatree.www.VO.Error"></bean>  
+	<bean id="Lecture" class="org.javatree.www.VO.Lecture"></bean>  
+	<bean id="Question" class="org.javatree.www.VO.Question"></bean>  
+	<bean id="Reply" class="org.javatree.www.VO.Reply"></bean>  
+	<bean id="Rereply" class="org.javatree.www.VO.Rereply"></bean>  
+	<bean id="PageNavigator" class="org.javatree.www.Util.PageNavigator"></bean>
+	<bean id="Subnote" class="org.javatree.www.VO.Subnote"></bean>
+	<bean id="Notification" class="org.javatree.www.VO.Notification"></bean>
+	<bean id="Bookmark" class="org.javatree.www.VO.Bookmark"></bean>
+	
+	<!--  Interceptors --> 
+  <bean name="logger"    
+    class="org.javatree.www.interceptor.LoggingInterceptor"/> 
+
+	<!-- db.properties 읽어오기 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:db.properties</value>
+		</property>
+	</bean>
+	
+	<!-- db.properties의 설정값을 읽어서 셋팅한다 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="${driver}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${user}" />
+		<property name="password" value="${password}" />
+	</bean>
+
+	<!-- 트랜잭션관리를 위한 빈설정 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" /> <!-- name은 트랜잭션메니져의 이름,  ref는 위의 id -->
+	</bean>
+
+	<!-- sqlSessionTemplete -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		
+	</bean>
+
+	<!-- sqlSession -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 파일설정을위한 		빈설정-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- <property name="maxUploadSize" value="10485760"></property> -->
+		<property name="maxUploadSize" value="524288000" />
+	</bean>
+	
+	<!-- <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="spring.RegularCommonsMultipartResolver">
+		<property name="maxUploadSize" value="5242880000" /> 업로드 용량 설정
+		<property name="uploadTempDir" ref="uploadDirResource" />
+	</bean> -->
+	
+	
+	<bean id="fileBean" class="java.io.File">
+    	<constructor-arg type="java.lang.String" value="$prop{file.path.property}" />    
+ 	</bean>
+	
+</beans>
