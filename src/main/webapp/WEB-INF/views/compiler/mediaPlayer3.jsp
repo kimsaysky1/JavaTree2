@@ -613,10 +613,12 @@ $(function(){
 			var typeno = $("#questionTypeno option:selected").val();
 			var title = $("#questionTitle").val();
 			var content = $("#questionContent").val();
+			var codingno =  $(".codingList option:selected").val();
 			$.ajax({
 				type: 'POST'
 				, url: '/javatree/qna/insertQuestionByModal.action'
 				, data: 'question.content=<pre>'+content+'</pre>&question.title='+title+'&question.typeno='+typeno
+						+'&question.codingno='+codingno	
 				, success : function(response){
 					alert('성공');
 					$('#writeQuestion').modal('hide');

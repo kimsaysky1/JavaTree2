@@ -70,13 +70,25 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question.setId(loginId);
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
+		String stringTemp = question.getContent();
+		stringTemp = stringTemp.substring(5, stringTemp.length()-7);
+		question.setContent(stringTemp);
 		typeName = dao.selectTypeName(typenoTemp);
+		System.out.println("question: "+question);
 		dao.insertQuestion(question);
+		
+		int codingnoTemp = question.getCodingno();
+		System.out.println("codingnoTemp: "+codingnoTemp);
+		String receiverId = dao.selectIdForCoding(codingnoTemp);
+		System.out.println("receiverId: "+receiverId);
+		notification.setReceiverid(receiverId);
+		notification.setSenderid(loginId);
+		notification.setMessage(loginId + " 님이 질문을 하셨습니다.");
+		dao.insertNotificationForCoding(notification);
 		return SUCCESS;
 	}
 
 	public String insertQuestion() throws Exception {
-		System.out.println("들어옴1");
 		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
 		String loginId = (String) session.get("loginId");
 		String loginName = (String) session.get("loginName");
@@ -87,9 +99,7 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question.setId(loginId);
 		question.setUsername(loginName);
 		question.setTypeno(typenoTemp);
-		System.out.println("question: "+question);
 		typeName = dao.selectTypeName(typenoTemp);
-		System.out.println("typeName: "+typeName);
 		dao.insertQuestion(question);
 		makeQnaDefaultMain(loginId);
 		return SUCCESS;
@@ -108,7 +118,6 @@ public class QnaAction extends ActionSupport implements SessionAware {
 			dao.insertNotification(notification);
 			ArrayList<String> gunggumIdList = dao.selectGunggumNotification(notification.getQuestionno());
 			dao.deleteGunggumNotification(notification.getQuestionno());
-			System.out.println("gunggumIdList: "+gunggumIdList);
 			if(gunggumIdList.size() != 0){
 				for(int i= 0; i < gunggumIdList.size(); i++){
 					notification.setReceiverid(gunggumIdList.get(i));
@@ -379,7 +388,6 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		recommend = reply.getRecommend() + 1;
 		map.put("replyno", reply.getReplyno());
 		map.put("recommend", recommend);
-		System.out.println("map: "+map);
 		dao.addRecommend(map);
 		replyList = dao.selectAllReply(questionno);
 		return SUCCESS;
