@@ -1735,14 +1735,11 @@ table.mc-table tbody .new .submissions a:before {
 
 <<<<<<< HEAD
 
+=======
+>>>>>>> 2a60bfee58cb0ae266ef141984a2f2116b557ab0
 .bg-sub-banner-course2 {
   background-image: url('../images/bg/forest2.jpg');
 }
-=======
-.bg-sub-banner-course2 {
-  background-image: url('../images/bg/forest2.jpg');
-}/* 수지추가 */
->>>>>>> cab84b1857d8d706e3c3886b503795412fc934f6
 
 .bg-login-content {
   background-image: url('../images/homeslider/mainimg_2.jpg');
@@ -5780,7 +5777,15 @@ margin-left:490px;
 /*-- PROFILE FEATURE --*/
 .profile-feature {
   position: relative;
-  padding-top:43px; /* 원래15px수지수정 */
+  padding-top:43px; 
+  padding-bottom: 30px;
+  /* padding: 45px 0; */
+  z-index: 9;
+}
+
+.profile-feature2 {
+  position: relative;
+  padding-top:43px; 
   padding-bottom: 30px;
   /* padding: 45px 0; */
   z-index: 9;

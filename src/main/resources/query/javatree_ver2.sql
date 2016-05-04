@@ -20,6 +20,33 @@ create table codingtemp
    codingno number(6,0) NOT NULL
 ) --20160430 박수지 추가
 
+
+create table bookmark (
+   chaptername varchar2(30) NOT NULL,
+   chaptertime number(6,0) NOT NULL,
+   lectureno number(6,0) NOT NULL
+) 
+
+ALTER TABLE bookmark
+   ADD FOREIGN KEY (lectureno)
+   REFERENCES lecture (lectureno)
+
+   
+create table gunggumnotification(
+id varchar2(20) NOT NULL,
+questionno number(6,0) not null,
+regdate date default sysdate
+)
+
+ALTER TABLE gunggumnotification
+   ADD FOREIGN KEY (id)
+   REFERENCES member_jt (id)
+;
+ALTER TABLE gunggumnotification
+   ADD FOREIGN KEY (questionno)
+   REFERENCES question (questionno)
+;
+
 alter table question modify title varchar2(200); -- 20160430 김영호 추가
 
 alter table subnote add (courseno number (6, 0) not null) -- 20160429 류창우 추가
@@ -126,6 +153,31 @@ alter table studycourse modify (coursename varchar2(100));--20160502 박수지 �
 alter table teachcourse modify (coursename varchar2(100));--20160502 박수지 추가
 
 
+create table bookmark (
+   chaptername varchar2(30) NOT NULL,
+   chaptertime number(6,0) NOT NULL,
+   lectureno number(6,0) NOT NULL
+) 
+
+ALTER TABLE bookmark
+   ADD FOREIGN KEY (lectureno)
+   REFERENCES lecture (lectureno);
+
+create table gunggumnotification(
+id varchar2(20) NOT NULL,
+questionno number(6,0) not null,
+regdate date default sysdate
+)
+ALTER TABLE gunggumnotification
+   ADD FOREIGN KEY (id)
+   REFERENCES member_jt (id)
+;
+ALTER TABLE gunggumnotification
+   ADD FOREIGN KEY (questionno)
+   REFERENCES question (questionno)
+;   
+   
+   
 /* Drop Tables */
 drop table lecturecoding cascade constraints;
 
