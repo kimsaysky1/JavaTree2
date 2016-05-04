@@ -115,7 +115,7 @@
 							<td class="submit-date">
 								<s:a href="%{download}" method="post">${subnoteName}</s:a>
 							</td>
-							<td class="submit-date"><a href='../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>' target="popup" onclick="window.open('../compiler/Compiler.action?lectureno=<s:property value="lectureno"/>','kongPlayer','width=1737,height=950')">Watch</a></td>
+							<td class="submit-date"><a href="javascript:newPopup(<s:property value="lectureno"/>)">Watch</a></td>
 					</s:if>
 								
 					<s:else>
@@ -192,7 +192,24 @@
 
 
 	</section>
-	
+
+<div class="container">
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body">
+          <p></p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <%@include file="/resources/footer.jsp" %>
 
 </body>
@@ -217,7 +234,8 @@
 	<s:if test="message != null">
   		<script type="text/javascript">
    		var result = "${message}";
-   		alert(result);
+   		$("#modalNotification").trigger('click');
+		$('.modal-body > p').html(result);
 	</script>
  </s:if>
 	
@@ -280,6 +298,14 @@
 	    
 	});
 	
+	</script>
+	<script>
+	function newPopup(lectureno) {
+	/* popupWindow = window.open(
+		url,'popUpWindow','height=300,width=400,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes') */
+	popupWindow = window.open(
+			'../compiler/Compiler.action?lectureno='+lectureno ,'kongPlayer','height=950, width=1737, resizable=no,scrollbars=no,menubar=no');
+}
 	</script>
 	<script src="../resources/checkMessage.js"></script>
 	</body>

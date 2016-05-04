@@ -14,7 +14,7 @@
         </action>
         
         <action name="join" class="org.javatree.www.Action.MemberAction" method="insertMember">
-        	<result type="redirect">loginFrom.action</result>
+        	<result>/WEB-INF/views/member/login.jsp</result>
         </action>
         
         <!-- 아이디 중복확인 -->

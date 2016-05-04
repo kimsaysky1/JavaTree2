@@ -73,7 +73,24 @@ function joinForm() {
         </div>
         </div>
         </section>
-		
+
+<div class="container">
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body">
+          <p></p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+	
 <%@include file="/resources/footer.jsp" %>
     
 	<!-- Load jQuery -->
@@ -84,6 +101,14 @@ function joinForm() {
 	<script type="text/javascript" src="../resources/javatree_view/html/js/library/perfect-scrollbar.min.js"></script>
 	<script type="text/javascript" src="../resources/javatree_view/html/js/library/jquery.easing.min.js"></script>
 	<script type="text/javascript" src="../resources/javatree_view/html/js/scripts.js"></script>
+
+<s:if test="message != null">
+  		<script type="text/javascript">
+   		var result = "${message}";
+   		$("#modalNotification").trigger('click');
+		$('.modal-body > p').html(result);
+	</script>
+ </s:if>
 
 </body>
 </html>
