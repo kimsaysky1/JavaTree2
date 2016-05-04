@@ -95,18 +95,32 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 
-	public String insertReply() throws Exception {
-		QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
-		String loginId = (String) session.get("loginId");
-		String loginName = (String) session.get("loginName");
-		reply.setId(loginId);
-		reply.setUsername(loginName);
-		dao.insertReply(reply);
-		notification.setSenderid(loginId);
-		notification.setMessage(loginId + " 님이 답변을 다셨습니다.");
-		dao.insertNotification(notification);
-		question = dao.selectOneQuestion(reply.getQuestionno());
-		replyList = dao.selectAllReply(reply.getQuestionno());
+	public String insertReply() {
+		try{
+			QnaDAO dao = sqlsession.getMapper(QnaDAO.class);
+			String loginId = (String) session.get("loginId");
+			String loginName = (String) session.get("loginName");
+			reply.setId(loginId);
+			reply.setUsername(loginName);
+			dao.insertReply(reply);
+			notification.setSenderid(loginId);
+			notification.setMessage(loginId + " 님이 답변을 다셨습니다.");
+			dao.insertNotification(notification);
+			ArrayList<String> gunggumIdList = dao.selectGunggumNotification(notification.getQuestionno());
+			dao.deleteGunggumNotification(notification.getQuestionno());
+			System.out.println("gunggumIdList: "+gunggumIdList);
+			if(gunggumIdList.size() != 0){
+				for(int i= 0; i < gunggumIdList.size(); i++){
+					notification.setReceiverid(gunggumIdList.get(i));
+					notification.setMessage(loginId + " 님이 회원님이 궁금한 질문에 답변을 다셨습니다.");
+					dao.insertNotification(notification);
+				}
+			}
+			question = dao.selectOneQuestion(reply.getQuestionno());
+			replyList = dao.selectAllReply(reply.getQuestionno());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return SUCCESS;
 	}
 
@@ -353,6 +367,9 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		map.put("questionno", question.getQuestionno());
 		map.put("curious", curious);
 		dao.addCurious(map);
+		id = (String) session.get("loginId");
+		map.put("id", id);
+		dao.addGunggumNotification(map);
 		return SUCCESS;
 	}
 

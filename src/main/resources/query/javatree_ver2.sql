@@ -1,3 +1,17 @@
+create table gunggumnotification(
+id varchar2(20) NOT NULL,
+questionno number(6,0) not null,
+regdate date default sysdate
+)
+ALTER TABLE gunggumnotification
+	ADD FOREIGN KEY (id)
+	REFERENCES member_jt (id)
+;
+ALTER TABLE gunggumnotification
+	ADD FOREIGN KEY (questionno)
+	REFERENCES question (questionno)
+;
+
 alter table lecture modify (lecturename varchar2(100));
 
 create table codingtemp
