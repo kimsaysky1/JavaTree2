@@ -1266,7 +1266,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		
 		courseDAO dao = sqlSession.getMapper(courseDAO.class);
 		Map<String, Object> kong = new HashMap<>();
-		//자신의 강의 여부 체크
 		
 		if(session.get("loginId") != null){
 			kong.put("id", (String)session.get("loginId"));
@@ -1283,7 +1282,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		kong.put("coursename", coursename);
 		kong.put("teacherid", teacherid);
 		
+		//자신의 강의 여부 체크
 		String teacher = dao.checkMyLecture(lectureno);
+		// 내 강의가 아닐 경우
 		if(!teacher.equals((String)session.get("loginId"))){
 		
 		int confirm = dao.updateMemberPoint(kong);
@@ -1307,7 +1308,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			return ERROR;
 		}
 		
-		} // 내 강의가 아닐 경우
+		}else{
+			message = "자신의 강의는 신청할 수 없습니다!";
+		} 
 		selectCourseDefaultDetail(kong);
 		return SUCCESS;
 	}

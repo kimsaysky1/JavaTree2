@@ -420,11 +420,12 @@ div.numberedtextarea-number {
 						<option value='2.0'>2.0</option>
 					</select> 
 					<select class='chap' name="sel" onchange="javascript:selectChapter(this)">
-						<option value='0' selected>B</option>
-						<option value='10'>1Q</option>
-						<option value='150'>2Q</option>
-						<option value='300'>3Q</option>
-						<option value='400'>4Q</option>
+						<option selected>B</option>
+						<s:if test="chapterList.size != 0">
+							<s:iterator value="chapterList">
+							<option value='<s:property value="chaptertime"/>'><s:property value="chaptername"/></option>
+							</s:iterator>
+						</s:if>
 					</select>
 
 					<div id="vol-div">
