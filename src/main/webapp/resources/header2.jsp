@@ -101,6 +101,7 @@
 														<span></span>
 														<div class="div-x"></div>
 													</div>
+													
 													<p></p>
 													<div class="time">
 														<span></span>

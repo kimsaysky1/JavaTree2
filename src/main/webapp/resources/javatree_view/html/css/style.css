@@ -1404,7 +1404,7 @@ textarea {
   -ms-transition: all 0.3s linear 0s;
   -o-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
-   background-color: #14548E;
+   background-color: #11538C;
   color: #fff;
 }
 .form-question {
@@ -1733,10 +1733,6 @@ table.mc-table tbody .new .submissions a:before {
   background-image: url('../images/bg/subimg3.png');
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 2a60bfee58cb0ae266ef141984a2f2116b557ab0
 .bg-sub-banner-course2 {
   background-image: url('../images/bg/forest2.jpg');
 }
@@ -5777,7 +5773,7 @@ margin-left:490px;
 /*-- PROFILE FEATURE --*/
 .profile-feature {
   position: relative;
-  padding-top:43px; 
+  padding-top:20px; 
   padding-bottom: 30px;
   /* padding: 45px 0; */
   z-index: 9;

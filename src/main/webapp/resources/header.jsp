@@ -91,9 +91,11 @@
 										<!-- LIST ITEM -->
 										<li class="ac-new"><a href="#">
 												<div class="list-body">
-													<div class="author">&nbsp;
+													<div class="author">
 														<span></span>
+													
 														<div class="div-x"></div>
+														
 													</div>
 													<p></p>
 													<div class="time">
