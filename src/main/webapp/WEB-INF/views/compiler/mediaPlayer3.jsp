@@ -446,7 +446,6 @@ div.numberedtextarea-number {
 
 
 		<div class="codingpart">
-
 			<div class = "codingboxList">
 				<s:if test="codingList != null">
 					<select class="codingList">
@@ -584,11 +583,19 @@ $(function(){
 	      var codingno =  $(".codingList option:selected").val();
 	      var mycode = $('#doccontent > textarea:visible').val();
 	      $.ajax({
-	         url : '/javatree/course/insertcodinginbox.action',
-	         data : {'codingno' : codingno , 'mycode':mycode},
-	         success : function(response){
-	         },
-	         error:function(){
+	    	 method : 'post' 
+	         , url : '/javatree/course/insertcodinginbox.action'
+	         ,data : 
+	         	{
+	        	 'codingno' : codingno
+	        	 ,'mycode' : mycode
+	        	}
+	         ,success : function(response){
+	        	 console.log('success');
+	        	 
+	         }
+	         ,error:function(response){
+	        	 console.log('error');
 	         }
 	      });
 	   });

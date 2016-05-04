@@ -2723,8 +2723,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			Map<String, Object> kong = new HashMap<>();
 			
+			id = (String)session.get("loginId");
 			if(((String) session.get("loginId")) != null){
-				kong.put("id", (String)session.get("loginId"));
+				kong.put("id", id);
 			}
 			
 			kong.put("start", start);
@@ -2803,9 +2804,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 					default:
 						break;
 					}
-					
 				}
-				
 			}
 			
 			if(totalRecordsCount % countPerPage == 0 ){
@@ -2835,10 +2834,14 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			session.put("pCountPerPage", countPerPage);
 			session.put("pendPageGroup", endPageGroup);
 			
+			
+			//문제보관함 위한 코딩 문제 불러오기
+			
+			codingList = dao.selectAllCodingForId(id);
+			System.out.println("study codingList: "+codingList);
 			return SUCCESS;
 			
 		}
-		
 		
 		//영호 문제보관함 시작
 		

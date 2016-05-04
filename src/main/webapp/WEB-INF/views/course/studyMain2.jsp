@@ -305,9 +305,17 @@
     
    $(function(){
       
+	  $("body").on('click', '#delete_btn', function(){
+		  
+		
+		  
+	  });
+	  
+	  $("body").on('click', '#submit_btn', function(){
+		
+	  });
+	  
       $("#questionBox").on('click',function(){
-         //QuestionBoxforStudy
-         
          var str = '';
          str += '<h4 class="sm black bold">QUESTION BOX</h4>';
          str += '<div class="container"><div class="title-ct"><h3><strong></strong></h3>';

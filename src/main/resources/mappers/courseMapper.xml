@@ -595,7 +595,7 @@
 	
 	<!-- 강의 시청화면에서 문제 보관함 insert -->
 	<insert id="insertcodinginbox" parameterType="map"> 
-	insert into studycodingbox (id,codingno,coding) values(#{id},#{codingno},#{coding}) 
+	insert into studycodingbox(id,codingno,coding) values(#{id},#{codingno},#{coding:VARCHAR}) 
 	</insert>
 	
 	<select id="getCodingContent" parameterType="int"  resultMap="CodingMap">
