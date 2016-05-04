@@ -13,14 +13,20 @@
 
 <style type="text/css">
 .viewtitle {
-	width: 100%;
+	width: 1737px;
 	height: 70px;
 	background: #14548E;
 }
 
 .viewpart{
-
+	width:1737px;
+	height:880px;
 	background-color: #eee;
+}
+
+.popwrap{
+	width:1737px;
+	height:950px;	
 }
 
 .popwrap h3 {
@@ -347,6 +353,12 @@ border: 1px solid #EAEAEA;
 	overflow: scroll;
 	overflow-y: hidden;
 	font-weight: 600;
+	
+}
+
+.linegap{
+margin-top: 3px;
+margin-bottom: 3px;
 }
 
 div.numberedtextarea-wrapper {
@@ -539,11 +551,45 @@ div.numberedtextarea-number {
 
 $(function(){
 	for (i = 1; i <= 40; i++) {
-		$('<div>'+i+'</div>').appendTo(".line_number");
+		$('<div class = "linegap">'+i+'</div>').appendTo(".line_number");
 	}
 	 
 	$('#insertQuestionModal').on('click', function(){
 		var str = '';
+<<<<<<< HEAD
+		str += '<div class="modal-dialog modal-lg">'
+		str += '<div class="modal-content">';
+		str += '<div class="modal-header">';
+		str += '<button type="button" class="close" data-dismiss="modal">&times;</button>';
+		str += '<h4 class="modal-title">Question</h4>';
+		str += '</div>';
+		str += '<div class="modal-body">';
+		str += '<table style=\'width: 800px;\'>';
+		str += '<tr><td style=\'width: 100px; height: 70px; text-align:center;\'><b>FIELD</b></td>';
+		str += '<td><select id="questionTypeno" style="width: 100px;">';
+		str +='<option value="1">PUREJAVA</option>';
+		str +='<option value="2">WEB</option>';
+		str +='<option value="3">MOBILE</option>';
+		str +='<option value="4">IOT</option>';
+		str +='<option value="5">SWING</option>';
+		str +='<option value="6">JDBC</option>';
+		str +='<option value="7">API</option>';
+		str +='<option value="8">SPRING</option>';
+		str +='<option value="9">STRUTS</option>';
+		str += '<option value="10">etcFramework</option>';
+		str += '<option value="11">ETC</option>';
+		str += '</select></td></tr>';
+		str += '<tr><td style=\'height: 20px;\'></td></tr>';
+		str += '<tr><td style=\'width: 100px; text-align:center;\'><b>QUESTION</b></td>';
+		str += '<td><textarea id="questionTitle" style="height: 100px; width: 700px;"></textarea></td></tr>';
+		str += '<tr><td style=\'height: 20px;\'></td></tr>';
+		str += '<tr><td style=\'width: 100px; text-align:center;\'><b>content</b></td>';
+		str += '<td><textarea id="questionContent" style="height: 250px;width: 700px;"></textarea></td></tr>';
+		str += '<tr><td style=\'height: 20px;\'></td></tr></table></div>';
+		str += '<div class="modal-footer">';
+		str += '<input type="button" value="등록" id = "insertQuestionBtn" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
+		str += '<input type="button" value="취소" class="cancel"></div></div></div>';
+=======
       str += '<div class="modal-dialog modal-lg">';
       str += '<div class="modal-content">';
       str += '<div class="modal-header">';
@@ -576,6 +622,7 @@ $(function(){
       str += '<div class="modal-footer">';
       str += '<input type="button" value="등록" id = "insertQuestionBtn" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
       str += '<input type="button" value="취소" class="cancel"></div>';
+>>>>>>> fe9308d6a7f7e69bd9f7ebf0e7bd533141790426
 		
 		$('#writeQuestion').html(str);
 	});
@@ -643,11 +690,11 @@ $(function(){
         	$('.line_number').html('');
         	if(splitedArrayLength <= 40){
 	        	for(var i = 1; i <= splitedArrayLength; i++){
-		        	$('<div>'+i+'</div>').appendTo('.line_number');
+		        	$('<div class = "linegap">'+i+'</div>').appendTo('.line_number');
 	        	}
         	}else{
         		for (i = 1; i <= 40; i++) {
-        			$('<div>'+i+'</div>').appendTo(".line_number");
+        			$('<div class = "linegap">'+i+'</div>').appendTo(".line_number");
         		}
         	}
         	$(".line_number").scrollTop(textarea.scrollTop());
@@ -814,7 +861,7 @@ $(function(){
         
         for (i = 1; i <= 40; i++) {
         	$(".line_number").html('');
-    		$('<div>'+i+'</div>').appendTo(".line_number");
+    		$('<div class = "linegap">'+i+'</div>').appendTo(".line_number");
     	}
         var textarea = $('#doccontent textarea:visible');
     	var width = parseFloat(textarea.css('width'));
@@ -826,11 +873,11 @@ $(function(){
     	$('.line_number').html('');
     	if(splitedArrayLength <= 40){
         	for(var i = 1; i <= splitedArrayLength; i++){
-	        	$('<div>'+i+'</div>').appendTo('.line_number');
+	        	$('<div class = "linegap">'+i+'</div>').appendTo('.line_number');
         	}
     	}else{
     		for (i = 1; i <= 40; i++) {
-    			$('<div>'+i+'</div>').appendTo(".line_number");
+    			$('<div class = "linegap">'+i+'</div>').appendTo(".line_number");
     		}
     	}
     	$(".line_number").scrollTop(textarea.scrollTop());

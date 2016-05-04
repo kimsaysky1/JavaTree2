@@ -47,7 +47,6 @@
 		 <div class="course-list">
 		 
 		 <h2>COURSE-Board</h2>
-		  <br>
 		 <div class = "course-list-option">
 		 <div class="course-list-field">
 		 <fieldset>

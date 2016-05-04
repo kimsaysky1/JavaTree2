@@ -98,7 +98,7 @@
                                     <h3 class="md"><a href="qnaDetail.action?questionno=<s:property value="questionno"/>"><s:property value="title"/></a></h3>
                                 </div>
                                 <div class="post-meta">
-                                    by <a href="#"><s:property value="username"/></a> <s:property value="regdate"/>
+                                    by <a href="#" style="color: #008000;"><s:property value="username"/></a> <s:property value="regdate"/>
                                 </div>                                           
                             </div>
                             <!-- END / POST BODY -->
@@ -188,7 +188,7 @@
                                     	<s:iterator value="bestAllQuestionList" status="incr">
 	                                        <tr>
 	                                         <td class="count"><s:property value="%{#incr.index+1}"/></td>
-	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>">답변자: <s:property value="id"/> - <s:property value="title"/></a></td>                                          
+	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>" style="color: #008000;">답변자: <s:property value="id"/> - <s:property value="title"/></a></td>                                          
 	                                        </tr>
                                     	</s:iterator>
                                     </tbody>
@@ -204,7 +204,7 @@
                                         <s:iterator value="bestRecentQuestionList" status="incr">
 	                                        <tr>
 	                                         <td class="count"><s:property value="%{#incr.index+1}"/></td>
-	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>">답변자: <s:property value="id"/> - <s:property value="title"/></a></td>                                          
+	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>" style="color: #008000;">답변자: <s:property value="id"/> - <s:property value="title"/></a></td>                                          
 	                                        </tr>
                                     	</s:iterator>
                                     </tbody>
@@ -239,7 +239,7 @@
  										<s:iterator value="gunggumAllQuestionList" status="incr">
 	                                        <tr>
 	                                         <td class="count"><s:property value="%{#incr.index+1}"/></td>
-	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>">질문자: <s:property value="id"/> -<s:property value="title"/></a></td>                                          
+	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>" style="color: #008000;">질문자: <s:property value="id"/> -<s:property value="title"/></a></td>                                          
 	                                        </tr>
                                     	</s:iterator>
                                     </tbody>
@@ -255,7 +255,7 @@
                                         <s:iterator value="gunggumRecentQuestionList" status="incr">
 	                                        <tr>
 	                                         <td class="count"><s:property value="%{#incr.index+1}"/></td>
-	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>"><s:property value="title"/></a></td>                                          
+	                                            <td><a href="qnaDetail?questionno=<s:property value="questionno"/>" style="color: #008000;"><s:property value="title"/></a></td>                                          
 	                                        </tr>
                                     	</s:iterator>
                                     </tbody>

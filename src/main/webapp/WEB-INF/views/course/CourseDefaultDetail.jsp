@@ -59,7 +59,7 @@
 		                 <table>
 		                 <tr>
 		                 <td style="width:170px;">  <h4>  Title  </h4> </td>
-		                 <td> <h3 class="big"><s:property value="coursename" /></h3> </td>
+		                 <td> <h4><s:property value="coursename" /></h4> </td>
 		                 </tr>
 		                 <tr>
 		                 <td style="width:170px;"> <h4>  Introduction  </h4> </td>
