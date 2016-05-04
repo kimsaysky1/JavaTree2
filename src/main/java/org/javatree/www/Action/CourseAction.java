@@ -2904,11 +2904,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	        System.out.println("tempList: "+tempList);
 	        if(from != null && from.equals("courseDetail")){
 	        	codingNoList = dao.selectedAllLectureCoding(lectureno);
-	        	System.out.println("codingNoList: "+codingNoList);
 	        	methodForDuplicate(tempList, codingNoList);
 	        	Map request = (Map) ActionContext.getContext().get("request");
 	        	request.put("from","courseDetail");
-	        	System.out.println("돌아왔음");
 	        }else{
 	        	id = (String) session.get("loginId");
 				map.put("id", id);

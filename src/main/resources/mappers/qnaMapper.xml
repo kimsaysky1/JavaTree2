@@ -260,11 +260,15 @@
 		select id from coding where codingno = #{codingno}
 	</select>
 	
-	<insert id="insertNotificationForCoding" parameterType="notification">
+	<!-- <select id="selectQuestionno" resultType="int">
+		select max(questionno) from question 
+	</select> -->
+	
+	<insert id="insertNotificationForCoding" parameterType="Notification">
 		<selectKey keyProperty="questionno" resultType="int" order="BEFORE">
     		select max(questionno) from question 
   		</selectKey>
-  			insert into(senderid, receiverid, message, regdate, questionno, notificationno) 
+  			insert into notification (senderid, receiverid, message, regdate, questionno, notificationno) 
   			values(#{senderid}, #{receiverid}, #{message}, sysdate, #{questionno}, notification_seq.nextVal)
 	</insert>
 

@@ -39,4 +39,5 @@ public interface QnaDAO {
 	public void deleteGunggumNotification(int questionno);
 	public void insertNotificationForCoding(Notification notification);
 	public String selectIdForCoding(int codingnoTemp);
+	public int selectQuestionno();
 }
