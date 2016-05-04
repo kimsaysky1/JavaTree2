@@ -104,6 +104,11 @@ public class QnaAction extends ActionSupport implements SessionAware {
 		question.setTypeno(typenoTemp);
 		typeName = dao.selectTypeName(typenoTemp);
 		dao.insertQuestion(question);
+		/*if(검색어가 있으면){
+			return "question"
+		}else if(){
+			
+		}*/
 		makeQnaDefaultMain(loginId);
 		return SUCCESS;
 	}
