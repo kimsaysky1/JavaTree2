@@ -11,5 +11,4 @@ public class start {
 		Course c = new Course("자바 강의", hList);
 		System.out.println(c);
 	}
-
 }

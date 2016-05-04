@@ -76,20 +76,14 @@ public class QnaAction extends ActionSupport implements SessionAware {
 			stringTemp = stringTemp.substring(5, stringTemp.length()-7);
 			question.setContent(stringTemp);
 			typeName = dao.selectTypeName(typenoTemp);
-			System.out.println("question: "+question);
 			dao.insertQuestion(question);
 			
 			int codingnoTemp = question.getCodingno();
-			System.out.println("codingnoTemp: "+codingnoTemp);
 			String receiverId = dao.selectIdForCoding(codingnoTemp);
-			System.out.println("receiverId: "+receiverId);
 			notification = new Notification();
-			//int questionnoTemp = dao.selectQuestionno();
-			//notification.setQuestionno(questionnoTemp);
 			notification.setReceiverid(receiverId);
 			notification.setSenderid(loginId);
 			notification.setMessage(loginId + " 님이 질문을 하셨습니다.");
-			System.out.println("notification: "+notification);
 			dao.insertNotificationForCoding(notification);
 		}catch(Exception e){
 			e.printStackTrace();

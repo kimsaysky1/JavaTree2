@@ -2474,9 +2474,10 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			id = (String)session.get("loginId");
 			coding.setId(id);
+			//coding.setCodingtemplet("<pre>"+coding.getCodingtemplet()+"</pre>");
+			//coding.setCodinganswer("<pre>"+coding.getCodinganswer()+"</pre>");
 			System.out.println("coding: "+coding);
 			dao.insertCodingfromMain(coding);
-			
 			codingList =  dao.getAllCodingList(id);
 			
 			return SUCCESS;
@@ -2523,9 +2524,11 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public String updateCodingfromMain(){
 			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			
 			id = (String) session.get("loginId");
 			coding.setId(id);
+			//coding.setCodingtemplet("<pre>"+coding.getCodingtemplet()+"</pre>");
+			//coding.setCodinganswer("<pre>"+coding.getCodinganswer()+"</pre>");
+			System.out.println("coding: "+coding);
 			dao.updateCodingfromMain(coding);
 			
 			return SUCCESS;

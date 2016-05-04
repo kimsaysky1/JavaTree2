@@ -583,8 +583,6 @@ $(function(){
 	 $("#goCodingbox").on("click", function(){
 	      var codingno =  $(".codingList option:selected").val();
 	      var mycode = $('#doccontent > textarea:visible').val();
-	      alert(codingno);
-	      alert(mycode);
 	      $.ajax({
 	         url : '/javatree/course/insertcodinginbox.action',
 	         data : {'codingno' : codingno , 'mycode':mycode},
@@ -621,11 +619,9 @@ $(function(){
 				, data: 'question.content=<pre>'+content+'</pre>&question.title='+title+'&question.typeno='+typeno
 						+'&question.codingno='+codingno	
 				, success : function(response){
-					alert('성공');
 					$('#writeQuestion').modal('hide');
 				}
 				, error : function(response){
-					alert('실패');
 					$('#writeQuestion').modal('hide');
 				}
 			})
@@ -791,7 +787,7 @@ $(function(){
 				, success : function(response){
 					var type = response.resultType;
 					var error = response.error;
-					alert(error);
+					console.log(error);
 					if(type == 'jsp'){
 						window.open(response.result);
 						$("#result").val('');
