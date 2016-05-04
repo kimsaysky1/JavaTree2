@@ -93,7 +93,9 @@
 												<div class="list-body">
 													<div class="author">
 														<span></span>
+													
 														<div class="div-x"></div>
+														
 													</div>
 													<p></p>
 													<div class="time">

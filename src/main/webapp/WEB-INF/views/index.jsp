@@ -27,8 +27,9 @@
 <%@include file="/resources/header.jsp" %>
 
 		<!-- HOME SLIDER -->
-		
-		<section class="slide" style="background-image: url(resources/javatree_view/html/images/homeslider/mainimg_2.jpg)">
+
+		<section class="slide" style="background-image: url(resources/javatree_view/html/images/homeslider/mainimg_3.jpg)">
+		<div class="awe-overlay overlay-color-3"></div>
 			<div class="container">
 				<div class="slide-cn" id="slide-home">
 					<!-- SLIDE ITEM -->

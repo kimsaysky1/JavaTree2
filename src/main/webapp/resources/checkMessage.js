@@ -15,7 +15,7 @@ $(function(){
 							var author = $('.author');
 							var li = $('<li class="ac-new"></li>');
 							li.html('<a href="/javatree/qna/qnaDetail.action?notificationCheck=true&questionno='+notification.questionno+'&notificationno='+notification.notificationno+'"><div class="list-body"><div class="author"><span>'+notification.senderid+
-									'</span><div class="div-x"></div></div>nbsp;<p>'+notification.message+'</p><div class="time"><span>'+notification.regdate+'</span></div></div></a>').appendTo(".list-notification");
+									'</span><div class="div-x"></div></div>&nbsp;<p>'+notification.message+'</p><div class="time"><span>'+notification.regdate+'</span></div></div></a>').appendTo(".list-notification");
 						});
 					}
 				}
@@ -42,7 +42,7 @@ $(function(){
 								var author = $('.author');
 								var li = $('<li class="ac-new"></li>');
 								li.html('<a href="/javatree/qna/qnaDetail.action?notificationCheck=true&questionno='+notification.questionno+'&notificationno='+notification.notificationno+'"><div class="list-body"><div class="author"><span>'+notification.senderid+
-										'</span><div class="div-x"></div></div>nbsp;<p>'+notification.message+'</p><div class="time"><span>'+notification.regdate+'</span></div></div></a>').appendTo(".list-notification");
+										'</span><div class="div-x"></div></div>&nbsp;<p>'+notification.message+'</p><div class="time"><span>'+notification.regdate+'</span></div></div></a>').appendTo(".list-notification");
 							});
 						}
 					}
