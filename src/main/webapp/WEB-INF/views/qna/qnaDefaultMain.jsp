@@ -36,9 +36,12 @@
             <div class="sub-banner-content">
                 <h4 class="md" style="color: #E3E3E3; text-align: center;">
                 <!-- JAVATree &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                <s:if test="%{#session.loginId != null}">
+                			<s:if test="%{#session.loginId != null}">
 								${session.loginId} &nbsp; , Welcome to the JavaTree!
 							</s:if>
+							<s:else>
+								Welcome to the JavaTree!
+							</s:else>
                 
                 </h4><!-- <h2 class="text-center">JAVATree</h2> -->
             </div>

@@ -97,11 +97,11 @@
 				</div>
 				<div class="question-content-wrap">
 					<div class="question-content">
-						<h4 class="sm">QUESTION BOX</h4>
+						<h4 class="sm">INSERT QUESTION </h4>
 						<table style='width: 1000px;'>
 							<tr>
 								<td style='width: 400px;'><b>ALL QUESTION</b><br /> 
-								<select multiple="multiple" id='lstBox1'style='width: 400px; height: 630px;'>
+								<select multiple="multiple" id='lstBox1'style='width: 400px; height: 600px;'>
 										<s:iterator value="codingList" status="st">   
 											<option value="<s:property value="codingquestion"/>"><s:property value="codingquestion"/></option>
 										 </s:iterator>
@@ -112,7 +112,7 @@
 									<table style='width: 550px;'>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>QUESTION</b></td>
-											<td><textarea style="height: 60px; width: 400px;" id="q_title"name = "coding.codingquestion"></textarea></td>
+											<td><textarea style="height: 55px; width: 370px;" id="q_title"name = "coding.codingquestion"></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
@@ -120,7 +120,7 @@
 										</tr>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>CODE</b></td>
-											<td><textarea style="height: 210px; width: 400px;" id = "codebox" name = "coding.codingtemplet"></textarea></td>
+											<td><textarea style="height: 210px; width: 370px;" id = "codebox" name = "coding.codingtemplet"></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
@@ -128,7 +128,7 @@
 										</tr>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>ANSWER</b></td>
-											<td><textarea style="height: 220px; width: 400px;" id = "answerbox" name ="coding.codinganswer"></textarea></td>
+											<td><textarea style="height: 215px; width: 370px;" id = "answerbox" name ="coding.codinganswer"></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>

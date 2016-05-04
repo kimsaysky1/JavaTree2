@@ -104,7 +104,7 @@
 								  <s:if test="courseList == null">
 								
 								<div class="nonelist" align="center">
-								<h3>정 보 없 음 </h3>
+								<h5 class="sm" style="text-align: center;">Course Does not exist</h5>
 								</div>
 								</s:if>
 				

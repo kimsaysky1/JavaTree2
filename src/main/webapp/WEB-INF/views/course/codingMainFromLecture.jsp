@@ -92,12 +92,16 @@
                      <tr>
                         <td style='width: 400px;'><b>ALL QUESTION</b><br /> 
                   <!-- 보유 코딩 문제 리스트 -->
-                           <select multiple="multiple" id='lstBox1' style='width: 400px; height: 570px;' >
+                           <select multiple="multiple" id='lstBox1' style='width: 400px; height: 540px;' >
                                <s:iterator value="codingList" status="st">   
                                  <option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>
                                </s:iterator>
                            </select>
                         <!-- 보유 코딩 문제 리스트 끝 -->   
+                          
+                           <div class="form-action"><!-- <div class="form-action2"> -->
+								<input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
+							</div>
                            
                         </td>
                         <td style='width: 50px; text-align: center; vertical-align: middle;'>
@@ -108,7 +112,7 @@
                           
                            <!-- <br><br> -->
                            <!-- 강의 해당 코딩문제 리스트 -->
-                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 500px;'>                          
+                           <select multiple="multiple" id='lstBox2' style='width: 400px; height: 540px;'>                          
                       <s:iterator value="codingListForSpecificLecture" status="st">  
                       		<option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>	
                       </s:iterator>

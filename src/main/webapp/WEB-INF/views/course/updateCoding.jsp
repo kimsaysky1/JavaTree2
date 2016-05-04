@@ -102,7 +102,7 @@
 				</div>
 				<div class="question-content-wrap">
 					<div class="question-content">
-						<h4 class="sm">QUESTION BOX</h4>
+						<h4 class="sm">UPDATE QUESTION</h4>
 
 						<table style='width: 1000px;'>
 							<tr>
@@ -118,7 +118,7 @@
 									<table style='width: 550px;'>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>QUESTION</b></td>
-											<td><textarea style="height: 60px;" id="q_title" name = "coding.codingquestion" placeholder=""></textarea></td>
+											<td><textarea style="height: 55px; width: 370px;" id="q_title" name = "coding.codingquestion" placeholder=""></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
@@ -126,7 +126,7 @@
 										</tr> 
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>CODE</b></td>
-											<td><textarea style="height: 220px;" id = "codebox" name = "coding.codingtemplet"  placeholder=""></textarea></td>
+											<td><textarea style="height: 210px; width: 370px;" id = "codebox" name = "coding.codingtemplet"  placeholder=""></textarea></td>
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
@@ -134,17 +134,29 @@
 										</tr>
 										<tr>
 											<td style='width: 100px; text-align: center;'><b>ANSWER</b></td>
-											<td><textarea style="height: 220px;" id = "answerbox" name ="coding.codinganswer" placeholder=""></textarea></td>
+											<td><textarea style="height: 215px; width: 370px;" id = "answerbox" name ="coding.codinganswer" placeholder=""></textarea></td>
 										
 										</tr>
 										<tr>
 											<td style='height: 20px;'></td>
 											<td></td>
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td><input type="hidden" id = "codeno" name ="coding.codingno" value ="" ></td>
 											<td><input type="button" id = "submit_btn"  value="수정" style="float: right;"></td>
+										</tr> -->
+										
+										<tr>
+											<td ></td>
+											<td>
+											 <div class="form-action" ><!-- <div class="form-action2"> -->
+													<input type="hidden" id = "codeno" name ="coding.codingno" value ="" >
+													<input type="button" id = "submit_btn"  value="수정" class="submit mc-btn-3 btn-style-1"><!-- style="float: right;" --> 
+											</div>
+											</td>
 										</tr>
+										
+										
 									</table>
 								</td>
 							</tr>
