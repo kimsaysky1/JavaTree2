@@ -92,84 +92,7 @@
          class="quizz-intro-section learn-section">
          <div class="container">
 
-<<<<<<< HEAD
-				<div class="title-ct">
-					<h3>
-						<strong></strong>
-					</h3>
-					<div class="tt-right">
-						<a href="#" class="skip"><i class="icon md-arrow-right"></i></a>
-					</div>
-				</div>
-				<div class="question-content-wrap">
-					<div class="question-content">
-						<h4 class="sm">UPDATE QUESTION</h4>
 
-						<table style='width: 1000px;'>
-							<tr>
-								<td style='width: 400px;'><b>ALL QUESTION</b><br /> 
-								<select multiple="multiple" id='codinglistbox'style='width: 400px; height: 600px;'>
-										<s:iterator value="codingList" status="st">   
-											<option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>
-										 </s:iterator>
-								</select>
-								</td>
-								<td style='width: 30px;'></td>
-								<td>
-									<table style='width: 550px;'>
-										<tr>
-											<td style='width: 100px; text-align: center;'><b>QUESTION</b></td>
-											<td><textarea style="height: 55px; width: 370px;" id="q_title" name = "coding.codingquestion" placeholder=""></textarea></td>
-										</tr>
-										<tr>
-											<td style='height: 20px;'></td>
-											<td></td>
-										</tr> 
-										<tr>
-											<td style='width: 100px; text-align: center;'><b>CODE</b></td>
-											<td><textarea style="height: 210px; width: 370px;" id = "codebox" name = "coding.codingtemplet"  placeholder=""></textarea></td>
-										</tr>
-										<tr>
-											<td style='height: 20px;'></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td style='width: 100px; text-align: center;'><b>ANSWER</b></td>
-											<td><textarea style="height: 215px; width: 370px;" id = "answerbox" name ="coding.codinganswer" placeholder=""></textarea></td>
-										
-										</tr>
-										<tr>
-											<td style='height: 20px;'></td>
-											<td></td>
-										</tr>
-										<!-- <tr>
-											<td><input type="hidden" id = "codeno" name ="coding.codingno" value ="" ></td>
-											<td><input type="button" id = "submit_btn"  value="수정" style="float: right;"></td>
-										</tr> -->
-										
-										<tr>
-											<td ></td>
-											<td>
-											 <div class="form-action" ><!-- <div class="form-action2"> -->
-													<input type="hidden" id = "codeno" name ="coding.codingno" value ="" >
-													<input type="button" id = "submit_btn"  value="수정" class="submit mc-btn-3 btn-style-1"><!-- style="float: right;" --> 
-											</div>
-											</td>
-										</tr>
-										
-										
-									</table>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-		</section>
-	</div>
-	<!-- END / PAGE WRAP -->
-	
-=======
             <div class="title-ct">
                <h3>
                   <strong></strong>
@@ -246,7 +169,6 @@
    </div>
    <!-- END / PAGE WRAP -->
    
->>>>>>> fe9308d6a7f7e69bd9f7ebf0e7bd533141790426
 <div class="container">
   <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
   <!-- Modal -->

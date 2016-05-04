@@ -265,75 +265,7 @@
                         <!-- 베스트 랭킹 탭 끝 -->
   
                     </aside>    
-<<<<<<< HEAD
-				</div>
-				  <!-- END / SIDEBAR -->
-				  </div>
-				  </div>
-				  </section>
-				  
-	<div class="form-submit-1">
-		<input type="button" style="display:none;" id="questionBoxModal" class="mc-btn btn-style-1" data-toggle="modal" data-target="#myModal"/>
-       		<div class="container" ">
-				<div class="modal fade" style="height: 900px; width: 1500px;  margin-left: 200px;" id="myModal" role="dialog"></div>
-        	</div>
-        	        	
-        	
-	</div>
-				  <%@include file="/resources/footer.jsp" %>
-				  
-	
-	
-	<!-- Load jQuery -->
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/jquery.owl.carousel.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/jquery.appear.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/perfect-scrollbar.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/library/jquery.easing.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/javatree_view/html/js/scripts.js"></script>
-		
-	<script type="text/javascript">
-	
-	
-    
-	$(function(){
-		
-		$("#questionBox").on('click',function(){
-			//QuestionBoxforStudy
-			
-			var str = '';
-			str += '<h4 class="sm black bold">QUESTION BOX</h4>';
-			str += '<div class="container"><div class="title-ct"><h3><strong></strong></h3>';
-			str += '<div class="tt-right"><a href="#" class="skip"><i class="icon md-arrow-right"></i></a></div></div>';
-			str += '<div class="question-content-wrap"><div class="question-content"><h4 class="sm">QUESTION BOX</h4>';
-			str += '<table style=\'width: 1000px;\'><tr><td style=\'width: 400px;\'><b>내가 저장한 문제</b><br />';
-			str += '<select multiple="multiple" id=\'lstBox1\'style=\'width: 400px; height: 600px;\'>';
-			str += '<s:iterator value="codingList" status="st">';
-			str += '<option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>';
-			str += '</s:iterator></select></td>';
-			str += '<td style=\'width: 30px;\'></td><td><form id = "form1" action="insertCodingfromMain">';
-			str += '<table style=\'width: 550px;\'><tr><td style=\'width: 100px; text-align: center;\'><b>QUESTION</b></td>';
-			str += '<td><textarea style="height: 60px;" id="q_title"name = "coding.codingquestion" READONLY></textarea></td></tr>';
-			str += '<tr><td style=\'height: 20px;\'></td><td></td></tr>';
-			str += '<tr><td style=\'width: 100px; text-align: center;\'><b>CODE</b></td>';
-			str += '<td><textarea style="height: 170px;" id = "codebox" name = "coding.codingtemplet" READONLY></textarea></td></tr>';
-			str += '<tr><td style=\'height: 20px;\'></td><td></td></tr>';
-			str += '<tr><td style=\'width: 100px; text-align: center;\'><b>MY CODE</b></td>';
-			str += '<td ><textarea id = "mycodebox" style="height: 220px;" ></textarea></td></tr>';
-			str += '<tr><td style=\'height: 20px;\'></td><td></td></tr>';
-			str += '<tr><td><div class="form-action" ><input type="button" id = "delete_btn" class="submit mc-btn-3 btn-style-1" value="삭제" style="float: right;"></div></td>';
-			str += '<td><div class="form-action" ><input type="button" id = "submit_btn" class="submit mc-btn-3 btn-style-1"  value="정답보기" style="float: right;"></div></td></tr>';
-			str += '</table></td></tr></table>';
-			str += '</div></div></div></section></div>';
-=======
+
             </div>
               <!-- END / SIDEBAR -->
               </div>
@@ -401,7 +333,9 @@
          str += '<td><div class="form-action" ><input type="button" id = "submit_btn" class="submit mc-btn-3 btn-style-1"  value="정답보기" style="float: right;"></div></td></tr>';
          str += '</table></td></tr></table>';
          str += '</div></div></div></section></div>';
->>>>>>> fe9308d6a7f7e69bd9f7ebf0e7bd533141790426
+         
+         
+         
 
          $("#myModal").html(str);
          $("#questionBoxModal").trigger('click');
@@ -517,8 +451,6 @@
                       /*  var divTag = $('<div class="tbody"></div>');
                       divTag.html('<div class="item"><div class="submissions">Title</div><div class="total-subm">Submited</div><div class="replied">Replied</div><div class="latest-reply">11. Jul , 2014</div><div class="link tb-icon"><a href="#"><i class="fa fa-play-circle-o"></i></a></div></div>')
                       .insertAfter($(this));     */        
-                   
-                          
                       
            });
        });
