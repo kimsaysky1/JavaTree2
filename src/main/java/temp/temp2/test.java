@@ -6,14 +6,11 @@ public class test {
 
 	public static void main(String[] args) {
 		
-		ArrayList<Integer> list = new ArrayList<>();
-		
-		list.add(1);
-		
-		if(list.contains(1)){
-			System.out.println("ㅇㅋ");
-		}else{
-			System.out.println("노노");
+		for(int i = 1; i <= 5; i++){
+			for(int j = 0; j < i; j++){
+				System.out.print('*');
+			}
+			System.out.println();
 		}
 	}
 }

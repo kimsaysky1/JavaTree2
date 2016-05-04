@@ -29,7 +29,6 @@
 function insertLectureForm(){
 	var form = document.getElementById("insertLectureForm");
 	var upload= document.getElementsByName("upload");
-	alert(upload);
 /* 	var lecturename= document.getElementById("lecturename").value;
 	var regdate= document.getElementById("regdate").value;
 	

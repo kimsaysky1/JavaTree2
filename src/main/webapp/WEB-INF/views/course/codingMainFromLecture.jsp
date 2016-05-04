@@ -114,7 +114,7 @@
                            <!-- 강의 해당 코딩문제 리스트 -->
                            <select multiple="multiple" id='lstBox2' style='width: 400px; height: 540px;'>                          
                       <s:iterator value="codingListForSpecificLecture" status="st">  
-                      		<option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>	
+                            <option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>   
                       </s:iterator>
                            </select>
                            <!-- 강의 해당 코딩문제 리스트 끝-->
@@ -123,10 +123,10 @@
                            <input type="button" id="btnSave" value="저장" style="float: right; margin-right: 28px;"> -->
                            
                            <div class="form-action"><!-- <div class="form-action2"> -->
-								<input type="button" id="btnSave"  value="저장" class="submit mc-btn-3 btn-style-1" />
-								<input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
-								<input type="button" id="btnCancel" value="창닫기" class="submit mc-btn-3 btn-style-1">
-							</div>
+                        <input type="button" id="btnSave"  value="저장" class="submit mc-btn-3 btn-style-1" />
+                        <input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
+                        <input type="button" id="btnCancel" value="창닫기" class="submit mc-btn-3 btn-style-1">
+                     </div>
                         </td>
                      </tr>
                   </table>
@@ -214,7 +214,7 @@ $(document).ready(function() {
        var from = "${from}";
        var lectureno = "${lectureno}";
          $.ajax({
-        	 method : 'get'
+            method : 'get'
              , url : 'tempLectureCodingforLecture.action'
              , data : 'StringForSaveCoding='+StringForSaveCoding+'&from='+from+'&lectureno='+lectureno
              , dataType : 'json'
@@ -229,21 +229,21 @@ $(document).ready(function() {
     });
     
     $('#btnDelete').on('click',function(){
-    	var StringForSaveCoding = [];
-    	
-    	$('#lstBox1 option:selected').each(function(index) {
-    		StringForSaveCoding.push(Number($(this).val())) ;
+       var StringForSaveCoding = [];
+       
+       $('#lstBox1 option:selected').each(function(index) {
+          StringForSaveCoding.push(Number($(this).val())) ;
            });
-    	$.ajax({
+       $.ajax({
             url : 'deleteCoding.action'
             , data : 'StringForSaveCoding='+StringForSaveCoding
             , dataType : 'json'
             , success : function(response){
-            	$('#lstBox1').empty();
-            	var list = response.codingList;
-            	list.forEach(function(coding){
-	            	$('<option value="'+coding.codingno+'">'+coding.codingquestion+'</option>').appendTo('#lstBox1');
-            	});
+               $('#lstBox1').empty();
+               var list = response.codingList;
+               list.forEach(function(coding){
+                  $('<option value="'+coding.codingno+'">'+coding.codingquestion+'</option>').appendTo('#lstBox1');
+               });
                $("#modalNotification").trigger('click');
             }
             , error : function(response){

@@ -37,4 +37,7 @@ public interface QnaDAO {
 	public void addGunggumNotification(Map map);
 	public ArrayList<String> selectGunggumNotification(int questionno);
 	public void deleteGunggumNotification(int questionno);
+	public void insertNotificationForCoding(Notification notification);
+	public String selectIdForCoding(int codingnoTemp);
+	public int selectQuestionno();
 }
