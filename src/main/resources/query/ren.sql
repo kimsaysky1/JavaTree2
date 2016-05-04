@@ -1,3 +1,8 @@
+SELECT coursename, courseno, username, to_char(regdate, 'YYYY-MM-DD') as regdate, id as teacherid 
+		from (select rownum as rnum, T1.* from (select * from course
+		order by courseno desc) T1)
+		where rnum >= 1 and rnum <= 7 
+
 create table bookmark (
    chaptername varchar2(20) NOT NULL,
    chaptertime number(6,0) NOT NULL,

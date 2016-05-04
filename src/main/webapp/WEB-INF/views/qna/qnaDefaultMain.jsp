@@ -295,6 +295,7 @@
 		});
 		
 		$('#insertQuestionModal').on('click', function(){
+
 			var str = '';
 			str += '<div class="modal-dialog modal-lg">'
 			str += '<div class="modal-content">';
