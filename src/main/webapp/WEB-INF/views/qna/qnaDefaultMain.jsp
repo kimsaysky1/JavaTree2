@@ -385,7 +385,7 @@
 						
 					}
 					, error : function(response){
-						alert('실패');
+						console.log('실패');
 					}
 			});
 		});
@@ -484,7 +484,7 @@
 		 sum = $(":checkbox:checked").length;
 		 
 		 if(sum > 5){
-			 alert( sum + "개 이상은 선택할 수 없습니다." );	
+			 console.log( sum + "개 이상은 선택할 수 없습니다." );	
 			 $(asd).prop("checked",false);	 
 		 }
 		
@@ -612,7 +612,7 @@
 		 sum = $(":checkbox:checked").length;
 		 var order;
 		 if(sum == 0){
-			 alert("한 분야 이상은 선택해야 합니다.");	
+			 console.log("한 분야 이상은 선택해야 합니다.");	
 		 }else{
 			 order = selectObj.value;
 			

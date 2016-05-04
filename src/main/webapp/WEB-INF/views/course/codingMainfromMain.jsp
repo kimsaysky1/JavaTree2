@@ -104,16 +104,19 @@
                      <tr>
                         <td style='width: 400px;'><b>ALL QUESTION</b><br /> 
                   <!-- 보유 코딩 문제 리스트 -->
-                           <select multiple="multiple" id='lstBox1' style='width: 400px; height: 600px;' >
+                           <select multiple="multiple" id='lstBox1' style='width: 400px; height: 540px;' >
                                <s:iterator value="codingList" status="st">   
                                  <option value="<s:property value="codingno"/>"><s:property value="codingquestion"/></option>
                                </s:iterator>
                            </select>
-                        <!-- 보유 코딩 문제 리스트 끝 -->   
+                        <!-- 보유 코딩 문제 리스트 끝 --> 
+                         <div class="form-action"><!-- <div class="form-action2"> -->
+                        <input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
+                     </div>  
                            
                         </td>
                         <td style='width: 50px; text-align: center; vertical-align: middle;'>
-                           	<input type='button' id='btnRight' value='  >  ' /> 
+                              <input type='button' id='btnRight' value='  >  ' /> 
                             <input type='button' id='btnLeft' value='  <  ' />
                           <!--  <td class="author"><a href="" id='btnRight'>>></a></td><br />
                            <td class="author"><a href="" id='btnLeft'>Delete</a></td> -->
@@ -155,29 +158,28 @@
                            
                            
                            <div class="form-action"><!-- <div class="form-action2"> -->
-								<input type="button" value="저장" class="submit mc-btn-3 btn-style-1" id="btnSave" />
-								<input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
-								<input type="button" id="btnCancel" value="창닫기" class="submit mc-btn-3 btn-style-1">
-							</div>
-							
-							
+                        <input type="button" value="저장" class="submit mc-btn-3 btn-style-1" id="btnSave" />
+                        <input type="button" id="btnCancel" value="창닫기" class="submit mc-btn-3 btn-style-1">
+                     </div>
+                     
+                     
                            
                            <!-- <div id="courseDetail" class="courseDetail learn-section">
-								<div class="container">
-									<div class="table-student-submission">
-										<table class="mc-table">
-                           						<tbody>
-                           							<tr class="new">
-                           								<td class="author" id="btnSave">저장</td>
-	                           							<td class="author" id="btnCancel" >창닫기</td>
-	                           							<td class="author" id="btnDelete" >삭제</td>
-	                           							
-	                           						</tr>
-                           						</tbody>
-                           				</table>
-                           			</div>
-                           		</div>
-                           	</div>		 -->
+                        <div class="container">
+                           <div class="table-student-submission">
+                              <table class="mc-table">
+                                             <tbody>
+                                                <tr class="new">
+                                                   <td class="author" id="btnSave">저장</td>
+                                                   <td class="author" id="btnCancel" >창닫기</td>
+                                                   <td class="author" id="btnDelete" >삭제</td>
+                                                   
+                                                </tr>
+                                             </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </div>       -->
                            
                         </td>
                      </tr>
@@ -315,24 +317,28 @@ $(document).ready(function() {
     });
     
     $('#btnDelete').on('click',function(){
-    	var StringForSaveCoding = [];
-    	
-    	$('#lstBox1 option:selected').each(function(index) {
-    		StringForSaveCoding.push(Number($(this).val())) ;
+       var StringForSaveCoding = [];
+       
+       $('#lstBox1 option:selected').each(function(index) {
+          alert($(this).val());
+          StringForSaveCoding.push(Number($(this).val())) ;
            });
-    	$.ajax({
+       
+       $.ajax({
             url : 'deleteCoding.action'
             , data : 'StringForSaveCoding='+StringForSaveCoding
             , dataType : 'json'
             , success : function(response){
-            	$('#lstBox1').empty();
-            	var list = response.codingList;
-            	list.forEach(function(coding){
-	            	$('<option value="'+coding.codingno+'">'+coding.codingquestion+'</option>').appendTo('#lstBox1');
-            	});
+               alert('성공');
+               $('#lstBox1').empty();
+               var list = response.codingList;
+               list.forEach(function(coding){
+                  $('<option value="'+coding.codingno+'">'+coding.codingquestion+'</option>').appendTo('#lstBox1');
+               });
                $("#modalNotification").trigger('click');
             }
             , error : function(response){
+               alert('실패');
                console.log('에러');
             }
          });
