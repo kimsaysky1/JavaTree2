@@ -105,9 +105,9 @@
 	<select id="searchCourse" resultType="Course" parameterType="map">
 		
 		SELECT coursename, courseno, username, to_char(regdate, 'YYYY-MM-DD') as regdate, id as teacherid 
-		from (select rownum as rnum, T1.* from (select * from course where 
+		from (select rownum as rnum, T1.* from (select * from course  
 		<if test="searchText != null">
-		coursename like #{searchText} 
+		where coursename like #{searchText} 
 		</if> 
 		order by courseno desc) T1)
 		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end} 
@@ -557,8 +557,6 @@
 		set introdution=#{introdution}
 		where courseno=#{courseno}
 	</update>
-	
-	
 	
 	<!-- 강의찾기 mediaPlayerForm -->
 	<select id="selectLecture" parameterType="int" resultType="Lecture">

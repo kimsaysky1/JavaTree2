@@ -432,11 +432,12 @@ div.numberedtextarea-number {
 						<option value='2.0'>2.0</option>
 					</select> 
 					<select class='chap' name="sel" onchange="javascript:selectChapter(this)">
-						<option value='0' selected>B</option>
-						<option value='10'>1Q</option>
-						<option value='150'>2Q</option>
-						<option value='300'>3Q</option>
-						<option value='400'>4Q</option>
+						<option selected>B</option>
+						<s:if test="chapterList.size != 0">
+							<s:iterator value="chapterList">
+							<option value='<s:property value="chaptertime"/>'><s:property value="chaptername"/></option>
+							</s:iterator>
+						</s:if>
 					</select>
 
 					<div id="vol-div">
@@ -555,6 +556,7 @@ $(function(){
 	 
 	$('#insertQuestionModal').on('click', function(){
 		var str = '';
+<<<<<<< HEAD
 		str += '<div class="modal-dialog modal-lg">'
 		str += '<div class="modal-content">';
 		str += '<div class="modal-header">';
@@ -587,6 +589,40 @@ $(function(){
 		str += '<div class="modal-footer">';
 		str += '<input type="button" value="등록" id = "insertQuestionBtn" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
 		str += '<input type="button" value="취소" class="cancel"></div></div></div>';
+=======
+      str += '<div class="modal-dialog modal-lg">';
+      str += '<div class="modal-content">';
+      str += '<div class="modal-header">';
+      str += '<button type="button" class="close" data-dismiss="modal">&times;</button>';
+      str += '<h4 class="modal-title">Question</h4>';
+      str += '</div>';
+      str += '<div class="modal-body">';
+      str += '<table style=\'width: 800px;\'>';
+      str += '<tr><td style=\'width: 100px; height: 70px; text-align:center;\'><b>FIELD</b></td>';
+      str += '<td><select id="questionTypeno" style="width: 100px;">';
+      str +='<option value="1">PUREJAVA</option>';
+      str +='<option value="2">WEB</option>';
+      str +='<option value="3">MOBILE</option>';
+      str +='<option value="4">IOT</option>';
+      str +='<option value="5">SWING</option>';
+      str +='<option value="6">JDBC</option>';
+      str +='<option value="7">API</option>';
+      str +='<option value="8">SPRING</option>';
+      str +='<option value="9">STRUTS</option>';
+      str += '<option value="10">etcFramework</option>';
+      str += '<option value="11">ETC</option>';
+      str += '</select></td></tr>';
+      str += '<tr><td style=\'height: 20px;\'></td></tr>';
+      str += '<tr><td style=\'width: 100px; text-align:center;\'><b>QUESTION</b></td>';
+      str += '<td><textarea id="questionTitle" style="height: 100px; width: 700px;"></textarea></td></tr>';
+      str += '<tr><td style=\'height: 20px;\'></td></tr>';
+      str += '<tr><td style=\'width: 100px; text-align:center;\'><b>content</b></td>';
+      str += '<td><textarea id="questionContent" style="height: 250px;width: 700px;"></textarea></td></tr>';
+      str += '<tr><td style=\'height: 20px;\'></td></tr></table></div>';
+      str += '<div class="modal-footer">';
+      str += '<input type="button" value="등록" id = "insertQuestionBtn" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
+      str += '<input type="button" value="취소" class="cancel"></div>';
+>>>>>>> fe9308d6a7f7e69bd9f7ebf0e7bd533141790426
 		
 		$('#writeQuestion').html(str);
 	});
@@ -594,8 +630,6 @@ $(function(){
 	 $("#goCodingbox").on("click", function(){
 	      var codingno =  $(".codingList option:selected").val();
 	      var mycode = $('#doccontent > textarea:visible').val();
-	      alert(codingno);
-	      alert(mycode);
 	      $.ajax({
 	         url : '/javatree/course/insertcodinginbox.action',
 	         data : {'codingno' : codingno , 'mycode':mycode},
@@ -625,16 +659,16 @@ $(function(){
 			var typeno = $("#questionTypeno option:selected").val();
 			var title = $("#questionTitle").val();
 			var content = $("#questionContent").val();
+			var codingno =  $(".codingList option:selected").val();
 			$.ajax({
 				type: 'POST'
 				, url: '/javatree/qna/insertQuestionByModal.action'
 				, data: 'question.content=<pre>'+content+'</pre>&question.title='+title+'&question.typeno='+typeno
+						+'&question.codingno='+codingno	
 				, success : function(response){
-					alert('성공');
 					$('#writeQuestion').modal('hide');
 				}
 				, error : function(response){
-					alert('실패');
 					$('#writeQuestion').modal('hide');
 				}
 			})
@@ -800,7 +834,7 @@ $(function(){
 				, success : function(response){
 					var type = response.resultType;
 					var error = response.error;
-					alert(error);
+					console.log(error);
 					if(type == 'jsp'){
 						window.open(response.result);
 						$("#result").val('');

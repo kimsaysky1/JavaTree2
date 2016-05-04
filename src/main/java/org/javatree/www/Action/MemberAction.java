@@ -68,7 +68,9 @@ public class MemberAction extends ActionSupport implements SessionAware {
 
 	private Map<String, Object> session;
 	private boolean duplicated;
-
+	
+	private String message;
+	
 	@Autowired
 	SqlSession sqlSession;
 	private static final Logger logger = LoggerFactory.getLogger(MemberAction.class);
@@ -129,6 +131,7 @@ public class MemberAction extends ActionSupport implements SessionAware {
 		System.out.println("join 들어옴4");
 		dao.insertAbility(abilityList);
 		System.out.println("join 들어옴5");
+		message = "가입 성공!";
 		return SUCCESS;
 	}
 
@@ -451,5 +454,14 @@ public class MemberAction extends ActionSupport implements SessionAware {
 	public void setNotificationList(List<Notification> notificationList) {
 		this.notificationList = notificationList;
 	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 	
 }

@@ -295,6 +295,7 @@
 		});
 		
 		$('#insertQuestionModal').on('click', function(){
+
 			var str = '';
 			str += '<div class="modal-dialog modal-lg">'
 			str += '<div class="modal-content">';
@@ -359,10 +360,33 @@
 							+question.title+'</a></h3></div><div class="post-meta">by'
 							+question.username+' '+question.regdate+'</div>').appendTo(".blog-list-content");
 						});
-						$('<ul class="pager"><li><a href="#" id= "watchMore">더보기</a></li></ul>').appendTo('.blog-list-content');
+						//$('<ul class="pager"><li><a href="#" id= "watchMore">더보기</a></li></ul>').appendTo('.blog-list-content');
+						 var curPage = Number(response.currentPage);
+			        	 var curPagePlus = Number(response.currentPage+1);
+			        	 var curPageMinus = Number(response.currentPage-1);
+			        	 var endPage =  Number(response.endPageGroup);
+			        	 			        	 
+			        	 var paging = $('<ul class="pager"></ul>');
+			        	 if(curPage == 1 & endPage == 1){
+			        		 var paging0 = '<li><a href="#">'+ curPage +'</a></li>';
+			        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
+			        	 }else if(curPage == 1 & endPage != 1){
+			        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+			        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
+			        	 }else if(curPage == endPage & endPage != 1){
+			        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
+			        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
+			        	 }else if(curPage == 0 & endPage == 1){
+			        		 var paging4 = '<li></li>';	
+			        		 paging.html(paging4).insertAfter(".blog-list-content > div:last");
+			        	 }else{
+			        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+			        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
+			        	 }
+						
 					}
 					, error : function(response){
-						alert('실패');
+						console.log('실패');
 					}
 			});
 		});
@@ -391,7 +415,29 @@
 							+question.title+'</a></h3></div><div class="post-meta">by'
 							+question.username+' '+question.regdate+'</div>').appendTo(".blog-list-content");
 						});
-						$('<ul class="pager"><li><a href="#" id= "watchMore">더보기</a></li></ul>').appendTo('.blog-list-content');
+						//$('<ul class="pager"><li><a href="#" id= "watchMore">더보기</a></li></ul>').appendTo('.blog-list-content');
+						 var curPage = Number(response.currentPage);
+			        	 var curPagePlus = Number(response.currentPage+1);
+			        	 var curPageMinus = Number(response.currentPage-1);
+			        	 var endPage =  Number(response.endPageGroup);
+			        	 			        	 
+			        	 var paging = $('<ul class="pager"></ul>');
+			        	 if(curPage == 1 & endPage == 1){
+			        		 var paging0 = '<li><a href="#">'+ curPage +'</a></li>';
+			        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
+			        	 }else if(curPage == 1 & endPage != 1){
+			        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+			        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
+			        	 }else if(curPage == endPage & endPage != 1){
+			        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
+			        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
+			        	 }else if(curPage == 0 & endPage == 1){
+			        		 var paging4 = '<li></li>';	
+			        		 paging.html(paging4).insertAfter(".blog-list-content > div:last");
+			        	 }else{
+			        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+			        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
+			        	 }
 					}	
 			});
 		});
@@ -439,7 +485,7 @@
 		 sum = $(":checkbox:checked").length;
 		 
 		 if(sum > 5){
-			 alert( sum + "개 이상은 선택할 수 없습니다." );	
+			 console.log( sum + "개 이상은 선택할 수 없습니다." );	
 			 $(asd).prop("checked",false);	 
 		 }
 		
@@ -490,7 +536,6 @@
 		        	 }else if(curPage == 0 & endPage == 1){
 		        		 var paging4 = '<li></li>';	
 		        		 paging.html(paging4).insertAfter(".blog-list-content > div:last");
-		        		 
 		        	 }else{
 		        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 		        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
@@ -568,7 +613,7 @@
 		 sum = $(":checkbox:checked").length;
 		 var order;
 		 if(sum == 0){
-			 alert("한 분야 이상은 선택해야 합니다.");	
+			 console.log("한 분야 이상은 선택해야 합니다.");	
 		 }else{
 			 order = selectObj.value;
 			

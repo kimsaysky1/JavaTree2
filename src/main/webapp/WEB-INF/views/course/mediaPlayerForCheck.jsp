@@ -409,18 +409,7 @@ div.numberedtextarea-number {
 					<button title="restart" class="re">■</button>
 					<button title="CodingMode" class="cod">코딩</button>
 					<button title="WatchingMode" class="wat">강의</button>
-					<input type="text" class="gtimename" required="required"/>
-					<button title="setBookmark" class="gtime">B추가</button>
 					
-						<select class='chap' name="sel" onchange="javascript:selectChapter(this)" id="sel">
-						<option selected>B</option>
-						<s:if test="chapterList.size != 0">
-							<s:iterator value="chapterList">
-							<option value='<s:property value="chaptertime"/>'><s:property value="chaptername"/></option>
-							</s:iterator>
-						</s:if>
-					</select>
-					<button title="delBookmark" class="delgtime">B삭제</button>
 					<select id='speed' name="sel" onchange="javascript:selectEvent(this)">
 						<option value='1.0' selected>1.0</option>
 						<option value='1.2'>1.2</option>
@@ -436,6 +425,21 @@ div.numberedtextarea-number {
 							max="100" min="0" step="any" oninput="SetVolume(this.value)"
 							onchange="SetVolume(this.value)"></input>
 					</div>
+					
+					<br />
+					<input type="text" class="gtimename" required="required"/>
+						<button title="setBookmark" class="gtime">B추가</button>
+					
+						<select class='chap' name="sel" onchange="javascript:selectChapter(this)" id="sel">
+						<option selected>B</option>
+						<s:if test="chapterList.size != 0">
+							<s:iterator value="chapterList">
+							<option value='<s:property value="chaptertime"/>'><s:property value="chaptername"/></option>
+							</s:iterator>
+						</s:if>
+					</select>
+					<button title="delBookmark" class="delgtime">B삭제</button>
+					
 				</div>
 			</div>
 			<!-- video END  -->
