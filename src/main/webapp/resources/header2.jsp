@@ -85,7 +85,7 @@
 						<li class="list-item notification">
 							<div class="notification-info item-click">
 								<i class="icon md-bell"></i>
-								<span class="itemnew"></span> <!-- 벨체크 -->
+								<span class="itemnew" style="display:none;"></span> <!-- 벨체크 -->
 							</div>
 							<div class="toggle-notification toggle-list">
 								<div class="list-profile-title">

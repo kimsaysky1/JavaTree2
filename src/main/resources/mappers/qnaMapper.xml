@@ -247,16 +247,29 @@
     	select type from typename where typeno = #{typeno}
     </select>
 	
-	<select id="addCurious" parameterType="map">
+	<update id="addCurious" parameterType="map">
 		update question set curious = #{curious} where questionno = #{questionno}
-	</select>
+	</update>
 	
-	<select id="addRecommend" parameterType="map">
-		update reply set recommend = #{recommend} where replyno = #{replyno}
-	</select>
-	
- 	
+	<insert id="addGunggumNotification" parameterType="map">
+		insert into gunggumnotification(id,questionno) values(#{id},#{questionno})
+	</insert>
 
+	<select id="selectGunggumNotification" parameterType="int" resultType="String">
+		select id from gunggumnotification where questionno = #{questionno} and regdate <![CDATA[>]]>= sysdate-3
+	</select>
+	
+	<delete id="deleteGunggumNotification" parameterType="int">
+		delete from GunggumNotification 
+		where id in (select id from gunggumnotification where questionno = #{questionno} and regdate <![CDATA[<]]> sysdate-3) 
+		and questionno = #{questionno}
+	</delete>
+	
+	<update id="addRecommend" parameterType="map">
+		update reply set recommend = #{recommend} where replyno = #{replyno}
+	</update>
+	
+	
 	<select resultType="int" id="selectFieldTotal" parameterType="map">
 		SELECT count(*) from
 		 (select rownum as rnum, T1.* from (select * from question

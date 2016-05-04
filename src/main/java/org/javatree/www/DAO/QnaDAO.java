@@ -34,5 +34,7 @@ public interface QnaDAO {
 	public void addRecommend(Map map);
 	public int selectFieldTotal(Map<String, Object> kong);
 	public List<Question> selectListbyField(Map<String, Object> kong);
-	
+	public void addGunggumNotification(Map map);
+	public ArrayList<String> selectGunggumNotification(int questionno);
+	public void deleteGunggumNotification(int questionno);
 }

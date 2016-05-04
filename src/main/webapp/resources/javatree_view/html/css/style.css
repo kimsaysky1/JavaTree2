@@ -5779,6 +5779,14 @@ margin-left:490px;
   /* padding: 45px 0; */
   z-index: 9;
 }
+/*수지수정20160504 */
+.profile-feature2 {
+  position: relative;
+  padding-top:43px; 
+  padding-bottom: 30px;
+  /* padding: 45px 0; */
+  z-index: 9;
+}
 .info-author {
   overflow: hidden;
 }
