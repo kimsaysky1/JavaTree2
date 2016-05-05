@@ -317,16 +317,6 @@ $(document).ready(function() {
     });
     
     $('#btnDelete').on('click',function(){
-<<<<<<< HEAD
-    	var StringForSaveCoding = [];
-    	
-    	$('#lstBox1 option:selected').each(function(index) {
-    		alert($(this).val());
-    		StringForSaveCoding.push(Number($(this).val())) ;
-           });
-    	
-    	$.ajax({
-=======
        var StringForSaveCoding = [];
        
        $('#lstBox1 option:selected').each(function(index) {
@@ -335,23 +325,10 @@ $(document).ready(function() {
            });
        
        $.ajax({
->>>>>>> fe9308d6a7f7e69bd9f7ebf0e7bd533141790426
             url : 'deleteCoding.action'
             , data : 'StringForSaveCoding='+StringForSaveCoding
             , dataType : 'json'
             , success : function(response){
-<<<<<<< HEAD
-            	alert('성공');
-            	$('#lstBox1').empty();
-            	var list = response.codingList;
-            	list.forEach(function(coding){
-	            	$('<option value="'+coding.codingno+'">'+coding.codingquestion+'</option>').appendTo('#lstBox1');
-            	});
-               $("#modalNotification").trigger('click');
-            }
-            , error : function(response){
-            	alert('실패');
-=======
                alert('성공');
                $('#lstBox1').empty();
                var list = response.codingList;
@@ -362,7 +339,6 @@ $(document).ready(function() {
             }
             , error : function(response){
                alert('실패');
->>>>>>> fe9308d6a7f7e69bd9f7ebf0e7bd533141790426
                console.log('에러');
             }
          });

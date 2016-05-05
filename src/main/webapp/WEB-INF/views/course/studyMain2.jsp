@@ -30,6 +30,13 @@
    } */
    .modal.large {
      width: 80%;
+     
+   .close {
+      background-color: #5cb85c;
+      color:white !important;
+      text-align: center;
+      font-size: 30px;
+  }
 }
 </style>
 
@@ -313,7 +320,7 @@
          str += '<h4 class="sm black bold">QUESTION BOX</h4>';
          str += '<div class="container"><div class="title-ct"><h3><strong></strong></h3>';
          str += '<div class="tt-right"><a href="#" class="skip"><i class="icon md-arrow-right"></i></a></div></div>';
-         str += '<div class="question-content-wrap"><div class="question-content"><h4 class="sm">QUESTION BOX</h4>';
+         str += '<div class="question-content-wrap"><button type="button" class="close" data-dismiss="modal" style="margin-top: 30px; font-size: -webkit-xxx-large; " aria-label="Close"><span aria-hidden="true" style="margin-right: 30px;">&times;</span></button><div class="question-content"><h4 class="sm">QUESTION BOX</h4>';
          str += '<table style=\'width: 1000px;\'><tr><td style=\'width: 400px;\'><b>내가 저장한 문제</b><br />';
          str += '<select multiple="multiple" id=\'lstBox1\'style=\'width: 400px; height: 600px;\'>';
          str += '<s:iterator value="codingList" status="st">';
@@ -333,7 +340,7 @@
          str += '<td><div class="form-action" ><input type="button" id = "submit_btn" class="submit mc-btn-3 btn-style-1"  value="정답보기" style="float: right;"></div></td></tr>';
          str += '</table></td></tr></table>';
          str += '</div></div></div></section></div>';
-         
+
          
          
 
