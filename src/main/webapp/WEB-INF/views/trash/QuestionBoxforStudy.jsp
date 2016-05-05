@@ -152,10 +152,10 @@
 					url : 'deletefromcodingbox.action',
 					data : {'codingno' : codingno},
 					success : function(response){
-						alert('성공');
+						console.log('성공');
 					},
 					error:function(){
-						alert('에러');
+						console.log('에러');
 					}
 				});
 			});

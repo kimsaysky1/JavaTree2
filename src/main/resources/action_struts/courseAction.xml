@@ -296,14 +296,18 @@
         <action name="deleteCoding" class="org.javatree.www.Action.CourseAction" method="deleteCoding">
         	<result type="json"></result>
         </action>
-        <!-- <action name="deleteCodingfromMainView">
-        	<result>/WEB-INF/views/course/deleteCoding.jsp</result>
-        </action> -->
         
         <action name="tempLectureCodingforLecture" class="org.javatree.www.Action.CourseAction" method="tempLectureCodingforLecture">
         	<result type="json"></result>
         </action>
         
+        <action name="loadCodingFromStudyCodingBox" class="org.javatree.www.Action.CourseAction" method="loadCodingFromStudyCodingBox">
+        	<result type="json"></result>
+        </action>
+        
+        <action name="deleteCodingFromStudyCodingBox" class="org.javatree.www.Action.CourseAction" method="deleteCodingFromStudyCodingBox">
+        	<result type="json"></result>
+        </action>
         <!-- 영호 작성 문제보관함 종료 -->
     </package>
 

@@ -161,6 +161,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	private ArrayList<Bookmark> chapterList;
 	private int currentTime;
 	private String chaptername;
+	private String userCodingTemplet;
 	
 	private static final Logger logger = LoggerFactory.getLogger(CourseAction.class);
 	
@@ -2413,7 +2414,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 
 		/*insertSelectedCodingfromMain- 인서트렉쳐 할때의 메인화면에서 등록 */
 		public String insertSelectedCodingfromInsertLecture(){
-			System.out.println("여기 들어오나?");
 			System.out.println("codingListForInsert: "+codingListForInsert);// codingListForInsert: [1,3]
 			System.out.println("size: "+codingListForInsert.size());
 			System.out.println("codingListForInsert.get(0): "+codingListForInsert.get(0));
@@ -2560,7 +2560,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 	
-			coding = dao.getCodingContent(codingno);
+			coding = dao.selectCodingContent(codingno);
 			System.out.println("update coding: "+coding);
 			return SUCCESS;	
 		}
@@ -2601,12 +2601,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public String QuestionBoxforStudy(){
 			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			
 			id = (String)session.get("loginId");
 			codingList = dao.getSelectedCoding(id); 
-			
-			System.out.println("리스트!! : "+codingList);
-			
 			return SUCCESS;
 			
 		}
@@ -2615,13 +2611,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			
-			System.out.println(codingno);
 			dao.deleteinstudycodingbox(codingno);
-			
 			id = (String)session.get("loginId");
 			codingList = dao.getSelectedCoding(id);
-
-			
 			return SUCCESS;
 			
 			
@@ -2635,11 +2627,8 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
 			
 			mycode = dao.getCodefromStudy(codingno);			
-			coding = dao.getCodingContent(codingno);
+			coding = dao.selectCodingContent(codingno);
 			
-			System.out.println("mycode : "+mycode);
-			System.out.println("coding : "+coding);
-		
 			return SUCCESS;
 		}
 		
@@ -2649,9 +2638,9 @@ public class CourseAction extends ActionSupport implements SessionAware {
 		public String showcodinganswer(){
 			
 			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			
-			coding = dao.getCodingContent(codingno);
-			
+			System.out.println("codingno: "+codingno);
+			coding = dao.selectCodingContent(codingno);
+			System.out.println("coding: "+coding);
 			return SUCCESS;
 		}
 		
@@ -2838,7 +2827,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			//문제보관함 위한 코딩 문제 불러오기
 			
 			codingList = dao.selectAllCodingForId(id);
-			System.out.println("study codingList: "+codingList);
 			return SUCCESS;
 			
 		}
@@ -2910,7 +2898,6 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	           tempList.add(Integer.parseInt(st.nextToken()));
 	        }
 	        Map map = new HashMap();
-	        System.out.println("tempList: "+tempList);
 	        if(from != null && from.equals("courseDetail")){
 	        	codingNoList = dao.selectedAllLectureCoding(lectureno);
 	        	methodForDuplicate(tempList, codingNoList);
@@ -2926,6 +2913,27 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			}
 			return SUCCESS;
 		}
+		
+		public String loadCodingFromStudyCodingBox() {
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			Map map = new HashMap();
+			id = (String) session.get("loginId");
+			map.put("id", id);
+			map.put("codingno", codingno);
+			coding = dao.loadCodingFromStudyCodingBox(map);
+			return SUCCESS;
+		}
+		
+		public String deleteCodingFromStudyCodingBox(){
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			Map map = new HashMap();
+			id = (String) session.get("loginId");
+			map.put("id", id);
+			map.put("codingno", codingno);
+			dao.deleteCodingFromStudyCodingBox(map);
+			return SUCCESS;
+		}
+		
 		//getter setter
 
 		
@@ -3535,6 +3543,14 @@ public class CourseAction extends ActionSupport implements SessionAware {
 
 		public void setChaptername(String chaptername) {
 			this.chaptername = chaptername;
+		}
+
+		public String getUserCodingTemplet() {
+			return userCodingTemplet;
+		}
+
+		public void setUserCodingTemplet(String userCodingTemplet) {
+			this.userCodingTemplet = userCodingTemplet;
 		}
 		
 }

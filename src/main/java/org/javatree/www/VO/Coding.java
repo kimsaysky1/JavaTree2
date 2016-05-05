@@ -5,28 +5,17 @@ public class Coding {
 	private String codingquestion;
 	private String codingtemplet;
 	private String codinganswer;
-	private String regdate;
 	private String id;
-
+	private String usercodingtemplet;
 	
 	public Coding() {
 	}
+	
 	public Coding(int codingno, String id) {
 		this.codingno = codingno;
 		this.id = id;
 	}
-	
-	public Coding(int codingno, String codingquestion, String codingtemplet, String codinganswer, String regdate,
-			String id) {
-		this.codingno = codingno;
-		this.codingquestion = codingquestion;
-		this.codingtemplet = codingtemplet;
-		this.codinganswer = codinganswer;
-		this.regdate = regdate;
-		this.id = id;
-	}
-	
-	
+
 	public int getCodingno() {
 		return codingno;
 	}
@@ -59,15 +48,6 @@ public class Coding {
 		this.codinganswer = codinganswer;
 	}
 
-	public String getRegdate() {
-		return regdate;
-	}
-
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
-	}
-	
-
 	public String getId() {
 		return id;
 	}
@@ -76,12 +56,19 @@ public class Coding {
 		this.id = id;
 	}
 
+	public String getUsercodingtemplet() {
+		return usercodingtemplet;
+	}
 
+	public void setUsercodingtemplet(String usercodingtemplet) {
+		this.usercodingtemplet = usercodingtemplet;
+	}
 
 	@Override
 	public String toString() {
 		return "Coding [codingno=" + codingno + ", codingquestion=" + codingquestion + ", codingtemplet="
-				+ codingtemplet + ", codinganswer=" + codinganswer + ", regdate=" + regdate + ", id=" + id + "]";
+				+ codingtemplet + ", codinganswer=" + codinganswer + ", id=" + id + ", usercodingtemplet="
+				+ usercodingtemplet + "]";
 	}
-
+	
 }

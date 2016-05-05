@@ -282,6 +282,22 @@
               <%@include file="/resources/footer.jsp" %>
               
    
+   <div class="container">
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal2"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body" id = "temporaryModal">
+          <p>내용이 저장되었습니다.</p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
    
    <!-- Load jQuery -->
    <script type="text/javascript"
@@ -300,19 +316,75 @@
       src="../resources/javatree_view/html/js/scripts.js"></script>
       
    <script type="text/javascript">
-   
-   
     
    $(function(){
-      
+      // 영호 코드 시작
 	  $("body").on('click', '#delete_btn', function(){
-		  
-		
-		  
+		  var codingnoTemp = $("#lstBox1 option:selected");
+		  if(codingnoTemp.length != 1){
+			  $('#temporaryModal > p').text('문제를 하나 선택해주십시오');
+			  $('#modalNotification').trigger('click');
+		  }else{
+			  var codingno = codingnoTemp.val();
+			  $.ajax({
+				  	method : 'post'
+		            , url : 'deleteCodingFromStudyCodingBox.action'
+		            , data : {
+		            	'codingno' : codingno
+		            }
+		            , dataType : 'json'
+		            , success : function(response){
+		            	console.log('성공');
+		            	$("#lstBox1 option:selected").remove();
+		            	$('#q_title').val('');
+		            	$('#codebox').val('');
+		            	$('#mycodebox').val('');
+		            	$('#temporaryModal > p').text('삭제되었습니다.');
+		  			    $('#modalNotification').trigger('click');
+		            }
+		            , error : function(response){
+		               console.log('에러');
+		            }
+		         });
+		  }
 	  });
 	  
-	  $("body").on('click', '#submit_btn', function(){
-		
+	  $("body").on('click', '#watch_answer', function(){
+		  var codingnoTemp = $("#lstBox1 option:selected");
+		  if(codingnoTemp.length != 1){
+			  $('#temporaryModal > p').text('문제를 하나 선택해주십시오');
+			  $('#modalNotification').trigger('click');
+		  }else{
+			  var codingno = codingnoTemp.val();
+			  window.open('showcodinganswer.action?codingno='+codingno,'pop','resizable=no scrollbars=yes top=50 left=200 width=500 height=400');
+		  }
+	  });
+	  
+	  $("body").on('click', '#lstBox1', function(){
+		  var codingnoTemp = $("#lstBox1 option:selected");
+		  if(codingnoTemp.length != 1){
+			  $('#temporaryModal > p').text('문제를 하나 선택해주십시오');
+			  $('#modalNotification').trigger('click');
+		  }else{
+			  var codingno = codingnoTemp.val();
+			  $.ajax({
+				  	method : 'post'
+		            , url : 'loadCodingFromStudyCodingBox.action'
+		            , data : {
+		            	'codingno' : codingno
+		            }
+		            , dataType : 'json'
+		            , success : function(response){
+		            	console.log('성공');
+		            	$('#q_title').val(response.coding.codingquestion);
+		            	$('#codebox').val(response.coding.codingtemplet);
+		            	$('#mycodebox').val(response.coding.usercodingtemplet);
+		            }
+		            , error : function(response){
+		               console.log('에러');
+		            }
+		         });
+		  }
 	  });
 	  
       $("#questionBox").on('click',function(){
@@ -328,7 +400,7 @@
          str += '</s:iterator></select></td>';
          str += '<td style=\'width: 30px;\'></td><td><form id = "form1" action="insertCodingfromMain">';
          str += '<table style=\'width: 550px;\'><tr><td style=\'width: 100px; text-align: center;\'><b>QUESTION</b></td>';
-         str += '<td><textarea style="height: 60px;" id="q_title"name = "coding.codingquestion" READONLY></textarea></td></tr>';
+         str += '<td><textarea style="height: 60px;" id="q_title" name = "coding.codingquestion" READONLY></textarea></td></tr>';
          str += '<tr><td style=\'height: 20px;\'></td><td></td></tr>';
          str += '<tr><td style=\'width: 100px; text-align: center;\'><b>CODE</b></td>';
          str += '<td><textarea style="height: 170px;" id = "codebox" name = "coding.codingtemplet" READONLY></textarea></td></tr>';
@@ -337,7 +409,7 @@
          str += '<td ><textarea id = "mycodebox" style="height: 220px;" ></textarea></td></tr>';
          str += '<tr><td style=\'height: 20px;\'></td><td></td></tr>';
          str += '<tr><td><div class="form-action" ><input type="button" id = "delete_btn" class="submit mc-btn-3 btn-style-1" value="삭제" style="float: right;"></div></td>';
-         str += '<td><div class="form-action" ><input type="button" id = "submit_btn" class="submit mc-btn-3 btn-style-1"  value="정답보기" style="float: right;"></div></td></tr>';
+         str += '<td><div class="form-action" ><input type="button" id = "watch_answer" class="submit mc-btn-3 btn-style-1"  value="정답보기" style="float: right;"></div></td></tr>';
          str += '</table></td></tr></table>';
          str += '</div></div></div></section></div>';
 
@@ -345,6 +417,9 @@
          $("#questionBoxModal").trigger('click');
       });
       
+   // 영호 코드 종료
+   
+   
       function List() {
             this.elements = {};
             this.idx = 0;
@@ -376,10 +451,7 @@
                .find('.table-item')
                .delegate('.thead', 'click', function(evt) {
                   evt.preventDefault();
-                  
-                  var id = $(this).attr('id');
-                   //alert("id> " + id);
-                   
+                 var id = $(this).attr('id');
                  if(prev == 0){
                     prev = id;
                  }
@@ -394,8 +466,6 @@
                          break;
                       }
                   }
-                 
-               
                
                 if(approve == 'approve'){
                   list.add(id);
@@ -424,13 +494,8 @@
                                      .insertAfter(sel); 
                                  }
                               }
-                              
-                              
-                         
                          });
-                           
                        }
-                  
                 });
                 }
                    //slide effect 시작
@@ -440,24 +505,14 @@
                            .removeClass('active')
                            .siblings('.tbody')
                                .slideUp(200);
-                      
                       $('.table-item')
                        .find('.thead').children().children().children().html('');
-                       
                    }
                       $(this)
                        .toggleClass('active')
                        .siblings('.tbody')
                            .slideToggle(200);
                       //slide effect 종료
-                  
-                  
-                      /*  var divTag = $('<div class="tbody"></div>');
-                      divTag.html('<div class="item"><div class="submissions">Title</div><div class="total-subm">Submited</div><div class="replied">Replied</div><div class="latest-reply">11. Jul , 2014</div><div class="link tb-icon"><a href="#"><i class="fa fa-play-circle-o"></i></a></div></div>')
-                      .insertAfter($(this));     */        
-                   
-                          
-                      
            });
        });
    });
@@ -467,8 +522,6 @@
 <script>
 //Popup window code
 function newPopup(lectureno) {
-   /* popupWindow = window.open(
-      url,'popUpWindow','height=300,width=400,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes') */
    popupWindow = window.open(
          '../compiler/Compiler.action?lectureno='+lectureno ,'kongPlayer','height=950, width=1737, resizable=no,scrollbars=no,menubar=no');
 }
