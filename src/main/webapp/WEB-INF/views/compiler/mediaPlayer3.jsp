@@ -470,7 +470,7 @@ div.numberedtextarea-number {
 					</select>
 				</s:if>
 				
-				<button id = "goCodingbox">문제 보관하기</button> 
+				<button id = "insertCoding">문제 보관하기</button> 
 			</div>
 					
 			<!-- editor 시작 -->
@@ -506,11 +506,11 @@ div.numberedtextarea-number {
 				          <h4 class="modal-title">지식인 연동 기능</h4>
 				        </div>
 				        <div class="modal-body">
-				        		<button id = "watchRelatedQuestion">관련질문보기</button>
-					        	<br/>
-					        	<button id = "makeQuestion">질문하기</button>
-					        	<br/>
-					        	<button class ="cancel">취소</button>
+				        	<button id = "watchRelatedQuestion">관련질문보기</button>
+					       	<br/>
+					       	<button id = "makeQuestion">질문하기</button>
+					       	<br/>
+					       	<button class ="cancel">취소</button>
 				        </div>
 				        <div class="modal-footer">
 				        </div>
@@ -520,18 +520,82 @@ div.numberedtextarea-number {
          </div>	
          <!-- 지식인 연동 모달 끝 -->
 
-			<!-- 질문 버튼 -->
-        <div class="form-submit-1">
-			<input type="button" style="display:none;" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
+	<!-- 질문 화면 모달-->
+    <div class="form-submit-1">
+		<input type="button" style="display:none;" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
             <div class="container">
-			<div class="modal fade" id="writeQuestion" role="dialog">
-	  		</div>
+				<div class="modal fade" id="writeQuestion" role="dialog">
+	  			</div>
             </div>
 		</div>            
-		</div>
 	</div>
-	</div>
-	
+	<!-- 질문 화면 모달 끝 -->	
+		
+<!-- 수강생용 문제보관함 관련 모달 시작 -->
+<div class="container">
+  <button type="button" style="display:none;" id = "modalCodingMain" data-toggle="modal" data-target="#codingMain"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="codingMain" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body">
+        	<p>문제가 저장되었습니다.</p>
+        	<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">닫기</button> -->
+          <!-- <p>문제가 저장되었습니다. 문제보관함으로 열어보시겠습니까?</p>
+         	<button type="button" id="goToCodingMain" class="btn btn-default" data-dismiss="modal">예</button>
+        	<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">아니오</button> -->
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 수강생용 문제보관함 관련 모달 끝 -->	
+		
+<!-- 알림모달 시작 -->
+<!-- <div class="container">
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal2"></button>
+  Modal
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body" id = "temporaryModal">
+          <p>내용이 저장되었습니다.</p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- 알림모달 시작 -->			
+		
+<!-- 질문 화면 모달 시작-->
+   <div class="form-submit-1">
+	<input type="button" style="display:none;" id="insertQuestionModal" value="WRITE QUESTION" class="mc-btn btn-style-1" data-toggle="modal" data-target="#writeQuestion"/>
+           <div class="container">
+			<div class="modal fade" id="writeQuestion" role="dialog">
+  			</div>
+           </div>
+	</div>            
+</div>
+<!-- 질문 화면 모달 끝 -->			
+		
+<!-- 수강생 문제보관함 모달 시작 -->	
+
+<div class="form-submit-1">
+      <input type="button" style="display:none;" id="questionBoxModal" class="mc-btn btn-style-1" data-toggle="modal" data-target="#myModal"/>
+      	<div class="container">
+	        <div class="modal fade" style="height: 900px; width: 1500px;  margin-left: 200px;" id="myModal" role="dialog">
+	        </div>
+        </div>
+   </div>
+
+<!-- 수강생 문제보관함 모달 끝 -->	
+</div>
+</div>
 	<!-- popwrap END -->
 		<script type="text/javascript"
 			src="../resources/javatree_view/html/js/library/jquery-1.11.0.min.js"></script>
@@ -552,9 +616,11 @@ $(function(){
 	for (i = 1; i <= 40; i++) {
 		$('<div class = "linegap">'+i+'</div>').appendTo(".line_number");
 	}
+	
+	$()
 	 
 	$('#insertQuestionModal').on('click', function(){
-		var str = '';
+	  var str = '';
       str += '<div class="modal-dialog modal-lg">';
       str += '<div class="modal-content">';
       str += '<div class="modal-header">';
@@ -591,7 +657,122 @@ $(function(){
 		$('#writeQuestion').html(str);
 	});
 	
-	 $("#goCodingbox").on("click", function(){
+	
+	//문제보관함 관련 시작
+/* 	$('#goToCodingMain').on('click', function(){ 
+		$.ajax({
+	    	 method : 'post' 
+	         , url : '/javatree/course/goToCodingMain.action'
+	         ,success : function(response){
+	        	 console.log('success');
+	        	 var list = response.codingList;
+	        	 var str ='';
+	        	 str += '<h4 class="sm black bold">QUESTION BOX</h4>';
+	             str += '<div class="container"><div class="title-ct"><h3><strong></strong></h3>';
+	             str += '<div class="tt-right"><a href="#" class="skip"><i class="icon md-arrow-right"></i></a></div></div>';
+	             str += '<div class="question-content-wrap"><button type="button" class="close" data-dismiss="modal" style="margin-top: 30px; font-size: -webkit-xxx-large; " aria-label="Close"><span aria-hidden="true" style="margin-right: 30px;">&times;</span></button><div class="question-content"><h4 class="sm">QUESTION BOX</h4>';
+	             str += '<table style=\'width: 1000px;\'><tr><td style=\'width: 400px;\'><b>내가 저장한 문제</b><br />';
+	             str += '<select multiple="multiple" id=\'lstBox1\'style=\'width: 400px; height: 600px;\'>';
+	             list.forEach(function(coding){
+	            	 str += '<option value="'+coding.codingno+'">'+coding.codingquestion+'</option>';	 
+		        	 });
+	             str += '</select></td>';
+	             str += '<td style=\'width: 30px;\'></td><td><form id = "form1" action="insertCodingfromMain">';
+	             str += '<table style=\'width: 550px;\'><tr><td style=\'width: 100px; text-align: center;\'><b>QUESTION</b></td>';
+	             str += '<td><textarea style="height: 60px;" id="q_title" READONLY></textarea></td></tr>';
+	             str += '<tr><td style=\'height: 20px;\'></td><td></td></tr>';
+	             str += '<tr><td style=\'width: 100px; text-align: center;\'><b>CODE</b></td>';
+	             str += '<td><textarea style="height: 170px;" id = "codebox" READONLY></textarea></td></tr>';
+	             str += '<tr><td style=\'height: 20px;\'></td><td></td></tr>';
+	             str += '<tr><td style=\'width: 100px; text-align: center;\'><b>MY CODE</b></td>';
+	             str += '<td ><textarea id = "mycodebox" style="height: 220px;" ></textarea></td></tr>';
+	             str += '<tr><td style=\'height: 20px;\'></td><td></td></tr>';
+	             str += '<tr><td><div class="form-action" ><input type="button" id = "delete_btn" class="submit mc-btn-3 btn-style-1" value="삭제" style="float: right;"></div></td>';
+	             str += '<td><div class="form-action" ><input type="button" id = "watch_answer" class="submit mc-btn-3 btn-style-1"  value="정답보기" style="float: right;"></div></td></tr>';
+	             str += '</table></td></tr></table>';
+	             str += '</div></div></div></section></div>';
+	             $("#myModal").html(str);
+	             $("#questionBoxModal").trigger('click');
+	         }
+	         ,error:function(response){
+	        	 console.log('error');
+	         }
+	      });
+		var str = '';	
+	});
+	
+	$("body").on('click', '#delete_btn', function(){
+		  var codingnoTemp = $("#lstBox1 option:selected");
+		  if(codingnoTemp.length != 1){
+			  $('#temporaryModal > p').text('문제를 하나 선택해주십시오');
+			  $('#modalNotification').trigger('click');
+		  }else{
+			  var codingno = codingnoTemp.val();
+			  alert(codingno);
+			  $.ajax({
+				  	method : 'post'
+		            , url : 'deleteCodingFromStudyCodingBox.action'
+		            , data : {
+		            	'codingno' : codingno
+		            }
+		            , dataType : 'json'
+		            , success : function(response){
+		            	console.log('성공');
+		            	$("#lstBox1 option:selected").remove();
+		            	$('#q_title').val('');
+		            	$('#codebox').val('');
+		            	$('#mycodebox').val('');
+		            	$('#temporaryModal > p').text('삭제되었습니다.');
+		  			    $('#modalNotification').trigger('click');
+		            }
+		            , error : function(response){
+		               console.log('에러');
+		            }
+		        });
+		  }
+	  });
+	  
+	  $("body").on('click', '#watch_answer', function(){
+		  var codingnoTemp = $("#lstBox1 option:selected");
+		  if(codingnoTemp.length != 1){
+			  $('#temporaryModal > p').text('문제를 하나 선택해주십시오');
+			  $('#modalNotification').trigger('click');
+		  }else{
+			  var codingno = codingnoTemp.val();
+			  window.open('showcodinganswer.action?codingno='+codingno,'pop','resizable=no scrollbars=yes top=50 left=200 width=500 height=400');
+		  }
+	  });
+	  
+	  $("body").on('click', '#lstBox1', function(){
+		  var codingnoTemp = $("body #lstBox1 option:selected");
+		  if(codingnoTemp.length != 1){
+			  $('#temporaryModal > p').text('문제를 하나 선택해주십시오');
+			  $('#modalNotification').trigger('click');
+		  }else{
+			  var codingno = codingnoTemp.val();
+			  $.ajax({
+				  	method : 'post'
+		            , url : 'loadCodingFromStudyCodingBox.action'
+		            , data : {
+		            	'codingno' : codingno
+		            }
+		            , dataType : 'json'
+		            , success : function(response){
+		            	console.log('성공');
+		            	$('#q_title').val(response.coding.codingquestion);
+		            	$('#codebox').val(response.coding.codingtemplet);
+		            	$('#mycodebox').val(response.coding.usercodingtemplet);
+		            }
+		            , error : function(response){
+		               console.log('에러');
+		            }
+		         });
+		  }
+	  });
+ */	
+	//문제보관함 관련 종료
+	
+	 $("#insertCoding").on("click", function(){
 	      var codingno =  $(".codingList option:selected").val();
 	      var mycode = $('#doccontent > textarea:visible').val();
 	      $.ajax({
@@ -604,7 +785,7 @@ $(function(){
 	        	}
 	         ,success : function(response){
 	        	 console.log('success');
-	        	 
+	        	 $('#modalCodingMain').trigger('click');
 	         }
 	         ,error:function(response){
 	        	 console.log('error');
@@ -648,6 +829,8 @@ $(function(){
 		
 		$('body').on('click','.cancel',function(){
 			$('#writeQuestion').modal('hide');
+			$('#askSelections').modal('hide');
+			$('#codingMain').modal('hide');
 		});
 		 
 	

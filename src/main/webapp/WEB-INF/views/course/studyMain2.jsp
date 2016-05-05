@@ -281,16 +281,16 @@
               
    <div class="form-submit-1">
       <input type="button" style="display:none;" id="questionBoxModal" class="mc-btn btn-style-1" data-toggle="modal" data-target="#myModal"/>
-             <div class="container" ">
-            <div class="modal fade" style="height: 900px; width: 1500px;  margin-left: 200px;" id="myModal" role="dialog"></div>
-           </div>
-                      
-           
+      	<div class="container">
+	        <div class="modal fade" style="height: 900px; width: 1500px;  margin-left: 200px;" id="myModal" role="dialog">
+	        </div>
+        </div>
    </div>
-              <%@include file="/resources/footer.jsp" %>
+   
+<%@include file="/resources/footer.jsp" %>
               
    
-   <div class="container">
+<div class="container">
   <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal2"></button>
   <!-- Modal -->
   <div class="modal fade" id="myModal2" role="dialog">
@@ -420,9 +420,6 @@
          str += '<td><div class="form-action" ><input type="button" id = "watch_answer" class="submit mc-btn-3 btn-style-1"  value="정답보기" style="float: right;"></div></td></tr>';
          str += '</table></td></tr></table>';
          str += '</div></div></div></section></div>';
-
-         
-         
 
          $("#myModal").html(str);
          $("#questionBoxModal").trigger('click');

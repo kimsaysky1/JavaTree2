@@ -308,6 +308,10 @@
         <action name="deleteCodingFromStudyCodingBox" class="org.javatree.www.Action.CourseAction" method="deleteCodingFromStudyCodingBox">
         	<result type="json"></result>
         </action>
+        
+        <action name="goToCodingMain" class="org.javatree.www.Action.CourseAction" method="goToCodingMain">
+        	<result type="json"></result>
+        </action>
         <!-- 영호 작성 문제보관함 종료 -->
     </package>
 

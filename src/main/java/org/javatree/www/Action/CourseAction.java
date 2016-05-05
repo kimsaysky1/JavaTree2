@@ -2938,6 +2938,14 @@ public class CourseAction extends ActionSupport implements SessionAware {
 			return SUCCESS;
 		}
 		
+		public String goToCodingMain(){
+			courseDAO dao = sqlSession.getMapper(courseDAO.class);
+			id = (String) session.get("loginId");
+			codingList = dao.selectAllCodingForId(id);
+			System.out.println("codingList: "+codingList);
+			return SUCCESS;
+		}
+		
 		//getter setter
 
 		

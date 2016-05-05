@@ -152,35 +152,11 @@
                      </s:iterator>
                            </select>
                            <!-- 강의 해당 코딩문제 리스트 끝-->
-                           <!-- <input type="button" id="btnCancel" value="창닫기" style="float: right; margin-right: 28px;">
-                           <input type="button" id="btnDelete" value="삭제" style="float: right; margin-right: 28px;">
-                           <input type="button" id="btnSave" value="저장" style="float: right; margin-right: 28px;"> -->
-                           
                            
                            <div class="form-action"><!-- <div class="form-action2"> -->
 								<input type="button" value="저장" class="submit mc-btn-3 btn-style-1" id="btnSave" />
 								<input type="button" id="btnCancel" value="창닫기" class="submit mc-btn-3 btn-style-1">
 							</div>
-							
-							
-                           
-                           <!-- <div id="courseDetail" class="courseDetail learn-section">
-								<div class="container">
-									<div class="table-student-submission">
-										<table class="mc-table">
-                           						<tbody>
-                           							<tr class="new">
-                           								<td class="author" id="btnSave">저장</td>
-	                           							<td class="author" id="btnCancel" >창닫기</td>
-	                           							<td class="author" id="btnDelete" >삭제</td>
-	                           							
-	                           						</tr>
-                           						</tbody>
-                           				</table>
-                           			</div>
-                           		</div>
-                           	</div>		 -->
-                           
                         </td>
                      </tr>
                   </table>

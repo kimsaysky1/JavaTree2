@@ -202,6 +202,24 @@
 
 	<%@include file="/resources/footer.jsp" %>
 	
+	   <div class="container">
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal2"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body" id = "temporaryModal">
+          <p>내용이 저장되었습니다.</p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
 	<script type="text/javascript">
 	
 	$(function(){
@@ -253,6 +271,8 @@
 						$('#insertReply').modal('hide');
 						$('#insertReply').html('');
 						console.log('성공');
+						$('#temporaryModal > p').text('답변을 작성하였습니다.');
+		  			    $('#modalNotification').trigger('click');
 						
 						var list = response.replyList;
 						$('.list-discussion').html('');
@@ -332,6 +352,8 @@
 				, data : 'question.curious='+curious+'&question.questionno='+questionno
 				, dataType : 'json'
 				, success : function(response){
+					$('#temporaryModal > p').text('궁금도를 올렸습니다.');
+	  			    $('#modalNotification').trigger('click');
 					$("#curiousDiv p").text(response.curious);
 				}
 				, error : function(response){
@@ -353,7 +375,8 @@
 				, data : 'reply.replyno='+replyno+'&reply.recommend='+recommendValue+'&questionno='+questionno
 				, dataType : 'json'
 				, success : function(response){
-					//recommend.text(response.recommend);
+						$('#temporaryModal > p').text('추천도를 올렸습니다.');
+	  			    	$('#modalNotification').trigger('click');
 						console.log('성공');
 						$(window).scrollTop(tempScrollTop);
 						var list = response.replyList;
