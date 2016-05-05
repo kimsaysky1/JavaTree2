@@ -26,22 +26,19 @@
 
 	<%@include file="/resources/header2.jsp" %>
 	
-	<section class="profile-feature2"><%-- <section class="sub-banner sub-banner-course"> --%>
-	  <div class="awe-overlay overlay-color-3"></div>
-        <div class="awe-static bg-sub-banner-course"></div>
-        <div class="container">
-            <div class="sub-banner-content">
-            	 <h4 class="md" style="color: #E3E3E3; text-align: center;">
-                <!-- JAVATree &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                <s:if test="%{#session.loginId != null}">
+	<section class="profile-feature">
+			<div class="awe-parallax bg-profile-feature"></div> <!-- 좀 늘리기 -->
+			<!-- <div class="awe-overlay overlay-color-3"></div> -->
+			<div class="container">
+					<div class="sub-banner-content">
+						<h4 class="md" style="color: #E3E3E3; text-align: center;">
+							<s:if test="%{#session.loginId != null}">
 								${session.loginId} &nbsp; , Welcome to the JavaTree!
 							</s:if>
-                
-                </h4><!-- <h2 class="text-center">JAVATree</h2> -->
-               <!--  <h2 class="text-center">JAVATree</h2> -->
-            </div>
-        </div>
-    </section>
+						</h4>
+					</div>	
+			</div>
+		</section>
     
 		<!-- 가운데 영역 -->
 		<section class="blog">

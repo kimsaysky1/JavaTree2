@@ -111,12 +111,12 @@
                            </select>
                         <!-- 보유 코딩 문제 리스트 끝 --> 
                          <div class="form-action"><!-- <div class="form-action2"> -->
-                        <input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
-                     </div>  
+								<input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
+							</div>  
                            
                         </td>
                         <td style='width: 50px; text-align: center; vertical-align: middle;'>
-                              <input type='button' id='btnRight' value='  >  ' /> 
+                           	<input type='button' id='btnRight' value='  >  ' /> 
                             <input type='button' id='btnLeft' value='  <  ' />
                           <!--  <td class="author"><a href="" id='btnRight'>>></a></td><br />
                            <td class="author"><a href="" id='btnLeft'>Delete</a></td> -->
@@ -158,28 +158,28 @@
                            
                            
                            <div class="form-action"><!-- <div class="form-action2"> -->
-                        <input type="button" value="저장" class="submit mc-btn-3 btn-style-1" id="btnSave" />
-                        <input type="button" id="btnCancel" value="창닫기" class="submit mc-btn-3 btn-style-1">
-                     </div>
-                     
-                     
+								<input type="button" value="저장" class="submit mc-btn-3 btn-style-1" id="btnSave" />
+								<input type="button" id="btnCancel" value="창닫기" class="submit mc-btn-3 btn-style-1">
+							</div>
+							
+							
                            
                            <!-- <div id="courseDetail" class="courseDetail learn-section">
-                        <div class="container">
-                           <div class="table-student-submission">
-                              <table class="mc-table">
-                                             <tbody>
-                                                <tr class="new">
-                                                   <td class="author" id="btnSave">저장</td>
-                                                   <td class="author" id="btnCancel" >창닫기</td>
-                                                   <td class="author" id="btnDelete" >삭제</td>
-                                                   
-                                                </tr>
-                                             </tbody>
-                                       </table>
-                                    </div>
-                                 </div>
-                              </div>       -->
+								<div class="container">
+									<div class="table-student-submission">
+										<table class="mc-table">
+                           						<tbody>
+                           							<tr class="new">
+                           								<td class="author" id="btnSave">저장</td>
+	                           							<td class="author" id="btnCancel" >창닫기</td>
+	                           							<td class="author" id="btnDelete" >삭제</td>
+	                           							
+	                           						</tr>
+                           						</tbody>
+                           				</table>
+                           			</div>
+                           		</div>
+                           	</div>		 -->
                            
                         </td>
                      </tr>

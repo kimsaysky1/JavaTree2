@@ -2874,17 +2874,21 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	         }
 		}
 		
-		public String deleteCoding() throws Exception{
-			courseDAO dao = sqlSession.getMapper(courseDAO.class);
-			ArrayList<Integer> tempList = new ArrayList<>();
-	         StringTokenizer st = new StringTokenizer(StringForSaveCoding, ",");
-	         while(st.hasMoreTokens()){
-	            tempList.add(Integer.parseInt(st.nextToken()));
-	         }
-	         for(int i = 0; i < tempList.size(); i++){
-	        	 dao.deleteCoding(tempList.get(i));
-	         }
-	         codingList = dao.selectAllCodingForId((String)session.get("loginId"));
+		public String deleteCoding(){
+			try{
+				courseDAO dao = sqlSession.getMapper(courseDAO.class);
+				ArrayList<Integer> tempList = new ArrayList<>();
+				StringTokenizer st = new StringTokenizer(StringForSaveCoding, ",");
+				while(st.hasMoreTokens()){
+					tempList.add(Integer.parseInt(st.nextToken()));
+				}
+				for(int i = 0; i < tempList.size(); i++){
+					dao.deleteCoding(tempList.get(i));
+				}
+				codingList = dao.selectAllCodingForId((String)session.get("loginId"));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			return SUCCESS;
 		}
 		

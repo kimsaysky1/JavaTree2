@@ -1,30 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-   <%@ taglib prefix="s" uri="/struts-tags" %>
+	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
-   content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="format-detection" content="telephone=no">
 <!-- Google font -->
 <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700'
-   rel='stylesheet' type='text/css'>
+	rel='stylesheet' type='text/css'>
 <link
-   href='http://fonts.googleapis.com/css?family=Raleway:300,400,700,900'
-   rel='stylesheet' type='text/css'>
+	href='http://fonts.googleapis.com/css?family=Raleway:300,400,700,900'
+	rel='stylesheet' type='text/css'>
 <!-- Css -->
 <link rel="stylesheet" type="text/css"
-   href="../resources/javatree_view/html/css/library/bootstrap.min.css">
+	href="../resources/javatree_view/html/css/library/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
-   href="../resources/javatree_view/html/css/library/font-awesome.min.css">
+	href="../resources/javatree_view/html/css/library/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
-   href="../resources/javatree_view/html/css/library/owl.carousel.css">
+	href="../resources/javatree_view/html/css/library/owl.carousel.css">
 <link rel="stylesheet" type="text/css"
-   href="../resources/javatree_view/html/css/md-font.css">
+	href="../resources/javatree_view/html/css/md-font.css">
 <link rel="stylesheet" type="text/css"
-   href="../resources/javatree_view/html/css/style.css">
+	href="../resources/javatree_view/html/css/style.css">
 <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -86,7 +86,6 @@
       <section id="quizz-intro-section"
          class="quizz-intro-section learn-section">
          <div class="container">
-
             <div class="title-ct">
                <h3>
                   <strong></strong>

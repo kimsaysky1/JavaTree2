@@ -28,14 +28,33 @@
 	<%@include file="/resources/header2.jsp"%>
 
 	<!-- 중간 슬라이더 부분 -->
-	<section class="sub-banner sub-banner-course">
+	<section class="profile-feature"><%-- <section class="sub-banner sub-banner-course"> --%>
+		 <div class="awe-overlay overlay-color-3"></div>
+        <div class="awe-static bg-sub-banner-course2"></div><!-- <div class="awe-static bg-sub-banner-course"></div> -->
+
+        <div class="container">
+            <div class="sub-banner-content">
+                <h4 class="md" style="color: #E3E3E3; text-align: center;">
+                <!-- JAVATree &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                			<s:if test="%{#session.loginId != null}">
+								${session.loginId} &nbsp; , Welcome to the JavaTree!
+							</s:if>
+							<s:else>
+								Welcome to the JavaTree!
+							</s:else>
+                
+                </h4><!-- <h2 class="text-center">JAVATree</h2> -->
+            </div>
+        </div>
+    </section>
+	<%-- <section class="sub-banner sub-banner-course">
 		<div class="awe-static bg-sub-banner-course"></div>
 		<div class="container">
 			<div class="sub-banner-content">
 				<h2 class="text-center">JAVATree</h2>
 			</div>
 		</div>
-	</section>
+	</section> --%>
 
 	<!-- COURSE -->
 	<section class="course-top">

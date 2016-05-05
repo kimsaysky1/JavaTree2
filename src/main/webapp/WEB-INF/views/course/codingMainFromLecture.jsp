@@ -100,8 +100,8 @@
                         <!-- 보유 코딩 문제 리스트 끝 -->   
                           
                            <div class="form-action"><!-- <div class="form-action2"> -->
-                        <input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
-                     </div>
+								<input type="button" id="btnDelete" value="삭제" class="submit mc-btn-3 btn-style-1">
+							</div>
                            
                         </td>
                         <td style='width: 50px; text-align: center; vertical-align: middle;'>
