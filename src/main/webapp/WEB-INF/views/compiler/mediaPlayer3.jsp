@@ -458,7 +458,6 @@ div.numberedtextarea-number {
 
 
 		<div class="codingpart">
-
 			<div class = "codingboxList">
 				<s:if test="codingList != null">
 					<select class="codingList">
@@ -556,40 +555,6 @@ $(function(){
 	 
 	$('#insertQuestionModal').on('click', function(){
 		var str = '';
-<<<<<<< HEAD
-		str += '<div class="modal-dialog modal-lg">'
-		str += '<div class="modal-content">';
-		str += '<div class="modal-header">';
-		str += '<button type="button" class="close" data-dismiss="modal">&times;</button>';
-		str += '<h4 class="modal-title">Question</h4>';
-		str += '</div>';
-		str += '<div class="modal-body">';
-		str += '<table style=\'width: 800px;\'>';
-		str += '<tr><td style=\'width: 100px; height: 70px; text-align:center;\'><b>FIELD</b></td>';
-		str += '<td><select id="questionTypeno" style="width: 100px;">';
-		str +='<option value="1">PUREJAVA</option>';
-		str +='<option value="2">WEB</option>';
-		str +='<option value="3">MOBILE</option>';
-		str +='<option value="4">IOT</option>';
-		str +='<option value="5">SWING</option>';
-		str +='<option value="6">JDBC</option>';
-		str +='<option value="7">API</option>';
-		str +='<option value="8">SPRING</option>';
-		str +='<option value="9">STRUTS</option>';
-		str += '<option value="10">etcFramework</option>';
-		str += '<option value="11">ETC</option>';
-		str += '</select></td></tr>';
-		str += '<tr><td style=\'height: 20px;\'></td></tr>';
-		str += '<tr><td style=\'width: 100px; text-align:center;\'><b>QUESTION</b></td>';
-		str += '<td><textarea id="questionTitle" style="height: 100px; width: 700px;"></textarea></td></tr>';
-		str += '<tr><td style=\'height: 20px;\'></td></tr>';
-		str += '<tr><td style=\'width: 100px; text-align:center;\'><b>content</b></td>';
-		str += '<td><textarea id="questionContent" style="height: 250px;width: 700px;"></textarea></td></tr>';
-		str += '<tr><td style=\'height: 20px;\'></td></tr></table></div>';
-		str += '<div class="modal-footer">';
-		str += '<input type="button" value="등록" id = "insertQuestionBtn" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
-		str += '<input type="button" value="취소" class="cancel"></div></div></div>';
-=======
       str += '<div class="modal-dialog modal-lg">';
       str += '<div class="modal-content">';
       str += '<div class="modal-header">';
@@ -622,7 +587,6 @@ $(function(){
       str += '<div class="modal-footer">';
       str += '<input type="button" value="등록" id = "insertQuestionBtn" class="mc-btn-5">&nbsp;&nbsp;&nbsp;';
       str += '<input type="button" value="취소" class="cancel"></div>';
->>>>>>> fe9308d6a7f7e69bd9f7ebf0e7bd533141790426
 		
 		$('#writeQuestion').html(str);
 	});
@@ -631,11 +595,19 @@ $(function(){
 	      var codingno =  $(".codingList option:selected").val();
 	      var mycode = $('#doccontent > textarea:visible').val();
 	      $.ajax({
-	         url : '/javatree/course/insertcodinginbox.action',
-	         data : {'codingno' : codingno , 'mycode':mycode},
-	         success : function(response){
-	         },
-	         error:function(){
+	    	 method : 'post' 
+	         , url : '/javatree/course/insertcodinginbox.action'
+	         ,data : 
+	         	{
+	        	 'codingno' : codingno
+	        	 ,'mycode' : mycode
+	        	}
+	         ,success : function(response){
+	        	 console.log('success');
+	        	 
+	         }
+	         ,error:function(response){
+	        	 console.log('error');
 	         }
 	      });
 	   });

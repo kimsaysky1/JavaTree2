@@ -59,11 +59,9 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 
 	public String watchLecture() throws Exception {
 		CompilerDAO dao = sqlsession.getMapper(CompilerDAO.class);
-		  System.out.println("lectureno: "+lectureno);
 	      uploadedfilename = dao.selectPath(lectureno);
 	      id = dao.selectTeacher(lectureno);
 	      codingList = dao.selectCodingList(lectureno);
-	      System.out.println("codingList: "+codingList);
 	      return SUCCESS;
 	}
 
@@ -109,7 +107,6 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 		for (int i = 0; i < contentList.size(); i++) { //jsp 파일인지 판단
 			if (contentList.get(i).contains("page language=\"java\" contentType=\"text/html; charset=UTF-8\"")) {
 				file_parent = "C:/apache-tomcat-8.0.33/webapps/test/guest/" + id;
-				System.out.println("file_parent: "+file_parent);
 				file_name = "a" + i + ".jsp";
 				makeJspFile(file_parent, file_name, contentList.get(i));
 				resultType = "jsp";
@@ -210,7 +207,6 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 	}
 
 	private void checkError(String result) {
-		System.out.println("result: " + result);
 		if (result.contains("오류:")) {
 			error = true;
 			System.out.println("에러 있음");
@@ -255,7 +251,6 @@ public class CompilerAction extends ActionSupport implements SessionAware {
 	private void makeJspFile(String file_parent, String file_name, String content) {
 		directoryPath = new File(file_parent);
 		File file = new File(file_parent, file_name);
-		System.out.println("path: "+file.getPath());
 		if (!directoryPath.exists()) {
 			directoryPath.mkdirs();
 		}

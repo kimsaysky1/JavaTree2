@@ -595,10 +595,10 @@
 	
 	<!-- 강의 시청화면에서 문제 보관함 insert -->
 	<insert id="insertcodinginbox" parameterType="map"> 
-	insert into studycodingbox (id,codingno,coding) values(#{id},#{codingno},#{coding}) 
+	insert into studycodingbox(id,codingno,coding) values(#{id},#{codingno},#{coding:VARCHAR}) 
 	</insert>
 	
-	<select id="getCodingContent" parameterType="int"  resultMap="CodingMap">
+	<select id="selectCodingContent" parameterType="int"  resultMap="CodingMap">
 		select * from Coding where codingno = #{codingno}
 	</select>
 	
@@ -694,7 +694,7 @@
  	<!-- 영호 추가 -->
  	
  	<select id="selectAllCodingForId" parameterType="String" resultType="Coding">
- 		select * from coding where id = #{id}
+ 		select * from coding where codingno in(select codingno from studycodingbox where id = #{id})  
  	</select>
  	
  	<select id="selectedAllCoding" parameterType="int" resultType="Coding">
@@ -714,6 +714,19 @@
 		delete from Coding where codingno = #{codingno}
 	</delete>
 	
+	<select id="loadCodingFromStudyCodingBox" parameterType="map" resultType="Coding">
+ 		select 
+		c.codingno as codingno, c.codingquestion as codingquestion,
+		c.codingtemplet as codingtemplet, c.codinganswer as codinganwser,
+		b.coding as usercodingtemplet from
+ 		coding c, studycodingbox b 
+ 		where c.codingno = b.codingno and b.id = #{id} and b.codingno = #{codingno}
+ 	</select>
+ 	
+ 	<delete id="deleteCodingFromStudyCodingBox" parameterType="map">
+ 		delete from studycodingbox where id = #{id} and codingno = #{codingno}
+ 	</delete>
+	
  	<!-- 영호 추가끝 -->
  	
  	<insert id="insertBookMark" parameterType="map">
@@ -727,6 +740,8 @@
  	<delete id="deleteBookMark" parameterType="map">
  		delete from bookmark where chaptername = #{chaptername} and lectureno = #{lectureno}
  	</delete>
+ 	
+ 	
  	
 </mapper>
 

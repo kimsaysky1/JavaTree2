@@ -75,7 +75,6 @@ public interface courseDAO {
 	public ArrayList<Coding> getAllCodingList(String id);
 	public void updateCodingfromMain(Coding coding);
 	public void insertCodingfromMain(Coding coding);
-	public Coding getCodingContent(int codingno);
 	public void deleteCodingfromMain(int codingno);
 	public ArrayList<Integer> getCodingno(int lectureno);
 	public ArrayList<Coding> getCodinginlecture(ArrayList<Integer> codingnoList);
@@ -118,6 +117,9 @@ public interface courseDAO {
 	public int insertBookMark(Map<String, Object> kong);
 	public int deleteBookMark(Map<String, Object> kong);
 	public ArrayList<Bookmark> selectBookMarks(int lectureno);
+	public Coding loadCodingFromStudyCodingBox(Map map);
+	public Coding selectCodingContent(int codingno);
+	public void deleteCodingFromStudyCodingBox(Map map);
 	
 	
 }

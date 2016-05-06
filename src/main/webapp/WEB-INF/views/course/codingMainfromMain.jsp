@@ -320,7 +320,6 @@ $(document).ready(function() {
        var StringForSaveCoding = [];
        
        $('#lstBox1 option:selected').each(function(index) {
-          alert($(this).val());
           StringForSaveCoding.push(Number($(this).val())) ;
            });
        
@@ -329,7 +328,6 @@ $(document).ready(function() {
             , data : 'StringForSaveCoding='+StringForSaveCoding
             , dataType : 'json'
             , success : function(response){
-               alert('성공');
                $('#lstBox1').empty();
                var list = response.codingList;
                list.forEach(function(coding){
@@ -338,7 +336,6 @@ $(document).ready(function() {
                $("#modalNotification").trigger('click');
             }
             , error : function(response){
-               alert('실패');
                console.log('에러');
             }
          });
