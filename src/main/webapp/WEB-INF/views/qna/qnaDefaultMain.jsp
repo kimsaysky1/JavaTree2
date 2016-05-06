@@ -77,6 +77,64 @@
        </fieldset>
        </div>
        
+        <s:if test="interestList != null">
+       		<script>
+       		
+       			var interests = document.getElementsByName("interest");
+       			
+       			var list = "${interestList}";
+       	   		//alert("list길이>> " + list.length + " / "+ typeof list);
+       	   		
+       	   		var str = list.split(',');
+       	   		var strStart = str[0].substring(1); //시작
+       	   		
+       	   		//시작부분
+       	   		if(list.length == 3){
+       	   			var start = strStart.split(']');
+       	   			strStart = start[0];
+       	   		
+       	   		}
+       	   		
+       	 		//alert("시작> " + strStart);
+       	   		
+       	 		for(j = 0; j < interests.length; j++){
+	 				if(interests[j].value == strStart){
+	 				interests[j].checked = true;
+	 				}
+	 				      	 					
+	 				}
+       	   		
+       	   if(str.length-1 != 0){
+       	   			var end = str.length-1;
+       	   			Number(end);
+       	   		var strEnd = str[end].split(']');
+       	  
+       	   	var strEndk = strEnd[0].substr(1, 1);  // 끝
+       	 for(j = 0; j < interests.length; j++){
+ 				if(interests[j].value == strEndk){
+ 				interests[j].checked = true;
+ 				}
+ 				      	 					
+ 				} 
+       	   	//alert("StrEndk>> " + strEndk[0] +"/" + strEndk[0].length);
+       	   		
+       	   		var ano;
+       	   		for (i = 1; i < str.length-1; i++) {
+       	   			var tmp= str[i].substr(1, 1);
+       	 			//여기서 돌리자
+			       	  
+       	 			for(j = 0; j < interests.length; j++){
+       	 				if(interests[j].value == tmp[0]){
+       	 				interests[j].checked = true;
+       	 				}
+       	 				      	 					
+       	 				} 
+       	 			}//중간
+       	   		} 
+       	   		
+       		</script>
+       		</s:if>
+       
        <div class = "course-list-list">
        <fieldset>
        <legend>List</legend>
@@ -98,7 +156,7 @@
                                     <h3 class="md"><a href="qnaDetail.action?questionno=<s:property value="questionno"/>"><s:property value="title"/></a></h3>
                                 </div>
                                 <div class="post-meta">
-                                    by <a href="#" style="color: #008000;"><s:property value="username"/></a> <s:property value="regdate"/>
+                                    by <a href="#" style="color: #008000;"><s:property value="username"/></a> on <s:property value="regdate"/>
                                 </div>                                           
                             </div>
                             <!-- END / POST BODY -->
@@ -107,6 +165,8 @@
 					</s:iterator>
                         <ul class="pager">
                             
+             <s:if test="interestList == null">
+             <s:if test="searchText == null">               
              <s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
              <li><a> <s:property value="#session.currentPage"/> </a></li>
              </s:if>
@@ -130,6 +190,63 @@
              <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
              <li><a href = "plusQnaMain.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
             </s:else>
+            </s:if>
+            
+            <!-- 검색시 -->
+            <s:if test="searchText != null">
+            		<s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:if>
+            
+            <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
+             <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "javascript:clickNext(<s:property value="#session.currentPage + 1"/>)">next &gt</a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1">
+             <li><a href = "javascript:clickNext(<s:property value="#session.currentPage - 1"/>)">&lt prev</a></li>
+            <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.endPageGroup == 1 & #session.currentPage == 0">
+             <li></li>
+             </s:elseif>
+			
+			<s:else>
+             <li><a href = "javascript:clickNext(<s:property value="#session.currentPage - 1"/>)">&lt prev</a></li>
+             <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "javascript:clickNext(<s:property value="#session.currentPage + 1"/>)">next &gt</a></li>
+            </s:else>
+            </s:if>
+            
+            </s:if>
+            
+            
+            <s:if test="interestList != null">
+            	      <s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:if>
+            
+            <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
+             <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "javascript:clickNextField(<s:property value="#session.currentPage + 1"/>)">next &gt</a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1">
+             <li><a href = "javascript:clickNextField(<s:property value="#session.currentPage - 1"/>)">&lt prev</a></li>
+            <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.endPageGroup == 1 & #session.currentPage == 0">
+             <li></li>
+             </s:elseif>
+			
+			<s:else>
+             <li><a href = "javascript:clickNextField(<s:property value="#session.currentPage - 1"/>)">&lt prev</a></li>
+             <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "javascript:clickNextField(<s:property value="#session.currentPage + 1"/>)">next &gt</a></li>
+            </s:else>
+            </s:if>
                             
                            <!-- <li><a href="#" id= "watchMore">더보기</a></li> -->
                         </ul>
@@ -156,10 +273,10 @@
                             <h4 class="sm">Search in JAVATree</h4>
                             <form>
                                 <div class="form-item">
-                                    <input type="text">
+                                    <input type="text" id="searchText">
                                 </div>
                                 <div class="form-actions">
-                                    <input type="submit">
+                                     <input type="submit" id="searchIcon">
                                 </div>
                             </form>
                         </div>
@@ -214,7 +331,6 @@
                         </div>
                         <!-- 내용 끝 -->
                         <!-- 베스트 랭킹 탭 끝 -->
-                        
                        
                         <!-- 궁금 랭킹 탭 -->
 						
@@ -360,8 +476,8 @@
 						list.forEach(function(question){
 							var divTag = $('<div class="post" id='+(indexNum++)+'><div class="post-body"></div></div>');
 							divTag.html('<div class="post-title"><h3 class="md"><a href="qnaDetail.action?questionno='+question.questionno+'">'
-							+question.title+'</a></h3></div><div class="post-meta">by'
-							+question.username+' '+question.regdate+'</div>').appendTo(".blog-list-content");
+							+question.title+'</a></h3></div><div class="post-meta"> by <a href="#" style="color: #008000;">'
+							+question.username+' </a> '+question.regdate+'</div>').appendTo(".blog-list-content");
 						});
 						//$('<ul class="pager"><li><a href="#" id= "watchMore">더보기</a></li></ul>').appendTo('.blog-list-content');
 						 var curPage = Number(response.currentPage);
@@ -371,10 +487,10 @@
 			        	 			        	 
 			        	 var paging = $('<ul class="pager"></ul>');
 			        	 if(curPage == 1 & endPage == 1){
-			        		 var paging0 = '<li><a href="#">'+ curPage +'</a></li>';
+			        		 var paging0 = '<li><a>'+ curPage +'</a></li>';
 			        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
 			        	 }else if(curPage == 1 & endPage != 1){
-			        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+			        		 var paging1 = '<li><a>'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 			        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
 			        	 }else if(curPage == endPage & endPage != 1){
 			        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
@@ -426,19 +542,19 @@
 			        	 			        	 
 			        	 var paging = $('<ul class="pager"></ul>');
 			        	 if(curPage == 1 & endPage == 1){
-			        		 var paging0 = '<li><a href="#">'+ curPage +'</a></li>';
+			        		 var paging0 = '<li><a>'+ curPage +'</a></li>';
 			        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
 			        	 }else if(curPage == 1 & endPage != 1){
-			        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+			        		 var paging1 = '<li><a>'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 			        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
 			        	 }else if(curPage == endPage & endPage != 1){
-			        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
+			        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage +'</a></li>';	
 			        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
 			        	 }else if(curPage == 0 & endPage == 1){
 			        		 var paging4 = '<li></li>';	
 			        		 paging.html(paging4).insertAfter(".blog-list-content > div:last");
 			        	 }else{
-			        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+			        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 			        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
 			        	 }
 					}	
@@ -468,8 +584,8 @@
 					list.forEach(function(question){
 						var divTag = $('<div class="post" id='+(indexNum++)+'><div class="post-body"></div></div>');
 						divTag.html('<div class="post-title"><h3 class="md"><a href="qnaDetail.action?questionno='+question.questionno+'">'
-						+question.title+'</a></h3></div><div class="post-meta">by'
-						+question.username+' '+question.regdate+'</div>').insertAfter(".blog-list-content > div:last");
+						+question.title+'</a></h3></div><div class="post-meta">by <a href="#" style="color: #008000;">'
+						+question.username+' </a> '+question.regdate+'</div>').insertAfter(".blog-list-content > div:last");
 					});
 				}
 			});
@@ -517,8 +633,8 @@
 		        	 list.forEach(function(question){
 		 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 		 				divTag.html('<div class="post-title"><h3 class="md"><a href="qnaDetail.action?questionno='+question.questionno+'">'
-		 				+question.title+'</a></h3></div><div class="post-meta">by'
-		 				+question.username+' on '+question.regdate+'</div></div>').appendTo(".blog-list-content");
+		 				+question.title+'</a></h3></div><div class="post-meta">by <a href="#" style="color: #008000;">'
+		 				+question.username+' </a> on '+question.regdate+'</div></div>').appendTo(".blog-list-content");
 		 			});
 		        	 
 		        	 var curPage = Number(response.currentPage);
@@ -578,8 +694,8 @@
 		        	 list.forEach(function(question){
 			 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 			 				divTag.html('<div class="post-title"><h3 class="md"><a href="qnaDetail.action?questionno='+question.questionno+'">'
-			 				+question.title+'</a></h3></div><div class="post-meta">by'
-			 				+question.username+' on '+question.regdate+'</div></div>').appendTo(".blog-list-content");
+			 				+question.title+'</a></h3></div><div class="post-meta">by <a href="#" style="color: #008000;"> '
+			 				+question.username+' </a> on '+question.regdate+'</div></div>').appendTo(".blog-list-content");
 		 			
 		 			});
 		        	 
@@ -596,10 +712,10 @@
 		        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 		        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
 		        	 }else if(curPage == endPage & endPage != 1){
-		        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
+		        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage +'</a></li>';	
 		        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
 		        	 }else{
-		        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+		        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 		        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
 		        	 }
 		        
@@ -640,8 +756,8 @@
 				        	 list.forEach(function(question){
 					 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 					 				divTag.html('<div class="post-title"><h3 class="md"><a href="qnaDetail.action?questionno='+question.questionno+'">'
-					 				+question.title+'</a></h3></div><div class="post-meta">by'
-					 				+question.username+' on '+question.regdate+'</div></div>').appendTo(".blog-list-content");
+					 				+question.title+'</a></h3></div><div class="post-meta">by <a href="#" style="color: #008000;">'
+					 				+question.username+' </a> on '+question.regdate+'</div></div>').appendTo(".blog-list-content");
 				 			
 				 			});
 				        	 
@@ -652,16 +768,16 @@
 				        	 			        	 
 				        	 var paging = $('<ul class="pager"></ul>');
 				        	 if(curPage == 1 & endPage == 1){
-				        		 var paging0 = '<li><a href="#">'+ curPage +'</a></li>';
+				        		 var paging0 = '<li><a>'+ curPage +'</a></li>';
 				        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
 				        	 }else if(curPage == 1 & endPage != 1){
-				        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+				        		 var paging1 = '<li><a>'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 				        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
 				        	 }else if(curPage == endPage & endPage != 1){
-				        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
+				        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage +'</a></li>';	
 				        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
 				        	 }else{
-				        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+				        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 				        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
 				        	 }
 				        
@@ -673,6 +789,110 @@
 			}	
 			 
 		 }
+	 
+	 $(function(){
+		 
+			searchCourse();
+			
+		});
+
+		function searchCourse() {
+			$("#searchIcon").on("click", function(){
+			 	
+			 	var text = '';
+			 	text = $("#searchText").val();
+				 
+				 $(":checkbox:checked").each(function(index){
+				        $(this).prop("checked",false);
+				    });
+			 	
+			 	$.ajax({
+				        type : 'get', 
+				        url : 'searchCourse',
+				        data : "searchText="+text,
+				        success : function(response){
+				        	
+				        	$(".blog-list-content").html(' ');
+				        		
+				        	var list = response.questionList;
+				        	 list.forEach(function(question){
+					 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
+					 				divTag.html('<div class="post-title"><h3 class="md"><a href="qnaDetail.action?questionno='+question.questionno+'">'
+					 				+question.title+'</a></h3></div><div class="post-meta">by <a href="#" style="color: #008000;">'
+					 				+question.username+' </a> on '+question.regdate+'</div></div>').appendTo(".blog-list-content");
+				 			});
+				        	 
+				        	 var curPage = Number(response.currentPage);
+				        	 var curPagePlus = Number(response.currentPage+1);
+				        	 var curPageMinus = Number(response.currentPage-1);
+				        	 var endPage =  Number(response.endPageGroup);
+				        	 			        	 
+				        	 var paging = $('<ul class="pager"></ul>');
+				        	 if(curPage == 1 & endPage == 1){
+				        		 var paging0 = '<li><a>'+ curPage +'</a></li>';
+				        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
+				        	 }else if(curPage == 1 & endPage != 1){
+				        		 var paging1 = '<li><a>'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
+				        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
+				        	 }else if(curPage == endPage & endPage != 1){
+				        		 var paging2 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage +'</a></li>';	
+				        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
+				        	 }else{
+				        		 var paging3 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
+				        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
+				        	 }
+				        }
+				 
+				 });
+				 event.preventDefault();
+		 });
+		}
+		
+		function clickNext(page) {
+		 	Number(page);
+			var temp = page;
+			alert(page);
+		 	$.ajax({
+			        type : 'get', 
+			        url : 'plusSearchCourse',
+			        data : "currentPage="+temp,
+			        success : function(response){
+			        	
+			        	$(".blog-list-content").html(' ');
+			        		
+			        	var list = response.questionList;
+			        	 list.forEach(function(question){
+				 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
+				 				divTag.html('<div class="post-title"><h3 class="md"><a href="qnaDetail.action?questionno='+question.questionno+'">'
+				 				+question.title+'</a></h3></div><div class="post-meta">by <a href="#" style="color: #008000;">'
+				 				+question.username+'</a> on '+question.regdate+'</div></div>').appendTo(".blog-list-content");
+			 			});
+			        	 
+			        	 var curPage = Number(response.currentPage);
+			        	 var curPagePlus = Number(response.currentPage+1);
+			        	 var curPageMinus = Number(response.currentPage-1);
+			        	 var endPage =  Number(response.endPageGroup);
+			        	 			        	 
+			        	 var paging = $('<ul class="pager"></ul>');
+			        	 if(curPage == 1 & endPage == 1){
+			        		 var paging0 = '<li><a>'+ curPage +'</a></li>';
+			        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
+			        	 }else if(curPage == 1 & endPage != 1){
+			        		 var paging1 = '<li><a>'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
+			        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
+			        	 }else if(curPage == endPage & endPage != 1){
+			        		 var paging2 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage +'</a></li>';	
+			        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
+			        	 }else{
+			        		 var paging3 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
+			        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
+			        	 }
+			        }
+			 
+			 });
+			 event.preventDefault(); 
+		}	 
+	 
 	
 	</script>
 	<script src="../resources/checkMessage.js"></script>

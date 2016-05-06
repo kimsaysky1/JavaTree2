@@ -144,6 +144,9 @@ public class MemberAction extends ActionSupport implements SessionAware {
 				session.put("loginId", id);
 				session.put("loginName", member_jt.getUsername());
 				notificationList = dao.checkNotification(id);
+			}else{
+				message = "ID 또는 비밀번호를 다시 입력해주세요.";
+				return INPUT;
 			}
 		}
 		return SUCCESS;

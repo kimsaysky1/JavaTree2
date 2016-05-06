@@ -242,7 +242,7 @@
                                         	
                                             <td>
                                                 <div class="form-item form-checkbox checkbox-style">
-                                                    <input type="checkbox" id="purejava" value="1" name="courseTypeList">
+                                                    <input type="checkbox" id="purejava" value="1" name="courseTypeList" onchange="javascript:selectByField(this)">
                                                     <label for="purejava">
                                                         <i class="icon-checkbox icon md-check-1"></i>
                                                         PUREJAVA
@@ -252,7 +252,7 @@
 
                                             <td>
                                                 <div class="form-item form-checkbox checkbox-style">
-                                                    <input type="checkbox" id="web" value="2" name="courseTypeList">
+                                                    <input type="checkbox" id="web" value="2" name="courseTypeList" onchange="javascript:selectByField(this)">
                                                     <label for="web">
                                                         <i class="icon-checkbox icon md-check-1"></i>
                                                         WEB
@@ -262,7 +262,7 @@
 
                                             <td>
                                                 <div class="form-item form-checkbox checkbox-style">
-                                                    <input type="checkbox" id="mobile" value="3" name="courseTypeList">
+                                                    <input type="checkbox" id="mobile" value="3" name="courseTypeList" onchange="javascript:selectByField(this)">
                                                     <label for="mobile">
                                                         <i class="icon-checkbox icon md-check-1"></i>
                                                         MOBILE
@@ -274,7 +274,7 @@
                                         <tr>
                                             <td>
                                                 <div class="form-item form-checkbox checkbox-style">
-                                                    <input type="checkbox" id="iot" value="4" name="courseTypeList">
+                                                    <input type="checkbox" id="iot" value="4" name="courseTypeList" onchange="javascript:selectByField(this)">
                                                     <label for="iot">
                                                         <i class="icon-checkbox icon md-check-1"></i>
                                                         IOT
@@ -284,7 +284,7 @@
 
                                             <td>
                                                 <div class="form-item form-checkbox checkbox-style">
-                                                    <input type="checkbox" id="swing" value="5" name="courseTypeList">
+                                                    <input type="checkbox" id="swing" value="5" name="courseTypeList" onchange="javascript:selectByField(this)">
                                                     <label for="swing">
                                                         <i class="icon-checkbox icon md-check-1"></i>
                                                        SWING
@@ -294,7 +294,7 @@
 
                                             <td>
                                                 <div class="form-item form-checkbox checkbox-style"> 
-                                                    <input type="checkbox" id="jdbc" value="6" name="courseTypeList">
+                                                    <input type="checkbox" id="jdbc" value="6" name="courseTypeList" onchange="javascript:selectByField(this)">
                                                     <label for="jdbc">
                                                         <i class="icon-checkbox icon md-check-1"></i>
                                                         JDBC
@@ -306,7 +306,7 @@
                                         <tr>
                                             <td>
                                                 <div class="form-item form-checkbox checkbox-style">
-                                                    <input type="checkbox" id="api" value="7" name="courseTypeList">
+                                                    <input type="checkbox" id="api" value="7" name="courseTypeList" onchange="javascript:selectByField(this)">
                                                     <label for="api">
                                                         <i class="icon-checkbox icon md-check-1"></i>
                                                         API
@@ -316,7 +316,7 @@
 
                                             <td>
                                                 <div class="form-item form-checkbox checkbox-style">
-                                                    <input type="checkbox" id="spring" value="8" name="courseTypeList">
+                                                    <input type="checkbox" id="spring" value="8" name="courseTypeList" onchange="javascript:selectByField(this)">
                                                     <label for="spring">
                                                         <i class="icon-checkbox icon md-check-1"></i>
                                                         SPRING
@@ -326,7 +326,7 @@
 
                                             <td>
                                                 <div class="form-item form-checkbox checkbox-style">
-                                                    <input type="checkbox" id="struts" value="9" name="courseTypeList">
+                                                    <input type="checkbox" id="struts" value="9" name="courseTypeList" onchange="javascript:selectByField(this)">
                                                     <label for="struts">
                                                         <i class="icon-checkbox icon md-check-1"></i>
                                                         STRUTS
@@ -338,7 +338,7 @@
                                         <tr>
                                             <td>
                                                 <div class="form-item form-checkbox checkbox-style">
-                                                    <input type="checkbox" id="etcframework" value="10" name="courseTypeList">
+                                                    <input type="checkbox" id="etcframework" value="10" name="courseTypeList" onchange="javascript:selectByField(this)">
                                                     <label for="etcframework">
                                                         <i class="icon-checkbox icon md-check-1"></i>
                                                         etcFramework
@@ -348,7 +348,7 @@
 
                                             <td>
                                                 <div class="form-item form-checkbox checkbox-style">
-                                                    <input type="checkbox" id="etc" value="11" name="courseTypeList">
+                                                    <input type="checkbox" id="etc" value="11" name="courseTypeList" onchange="javascript:selectByField(this)">
                                                     <label for="etc">
                                                         <i class="icon-checkbox icon md-check-1"></i>
                                                        ETC
@@ -371,6 +371,24 @@
 </form> 
                 </div>
             </div>
+            
+      <div class="container">
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body">
+          <p></p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>   
+            
     </section>
     <!-- END / CREATE COURSE CONTENT -->
 		
@@ -394,5 +412,23 @@
 	<script type="text/javascript"
 		src="../resources/javatree_view/html/js/scripts.js"></script>
 	<script src="../resources/checkMessage.js"></script>
+
+<script>
+	function selectByField(asd) {
+		 
+		var order;
+		
+		var sum = 0;
+		 sum = $(":checkbox:checked").length;
+		 
+		 if(sum > 3){
+			var result = "4개 이상은 선택할 수 없습니다.";
+			 $("#modalNotification").trigger('click');
+			$('.modal-body > p').html(result);	
+			 $(asd).prop("checked",false);	 
+		 }
+	}
+	</script>
+
 </body>
 </html>

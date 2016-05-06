@@ -144,9 +144,25 @@
           </if>
        </where>
         order by questionno desc) T1)
+        <if test="start != null or end != null">
        where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end} 
+		</if>
 	</select>
-
+	
+	<select id="selectAllQuestionTotal" parameterType="map" resultType="int">
+		SELECT count(*) from
+       (select rownum as rnum, T1.* from (select * from question
+       <where>
+          <if test="typenoList != null">
+             typeno in
+             <foreach collection="typenoList" item="type" index="index" separator="," open="(" close=")">
+               #{type}
+              </foreach>
+          </if>
+       </where>
+        order by questionno desc) T1)
+	</select>
+	
 	<select id="gunggumAllQuestionList" resultMap="QuestionMap">
 		SELECT questionno, typeno, codingno, id, username, title,
 		content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
@@ -286,33 +302,6 @@
 		update reply set recommend = #{recommend} where replyno = #{replyno}
 	</update>
 	
-	
-	<select resultType="int" id="selectFieldTotal" parameterType="map">
-		SELECT count(*) from
-		 (select rownum as rnum, T1.* from (select * from question
-		<if test="interest0 != null">
-		where typeno IN 
-		(
-			#{interest0}
-		</if>
-		<if test="interest1 != null">
-			, #{interest1}
-		</if>
-		<if test="interest2 != null">
-			, #{interest2}
-		</if>
-		<if test="interest3 != null">
-			, #{interest3}
-		</if>
-		<if test="interest4 != null">
-			, #{interest4}
-		</if>
-		)) 
-		T1)
-	</select>
-	
-	
-	
 	<select resultType="Question" id="selectListbyField" parameterType="map">
 	
 	SELECT questionno, typeno, codingno, id, username, title,
@@ -343,11 +332,64 @@
 		<if test="order == 'desc'">
 		desc
 		</if>
+		<if test="interest0 != null or interest1 != null or interest2 != null or interest3 != null or interest4 != null">
+		)
+		</if>
+		T1)
+		<if test="start != null and end != null">
+		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end}
+		</if>
+	</select>
+	
+	<select resultType="int" id="selectFieldTotal" parameterType="map">
+		SELECT count(*) from
+		 (select rownum as rnum, T1.* from (select * from question
+		<if test="interest0 != null">
+		where typeno IN 
+		(
+			#{interest0}
+		</if>
+		<if test="interest1 != null">
+			, #{interest1}
+		</if>
+		<if test="interest2 != null">
+			, #{interest2}
+		</if>
+		<if test="interest3 != null">
+			, #{interest3}
+		</if>
+		<if test="interest4 != null">
+			, #{interest4}
+		</if>
+		<if test="interest0 != null or interest1 != null or interest2 != null or interest3 != null or interest4 != null">
+		)
+		</if>
+		
 		) 
 		T1)
-		where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end}
-		
-	
 	</select>
-
+	
+	<!-- searchCourse 페이징  -->
+	<select id="searchCourse" resultMap="QuestionMap" parameterType="map">
+		SELECT questionno, typeno, codingno, id, username, title,
+      content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
+       (select rownum as rnum, T1.* from (select * from question
+       <if test="searchText != null">
+		where title like #{searchText} 
+		</if> 
+        order by questionno desc) T1)
+       <if test="start != null or end != null">
+       where rnum <![CDATA[>]]>= #{start} and rnum <![CDATA[<]]>= #{end} 
+		</if>
+	</select>
+	
+	<select id="searchCourseTotal" resultType="int" parameterType="map">
+		SELECT count(*) from
+       (select rownum as rnum, T1.* from (select * from question
+       <if test="searchText != null">
+		where title like #{searchText} 
+		</if> 
+        order by questionno desc) T1)
+	</select>
+	
 </mapper>

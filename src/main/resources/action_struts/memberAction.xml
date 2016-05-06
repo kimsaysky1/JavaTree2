@@ -27,7 +27,7 @@
         </action>
         
         <action name="login" class="org.javatree.www.Action.MemberAction" method="login">
-        	<!-- <result>/WEB-INF/views/index.jsp</result> -->
+        	<result name="input">/WEB-INF/views/member/login.jsp</result>
         	<result type="redirect">../index.action</result>
         </action>
         

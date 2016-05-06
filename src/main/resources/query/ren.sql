@@ -1,3 +1,9 @@
+SELECT questionno, typeno, codingno, id, username, title,
+      content, to_char(regdate, 'YYYY-MM-DD') as regdate, hitcount, curious from
+       (select rownum as rnum, T1.* from (select * from question
+        order by questionno desc) T1)
+       where rnum >= 9 and rnum <= 16 
+
 SELECT coursename, courseno, username, to_char(regdate, 'YYYY-MM-DD') as regdate, id as teacherid 
 		from (select rownum as rnum, T1.* from (select * from course
 		order by courseno desc) T1)

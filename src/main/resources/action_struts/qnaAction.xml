@@ -59,6 +59,22 @@
      	<action name="plusSelectListbyField" class="org.javatree.www.Action.QnaAction" method="plusSelectListbyField">
         	<result type="json"></result>
         </action>
+        
+        <action name="backAction" class="org.javatree.www.Action.QnaAction" method="backAction">
+        	<result name="success">/WEB-INF/views/qna/qnaDefaultMain.jsp</result>
+        </action>
+        
+        <action name="plusQnaMain" class="org.javatree.www.Action.QnaAction" method="plusQnaMain">
+     		<result name="success">/WEB-INF/views/qna/qnaDefaultMain.jsp</result>
+     	</action>
+        
+        <action name="searchCourse" class="org.javatree.www.Action.QnaAction" method="searchCourse">
+        	<result type="json"></result>
+        </action>
+        
+        <action name="plusSearchCourse" class="org.javatree.www.Action.QnaAction" method="plusSearchCourse">
+        	<result type="json"></result>
+        </action>
     </package>
 
 </struts>

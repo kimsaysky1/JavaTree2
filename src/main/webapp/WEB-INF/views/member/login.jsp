@@ -25,9 +25,26 @@
 
 function loginForm(){
 	var form = document.getElementById("loginForm");
-	var id= document.getElementById("id");
-	var password= document.getElementById("password");
-	form.submit();
+	var id= document.getElementById("id").value;
+	var password= document.getElementById("password").value;
+	
+	var reid = id.replace(/^[\s\u00a0]+|[\s\u00a0]+$/g, '');
+	var repassword = password.replace(/^[\s\u00a0]+|[\s\u00a0]+$/g, '');
+	
+	if((reid.length == 0) || (reid == null)){
+		document.getElementById("modalNotification").click();
+		document.getElementById("modalText").innerHTML = "아이디를 입력하세요";
+		return;
+	}else{
+		if((repassword.length == 0) || (repassword == null)){
+			document.getElementById("modalNotification").click();
+			document.getElementById("modalText").innerHTML = "비밀번호를 입력하세요";
+			return;
+		}else{
+			form.submit();		
+		}
+	}
+	
 }
 
 function joinForm() {
@@ -60,7 +77,7 @@ function joinForm() {
                                 <a href="#">Forget ID / PASSWORD?</a>
                             </div>
                             <div class="form-submit-1">
-                                <input type="submit" value="Log In" class="mc-btn btn-style-1">
+                                <input type="button" value="Log In" class="mc-btn btn-style-1" onclick="javascript:loginForm()">
                             </div>
                             <div class="link">
                                 <!-- <a href="/javatree/joinFrom.action"> -->
@@ -81,7 +98,7 @@ function joinForm() {
     <div class="modal-dialog modal-sm">
       <div class="modal-content" style="margin-top:100%;">
         <div class="modal-body">
-          <p></p>
+          <p id="modalText"></p>
         </div>
          <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>

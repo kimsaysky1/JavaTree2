@@ -84,6 +84,14 @@
        	   		
        	   		var str = list.split(',');
        	   		var strStart = str[0].substring(1); //시작
+       	   		
+       	   //시작부분
+       	   		if(list.length == 3){
+       	   			var start = strStart.split(']');
+       	   			strStart = start[0];
+       	   		
+       	   		}
+       	   		
        	   		for(j = 0; j < interests.length; j++){
 	 				if(interests[j].value == strStart){
 	 				interests[j].checked = true;
@@ -156,14 +164,14 @@
      	
 		<!-- start post -->
      			
-                     <div class="post" id = "<s:property value="%{#incr.index+1}"/>"> 
+        			<div class="post" id = "<s:property value="%{#incr.index+1}"/>"> 
                             <div class="post-body">
                                 <div class="post-title">
                                     <h3 class="md"><a href="selectCourseDefaultDetail.action?courseno=<s:property value="courseno" />">
                                     <s:property value="coursename" /></a></h3>
                                 </div>
                                 	<div class="post-meta">
-                                    	by <a href="#"><s:property value="username" /></a> on <s:property value="regdate" />
+                                    by <a style="color: #003399;"><s:property value="username" /></a> on <s:property value="regdate" />
                                 	</div>  
                                    <div class="post-link">
                               
@@ -178,19 +186,17 @@
      	
 		<!-- start post -->
      			
-                     <div class="post" id = "<s:property value="%{#incr.index+1}"/>"> 
+                      <div class="post" id = "<s:property value="%{#incr.index+1}"/>"> 
                             <div class="post-body">
                                 <div class="post-title">
                                     <h3 class="md"><a href="selectCourseDefaultDetail.action?courseno=<s:property value="courseno" />">
                                     <s:property value="coursename" /></a></h3>
                                 </div>
                                 	<div class="post-meta">
-                                    	by <a href="#"><s:property value="username" /></a> on <s:property value="regdate" />
+                                    	by <a style="color: #003399;"><s:property value="username" /></a> on <s:property value="regdate" />
                                 	</div>  
                                    <div class="post-link">
                                     <a href="blog-single.jsp?courseno=<s:property value="courseno" />">
-                                        <i class="fa fa-play-circle-o"></i>
-                                        Lecture List
                                     </a>
                                 	</div>                           
                             </div>
@@ -202,7 +208,8 @@
          
              <ul class="pager">                
             
-            
+             <s:if test="interestList == null">
+            <s:if test="searchText == null">
             <s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
              <li><a> <s:property value="#session.currentPage"/> </a></li>
              </s:if>
@@ -226,6 +233,63 @@
              <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a> </li>
              <li><a href = "plusCourseDefaultMain.action?currentPage=<s:property value="#session.currentPage + 1"/>">next &gt</a></li>
             </s:else>
+            </s:if>
+            
+            <!-- 검색시 -->
+            <s:if test="searchText != null">
+            		<s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:if>
+            
+            <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
+             <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "javascript:clickNext(<s:property value="#session.currentPage + 1"/>)">next &gt</a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1">
+             <li><a href = "javascript:clickNext(<s:property value="#session.currentPage - 1"/>)">&lt prev</a></li>
+            <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.endPageGroup == 1 & #session.currentPage == 0">
+             <li></li>
+             </s:elseif>
+			
+			<s:else>
+             <li><a href = "javascript:clickNext(<s:property value="#session.currentPage - 1"/>)">&lt prev</a></li>
+             <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "javascript:clickNext(<s:property value="#session.currentPage + 1"/>)">next &gt</a></li>
+            </s:else>
+            </s:if>
+            
+            
+            </s:if>
+            
+            <s:if test="interestList != null">
+           	 <s:if test="#session.currentPage == 1 & #session.endPageGroup == 1">
+             <li><a> <s:property value="#session.currentPage"/> </a></li>
+             </s:if>
+            
+            <s:elseif test="#session.currentPage == 1 & #session.endPageGroup != 1">
+             <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "javascript:clickNextField(<s:property value="#session.currentPage + 1"/>)">next &gt</a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.currentPage == #session.endPageGroup & #session.endPageGroup != 1">
+             <li><a href = "javascript:clickNextField(<s:property value="#session.currentPage - 1"/>)">&lt prev</a></li>
+            <li><a> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/></a></li>
+            </s:elseif>
+			
+			<s:elseif test="#session.endPageGroup == 1 & #session.currentPage == 0">
+             <li></li>
+             </s:elseif>
+			
+			<s:else>
+             <li><a href = "javascript:clickNextField(<s:property value="#session.currentPage - 1"/>)">&lt prev</a></li>
+             <li><a href = "#"> <s:property value="#session.currentPage"/> / <s:property value="#session.endPageGroup"/> </a></li>
+             <li><a href = "javascript:clickNextField(<s:property value="#session.currentPage + 1"/>)">next &gt</a></li>
+            </s:else>
+            </s:if>
                             </ul>
                     </div>
                 
@@ -311,7 +375,22 @@
                 
 	</div>
 		</div>
-		 
+<div class="container">
+  <button type="button" style="display:none;" id = "modalNotification" data-toggle="modal" data-target="#myModal"></button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style="margin-top:100%;">
+        <div class="modal-body">
+          <p></p>
+        </div>
+         <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>		 
 		 </section>
 
 <%@include file="/resources/footer.jsp" %>
@@ -351,8 +430,8 @@ function clickNext(page) {
 	        	 list.forEach(function(course){
 	 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 	 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
-	 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-	 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
+	 				+course.coursename+'</a></h3></div><div class="post-meta">by <a style="color: #003399;">'
+	 				+course.username+' </a>on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
 	 			
 	 			});
 	        	 
@@ -363,19 +442,19 @@ function clickNext(page) {
 	        	 			        	 
 	        	 var paging = $('<ul class="pager"></ul>');
 	        	 if(curPage == 1 & endPage == 1){
-	        		 var paging0 = '<li><a href="#">'+ curPage +'</a></li>';
+	        		 var paging0 = '<li><a>'+ curPage +'</a></li>';
 	        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
 	        	 }else if(curPage == 1 & endPage != 1){
-	        		 var paging1 = '<li><a href="#">'+ curPage +' / '+endPage+'</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
+	        		 var paging1 = '<li><a>'+ curPage +' / '+endPage+'</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
 	        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
 	        	 }else if(curPage == endPage & endPage != 1){
-	        		 var paging2 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
+	        		 var paging2 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage +'</a></li>';	
 	        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
 	        	 }else if(curPage == 0){
 	        		 var paging4 = '<li></li>';	
 	        		 paging.html(paging4).insertAfter(".blog-list-content > div:last");
 	        	 }else{
-	        		 var paging3 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li>/'+endPage+'<li><a href="#">'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
+	        		 var paging3 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li>/'+endPage+'<li><a>'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
 	        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
 	        	 }
 	        
@@ -412,8 +491,8 @@ function clickNextField(page) {
 	        	 list.forEach(function(course){
 	 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 	 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
-	 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-	 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
+	 				+course.coursename+'</a></h3></div><div class="post-meta">by <a style="color: #003399;"> '
+	 				+course.username+' </a> on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
 	 			
 	 			});
 	        	 
@@ -424,19 +503,19 @@ function clickNextField(page) {
 	        	 			        	 
 	        	 var paging = $('<ul class="pager"></ul>');
 	        	 if(curPage == 1 & endPage == 1){
-	        		 var paging0 = '<li><a href="#">'+ curPage +'</a></li>';
+	        		 var paging0 = '<li><a>'+ curPage +'</a></li>';
 	        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
 	        	 }else if(curPage == 1 & endPage != 1){
-	        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+	        		 var paging1 = '<li><a>'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 	        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
 	        	 }else if(curPage == endPage & endPage != 1){
-	        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
+	        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage +'</a></li>';	
 	        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
 	        	 }else if(curPage == 0){
 	        		 var paging4 = '<li></li>';	
 	        		 paging.html(paging4).insertAfter(".blog-list-content > div:last");
 	        	 }else{
-	        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+	        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 	        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
 	        	 }
 	        
@@ -454,7 +533,9 @@ function selectByField(asd) {
 	 sum = $(":checkbox:checked").length;
 	 
 	 if(sum > 5){
-		 alert( sum + "개 이상은 선택할 수 없습니다." );	
+		var result = "6개 이상은 선택할 수 없습니다.";
+		 $("#modalNotification").trigger('click');
+		$('.modal-body > p').html(result);	
 		 $(asd).prop("checked",false);	 
 	 }
 	
@@ -484,8 +565,8 @@ function selectByField(asd) {
 	        	 list.forEach(function(course){
 	 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 	 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
-	 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-	 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
+	 				+course.coursename+'</a></h3></div><div class="post-meta">by <a style="color: #003399;"> '
+	 				+course.username+' </a> on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
 	 			});
 	        	 
 	        	 var curPage = Number(response.currentPage);
@@ -495,19 +576,19 @@ function selectByField(asd) {
 	        	 			        	 
 	        	 var paging = $('<ul class="pager"></ul>');
 	        	 if(curPage == 1 & endPage == 1){
-	        		 var paging0 = '<li><a href="#">'+ curPage +'</a></li>';
+	        		 var paging0 = '<li><a>'+ curPage +'</a></li>';
 	        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
 	        	 }else if(curPage == 1 & endPage != 1){
-	        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+	        		 var paging1 = '<li><a>'+ curPage+' / '+endPage +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 	        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
 	        	 }else if(curPage == endPage & endPage != 1){
-	        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage +'</a></li>';	
+	        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage +'</a></li>';	
 	        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
 	        	 }else if(curPage == 0){
 	        		 var paging4 = '<li></li>';	
 	        		 paging.html(paging4).insertAfter(".blog-list-content > div:last");
 	        	 }else{
-	        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+	        		 var paging3 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 	        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
 	        	 }
 	        
@@ -547,8 +628,8 @@ function searchCourse() {
 		        	 list.forEach(function(course){
 		 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 		 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
-		 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-		 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
+		 				+course.coursename+'</a></h3></div><div class="post-meta">by <a style="color: #003399;"> '
+		 				+course.username+' </a> on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
 		 			
 		 			});
 		        	 
@@ -559,19 +640,19 @@ function searchCourse() {
 		        	 			        	 
 		        	 var paging = $('<ul class="pager"></ul>');
 		        	 if(curPage == 1 & endPage == 1){
-		        		 var paging0 = '<li><a href="#">'+ curPage +'</a></li>';
+		        		 var paging0 = '<li><a>'+ curPage +'</a></li>';
 		        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
 		        	 }else if(curPage == 1 & endPage != 1){
-		        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
+		        		 var paging1 = '<li><a>'+ curPage+' / '+endPage+'</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
 		        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
 		        	 }else if(curPage == endPage & endPage != 1){
-		        		 var paging2 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+ '</a></li>';	
+		        		 var paging2 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage+ '</a></li>';	
 		        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
 		        	 }else if(curPage == 0){
 		        		 var paging4 = '<li></li>';	
 		        		 paging.html(paging4).insertAfter(".blog-list-content > div:last");
 		        	 }else{
-		        		 var paging3 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+ '</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
+		        		 var paging3 = '<li><a href="javascript:clickNext('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage+ '</a></li><li><a href="javascript:clickNext('+curPagePlus+')">next &gt</a></li>';
 		        		 paging.html(paging3).insertAfter(".blog-list-content > div:last");
 		        	 }
 		        
@@ -614,8 +695,8 @@ function searchCourse() {
 				        	 list.forEach(function(course){
 				 				var divTag = $('<div class="post"><div class="post-body"></div></div>');
 				 				divTag.html('<div class="post-title"><h3 class="md"><a href="selectCourseDefaultDetail.action?courseno='+course.courseno+'">'
-				 				+course.coursename+'</a></h3></div><div class="post-meta">by'
-				 				+course.username+' on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
+				 				+course.coursename+'</a></h3></div><div class="post-meta">by <a style="color: #003399;"> '
+				 				+course.username+' </a> on '+course.regdate+'</div></div>').appendTo(".blog-list-content");
 				 			
 				 			});
 				        	 
@@ -626,13 +707,13 @@ function searchCourse() {
 				        	 			        	 
 				        	 var paging = $('<ul class="pager"></ul>');
 				        	 if(curPage == 1 & endPage == 1){
-				        		 var paging0 = '<li><a href="#">'+ curPage+'</a></li>';
+				        		 var paging0 = '<li><a>'+ curPage+'</a></li>';
 				        		 paging.html(paging0).insertAfter(".blog-list-content > div:last");
 				        	 }else if(curPage == 1 & endPage != 1){
-				        		 var paging1 = '<li><a href="#">'+ curPage+' / '+endPage+ +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
+				        		 var paging1 = '<li><a>'+ curPage+' / '+endPage+ +'</a></li><li><a href="javascript:clickNextField('+curPagePlus+')">next &gt</a></li>';
 				        		 paging.html(paging1).insertAfter(".blog-list-content > div:last");
 				        	 }else if(curPage == endPage & endPage != 1){
-				        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a href="#">'+ curPage+' / '+endPage+'</a></li>';	
+				        		 var paging2 = '<li><a href="javascript:clickNextField('+curPageMinus+')">&lt prev</a></li><li><a>'+ curPage+' / '+endPage+'</a></li>';	
 				        		 paging.html(paging2).insertAfter(".blog-list-content > div:last");
 				        	 }else if(curPage == 0){
 				        		 var paging4 = '<li></li>';	
