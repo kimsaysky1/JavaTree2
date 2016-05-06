@@ -47,14 +47,14 @@
  
  function updateLecture(lectureno, courseno){
 		
-		window.open('/javatree/course/updateLectureForm.action?lectureno='+lectureno+'&courseno='+courseno,'pop','resizable=no scrollbars=yes top=300 left=500 width=1000 height=900'); 
+		window.open('/javatree/course/updateLectureForm.action?lectureno='+lectureno+'&courseno='+courseno,'pop','resizable=no scrollbars=no top=300 left=500 width=500 height=400'); 
 		/*  window.open('updateLecture.action?custid='+custid.value,'pop','resizable=no scrollbars=yes top=300 left=500 width=300 height=180'); */
 		 /* locatrion.href="/javatree/course/updateLecture.action?lectureno=<s:property value="lectureno"/>&courseno=<s:property value="courseno"/>"; */
 	 }
 	 
 	 function  updateSubnote(lectureno, courseno){
 			/* var lectureno=$('#lectureno').val(); */
-			window.open('/javatree/course/updateSubnoteForm.action?lectureno='+lectureno+'&courseno='+courseno,'pop','resizable=no scrollbars=yes top=300 left=500 width=600 height=500'); 
+			window.open('/javatree/course/updateSubnoteForm.action?lectureno='+lectureno+'&courseno='+courseno,'pop','resizable=no scrollbars=no top=300 left=500 width=500 height=400'); 
 		 }
 	 
 	 function updateCoding(lectureno,courseno,from){

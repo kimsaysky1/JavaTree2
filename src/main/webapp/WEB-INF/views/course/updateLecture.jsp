@@ -44,7 +44,7 @@ function closeWindow() {
     
 		 <div class="mid-insert-lecture">
 		 
-		    <h2>insert LECTURE</h2>
+		    <h2>update LECTURE</h2>
 		<form action="updateLecture" method="post" id="updateLectureForm" enctype="multipart/form-data"> 	
 		<input type="hidden" name="courseno" value='<s:property value="courseno"/>'>	
 		<input type="hidden" name="lectureno" value='<s:property value="lectureno"/>'>

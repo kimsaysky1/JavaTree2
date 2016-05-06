@@ -110,7 +110,7 @@ public class CourseAction extends ActionSupport implements SessionAware {
 	//private static final String UploadPath="E://apache-tomcat-8.0.32-windows-x64/apache-tomcat-8.0.32/wtpwebapps/JavaTree/resources/upload/";
 	//private static final String UploadPath="C://apache-tomcat-8.0.32/wtpwebapps/JavaTree/resources/upload/";
 	//private static final String UploadPath="C://upload/";
-	private static final String UploadPath="C://apache-tomcat-8.0.33/webapps/javatree/resources/upload/";
+	private static final String UploadPath="C://apache-tomcat-8.0.33/webapps/javatree/resources/upload/";//톰캣서버 저장경로(폴더명)
 	private static final String UploadPath2="C://upload/";
 	private File directoryPath;
 	private File saveFile;
