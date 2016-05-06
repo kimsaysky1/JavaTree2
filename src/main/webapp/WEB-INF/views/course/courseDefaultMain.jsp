@@ -35,6 +35,9 @@
 							<s:if test="%{#session.loginId != null}">
 								${session.loginId} &nbsp; , Welcome to the JavaTree!
 							</s:if>
+							<s:else>
+								Welcome to the JavaTree!
+							</s:else>
 						</h4>
 					</div>	
 			</div>
